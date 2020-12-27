@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>将 HEX 颜色值转换为 RGB 颜色值 | Catalyst</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1.5.2.css">
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+  <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="Zou">
+            </div>
+            
+            <a href="/">Catalyst</a>
+            
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">主页</a>
+                
+                <a href="/archives">归档</a>
+                
+                <a href="/projects">项目</a>
+                
+                <a href="/about">关于</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+    <a class="social" target="_blank" href="https://github.com/owlzou">
+        <box-icon type='logo' name='github'></box-icon>
+    </a>
+
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">主页</a>
+                    
+                    <a href="/archives">归档</a>
+                    
+                    <a href="/projects">项目</a>
+                    
+                    <a href="/about">关于</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+  <div class="container">
+    <div class="main">
+      <section class="inner">
+        <section class="inner-main">
+          <div class="post">
+    <article id="post-ckj6tstu3000q23oi4nla58lk" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      将 HEX 颜色值转换为 RGB 颜色值
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2020-09-17T00:00:00.000Z" itemprop="datePublished">2020-09-17</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a>
+            </div>
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Elm/" rel="tag">Elm</a></li></ul>
+            </div>
+            
+
+            
+
+            <div class="articel-wordcount">
+                共&nbsp;<span>960</span>&nbsp;字
+            </div>
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>目前写的项目需要把<code>hex</code>颜色转换成<code>rgb</code>的形式，想起了之前写了一半就没动的<code>elm/parser</code>的博文，正好趁这个机会写完。</p>
+<p>⚠️ 依旧是不完整笔记，只写用到的部分。</p>
+<p>🎯 目标是将 <code>#9fa0d7</code> 这种形式的字符串提取出 RGB 的值：rgb(159,160,215)</p>
+<a id="more"></a>
+
+<ul>
+<li><a href="https://github.com/elm/parser" target="_blank" rel="noopener">🖥️ <code>elm/parser</code> 的 GitHub 地址</a></li>
+<li><a href="https://package.elm-lang.org/packages/elm/parser/latest/" target="_blank" rel="noopener">📦 在<code>elm-package</code>上的地址</a></li>
+</ul>
+<h2 id="管道流程"><a href="#管道流程" class="headerlink" title="管道流程"></a>管道流程</h2><p>包文档里提供的一个例子说明了 parser 的工作方法：</p>
+<pre><code class="elm">point : Parser Point
+point =
+  succeed Point
+    |. symbol &quot;(&quot;
+    |. spaces
+    |= float
+    |. spaces
+    |. symbol &quot;,&quot;
+    |. spaces
+    |= float
+    |. spaces
+    |. symbol &quot;)&quot;</code></pre>
+<p>上面的<code>|.</code>，<code>|=</code>之类的是处理数据的方法。</p>
+<table>
+<thead>
+<tr>
+<th>管道</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>|.</td>
+<td>解析并略过结果</td>
+</tr>
+<tr>
+<td>|=</td>
+<td>解析并保留结果，左侧类型要是<code>Parser (a-&gt;b)</code></td>
+</tr>
+<tr>
+<td>succeed</td>
+<td>直接输出内容，类型是<code>a-&gt;Parser a</code></td>
+</tr>
+<tr>
+<td>lazy</td>
+<td>递归解析，例如在 parser 中包含 parser</td>
+</tr>
+<tr>
+<td>andThen ,problem</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>所以<code>point</code>解析器表示的意思就是抽取<code>(1,2)</code>，<code>（33 , 4324)</code>类似输入中的 xy 值。</p>
+<p>可以直接用于解析的解析器有:</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>int, float, number</td>
+<td>其中<code>number</code>可以同时解析不同类型的数字类型。</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>符号，多用于<code>(</code>、 <code>)</code>、 <code>,</code>等</td>
+</tr>
+<tr>
+<td>end</td>
+<td>检查是否到达字符串的终点。可以用于确保分析完了整个字符串</td>
+</tr>
+<tr>
+<td>spaces</td>
+<td>包括<code>&lt;空格&gt;</code>, <code>\n</code> ,<code>\r</code></td>
+</tr>
+<tr>
+<td>keyword</td>
+<td>解析关键字：内容是连贯完整的： n+1 位不能是字母、数字或下划线</td>
+</tr>
+<tr>
+<td>variable</td>
+<td>解析类似变量名的内容：有特定开头，内容过滤，排除保留字</td>
+</tr>
+<tr>
+<td>lineComment ,multiComment</td>
+<td>解析注释（跳过内容）</td>
+</tr>
+</tbody></table>
+<p>对于我们的需求，颜色的有效输入格式是 <code>\#[\d(a-f)(A-F)]{6}\</code>。划分的时候两个两个一划并转换为十进制。大致流程如下：</p>
+<pre><code class="elm">type alias Color =
+    { red : Int
+    , green : Int
+    , blue : Int
+    }
+
+hexToColor : Parser Int
+hexToColor =
+    succeed Color
+            |. symbol &quot;#&quot;
+            |= hexToInt
+            |= hexToInt
+            |= hexToInt
+            |. end</code></pre>
+<p>忽略掉前面的<code>#</code>，然后实施 3 个<code>hexToInt</code>（每个处理两个字符），每个都保留传输到 Color 构造中。</p>
+<h2 id="逐字处理"><a href="#逐字处理" class="headerlink" title="逐字处理"></a>逐字处理</h2><p>由上，我们的第一行已经有了： <code>|. symbol &quot;#&quot;</code>，但后面的就要自己处理了。看文档使用<code>Chompers</code>（咀嚼？感觉像是吃豆人那样一个一个处理并移除）。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>chompIf</td>
+<td>处理一个通过测试的字符</td>
+</tr>
+<tr>
+<td>chompWhile</td>
+<td>处理连续的通过测试的字符</td>
+</tr>
+<tr>
+<td>chompUntil</td>
+<td>处理直到碰到给定的字符</td>
+</tr>
+<tr>
+<td>chompUntilEndOr</td>
+<td>处理直到碰到给定的字符或结尾</td>
+</tr>
+<tr>
+<td>getChompedString,mapChompedString</td>
+<td>字面意思，上文中的管道方法其实都是 chomp 的一种，所以使用 symbol 函数也会收到</td>
+</tr>
+</tbody></table>
+<p>接着使用</p>
+<pre><code class="elm">hexToInt : Parser Int
+hexToInt =
+    Parser.map intFromHexString &lt;|
+        getChompedString &lt;|
+            chompIf Char.isHexDigit
+                |. chompIf Char.isHexDigit</code></pre>
+<ol>
+<li>用<code>chompIf</code>处理两个字符</li>
+<li>用<code>getChompedString</code>接受被 chomp 的字符</li>
+<li>最后用 map 将 String 转换为 Int，其中用了一个 hex 转 int 的函数。</li>
+</ol>
+<h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><details>
+
+<summary>点击查看</summary>
+
+<pre><code class="elm">module Main exposing (main)
+
+import Browser
+import Html exposing (Html, div, input, text)
+import Html.Attributes exposing (placeholder, type_)
+import Html.Events exposing (onInput)
+import Parser exposing (..)
+
+
+
+-- MAIN
+
+
+main : Program () Model Msg
+main =
+    Browser.sandbox { init = init, update = update, view = view }
+
+
+
+-- MODEL
+
+
+type alias Model =
+    Maybe Color
+
+
+type alias Color =
+    { red : Int
+    , green : Int
+    , blue : Int
+    }
+
+
+init : Model
+init =
+    Nothing
+
+
+
+-- UPDATE
+
+
+type Msg
+    = ToParse String
+
+
+update : Msg -&gt; Model -&gt; Model
+update msg model =
+    case msg of
+        ToParse input -&gt;
+            case run hexToColor input of
+                Ok color -&gt;
+                    Just color
+
+                Err _ -&gt;
+                    model
+
+
+
+-- VIEW
+
+
+view : Model -&gt; Html Msg
+view model =
+    div []
+        [ input [ type_ &quot;text&quot;, placeholder &quot;Input hex color&quot;, onInput ToParse ] []
+        , div [] [ text (colorToString model) ]
+        ]
+
+
+hexToColor : Parser Color
+hexToColor =
+    let
+        hexToInt : Parser Int
+        hexToInt =
+            Parser.map intFromHexString &lt;|
+                getChompedString &lt;|
+                    chompIf Char.isHexDigit
+                        |. chompIf Char.isHexDigit
+    in
+    succeed Color
+        |. symbol &quot;#&quot;
+        |= hexToInt
+        |= hexToInt
+        |= hexToInt
+        |. end
+
+
+intFromHexString : String -&gt; Int
+intFromHexString hex =
+    let
+        singleHex c =
+            if Char.isDigit c then
+                Char.toCode c - Char.toCode &#39;0&#39;
+
+            else
+                Char.toCode c - Char.toCode &#39;A&#39; + 10
+
+        power i =
+            List.product (List.repeat i 16)
+    in
+    String.toList (String.toUpper hex)
+        |&gt; List.indexedMap (\i item -&gt; power (String.length hex - i - 1) * singleHex item)
+        |&gt; List.sum
+
+
+colorToString : Maybe Color -&gt; String
+colorToString color =
+    case color of
+        Nothing -&gt;
+            &quot;不合法的颜色值的输入。&quot;
+
+        Just p -&gt;
+            &quot;rgb(&quot; ++ String.fromInt p.red ++ &quot;,&quot; ++ String.fromInt p.green ++ &quot;,&quot; ++ String.fromInt p.blue ++ &quot;)&quot;</code></pre>
+</details>
+
+<!-- 创建日期：2020-03-27，半年后捡起来写完。不过一看当时写的还是挺多错的…… -->
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2020/09/25/rust-note-1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          Rust 笔记（一）基础
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/08/13/tweets/minitweet/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">自动化碎碎念栏目</div>
+    </a>
+  
+</nav>
+
+
+</article>
+
+
+
+<!-- utteranc comments -->
+
+<section class="comments">
+    <script src="https://utteranc.es/client.js"
+            repo='owlzou/owlzou.github.io'
+            issue-term='pathname'
+            theme='github-light'
+            crossorigin='anonymous'
+            async>
+    </script>
+</section>
+
+
+
+</div>
+        </section>
+      </section>
+      <aside class="sidebar">
+          <div class="widget">
+     
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+  
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%BF%97/">日志</a></li></ul>
+    </div>
+  </div>
+
+  
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elm/" rel="tag">Elm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/F/" rel="tag">F#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fabulous/" rel="tag">Fabulous</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Three-js/" rel="tag">Three.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/" rel="tag">WebGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%98%E8%85%BE/" rel="tag">折腾</a></li></ul>
+    </div>
+  </div>
+
+  
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2020/11/09/bitwise/">位运算笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/12/n-image-viewer/">翻出了 2018 年写的图片浏览器</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/09/rust-note-4-box/">Rust 笔记（四）智能指针等</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/05/rust-note-3-module-and-test/">Rust 笔记（三）模块和测试</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/03/rust-note-2/">Rust 笔记（二）其它类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+  
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li></ul>
+    </div>
+  </div>
+
+ 
+</div>
+<div id="backtop">
+    <i class="icon icon-arrow-up"></i>
+</div>
+    
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-info">
+            <span>&copy; 2019 - 2020 Catalyst @ Zou</span>
+        </div>
+        <div class="footer-powered">
+            <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Aomori</a> Theme · Powered By Hexo
+        </div>
+    </div>
+</footer>
+
+
+
+<script src="/dist/build.js?1.5.2.js"></script>
+
+
+<script src="/dist/custom.js?1.5.2.js"></script>
+
+
+
+
+
+
+
+</body>
+</html>

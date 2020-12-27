@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>WebGL 笔记（3） 纹理 | Catalyst</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1.5.2.css">
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+  <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="Zou">
+            </div>
+            
+            <a href="/">Catalyst</a>
+            
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">主页</a>
+                
+                <a href="/archives">归档</a>
+                
+                <a href="/projects">项目</a>
+                
+                <a href="/about">关于</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+    <a class="social" target="_blank" href="https://github.com/owlzou">
+        <box-icon type='logo' name='github'></box-icon>
+    </a>
+
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">主页</a>
+                    
+                    <a href="/archives">归档</a>
+                    
+                    <a href="/projects">项目</a>
+                    
+                    <a href="/about">关于</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+  <div class="container">
+    <div class="main">
+      <section class="inner">
+        <section class="inner-main">
+          <div class="post">
+    <article id="post-ckj6tstv0002g23oi6nj297av" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      WebGL 笔记（3） 纹理
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2020-03-14T00:00:00.000Z" itemprop="datePublished">2020-03-14</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a>
+            </div>
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebGL/" rel="tag">WebGL</a></li></ul>
+            </div>
+            
+
+            
+
+            <div class="articel-wordcount">
+                共&nbsp;<span>599</span>&nbsp;字
+            </div>
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>🎯 目标：贴纹理</p>
+<a id="more"></a>
+
+<p>在平面上贴纹理。</p>
+<h2 id="1-读取纹理"><a href="#1-读取纹理" class="headerlink" title="1. 读取纹理"></a>1. 读取纹理</h2><blockquote>
+<p>参考资料：MDN 的<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL" target="_blank" rel="noopener">加载纹理</a></p>
+</blockquote>
+<p>因为只画一次，所以绘图函数写在了加载图像的回调后，保证设置完后再绘制纹理。</p>
+<pre><code class="js">function loadTexture(gl, shaderProgram, imageSrc) {
+  let texture = gl.createTexture();
+  let image = new Image();
+  image.src = imageSrc;
+  //加载完图像后执行的函数
+  image.onload = function () {
+    //绑定纹理
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    //指定二维纹理贴图，详细级别。颜色组件，数据格式，数据类型，数据源
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+    //设置纹理在放大和缩小时候采用的采样方案。
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(
+      gl.TEXTURE_2D,
+      gl.TEXTURE_MIN_FILTER,
+      gl.LINEAR_MIPMAP_NEAREST
+    );
+    //生成mipmap
+    gl.generateMipmap(gl.TEXTURE_2D);
+    //绑定纹理
+    gl.activeTexture(gl.TEXTURE0); //TEXTURE0默认激活，注释掉也行
+    //传入纹理数据到着色器
+    gl.uniform1i(gl.getUniformLocation(shaderProgram, &quot;uSampler&quot;), 0);
+    //绘制
+    gl.useProgram(shaderProgram);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  };
+  return texture;
+}</code></pre>
+<h2 id="2-修改着色器"><a href="#2-修改着色器" class="headerlink" title="2. 修改着色器"></a>2. 修改着色器</h2><p>因为是逐像素传数据，所以先用<code>attribute</code>型接受数据，然后传到<code>varying</code>中以传入片段着色器中。<br>在片段着色器中使用<code>sampler2D</code>类型承载<code>GL_TEXTURE</code>对象。<code>texture2D</code>获取纹理对应坐标上的颜色值。</p>
+<pre><code class="js">const vertexSource = `
+attribute vec2 aPosition;
+attribute vec2 aTexCoord;
+varying lowp vec2 vTexCoord;
+void main(){
+    vTexCoord = aTexCoord;
+    gl_Position=vec4(aPosition,0.0,1.0);
+}
+`;
+
+const fragmentSource = `
+varying lowp vec2 vTexCoord;
+uniform sampler2D uSampler;
+void main(){
+      gl_FragColor = texture2D(uSampler,vTexCoord);
+  }
+`;</code></pre>
+<h2 id="3-纹理映射"><a href="#3-纹理映射" class="headerlink" title="3.纹理映射"></a>3.纹理映射</h2><p>指定图形上显示的纹理的坐标，按照点的顺序来。</p>
+<blockquote>
+<p>2020.09.13：这里正方形的点只写<code>x</code>和<code>y</code>是因为上面的着色器里已经把<code>z</code>设定了。半年过去自己都忘记了 😅。</p>
+</blockquote>
+<pre><code class="js">//正方形的点
+const vertices = [-0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, 0.5];
+//纹理对应坐标
+const tex = [0, 0, 0, 1, 1, 0, 1, 1];</code></pre>
+<p>上次写的一次性输入，这次分别绑定缓冲：</p>
+<pre><code class="js">function simpleBindBuffer(gl, shaderProgram, name, data, size) {
+  const buffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW);
+  const index = gl.getAttribLocation(shaderProgram, name);
+  gl.vertexAttribPointer(index, size, gl.FLOAT, false, 0, 0);
+  gl.enableVertexAttribArray(index);
+  return buffer;
+}
+
+//设置缓冲
+simpleBindBuffer(gl, shaderProgram, &quot;aPosition&quot;, vertices, 2);
+simpleBindBuffer(gl, shaderProgram, &quot;aTexCoord&quot;, tex, 2);</code></pre>
+<p>这样就能在平面上贴上纹理了。</p>
+<h2 id="4-错误"><a href="#4-错误" class="headerlink" title="4. 错误"></a>4. 错误</h2><blockquote>
+<p>generateMipmap: The base level of the texture does not have power-of-two dimensions.</p>
+</blockquote>
+<p><code>webgl 1.0</code> 只能给图片边长为 2 的幂的图片生成 mipmap, <code>webgl 2.0</code>就没有这个问题。</p>
+<p>使用 <code>webgl 2.0</code> 需要 <code>const gl = canvas.getContext(&quot;webgl2&quot;)</code>。</p>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2020/03/27/webgl-note-4/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          Three.js 笔记（4） 加载glTF模型
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/08/webgl-note-2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">WebGL 笔记（2） 3D正方体</div>
+    </a>
+  
+</nav>
+
+
+</article>
+
+
+
+<!-- utteranc comments -->
+
+<section class="comments">
+    <script src="https://utteranc.es/client.js"
+            repo='owlzou/owlzou.github.io'
+            issue-term='pathname'
+            theme='github-light'
+            crossorigin='anonymous'
+            async>
+    </script>
+</section>
+
+
+
+</div>
+        </section>
+      </section>
+      <aside class="sidebar">
+          <div class="widget">
+     
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+  
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%BF%97/">日志</a></li></ul>
+    </div>
+  </div>
+
+  
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elm/" rel="tag">Elm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/F/" rel="tag">F#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fabulous/" rel="tag">Fabulous</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Three-js/" rel="tag">Three.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/" rel="tag">WebGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%98%E8%85%BE/" rel="tag">折腾</a></li></ul>
+    </div>
+  </div>
+
+  
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2020/11/09/bitwise/">位运算笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/12/n-image-viewer/">翻出了 2018 年写的图片浏览器</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/09/rust-note-4-box/">Rust 笔记（四）智能指针等</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/05/rust-note-3-module-and-test/">Rust 笔记（三）模块和测试</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/03/rust-note-2/">Rust 笔记（二）其它类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+  
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li></ul>
+    </div>
+  </div>
+
+ 
+</div>
+<div id="backtop">
+    <i class="icon icon-arrow-up"></i>
+</div>
+    
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-info">
+            <span>&copy; 2019 - 2020 Catalyst @ Zou</span>
+        </div>
+        <div class="footer-powered">
+            <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Aomori</a> Theme · Powered By Hexo
+        </div>
+    </div>
+</footer>
+
+
+
+<script src="/dist/build.js?1.5.2.js"></script>
+
+
+<script src="/dist/custom.js?1.5.2.js"></script>
+
+
+
+
+
+
+
+</body>
+</html>

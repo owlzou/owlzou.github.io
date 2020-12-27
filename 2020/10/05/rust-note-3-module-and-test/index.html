@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>Rust 笔记（三）模块和测试 | Catalyst</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1.5.2.css">
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+  <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="Zou">
+            </div>
+            
+            <a href="/">Catalyst</a>
+            
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">主页</a>
+                
+                <a href="/archives">归档</a>
+                
+                <a href="/projects">项目</a>
+                
+                <a href="/about">关于</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+    <a class="social" target="_blank" href="https://github.com/owlzou">
+        <box-icon type='logo' name='github'></box-icon>
+    </a>
+
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">主页</a>
+                    
+                    <a href="/archives">归档</a>
+                    
+                    <a href="/projects">项目</a>
+                    
+                    <a href="/about">关于</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+  <div class="container">
+    <div class="main">
+      <section class="inner">
+        <section class="inner-main">
+          <div class="post">
+    <article id="post-ckj6tstut002123oibb8nd0eg" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+<div class="article-gallery">
+  <div class="article-gallery-photos">
+    
+      <a class="article-gallery-img fancybox" href="/2020/10/05/rust-note-3-module-and-test/" rel="gallery_ckj6tstut002123oibb8nd0eg">
+        <img src="undraw_online_test_gba7.png" itemprop="image">
+      </a>
+    
+  </div>
+</div>
+
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      Rust 笔记（三）模块和测试
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2020-10-05T15:54:56.000Z" itemprop="datePublished">2020-10-05</time>
+</div>
+
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li></ul>
+            </div>
+            
+
+            
+
+            <div class="articel-wordcount">
+                共&nbsp;<span>802</span>&nbsp;字
+            </div>
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>🧪 把测试写在标准里的还是第一次见（可能是我见识太少了）</p>
+<a id="more"></a>
+
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>总之，为了建立工程化的文件，使用 <code>cargo</code> 新建工程。</p>
+<pre><code class="rust">cargo new &lt;工程名&gt;
+cargo new --lib &lt;库名&gt;</code></pre>
+<p>工程中的 <code>main.rs</code> 和 <code>lib.rs</code> 是所有相关文件的根文件。</p>
+<p>利用 <code>mod</code> 定义模块，在模块之中还能再定义模块。</p>
+<pre><code class="rust">mod my_module{
+    mod module_in_module{
+        fn add() {}
+    }
+}</code></pre>
+<p>在模块中使用 <code>pub</code> 关键字标明公共方法。结构体和结构体内的字段， <code>pub</code> 是分开的。</p>
+<h3 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h3><ul>
+<li>调用路径：使用 <code>::</code>分割。</li>
+<li>绝对路径： <code>crate</code> 开头。例 <code>crate::my_module::module_in_module</code>。</li>
+<li>相对路径： <code>my_module::module_in_module</code>。</li>
+<li>使用 <code>super</code> 开始父级的相对路径。</li>
+<li>用 <code>use</code> 简化后面路径的书写。可以用 <code>as</code> 给予别名。</li>
+<li>利用花括号调用同级： <code>use std::{cmp::Ordering, io};</code></li>
+<li>利用 <code>*</code> 导入所有 <code>use std::*;</code></li>
+</ul>
+<h3 id="拆分"><a href="#拆分" class="headerlink" title="拆分"></a>拆分</h3><p>在不同的文件写同一个模块的内容：在声明模块后使用 <code>;</code> ，说明加载其他同名文件夹中的内容。</p>
+<p>例,文件路径</p>
+<pre><code>│  calculate.rs
+│  lib.rs
+│  main.rs
+│
+└─calculate
+        add.rs</code></pre><pre><code class="rust">//src\calculate\add.rs
+pub fn add(a: i32, b: i32) -&gt; i32 {
+    a + b
+}</code></pre>
+<pre><code class="rust">//src\calculate.rs
+pub mod add;</code></pre>
+<pre><code class="rust">//src\lib.rs
+pub mod calculate;
+
+pub fn call_add()-&gt;i32{
+    calculate::add::add(1,2)
+}</code></pre>
+<pre><code class="rust">//src\main.rs
+use modul::calculate;
+
+fn main() {
+    println!(&quot;{}&quot;,calculate::add::add(2,2));
+    println!(&quot;{}&quot;,modul::call_add());
+}</code></pre>
+<pre><code class="toml">//Cargo.toml
+...
+[lib]
+name = &quot;modul&quot;
+path = &quot;src/lib.rs&quot;
+
+[[bin]]
+name = &quot;modul&quot;
+path = &quot;src/main.rs&quot;</code></pre>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><p>在函数前添加 <code>#[test]</code> 表明这是一个测试用的函数。之后运行 <code>cargo test</code> 就可以执行测试函数。</p>
+<pre><code class="rust"> #[test]
+ fn test(){
+ }</code></pre>
+<p>测试主要分 <code>单元测试</code> 和 <code>集成测试</code> 。</p>
+<ul>
+<li><p><code>单元测试</code> 通常是在文件中创建一个名字为 <code>test</code> 的模块包含测试功能，代码在<code>src</code>目录内。</p>
+</li>
+<li><p><code>集成测试</code> 则是纯外部代码。通常需要在工程中建立一个 和 <code>src</code> 同级的 <code>test</code> 文件夹。<code>集成测试</code> 只测试 <code>lib</code> 。</p>
+</li>
+</ul>
+<p>在模块前添加 <code>#[cfg(test)]</code> 表明测试用模块。测试模块只在测试时编译。</p>
+<pre><code>#[cfg(test)]
+mod tests {
+    use super::*; //使用这让测试函数使用外部模块定义的代码
+
+    #[test]
+    fn is_true() {
+        assert!(true);
+    }
+}</code></pre><h3 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h3><p>执行断言：</p>
+<pre><code class="rust">assert!(&lt;表达式&gt;); //返回成功或失败
+assert_eq!(&lt;表达式1&gt;,&lt;表达式2&gt;); //测试两个表达式是否相等</code></pre>
+<p>自定义错误信息：</p>
+<pre><code class="rust">assert!(false,&quot;错误信息 {}&quot;, err);</code></pre>
+<p>对于应该 <code>panic</code> 的函数在 <code>#[test]</code> 下使用 <code>#[should_panic]</code>。</p>
+<p>使用 <code>#[ignore]</code> 忽略此测试函数。</p>
+<h3 id="控制"><a href="#控制" class="headerlink" title="控制"></a>控制</h3><p><code>cargo test</code> 的参数有作用于 <code>cargo test</code> 本身的，也有作用于生成的测试文件的。如果想要传给生成的测试文件参数，将参数放在分隔符 <code>--</code> 后： <code>cargo test &lt;参数&gt; -- &lt;生成二进制文件的参数&gt;</code> 。</p>
+<p>例： <code>cargo test -- --test-threads=1</code> 。</p>
+<table>
+<thead>
+<tr>
+<th>作用于 cargo test 的参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;测试名字&gt;</code></td>
+<td>只运行函数名中包含此名字的测试函数/模块</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>作用于测试文件的参数</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--test-threads=1</code></td>
+<td>测试线程数</td>
+</tr>
+<tr>
+<td><code>--show-output</code></td>
+<td>显示测试函数的结果</td>
+</tr>
+<tr>
+<td><code>--ignored</code></td>
+<td>只运行被忽略的函数</td>
+</tr>
+</tbody></table>
+<p><strong>参考资料</strong></p>
+<ul>
+<li>主要是<a href="https://doc.rust-lang.org/book/title-page.html" target="_blank" rel="noopener">《The Book》</a>的读书笔记。</li>
+<li><a href="https://github.com/rust-lang/rustlings" target="_blank" rel="noopener">Rustlings</a> 的做题感想</li>
+<li>封面图片：来自 <a href="https://undraw.co/" target="_blank" rel="noopener">Undraw</a></li>
+</ul>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2020/10/09/rust-note-4-box/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          Rust 笔记（四）智能指针等
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/10/03/rust-note-2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Rust 笔记（二）其它类型</div>
+    </a>
+  
+</nav>
+
+
+</article>
+
+
+
+<!-- utteranc comments -->
+
+<section class="comments">
+    <script src="https://utteranc.es/client.js"
+            repo='owlzou/owlzou.github.io'
+            issue-term='pathname'
+            theme='github-light'
+            crossorigin='anonymous'
+            async>
+    </script>
+</section>
+
+
+
+</div>
+        </section>
+      </section>
+      <aside class="sidebar">
+          <div class="widget">
+     
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+  
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%BF%97/">日志</a></li></ul>
+    </div>
+  </div>
+
+  
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elm/" rel="tag">Elm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/F/" rel="tag">F#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fabulous/" rel="tag">Fabulous</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Three-js/" rel="tag">Three.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/" rel="tag">WebGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%98%E8%85%BE/" rel="tag">折腾</a></li></ul>
+    </div>
+  </div>
+
+  
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2020/11/09/bitwise/">位运算笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/12/n-image-viewer/">翻出了 2018 年写的图片浏览器</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/09/rust-note-4-box/">Rust 笔记（四）智能指针等</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/05/rust-note-3-module-and-test/">Rust 笔记（三）模块和测试</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/03/rust-note-2/">Rust 笔记（二）其它类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+  
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li></ul>
+    </div>
+  </div>
+
+ 
+</div>
+<div id="backtop">
+    <i class="icon icon-arrow-up"></i>
+</div>
+    
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-info">
+            <span>&copy; 2019 - 2020 Catalyst @ Zou</span>
+        </div>
+        <div class="footer-powered">
+            <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Aomori</a> Theme · Powered By Hexo
+        </div>
+    </div>
+</footer>
+
+
+
+<script src="/dist/build.js?1.5.2.js"></script>
+
+
+<script src="/dist/custom.js?1.5.2.js"></script>
+
+
+
+
+
+
+
+</body>
+</html>

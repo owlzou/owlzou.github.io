@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>Endless开发笔记（2）：使用LiteDB | Catalyst</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1.5.2.css">
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+  <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="Zou">
+            </div>
+            
+            <a href="/">Catalyst</a>
+            
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">主页</a>
+                
+                <a href="/archives">归档</a>
+                
+                <a href="/projects">项目</a>
+                
+                <a href="/about">关于</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+    <a class="social" target="_blank" href="https://github.com/owlzou">
+        <box-icon type='logo' name='github'></box-icon>
+    </a>
+
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">主页</a>
+                    
+                    <a href="/archives">归档</a>
+                    
+                    <a href="/projects">项目</a>
+                    
+                    <a href="/about">关于</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+  <div class="container">
+    <div class="main">
+      <section class="inner">
+        <section class="inner-main">
+          <div class="post">
+    <article id="post-ckj6tstu8001023oi68td5w2f" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      Endless开发笔记（2）：使用LiteDB
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2020-07-13T00:00:00.000Z" itemprop="datePublished">2020-07-13</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/Android/">Android</a>
+            </div>
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/F/" rel="tag">F#</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Fabulous/" rel="tag">Fabulous</a></li></ul>
+            </div>
+            
+
+            
+
+            <div class="articel-wordcount">
+                共&nbsp;<span>786</span>&nbsp;字
+            </div>
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>能用就行 👿</p>
+<p>这篇主要是数据保存，使用<a href="https://github.com/mbdavid/LiteDB" target="_blank" rel="noopener">LiteDB</a>。</p>
+<a id="more"></a>
+
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
+<li>在工程命令行下：<code>Install-Package LiteDB</code>（没成功）或<code>dotnet add &lt;项目名称&gt; package LiteDB --version 4.1.4</code>（目前<code>LiteDB.FSharp</code>不支持 5.0+的<code>LiteDB</code>）或者下载复制 <code>dll</code>文件。</li>
+<li>安装<a href="https://github.com/Zaid-Ajaj/LiteDB.FSharp" target="_blank" rel="noopener">LiteDB.FSharp</a>:<code>dotnet add &lt;项目名称&gt; package LiteDB.FSharp --version 2.15.1</code>。</li>
+</ol>
+<p>注：</p>
+<p>生成时出现了错误</p>
+<blockquote>
+<p>错误 XA2002: 无法解析引用: <code>LiteDB</code>，引用者为 <code>Endless</code>。请为 <code>LiteDB</code> 添加 NuGet 包或程序集引用，或删除对 <code>Endless</code> 的引用。</p>
+</blockquote>
+<p>可能是因为我用官方给的安装方法失败了，所以包没装完全。</p>
+<p>解决方法：打开<code>Nuget包管理器</code>给 Android 包重装一遍库。</p>
+<h2 id="保存路径"><a href="#保存路径" class="headerlink" title="保存路径"></a>保存路径</h2><p>新建一个文件来写数据库相关。</p>
+<p>文件保存在 android 的<a href="https://developer.android.google.cn/training/data-storage/app-specific" target="_blank" rel="noopener">应用专属文件目录</a>中。利用<a href="https://docs.microsoft.com/zh-cn/xamarin/xamarin-forms/app-fundamentals/dependency-service/" target="_blank" rel="noopener">dependency-service</a>可以先定义一个接口然后分平台实现。(参照了这个实现吐司的方法：<a href="https://stackoverflow.com/questions/35279403/toast-equivalent-for-xamarin-forms" target="_blank" rel="noopener">Toast equivalent for Xamarin Forms</a>)</p>
+<p>定义：</p>
+<pre><code class="fsharp">type IDataBasePath =
+    abstract member Path:unit-&gt;string</code></pre>
+<p>在 Android 文件夹下：</p>
+<pre><code class="fsharp">type DataBasePath()=
+    interface ELType.IDataBasePath with
+        member this.Path() = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), &quot;mydata.db&quot;)
+
+[&lt;assembly: Xamarin.Forms.Dependency(typeof&lt;DataBasePath&gt;)&gt;]
+do()</code></pre>
+<p>最后使用的时候</p>
+<pre><code class="f#">open LiteDB
+open LiteDB.FSharp
+open Xamarin.Forms
+
+let mapper = FSharpBsonMapper()
+let path = DependencyService.Get&lt;IDataBasePath&gt;().Path()
+let db = new LiteDatabase(path, mapper)</code></pre>
+<h2 id="文档结构"><a href="#文档结构" class="headerlink" title="文档结构"></a>文档结构</h2><p><code>LiteDB.FSharp</code>库使用 records 组织结构。这里直接使用之前定义的<code>ELEntry</code>作为存储数据：</p>
+<p>利用 ID 自增。</p>
+<pre><code class="f#">[&lt;CLIMutable&gt;]
+type ELEntry= {
+    Id:int
+    Content:string
+    Date:string
+}</code></pre>
+<p>之后添加的条目,需要自增的 id 填 0。</p>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><pre><code class="fsharp">type ELEntry= {
+    Id:int
+    Content:string
+    Date:System.DateTime
+}
+
+type Model = {
+    NowId:int
+    NowWrite:string
+    Data:seq&lt;ELEntry&gt;
+}</code></pre>
+<p>消息有新建、打开、删除消息框、删除、反馈输入的文字、保存和切换 Tab 。</p>
+<pre><code class="fsharp">type Msg =
+    | NewEntry
+    | Open of int
+    | Delete of bool*int
+    | DeleteAlert of int
+    | NowWriting of string
+    | Save
+    | Switch of int</code></pre>
+<h2 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h2><p>先得到一个表。</p>
+<pre><code class="f#">let data = db.GetCollection&lt;ELEntry&gt;(&quot;entries&quot;)</code></pre>
+<ol>
+<li>增加：<code>data.Insert(newEntry)</code></li>
+<li>修改：<code>data.Upsert(newEntry)</code>（新增或插入），<code>data.Update(newEntry)</code>。</li>
+<li>查找：返回的数据类型是<code>seq&lt;类型&gt;</code>。所以 Model 中的 Data 为<code>seq&lt;ELEntry&gt;</code>型。<ul>
+<li>查找全部： <code>data.FindAll()</code></li>
+<li>按 id 查找: <code>data.FindOne(fun data-&gt;data.Id=id)</code></li>
+</ul>
+</li>
+<li>删除：<ul>
+<li>按 id 删除：<code>data.Delete id</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="例"><a href="#例" class="headerlink" title="例"></a>例</h3><ol>
+<li><p>输入的时候，数据保存到<code>model.NowWrite</code>中。</p>
+<p> 对应<code>type Msg</code>的消息类型<code>NowWriting</code>。在视图的 Editor 中，每当输入文字时发送消息。</p>
+<pre><code class="fsharp"> View.Editor
+     (text = model.NowWrite,
+     textChanged = (fun text -&gt; dispatch (NowWriting text.NewTextValue) |&gt; ignore),
+     &lt;略&gt;)</code></pre>
+<p> 处理方法：</p>
+<pre><code class="fsharp"> match msg with
+ | NowWriting str -&gt; { model with ELType.NowWrite = str }, Cmd.none
+ | &lt;略&gt;</code></pre>
+</li>
+<li><p>保存的时候，更新数据库。</p>
+<pre><code class="fsharp"> //输入界面
+
+ View.NavigationPage
+     (icon = penImg, title = &quot;笔记&quot;, toolbarItems = [ View.ToolbarItem(icon = saveImg, command = (fun()-&gt; dispatch Save) ) ], &lt;略&gt;)
+
+ //update
+
+ match msg with
+     | Save -&gt;
+         let newEntry =
+             { Content = model.NowWrite
+             Date = System.DateTime.Today
+             Id = model.NowId }
+
+         ELDb.upsert (newEntry) |&gt; ignore
+         { model with
+             NowWrite = &quot;&quot;
+             Data = ELDb.data.FindAll() },
+         Cmd.none</code></pre>
+</li>
+</ol>
+<h2 id="最后的效果"><a href="#最后的效果" class="headerlink" title="最后的效果"></a>最后的效果</h2><p><img src="/2020/07/13/endless-2/endless-21.jpg" alt="结果"></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li><p>实际写的时候发现设计没做好，还需要一个“新建”按钮和“删除”按钮。新建的时候将 ID 置 0。（又回去改第一篇博文 😓）</p>
+</li>
+<li><p>异常处理没做</p>
+</li>
+<li><p>打包出来 20M，下次写 flutter。</p>
+</li>
+</ul>
+<p><strong>参考：</strong></p>
+<ul>
+<li><a href="https://www.litedb.org/docs/" target="_blank" rel="noopener">LiteDB 文档参考</a></li>
+<li><a href="https://docs.microsoft.com/zh-cn/xamarin/android/platform/files/#reading-or-writing-to-files-on-internal-storage" target="_blank" rel="noopener">内部存储上的文件读写 - Xamarin</a></li>
+</ul>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2020/08/13/tweets/minitweet/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          自动化碎碎念栏目
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/06/20/endless-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Endless开发笔记（1）：基础布局</div>
+    </a>
+  
+</nav>
+
+
+</article>
+
+
+
+<!-- utteranc comments -->
+
+<section class="comments">
+    <script src="https://utteranc.es/client.js"
+            repo='owlzou/owlzou.github.io'
+            issue-term='pathname'
+            theme='github-light'
+            crossorigin='anonymous'
+            async>
+    </script>
+</section>
+
+
+
+</div>
+        </section>
+      </section>
+      <aside class="sidebar">
+          <div class="widget">
+     
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+  
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%BF%97/">日志</a></li></ul>
+    </div>
+  </div>
+
+  
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elm/" rel="tag">Elm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/F/" rel="tag">F#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fabulous/" rel="tag">Fabulous</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Three-js/" rel="tag">Three.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/" rel="tag">WebGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%98%E8%85%BE/" rel="tag">折腾</a></li></ul>
+    </div>
+  </div>
+
+  
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2020/11/09/bitwise/">位运算笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/12/n-image-viewer/">翻出了 2018 年写的图片浏览器</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/09/rust-note-4-box/">Rust 笔记（四）智能指针等</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/05/rust-note-3-module-and-test/">Rust 笔记（三）模块和测试</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/03/rust-note-2/">Rust 笔记（二）其它类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+  
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li></ul>
+    </div>
+  </div>
+
+ 
+</div>
+<div id="backtop">
+    <i class="icon icon-arrow-up"></i>
+</div>
+    
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-info">
+            <span>&copy; 2019 - 2020 Catalyst @ Zou</span>
+        </div>
+        <div class="footer-powered">
+            <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Aomori</a> Theme · Powered By Hexo
+        </div>
+    </div>
+</footer>
+
+
+
+<script src="/dist/build.js?1.5.2.js"></script>
+
+
+<script src="/dist/custom.js?1.5.2.js"></script>
+
+
+
+
+
+
+
+</body>
+</html>

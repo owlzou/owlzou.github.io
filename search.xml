@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>位运算笔记</title>
+      <link href="2020/11/09/bitwise/"/>
+      <url>2020/11/09/bitwise/</url>
+      
+        <content type="html"><![CDATA[<p>📔</p><a id="more"></a><h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><table><thead><tr><th>名字</th><th>用法</th><th>说明</th><th>Rust 用法</th></tr></thead><tbody><tr><td>位与</td><td><code>A&amp;B</code></td><td>每一位进行比较，都为 1 的情况下该位为 1</td><td></td></tr><tr><td>位或</td><td><code>A|B</code></td><td>每一位进行比较，只要一个为 1 则该位为 1</td><td></td></tr><tr><td>异或</td><td><code>A^B</code></td><td>每一位进行比较，不同则该位为 1，否则为 0</td><td></td></tr><tr><td>取反</td><td><code>~A</code></td><td>0 和 1 全部取反</td><td><code>!A</code></td></tr><tr><td>左移</td><td><code>A&lt;&lt;B</code></td><td>二进制后左移 B 位，即在后面添加 B 个 0，相当于 <code>A*(2^B)</code></td><td></td></tr><tr><td>右移</td><td><code>A&gt;&gt;B</code></td><td>二进制后右移 B 位，即去掉最后 B 位，相当于 <code>A/(2^B)</code></td><td></td></tr></tbody></table><h2 id="补码"><a href="#补码" class="headerlink" title="补码"></a>补码</h2><p>补码是常用的表示负数的方法，数字上来讲是模减去绝对值。</p><p>正数的补码=原码，负数的补码=绝对值取反后加 1。</p><h2 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h2><ol><li>保留特定位置的数字：</li></ol><pre><code>a &amp; 0xf</code></pre><p><code>0x</code>是十六进制数的开头， <code>0xf</code> 表示十六进制数字 <code>f</code>（15），二进制的 <code>1111</code>。 <code>a &amp; 0xf</code> 则是只保留 <code>a</code>的后四位。</p><ol start="2"><li>2 的 n 次幂</li></ol><p>2 的 n 次幂在二进制下，为<code>100..00</code>模式。例： <code>2=10</code>, <code>4=100</code>, <code>8=1000</code>……</p><p>而其补码（取反加一）则刚好只有最高位相同。例： <code>-2=11111110</code> 和 <code>2=10</code> 。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>翻出了 2018 年写的图片浏览器</title>
+      <link href="2020/10/12/n-image-viewer/"/>
+      <url>2020/10/12/n-image-viewer/</url>
+      
+        <content type="html"><![CDATA[<p>不得不说，当年我还写过 QT 啊……</p><a id="more"></a><p>从移动硬盘里看到了二进制包，想起来了当年写的软件……第一次也是最后一次写 <code>QT</code>了。</p><p>写这个图片浏览器的初衷是，流行的图片浏览器支持看<code>psd</code>都不支持看<code>ora</code>、<code>kra</code>等格式,所以自己写了一个。用的是最原始的方法（解压<code>ora</code>文件，获取里面的预览图像）。这种方法当然是有问题的：但我本身用的图片就不大，所以能用。但也因为这个原因一直没有放出来，以后有时间改进了再说吧……不过以后用<code>Rust</code>重新写一个的可能性更大（</p><p>放张预览：</p><p><img src="/2020/10/12/n-image-viewer/Snipaste_2020-10-12_16-13-53.png" alt="N Image Viewer"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 日志 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Rust 笔记（四）智能指针等</title>
+      <link href="2020/10/09/rust-note-4-box/"/>
+      <url>2020/10/09/rust-note-4-box/</url>
+      
+        <content type="html"><![CDATA[<p>📔 简约整理流笔记</p><a id="more"></a><h2 id="Box"><a href="#Box" class="headerlink" title="Box"></a>Box</h2><p>之前的笔记里提到了</p><blockquote><p><code>Box&lt;dyn std::error::Error&gt;</code>可以接受任何类型的<code>error</code>。在函数中，可以把多种类型的错误展成此一种错误。</p></blockquote><p><a href="https://doc.rust-lang.org/rust-by-example/std/box.html" target="_blank" rel="noopener">Box 类型</a>可以将其中的值分配在堆上，并返回指向它的指针。</p><p>它最常使用的场景是：</p><ul><li>包裹未知长度的类型以用在需要限定长度的上下文中。（Box<T>的大小：指针大小。因此可以用在递归定义中。）</li><li>需要转换大量数据的所有权并不希望数据被复制。</li><li>你只希望确定变量是有某种特征的变量而并不在意它的具体类型。</li></ul><p>使用<code>Box</code>：</p><pre><code class="rust">let a = Box::new(123);</code></pre><h2 id="Rc"><a href="#Rc" class="headerlink" title="Rc"></a>Rc</h2><p><a href="https://doc.rust-lang.org/rust-by-example/std/rc.html" target="_blank" rel="noopener"><code>Rc</code>（Reference Counting)</a> 记录变量的多个所有者。当<code>Rc</code>的计数为 0 时,证明无所有者，<strong>所有</strong>值都被删除。</p><pre><code class="rust">//建立一个Rc计数let ori = 3;let a = Rc::new(ori);//clone 增加Rc计数, 浅拷贝let b = Rc::clone(&amp;a);</code></pre><h2 id="Arc"><a href="#Arc" class="headerlink" title="Arc"></a>Arc</h2><p>Arc(Atomic Reference Counted),在线程间共享所有权。</p><pre><code class="rust">use std::sync::Arc;let value = Arc::new(&quot;value&quot;);//在线程中let value2 = Arc::clone(&amp;value);</code></pre><p>如果只改变单个线程中共享的量，则用不上 <code>Rc</code>。</p><h2 id="Cell"><a href="#Cell" class="headerlink" title="Cell"></a>Cell</h2><p><a href="https://doc.rust-lang.org/std/cell/" target="_blank" rel="noopener">Cell</a>分为 <code>Cell&lt;T&gt;</code> 和 <code>RefCell&lt;T&gt;</code>。</p><p><code>Cell</code>和 <code>RefCell</code> 可以在不可变结构中提供可变变量。（仅限结构的内部方法）。</p><p><code>Cell</code> 通过操作值本身实现可变性， <code>RefCell</code> 通过操作引用实现。</p><p><a href="https://doc.rust-lang.org/std/cell/struct.Cell.html" target="_blank" rel="noopener">Cell 文档</a></p><p>新建一个<code>Cell</code>:</p><pre><code class="rust">use std::cell::Celllet a = Cell::new(123);</code></pre><p>使用<code>Cell</code>里的数据</p><pre><code class="rust">//返回里面的值的拷贝a.get();//设置里面的数据a.set(1);//替换数据并返回原数据a.replace(10);</code></pre><p>新建一个<code>RefCell</code>：</p><pre><code class="rust">use std::cell::RefCelllet b = RefCell::new(123);</code></pre><p>使用<code>RefCell</code>里的数据</p><pre><code class="rust">b.borrow_mut();b.borrow();</code></pre><p>通常结合 <code>Rc</code> 一起使用( <code>Rc&lt;RefCell&lt;T&gt;&gt;</code> )，这样就有了多个所有者的同时还能改变内容。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Rust </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Rust 笔记（三）模块和测试</title>
+      <link href="2020/10/05/rust-note-3-module-and-test/"/>
+      <url>2020/10/05/rust-note-3-module-and-test/</url>
+      
+        <content type="html"><![CDATA[<p>🧪 把测试写在标准里的还是第一次见（可能是我见识太少了）</p><a id="more"></a><h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>总之，为了建立工程化的文件，使用 <code>cargo</code> 新建工程。</p><pre><code class="rust">cargo new &lt;工程名&gt;cargo new --lib &lt;库名&gt;</code></pre><p>工程中的 <code>main.rs</code> 和 <code>lib.rs</code> 是所有相关文件的根文件。</p><p>利用 <code>mod</code> 定义模块，在模块之中还能再定义模块。</p><pre><code class="rust">mod my_module{    mod module_in_module{        fn add() {}    }}</code></pre><p>在模块中使用 <code>pub</code> 关键字标明公共方法。结构体和结构体内的字段， <code>pub</code> 是分开的。</p><h3 id="路径"><a href="#路径" class="headerlink" title="路径"></a>路径</h3><ul><li>调用路径：使用 <code>::</code>分割。</li><li>绝对路径： <code>crate</code> 开头。例 <code>crate::my_module::module_in_module</code>。</li><li>相对路径： <code>my_module::module_in_module</code>。</li><li>使用 <code>super</code> 开始父级的相对路径。</li><li>用 <code>use</code> 简化后面路径的书写。可以用 <code>as</code> 给予别名。</li><li>利用花括号调用同级： <code>use std::{cmp::Ordering, io};</code></li><li>利用 <code>*</code> 导入所有 <code>use std::*;</code></li></ul><h3 id="拆分"><a href="#拆分" class="headerlink" title="拆分"></a>拆分</h3><p>在不同的文件写同一个模块的内容：在声明模块后使用 <code>;</code> ，说明加载其他同名文件夹中的内容。</p><p>例,文件路径</p><pre><code>│  calculate.rs│  lib.rs│  main.rs│└─calculate        add.rs</code></pre><pre><code class="rust">//src\calculate\add.rspub fn add(a: i32, b: i32) -&gt; i32 {    a + b}</code></pre><pre><code class="rust">//src\calculate.rspub mod add;</code></pre><pre><code class="rust">//src\lib.rspub mod calculate;pub fn call_add()-&gt;i32{    calculate::add::add(1,2)}</code></pre><pre><code class="rust">//src\main.rsuse modul::calculate;fn main() {    println!(&quot;{}&quot;,calculate::add::add(2,2));    println!(&quot;{}&quot;,modul::call_add());}</code></pre><pre><code class="toml">//Cargo.toml...[lib]name = &quot;modul&quot;path = &quot;src/lib.rs&quot;[[bin]]name = &quot;modul&quot;path = &quot;src/main.rs&quot;</code></pre><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><p>在函数前添加 <code>#[test]</code> 表明这是一个测试用的函数。之后运行 <code>cargo test</code> 就可以执行测试函数。</p><pre><code class="rust"> #[test] fn test(){ }</code></pre><p>测试主要分 <code>单元测试</code> 和 <code>集成测试</code> 。</p><ul><li><p><code>单元测试</code> 通常是在文件中创建一个名字为 <code>test</code> 的模块包含测试功能，代码在<code>src</code>目录内。</p></li><li><p><code>集成测试</code> 则是纯外部代码。通常需要在工程中建立一个 和 <code>src</code> 同级的 <code>test</code> 文件夹。<code>集成测试</code> 只测试 <code>lib</code> 。</p></li></ul><p>在模块前添加 <code>#[cfg(test)]</code> 表明测试用模块。测试模块只在测试时编译。</p><pre><code>#[cfg(test)]mod tests {    use super::*; //使用这让测试函数使用外部模块定义的代码    #[test]    fn is_true() {        assert!(true);    }}</code></pre><h3 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h3><p>执行断言：</p><pre><code class="rust">assert!(&lt;表达式&gt;); //返回成功或失败assert_eq!(&lt;表达式1&gt;,&lt;表达式2&gt;); //测试两个表达式是否相等</code></pre><p>自定义错误信息：</p><pre><code class="rust">assert!(false,&quot;错误信息 {}&quot;, err);</code></pre><p>对于应该 <code>panic</code> 的函数在 <code>#[test]</code> 下使用 <code>#[should_panic]</code>。</p><p>使用 <code>#[ignore]</code> 忽略此测试函数。</p><h3 id="控制"><a href="#控制" class="headerlink" title="控制"></a>控制</h3><p><code>cargo test</code> 的参数有作用于 <code>cargo test</code> 本身的，也有作用于生成的测试文件的。如果想要传给生成的测试文件参数，将参数放在分隔符 <code>--</code> 后： <code>cargo test &lt;参数&gt; -- &lt;生成二进制文件的参数&gt;</code> 。</p><p>例： <code>cargo test -- --test-threads=1</code> 。</p><table><thead><tr><th>作用于 cargo test 的参数</th><th>含义</th></tr></thead><tbody><tr><td><code>&lt;测试名字&gt;</code></td><td>只运行函数名中包含此名字的测试函数/模块</td></tr></tbody></table><table><thead><tr><th>作用于测试文件的参数</th><th>含义</th></tr></thead><tbody><tr><td><code>--test-threads=1</code></td><td>测试线程数</td></tr><tr><td><code>--show-output</code></td><td>显示测试函数的结果</td></tr><tr><td><code>--ignored</code></td><td>只运行被忽略的函数</td></tr></tbody></table><p><strong>参考资料</strong></p><ul><li>主要是<a href="https://doc.rust-lang.org/book/title-page.html" target="_blank" rel="noopener">《The Book》</a>的读书笔记。</li><li><a href="https://github.com/rust-lang/rustlings" target="_blank" rel="noopener">Rustlings</a> 的做题感想</li><li>封面图片：来自 <a href="https://undraw.co/" target="_blank" rel="noopener">Undraw</a></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Rust </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Rust 笔记（二）其它类型</title>
+      <link href="2020/10/03/rust-note-2/"/>
+      <url>2020/10/03/rust-note-2/</url>
+      
+        <content type="html"><![CDATA[<p>匹配、向量组、哈希表和错误处理。</p><p>先过一遍基础，之后写东西遇到问题再单拎出来写整合博文……这么想的。</p><p><strong>未完</strong></p><a id="more"></a><h2 id="匹配和枚举"><a href="#匹配和枚举" class="headerlink" title="匹配和枚举"></a>匹配和枚举</h2><p>Option 和 Result</p><pre><code class="rust">enum Fruit {    Apple,    Banana,    Pear,    Orange,}fn show_fruit(fruit: Fruit) -&gt; String {    match fruit {        Fruit::Apple =&gt; &quot;apple&quot;.to_string(),        Fruit::Banana =&gt; &quot;banana&quot;.to_string(),        Fruit::Pear =&gt; &quot;pear&quot;.to_string(),        Fruit::Orange =&gt; &quot;orange&quot;.to_string(),    }}fn main() {    let myfavorite = Fruit::Orange;    println!(&quot;my favorite fruit is {}&quot;, show_fruit(myfavorite));}</code></pre><p>对于匹配时没有匹配上的项目留下的默认选项：<code>_=&gt;&lt;exp&gt;</code>，和<code>elm</code>一样。</p><p>利用类型选项来进行匹配（类似<code>Elm</code>的<code>Maybe</code>）。</p><pre><code class="rust">fn main() {    print_number(Some(32));    print_number(None);}fn print_number(str: Option&lt;i32&gt;) {    match str {        Some(s) =&gt; println!(&quot;你输入的数字是：{}&quot;, s),        None =&gt; println!(&quot;输入为空！&quot;)    }}</code></pre><p>可以对枚举成员添加属性描述：</p><pre><code class="rust">enum Message{    Id(u32),    Position {x:i32,y:i32},    Msg(String),    Color(i32,i32,i32)}match message {    Message::Id(id) =&gt; ...}</code></pre><h3 id="if-let-和-while-let"><a href="#if-let-和-while-let" class="headerlink" title="if let 和 while let"></a>if let 和 while let</h3><p>有时需要这样的使用场景</p><pre><code class="rust">if let Some(i) = value {    ...}while let Some(i) = value{    ...}</code></pre><p><code>while let</code> 和 <code>if let</code> 将 <code>value</code>解构到 <code>Some(i)</code> 中。如果<code>value</code>是<code>None</code>则为否/跳过。</p><h2 id="向量组"><a href="#向量组" class="headerlink" title="向量组"></a>向量组</h2><p>Vectors</p><pre><code class="rust">fn main() {    //向量组    let mut v: Vec&lt;i32&gt; = Vec::new();    //向向量组内添加    v.push(1);    //根据内容创建向量组    let v2 = vec![1, 2, 3];    //读取数据,    let data: &amp;i32 = &amp;v2[0];    let data2: std::option::Option&lt;&amp;i32&gt; = v2.get(0); //可能get到的是None}</code></pre><p>迭代：</p><pre><code class="rust">    for i in &amp;v2{        println!(&quot;{}&quot;, i);    }    for i in &amp;mut v {        *i +=1; //更改可变引用所引用的值，使用解除引用符号（*）        println!(&quot;{}&quot;, i);    }</code></pre><h2 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h2><pre><code class="rust">//哈希表use std::collections::HashMap;fn main() {    let field_name = String::from(&quot;Blue&quot;);    let field_value = String::from(&quot;蓝色&quot;);    let mut map = HashMap::new();    //插入数据    map.insert(field_name, field_value);</code></pre><p>读取数据</p><pre><code class="rust">    //读取数据    let _fav_color = map.get(&amp;String::from(&quot;Blue&quot;));    //打印哈希表结构,如果在结构体中打开这种格式化需要打开debug（#[derive(Debug)]）    println!(&quot;{:?}&quot;, map);    //{&quot;Blue&quot;: &quot;蓝色&quot;}</code></pre><p>更新数据</p><pre><code class="rust">    //更新数据,覆盖    map.insert(String::from(&quot;Blue&quot;), String::from(&quot;总之是蓝色&quot;));    //更新数据（如果没有和该键相关联的值）    map.entry(String::from(&quot;Red&quot;))        .or_insert(String::from(&quot;红色&quot;));    map.entry(String::from(&quot;Blue&quot;))        .or_insert(String::from(&quot;不会被覆盖&quot;));    map.entry(String::from(&quot;Yellow&quot;)).or_default(); //插入default    println!(&quot;{:?}&quot;, map);    //{&quot;Blue&quot;: &quot;总之是蓝色&quot;, &quot;Red&quot;: &quot;红色&quot;, &quot;Yellow&quot;: &quot;&quot;}</code></pre><p>删除数据</p><pre><code class="rust">    //删除数据    let blue = map.remove(&amp;String::from(&quot;Blue&quot;)); //返回值    let red = map.remove_entry(&amp;String::from(&quot;Red&quot;)); //返回键和值    println!(&quot;{:?}&quot;, blue); //Some(&quot;总之是蓝色&quot;)    println!(&quot;{:?}&quot;, red); //Some((&quot;Red&quot;, &quot;红色&quot;))</code></pre><p>遍历数据</p><pre><code class="rust">    //遍历    for (key, value) in &amp;map {        println!(&quot;-- {}:{},&quot;, key, value);    }}</code></pre><h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><p><code>Rust</code>有一个<code>panic!</code>宏。碰到无法处理的错误时，该宏运行，程序将输出错误信息并清理堆栈，退出程序。</p><pre><code class="rust">//对于可能出现的错误，使用 Result 类型处理。//enum Result&lt;T, E&gt; {//     Ok(T),//     Err(E),// }fn main() {    let input1 = &quot;abcde&quot;;    let _number: i32 = match input1.parse() {        Ok(num) =&gt; num,        Err(_) =&gt; panic!(&quot;该字符串不是数字!&quot;),    };    //thread &#39;main&#39; panicked at &#39;该字符串不是数字!&#39;, ./error.rs:13:19}</code></pre><p>错误的再匹配：<code>error.kind</code>查看错误类型。</p><p>简写：</p><pre><code class="rust">//如果失败会触发panic(由unwrap触发)let _n1: i32 = String::from(&quot;abced&quot;).parse().unwrap();//thread &#39;main&#39; panicked at &#39;called `Result::unwrap()` on an `Err` value: ParseIntError { kind: InvalidDigit }&#39;, ./error.rs:11:50</code></pre><p>使用<code>expect</code>可以提供自定义错误信息。</p><pre><code class="rust">let _n2: i32 = String::from(&quot;abced&quot;).parse().expect(&quot;non-number&quot;);//thread &#39;main&#39; panicked at &#39;non-number: ParseIntError { kind: InvalidDigit }&#39;, ./error.rs:11:50</code></pre><p><code>?</code>接在<code>Result</code>型后面，如果 Ok 则返回值，不然返回并传播 Err（退出整个函数）。所以整个函数的返回值是<code>Result</code>,例如<code>Ok(())</code>。</p><pre><code class="rust">use std::num::ParseIntError;fn pars() -&gt; Result&lt;i32, ParseIntError&gt; {    let n3 = &quot;abcde&quot;;    let n4 = n3.parse::&lt;i32&gt;()?;    Ok(n4)}//调用pars()并打印结果//Err(ParseIntError { kind: InvalidDigit })</code></pre><p><code>Box&lt;dyn std::error::Error&gt;</code>可以接受任何类型的<code>error</code>。在函数中，可以把多种类型的错误展成此一种错误。</p><p><a href="https://doc.rust-lang.org/std/keyword.dyn.html" target="_blank" rel="noopener">dyn</a>是<code>trait</code>对象的前缀，说明对<code>trait</code>上方法是动态调用的。</p><h2 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h2><p>迭代器(Iterator)。可实现对序列化对象的遍历。<a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html" target="_blank" rel="noopener">详细可用方法</a></p><p>所有<code>Iterator</code>均实现一个<code>next</code>方法以索引到下一个对象（<code>Some</code>或者<code>None</code>)。</p><p>迭代器的消耗：可以理解为迭代器内部维护着目前的迭代情况。</p><ul><li><code>collect</code>将迭代器转换回集合。有时需要注明类型，例 <code>a.iter().collect::&lt;String&gt;()</code>。</li></ul><p><strong>参考资料</strong></p><ul><li>主要是<a href="https://doc.rust-lang.org/book/title-page.html" target="_blank" rel="noopener">《The Book》</a>的读书笔记。</li><li><a href="https://github.com/rust-lang/rustlings" target="_blank" rel="noopener">Rustlings</a> 的做题感想</li><li>封面图片：<a href="https://www.pexels.com/photo/red-crab-2235924/?utm_content=attributionCopyText&utm_medium=referral&utm_source=pexels" target="_blank" rel="noopener">Photo by rompalli harish from Pexels</a></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Rust </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Rust 笔记（一）基础</title>
+      <link href="2020/09/25/rust-note-1/"/>
+      <url>2020/09/25/rust-note-1/</url>
+      
+        <content type="html"><![CDATA[<p>📔 简约我流语法笔记</p><a id="more"></a><h2 id="常规"><a href="#常规" class="headerlink" title="常规"></a>常规</h2><ul><li>没有 <code>i++</code> 之类。</li><li>没有三目运算符。</li><li>代码命名规范使用 <code>snake case</code> ，全小写并使用 <code>_</code> 作分隔。</li><li>没有用到却要留在代码里的变量加前缀 <code>_</code> ，例： <code>_member</code> 。</li></ul><h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><table><thead><tr><th>名称</th><th>标志</th><th>备注</th></tr></thead><tbody><tr><td>布尔</td><td>bool</td><td></td></tr><tr><td>字符</td><td>char</td><td>定义用单引号</td></tr><tr><td>整形</td><td>i*（带符号），u*(无符号)</td><td>*可以是 8，16，32，64，128，size(依赖于运行程序的电脑架构)</td></tr><tr><td>浮点</td><td>f*</td><td>*为 32 或 64</td></tr><tr><td>元组</td><td>(&lt;类型&gt;,&lt;类型&gt;)</td><td>组合不同类型的变量</td></tr><tr><td>数组</td><td>[&lt;类型&gt;;&lt;个数&gt;]</td><td>可以使用 [&lt;值&gt;;&lt;个数&gt;] 来初始化数组</td></tr></tbody></table><p>关于字符串：通常创建的硬编码字符串属于<code>&amp;str</code>，而创建可变字符串需要使用<code>String</code>。</p><pre><code class="rust">let a = &quot;string&quot;;let b = String::from(&quot;string&quot;);</code></pre><h3 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h3><p>元组是将多种类型的多个值组合为一个复合类型的一般方法。它的长度是固定的。</p><pre><code class="rust">fn main(){    let tup:(i32,String) = (12, &quot;abc&quot;);}</code></pre><p>取出元组中的物品需要解构或者用<code>.</code>取值。</p><pre><code class="rust">fn main() {    let tup: (i32, &amp;str) = (12, &quot;abc&quot;);    let (x, y) = tup;    let z = tup.0;    println!(&quot;first value:{} {}&quot;, x, z);    //first value:12 12}</code></pre><h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>Rust 中的数组是定长的。建立数组可以用通常的方括号法：</p><pre><code class="rust">let arr: [i32; 3] = [1,2,3];</code></pre><p>或者用同一值初始化:</p><pre><code class="rust">let arr = [1;3]; //[1, 1, 1]</code></pre><p>用于循环的快速索引：</p><pre><code class="rust">for i in 0..4 {        println!(&quot;{}&quot;, i); //0 1 2 3    }</code></pre><p>数组取值方法：</p><pre><code class="rust">fn main() {   let arr: [i32; 3] = [1,2,3];   let first = arr[0];}</code></pre><h2 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h2><h3 id="变量和常量"><a href="#变量和常量" class="headerlink" title="变量和常量"></a>变量和常量</h3><p>变量使用 <code>let</code> 定义。默认不可变，如果需要可变则加上<code>mut</code>标志。<br>用<code>let</code>定义同名变量将覆盖原先变量（这和可变变量不一样）。</p><pre><code class="rust">let x = 2;let mut y = 3;let x = 3; //x最终等于3,let不能丢y = 5;</code></pre><p>常量使用<code>const</code>定义，并<strong>必须声明类型</strong>。常量一定是不可变的，所以不用<code>mut</code>。</p><pre><code class="rust">const c:u32 = 99</code></pre><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>函数用<code>fn</code>关键字定义。</p><pre><code class="rust">fn main(){    let result = add(1,3);    println!(&quot;value:{}&quot;,result);}fn add(a:i64,b:i64) -&gt; i64{    a+b}</code></pre><p>函数的返回值与大括号内最后的表达式同值。注意，表达式最后不带<strong>分号</strong>，带分号的属于声明（statement)。</p><p>借用使用<code>&amp;&lt;变量&gt;</code>。可变借用使用<code>&amp;mut &lt;变量&gt;</code>。<strong>同时使用</strong>的借用变量只能有一个可变借用或者多个不变借用。</p><h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>单行注释 <code>//</code>，多行注释 <code>/**/</code>。</p><h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h3><p>使用 <code>if &lt;exp&gt; {&lt;then&gt;} else if &lt;exp&gt; {&lt;then&gt;} else {&lt;then&gt;}</code>。</p><p>Rust 在碰到第一个满足条件的块就执行并返回，不检查后面的内容。</p><h3 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h3><p>三种循环方法：<code>loop</code>、<code>while</code>和<code>for</code>。</p><pre><code class="rust">fn main(){    let lo = loop {      println!(&quot;loop!&quot;);      break &quot;loop&quot;; //通过break终止循环并返回 &quot;loop&quot;    };    println!(&quot;loop:{}&quot;,lo);    let mut n = 3;    while n &gt; 0 {      println!(&quot;while:{}&quot;,n);      n -= 1;    }    let list = [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;];    for i in list.iter(){ //iter()        println!(&quot;for:{}&quot;,i);    }    for i in 1..6 {        println!(&quot;for:{}&quot;,i); //打印出的是1-5    }}</code></pre><h2 id="分割"><a href="#分割" class="headerlink" title="分割"></a>分割</h2><p>数组和字符串的分割都是其一部分的引用，示例如下：</p><pre><code class="rust">//数组let a = [1, 2, 3, 4, 5];let slice = &amp;a[1..4]; //[2, 3, 4]//字符串let s = String::from(&quot;hello&quot;);let he = &amp;s[0..2];</code></pre><p>切片的数字是从 <code>开始</code> 到 <code>结束+1</code> 。如果是从第一个索引开始，0 可以省略(<code>[..2]</code>)。</p><h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><pre><code class="rust">struct Person{    name:String,    age: u64,}struct Member{    id: u64,    ..Person //使用person内的定义}struct Point(i32,i32) //元组结构</code></pre><p>初始化</p><pre><code class="rust">let p = Person {        name: String::from(&quot;Robert&quot;),        age: 8,    };let pt = Point(33,33);//如果需要一个新结构体和现存的某个结构体一样，但修改部分数据let p1 = Person {    name: String::from(&quot;Alice&quot;),    ..p};</code></pre><p>定义用于结构体的方法：往往在定义结构体的上下文，用<code>self</code>指代结构体。</p><pre><code class="rust">fn main(){    struct Point(i32,i32);    impl Point{        fn print(&amp;self){            let Point(x,y) = self;            println!(&quot;(x:{},y:{})&quot;,x,y)        }    }    let pt = Point(33,33);    pt.print();}</code></pre><p><code>impl</code>代表 implementations ， 用于定义类型的实现。</p><h2 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h2><p>字符串<a href="https://doc.rust-lang.org/book/ch04-03-slices.html" target="_blank" rel="noopener">切片</a>：对于字符串位置的引用（所以没有对应的所有权概念）</p><pre><code class="rust">let str = String::from(&quot;Hello&quot;);let he = &amp;str[0..2];println!(&quot;{}&quot;,he);//He//orlet he = &amp;str[..2]; //开始为0可以屏蔽println!(&quot;{}&quot;,he);//Helet lo = &amp;str[3..]; //结尾为最后也可以屏蔽println!(&quot;{}&quot;,lo);//lo</code></pre><p><strong>参考资料</strong></p><ul><li>主要是<a href="https://doc.rust-lang.org/book/title-page.html" target="_blank" rel="noopener">《The Book》</a>的读书笔记。</li><li><a href="https://github.com/rust-lang/rustlings" target="_blank" rel="noopener">Rustlings</a> 的做题感想</li><li>封面图片：<span>Photo by <a href="https://unsplash.com/@picoftasty?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank" rel="noopener">Mae Mu</a> on <a href="https://unsplash.com/s/photos/crab?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText" target="_blank" rel="noopener">Unsplash</a></span></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Rust </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>将 HEX 颜色值转换为 RGB 颜色值</title>
+      <link href="2020/09/17/elm-note-parser/"/>
+      <url>2020/09/17/elm-note-parser/</url>
+      
+        <content type="html"><![CDATA[<p>目前写的项目需要把<code>hex</code>颜色转换成<code>rgb</code>的形式，想起了之前写了一半就没动的<code>elm/parser</code>的博文，正好趁这个机会写完。</p><p>⚠️ 依旧是不完整笔记，只写用到的部分。</p><p>🎯 目标是将 <code>#9fa0d7</code> 这种形式的字符串提取出 RGB 的值：rgb(159,160,215)</p><a id="more"></a><ul><li><a href="https://github.com/elm/parser" target="_blank" rel="noopener">🖥️ <code>elm/parser</code> 的 GitHub 地址</a></li><li><a href="https://package.elm-lang.org/packages/elm/parser/latest/" target="_blank" rel="noopener">📦 在<code>elm-package</code>上的地址</a></li></ul><h2 id="管道流程"><a href="#管道流程" class="headerlink" title="管道流程"></a>管道流程</h2><p>包文档里提供的一个例子说明了 parser 的工作方法：</p><pre><code class="elm">point : Parser Pointpoint =  succeed Point    |. symbol &quot;(&quot;    |. spaces    |= float    |. spaces    |. symbol &quot;,&quot;    |. spaces    |= float    |. spaces    |. symbol &quot;)&quot;</code></pre><p>上面的<code>|.</code>，<code>|=</code>之类的是处理数据的方法。</p><table><thead><tr><th>管道</th><th>备注</th></tr></thead><tbody><tr><td>|.</td><td>解析并略过结果</td></tr><tr><td>|=</td><td>解析并保留结果，左侧类型要是<code>Parser (a-&gt;b)</code></td></tr><tr><td>succeed</td><td>直接输出内容，类型是<code>a-&gt;Parser a</code></td></tr><tr><td>lazy</td><td>递归解析，例如在 parser 中包含 parser</td></tr><tr><td>andThen ,problem</td><td></td></tr></tbody></table><p>所以<code>point</code>解析器表示的意思就是抽取<code>(1,2)</code>，<code>（33 , 4324)</code>类似输入中的 xy 值。</p><p>可以直接用于解析的解析器有:</p><table><thead><tr><th>类型</th><th>备注</th></tr></thead><tbody><tr><td>int, float, number</td><td>其中<code>number</code>可以同时解析不同类型的数字类型。</td></tr><tr><td>symbol</td><td>符号，多用于<code>(</code>、 <code>)</code>、 <code>,</code>等</td></tr><tr><td>end</td><td>检查是否到达字符串的终点。可以用于确保分析完了整个字符串</td></tr><tr><td>spaces</td><td>包括<code>&lt;空格&gt;</code>, <code>\n</code> ,<code>\r</code></td></tr><tr><td>keyword</td><td>解析关键字：内容是连贯完整的： n+1 位不能是字母、数字或下划线</td></tr><tr><td>variable</td><td>解析类似变量名的内容：有特定开头，内容过滤，排除保留字</td></tr><tr><td>lineComment ,multiComment</td><td>解析注释（跳过内容）</td></tr></tbody></table><p>对于我们的需求，颜色的有效输入格式是 <code>\#[\d(a-f)(A-F)]{6}\</code>。划分的时候两个两个一划并转换为十进制。大致流程如下：</p><pre><code class="elm">type alias Color =    { red : Int    , green : Int    , blue : Int    }hexToColor : Parser InthexToColor =    succeed Color            |. symbol &quot;#&quot;            |= hexToInt            |= hexToInt            |= hexToInt            |. end</code></pre><p>忽略掉前面的<code>#</code>，然后实施 3 个<code>hexToInt</code>（每个处理两个字符），每个都保留传输到 Color 构造中。</p><h2 id="逐字处理"><a href="#逐字处理" class="headerlink" title="逐字处理"></a>逐字处理</h2><p>由上，我们的第一行已经有了： <code>|. symbol &quot;#&quot;</code>，但后面的就要自己处理了。看文档使用<code>Chompers</code>（咀嚼？感觉像是吃豆人那样一个一个处理并移除）。</p><table><thead><tr><th>名称</th><th>备注</th></tr></thead><tbody><tr><td>chompIf</td><td>处理一个通过测试的字符</td></tr><tr><td>chompWhile</td><td>处理连续的通过测试的字符</td></tr><tr><td>chompUntil</td><td>处理直到碰到给定的字符</td></tr><tr><td>chompUntilEndOr</td><td>处理直到碰到给定的字符或结尾</td></tr><tr><td>getChompedString,mapChompedString</td><td>字面意思，上文中的管道方法其实都是 chomp 的一种，所以使用 symbol 函数也会收到</td></tr></tbody></table><p>接着使用</p><pre><code class="elm">hexToInt : Parser InthexToInt =    Parser.map intFromHexString &lt;|        getChompedString &lt;|            chompIf Char.isHexDigit                |. chompIf Char.isHexDigit</code></pre><ol><li>用<code>chompIf</code>处理两个字符</li><li>用<code>getChompedString</code>接受被 chomp 的字符</li><li>最后用 map 将 String 转换为 Int，其中用了一个 hex 转 int 的函数。</li></ol><h2 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h2><details><summary>点击查看</summary><pre><code class="elm">module Main exposing (main)import Browserimport Html exposing (Html, div, input, text)import Html.Attributes exposing (placeholder, type_)import Html.Events exposing (onInput)import Parser exposing (..)-- MAINmain : Program () Model Msgmain =    Browser.sandbox { init = init, update = update, view = view }-- MODELtype alias Model =    Maybe Colortype alias Color =    { red : Int    , green : Int    , blue : Int    }init : Modelinit =    Nothing-- UPDATEtype Msg    = ToParse Stringupdate : Msg -&gt; Model -&gt; Modelupdate msg model =    case msg of        ToParse input -&gt;            case run hexToColor input of                Ok color -&gt;                    Just color                Err _ -&gt;                    model-- VIEWview : Model -&gt; Html Msgview model =    div []        [ input [ type_ &quot;text&quot;, placeholder &quot;Input hex color&quot;, onInput ToParse ] []        , div [] [ text (colorToString model) ]        ]hexToColor : Parser ColorhexToColor =    let        hexToInt : Parser Int        hexToInt =            Parser.map intFromHexString &lt;|                getChompedString &lt;|                    chompIf Char.isHexDigit                        |. chompIf Char.isHexDigit    in    succeed Color        |. symbol &quot;#&quot;        |= hexToInt        |= hexToInt        |= hexToInt        |. endintFromHexString : String -&gt; IntintFromHexString hex =    let        singleHex c =            if Char.isDigit c then                Char.toCode c - Char.toCode &#39;0&#39;            else                Char.toCode c - Char.toCode &#39;A&#39; + 10        power i =            List.product (List.repeat i 16)    in    String.toList (String.toUpper hex)        |&gt; List.indexedMap (\i item -&gt; power (String.length hex - i - 1) * singleHex item)        |&gt; List.sumcolorToString : Maybe Color -&gt; StringcolorToString color =    case color of        Nothing -&gt;            &quot;不合法的颜色值的输入。&quot;        Just p -&gt;            &quot;rgb(&quot; ++ String.fromInt p.red ++ &quot;,&quot; ++ String.fromInt p.green ++ &quot;,&quot; ++ String.fromInt p.blue ++ &quot;)&quot;</code></pre></details><!-- 创建日期：2020-03-27，半年后捡起来写完。不过一看当时写的还是挺多错的…… -->]]></content>
+      
+      
+      <categories>
+          
+          <category> Web前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Elm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>自动化碎碎念栏目</title>
+      <link href="2020/08/13/tweets/minitweet/"/>
+      <url>2020/08/13/tweets/minitweet/</url>
+      
+        <content type="html"><![CDATA[<p>看到了这个：<a href="https://sspai.com/post/60024" target="_blank" rel="noopener">保卫表达：用后端 BaaS 快速搭建专属无点赞评论版微博——b 言 b 语</a> 感觉有点意思。</p><p><del>又可以愉快地往互联网倾倒碎碎念了</del></p><p>其实也可以和马上要做的笔记 app 整合起来……不过还是想定期统计数据做成静态式的。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 日志 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 折腾 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Endless开发笔记（2）：使用LiteDB</title>
+      <link href="2020/07/13/endless-2/"/>
+      <url>2020/07/13/endless-2/</url>
+      
+        <content type="html"><![CDATA[<p>能用就行 👿</p><p>这篇主要是数据保存，使用<a href="https://github.com/mbdavid/LiteDB" target="_blank" rel="noopener">LiteDB</a>。</p><a id="more"></a><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol><li>在工程命令行下：<code>Install-Package LiteDB</code>（没成功）或<code>dotnet add &lt;项目名称&gt; package LiteDB --version 4.1.4</code>（目前<code>LiteDB.FSharp</code>不支持 5.0+的<code>LiteDB</code>）或者下载复制 <code>dll</code>文件。</li><li>安装<a href="https://github.com/Zaid-Ajaj/LiteDB.FSharp" target="_blank" rel="noopener">LiteDB.FSharp</a>:<code>dotnet add &lt;项目名称&gt; package LiteDB.FSharp --version 2.15.1</code>。</li></ol><p>注：</p><p>生成时出现了错误</p><blockquote><p>错误 XA2002: 无法解析引用: <code>LiteDB</code>，引用者为 <code>Endless</code>。请为 <code>LiteDB</code> 添加 NuGet 包或程序集引用，或删除对 <code>Endless</code> 的引用。</p></blockquote><p>可能是因为我用官方给的安装方法失败了，所以包没装完全。</p><p>解决方法：打开<code>Nuget包管理器</code>给 Android 包重装一遍库。</p><h2 id="保存路径"><a href="#保存路径" class="headerlink" title="保存路径"></a>保存路径</h2><p>新建一个文件来写数据库相关。</p><p>文件保存在 android 的<a href="https://developer.android.google.cn/training/data-storage/app-specific" target="_blank" rel="noopener">应用专属文件目录</a>中。利用<a href="https://docs.microsoft.com/zh-cn/xamarin/xamarin-forms/app-fundamentals/dependency-service/" target="_blank" rel="noopener">dependency-service</a>可以先定义一个接口然后分平台实现。(参照了这个实现吐司的方法：<a href="https://stackoverflow.com/questions/35279403/toast-equivalent-for-xamarin-forms" target="_blank" rel="noopener">Toast equivalent for Xamarin Forms</a>)</p><p>定义：</p><pre><code class="fsharp">type IDataBasePath =    abstract member Path:unit-&gt;string</code></pre><p>在 Android 文件夹下：</p><pre><code class="fsharp">type DataBasePath()=    interface ELType.IDataBasePath with        member this.Path() = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), &quot;mydata.db&quot;)[&lt;assembly: Xamarin.Forms.Dependency(typeof&lt;DataBasePath&gt;)&gt;]do()</code></pre><p>最后使用的时候</p><pre><code class="f#">open LiteDBopen LiteDB.FSharpopen Xamarin.Formslet mapper = FSharpBsonMapper()let path = DependencyService.Get&lt;IDataBasePath&gt;().Path()let db = new LiteDatabase(path, mapper)</code></pre><h2 id="文档结构"><a href="#文档结构" class="headerlink" title="文档结构"></a>文档结构</h2><p><code>LiteDB.FSharp</code>库使用 records 组织结构。这里直接使用之前定义的<code>ELEntry</code>作为存储数据：</p><p>利用 ID 自增。</p><pre><code class="f#">[&lt;CLIMutable&gt;]type ELEntry= {    Id:int    Content:string    Date:string}</code></pre><p>之后添加的条目,需要自增的 id 填 0。</p><h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><pre><code class="fsharp">type ELEntry= {    Id:int    Content:string    Date:System.DateTime}type Model = {    NowId:int    NowWrite:string    Data:seq&lt;ELEntry&gt;}</code></pre><p>消息有新建、打开、删除消息框、删除、反馈输入的文字、保存和切换 Tab 。</p><pre><code class="fsharp">type Msg =    | NewEntry    | Open of int    | Delete of bool*int    | DeleteAlert of int    | NowWriting of string    | Save    | Switch of int</code></pre><h2 id="增删改查"><a href="#增删改查" class="headerlink" title="增删改查"></a>增删改查</h2><p>先得到一个表。</p><pre><code class="f#">let data = db.GetCollection&lt;ELEntry&gt;(&quot;entries&quot;)</code></pre><ol><li>增加：<code>data.Insert(newEntry)</code></li><li>修改：<code>data.Upsert(newEntry)</code>（新增或插入），<code>data.Update(newEntry)</code>。</li><li>查找：返回的数据类型是<code>seq&lt;类型&gt;</code>。所以 Model 中的 Data 为<code>seq&lt;ELEntry&gt;</code>型。<ul><li>查找全部： <code>data.FindAll()</code></li><li>按 id 查找: <code>data.FindOne(fun data-&gt;data.Id=id)</code></li></ul></li><li>删除：<ul><li>按 id 删除：<code>data.Delete id</code></li></ul></li></ol><h3 id="例"><a href="#例" class="headerlink" title="例"></a>例</h3><ol><li><p>输入的时候，数据保存到<code>model.NowWrite</code>中。</p><p> 对应<code>type Msg</code>的消息类型<code>NowWriting</code>。在视图的 Editor 中，每当输入文字时发送消息。</p><pre><code class="fsharp"> View.Editor     (text = model.NowWrite,     textChanged = (fun text -&gt; dispatch (NowWriting text.NewTextValue) |&gt; ignore),     &lt;略&gt;)</code></pre><p> 处理方法：</p><pre><code class="fsharp"> match msg with | NowWriting str -&gt; { model with ELType.NowWrite = str }, Cmd.none | &lt;略&gt;</code></pre></li><li><p>保存的时候，更新数据库。</p><pre><code class="fsharp"> //输入界面 View.NavigationPage     (icon = penImg, title = &quot;笔记&quot;, toolbarItems = [ View.ToolbarItem(icon = saveImg, command = (fun()-&gt; dispatch Save) ) ], &lt;略&gt;) //update match msg with     | Save -&gt;         let newEntry =             { Content = model.NowWrite             Date = System.DateTime.Today             Id = model.NowId }         ELDb.upsert (newEntry) |&gt; ignore         { model with             NowWrite = &quot;&quot;             Data = ELDb.data.FindAll() },         Cmd.none</code></pre></li></ol><h2 id="最后的效果"><a href="#最后的效果" class="headerlink" title="最后的效果"></a>最后的效果</h2><p><img src="/2020/07/13/endless-2/endless-21.jpg" alt="结果"></p><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul><li><p>实际写的时候发现设计没做好，还需要一个“新建”按钮和“删除”按钮。新建的时候将 ID 置 0。（又回去改第一篇博文 😓）</p></li><li><p>异常处理没做</p></li><li><p>打包出来 20M，下次写 flutter。</p></li></ul><p><strong>参考：</strong></p><ul><li><a href="https://www.litedb.org/docs/" target="_blank" rel="noopener">LiteDB 文档参考</a></li><li><a href="https://docs.microsoft.com/zh-cn/xamarin/android/platform/files/#reading-or-writing-to-files-on-internal-storage" target="_blank" rel="noopener">内部存储上的文件读写 - Xamarin</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Android </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Fabulous </tag>
+            
+            <tag> F# </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Endless开发笔记（1）：基础布局</title>
+      <link href="2020/06/20/endless-1/"/>
+      <url>2020/06/20/endless-1/</url>
+      
+        <content type="html"><![CDATA[<p>新的一天新的 Flag，突然想整 F#，做不来就回退。</p><a id="more"></a><h2 id="软件原型"><a href="#软件原型" class="headerlink" title="软件原型"></a>软件原型</h2><p>一个快速笔记软件。点击进软件就是写作界面，关闭软件或按下保存键则归档进入保存卡片。</p><p>原型图：</p><p><img src="/2020/06/20/endless-1/endless.png" alt="原型图"></p><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol><li>装 vs</li><li>按照<a href="https://fsprojects.github.io/Fabulous/Fabulous.XamarinForms/" target="_blank" rel="noopener">官网的方法</a>，打开 vs 命令行,输入 <code>dotnet new -i Fabulous.XamarinForms.Templates</code></li><li>cd 进想要创建工程的文件夹，输入 <code>dotnet new fabulous-xf-app -n &lt;工程名字&gt;</code> 。默认创建 android 和 ios 程序，不想要/添加新的需要加参数。例：创建 wpf 程序<code>dotnet new fabulous-xf-app -n &lt;工程名字&gt; --iOS=false --Android=false --WPF</code></li></ol><p>这次软件名设为 Endless,有 Android 端。则初始化命令为<code>dotnet new fabulous-xf-app -n Endless --iOS=false</code></p><h2 id="布局"><a href="#布局" class="headerlink" title="布局"></a>布局</h2><h3 id="使用字体图标"><a href="#使用字体图标" class="headerlink" title="使用字体图标"></a>使用字体图标</h3><ol><li><p>字体放入共用工程内（和工程名相同，此处为 Endless），然后在字体的属性栏中，将生成操作设置为<code>嵌入的资源</code>（Build Action: <code>EmbeddedResource</code>）。</p></li><li><p>在共用工程下，建立<code>AssemblyInfo.fs</code>（或者在别的文件里），注册资源：</p><pre><code class="fsharp"> namespace Endless open Xamarin.Forms [&lt;assembly:ExportFont(&quot;MaterialIcons-Regular.ttf&quot;, Alias = &quot;MaterialIcons&quot;)&gt;] do ()</code></pre></li><li><p>引用字体的时候直接写。例：从字体图标中找到“笔”并将其作为图片。<code>Glyph</code>是图标的 unicode 码。</p><pre><code class="fsharp"> let penImg = Image.ImageFont(FontImageSource(Glyph=&quot;\ue254&quot;,FontFamily=&quot;MaterialIcons&quot;))</code></pre><p> 然后</p><pre><code class="fsharp"> View.TabbedPage(children=[         View.ContentPage(icon =penImg, title=&quot;笔记&quot;)         View.ContentPage(icon=archiveImg, title=&quot;归档&quot;)])</code></pre></li></ol><h3 id="标题栏"><a href="#标题栏" class="headerlink" title="标题栏"></a>标题栏</h3><p>为了显示标题栏，给每个页面套了个<code>NavigationPage</code>。</p><p>标题栏上的每个物件属于<code>ToolbarItem</code>，可以附着在<code>Page</code>型的<code>toolbaritems</code>下。</p><p><code>ToolbarItem</code>可定义的有:</p><ul><li><code>Command</code> 绑定用户动作</li><li><code>CommandParameter</code> 传送给控件的变量</li><li><code>Icon</code> 图标</li><li><code>Text</code> 显示的文字</li><li><code>Order</code> 枚举参数，决定物品显示在一级菜单还是二级菜单中</li><li><code>Priority</code> 显示顺序</li></ul><p>例：</p><pre><code class="fsharp">  let writePage = View.NavigationPage            (icon = penImg, title = &quot;笔记&quot;,             toolbarItems=[View.ToolbarItem(icon=saveImg)],  //saveImg也是一个图片             pages = &lt;略&gt;)  let archivePage = &lt;略&gt;</code></pre><p>而原<code>TabbedPage</code>变成：</p><pre><code class="fsharp">View.TabbedPage(children = [ writePage; archivePage ])</code></pre><h3 id="输入框"><a href="#输入框" class="headerlink" title="输入框"></a>输入框</h3><p>自动改变大小</p><pre><code class="fsharp">View.Editor(placeholder = &quot;等待输入&quot;, autoSize = EditorAutoSizeOption.TextChanges)</code></pre><h3 id="归档页面"><a href="#归档页面" class="headerlink" title="归档页面"></a>归档页面</h3><p>卡片布局，没什么特别要写的。实现主要是<code>FlexLayout</code> + <code>StackLayout</code>和一个<code>Frame</code>.</p><p><code>Frame</code>不设置边框属性的话不显示阴影，有点奇怪。</p><ul><li><a href="https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/layouts/flex-layout#the-bindable-properties-in-detail" target="_blank" rel="noopener">FlexLayout 布局属性参考</a></li></ul><h2 id="交互"><a href="#交互" class="headerlink" title="交互"></a>交互</h2><h3 id="1-点击卡片"><a href="#1-点击卡片" class="headerlink" title="1. 点击卡片"></a>1. 点击卡片</h3><p>卡片内容显示在输入界面里。</p><p>这里用的是假数据，后面再连数据库。</p><ul><li><a href="https://fsprojects.github.io/Fabulous/Fabulous.XamarinForms/views-gestures.html" target="_blank" rel="noopener">手势参考</a></li></ul><pre><code class="fsharp">//在卡片里设置点击反应gestureRecognizers = ([ View.TapGestureRecognizer(command = (fun () -&gt; dispatch (Open entry.Id))) ]),...//update| Open id -&gt; let e=(search id model.Data) in {model with  NowWrite= e.Content; NowId = e.Id},Cmd.none</code></pre><h3 id="2-使用代码切换-Tab"><a href="#2-使用代码切换-Tab" class="headerlink" title="2. 使用代码切换 Tab"></a>2. 使用代码切换 Tab</h3><p>上文中“点击卡片返回输入界面”的实现。观察发现<code>TabbedPage</code>有属性<code>currentPage</code>可以<code>get,set</code>。所以尝试通过改变<code>currentPage</code>来改变当前页面的值。</p><p>引用<code>TabbedPage</code>使用了<a href="https://fsprojects.github.io/Fabulous/Fabulous.XamarinForms/views-animations.html#viewrefs" target="_blank" rel="noopener">ViewRef</a>。<code>ViewRef</code>是弱引用，初始为空，_在<code>view</code>函数被调用并显示后才填充值_，所以将对<code>ViewRef</code>的处理放到了<code>update</code>函数中。</p><pre><code class="fsharp">//声明let tabRef = ViewRef&lt;TabbedPage&gt;()...//设置View.TabbedPage        (ref = tabRef, children = [ writePage; archivePage ])</code></pre><p>修改上文点击反应，发送切换页面的消息。</p><pre><code class="fsharp">gestureRecognizers =    ([ View.TapGestureRecognizer        (command =            (fun () -&gt;                dispatch (Open entry.Id)                dispatch (Switch 0))) ])</code></pre><p>update 中处理页面切换。</p><pre><code class="fsharp">    let update (msg: Msg) (model: Model) =        match msg with        | Switch index -&gt;            match tabRef.TryValue with            | None -&gt; ()            | Some page -&gt; page.CurrentPage &lt;- page.GetPageByIndex(index)            model, Cmd.none        |  &lt;略&gt;</code></pre><h3 id="3-提取输入的标题"><a href="#3-提取输入的标题" class="headerlink" title="3. 提取输入的标题"></a>3. 提取输入的标题</h3><p>设计：输入笔记的第一行如果是<code># 标题</code>，那么将第一行设置为标题。 //非常简陋</p><pre><code class="fsharp">let cardParser (str:string) =    let res = Regex(&quot;#(.*)&quot;).Match(str)    if res.Success then (res.Value.[1..].Trim(), str.[res.Length..].Trim())    else (&quot;&quot;,str)</code></pre><h3 id="4-弹窗"><a href="#4-弹窗" class="headerlink" title="4. 弹窗"></a>4. 弹窗</h3><p>弹窗：<a href="https://fsprojects.github.io/Fabulous/Fabulous.XamarinForms/views-popups.html" target="_blank" rel="noopener">Pop-ups</a></p><p>根据文档里的说法，</p><blockquote><p><code>Pop-ups</code>是<code>Fabulous for Xamarin.Forms</code>中的一种特殊情况：他们是视图的一部分，但是不和 UI 的其他部分共享生命周期。在<code>Xamarin.Forms</code>中，<code>Pop-ups</code>用当前页面的两种方法暴露：<code>DisplayAlert</code> 和 <code>DisplayActionSheet</code>。<br>在<code>Fabulous for Xamarin.Forms</code>中我们仅描述页面该是什么样，并不访问 UI 控件本身，所以没有直接的方法使用这两个函数。不过我们可以使用<code>Xamarin.Forms</code>暴露的静态属性 <code>Application.Current.MainPage</code> 。</p></blockquote><p>所以,点击删除时 <del>（其实在原型图里忘画了）</del></p><pre><code class="fsharp">| DeleteAlert id -&gt;            let alertResult =                async {                    let! alert =                        Application.Current.MainPage.DisplayAlert(&quot;警告&quot;, &quot;删除这条信息？&quot;, &quot;是&quot;, &quot;否&quot;)                        |&gt; Async.AwaitTask                    return Delete (alert,id)                }            model, Cmd.ofAsyncMsg alertResult| Delete (alert,id) -&gt; &lt;后续处理&gt;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Android </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Fabulous </tag>
+            
+            <tag> F# </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>JS 笔记：Promise</title>
+      <link href="2020/05/17/js-promise/"/>
+      <url>2020/05/17/js-promise/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>Promise 对象用于表示一个异步操作的最终完成 (或失败), 及其结果值.</p></blockquote><a id="more"></a><h2 id="构造一个-Promise"><a href="#构造一个-Promise" class="headerlink" title="构造一个 Promise"></a>构造一个 Promise</h2><pre><code class="js">let p = new Promise((resolve, reject) =&gt; {  setTimeout(() =&gt; resolve(&quot;1秒后执行代码&quot;), 1000);});p.then((data) =&gt; console.log(data));//1秒后执行代码</code></pre><p><code>Promise</code>有三种状态：</p><ul><li>初始状态 <code>pending</code></li><li>成功 <code>fulfilled</code></li><li>失败 <code>rejected</code>。</li></ul><p>一个完成前的控制台打印：</p><pre><code class="js">let p = new Promise((resolve, reject) =&gt; {  setTimeout(() =&gt; resolve(&quot;1秒后执行代码&quot;), 1000);});console.log(p);//Promise { &lt;state&gt;: &quot;pending&quot; }p.then((data) =&gt; console.log(p));//Promise { &lt;state&gt;: &quot;fulfilled&quot;, &lt;value&gt;: &quot;1秒后执行代码&quot; }</code></pre><h2 id="使用一个-Promise"><a href="#使用一个-Promise" class="headerlink" title="使用一个 Promise"></a>使用一个 Promise</h2><ul><li>回调函数在本轮所有事件循环运行完成后执行。</li><li>使用 <code>catch</code> 终止链以捕获异常。</li><li>使用 <code>finally</code> 完成无论成功与否的后续操作。</li></ul><pre><code class="js">let p1 = new Promise((resolve, reject) =&gt; {  reject(&quot;fail&quot;);});p1.then((data) =&gt; console.log(data))  .catch((e) =&gt; console.log(e))  .finally(() =&gt; {    console.log(&quot;finally&quot;);  });//fail//finally</code></pre><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p><code>Promise.all</code></p><p>方法返回一个<code>Promise</code>对象，所有参数里的<code>promise</code>都触发成功的时候才会成功，并将参数里所有<code>promise</code>的返回值数组作为成功回调的返回值，第一个失败的<code>promise</code>信息作为失败信息。</p><p><code>Promise.race</code></p><p>任意一个参数中的子<code>promise</code>返回结果后，将其结果返回。</p><pre><code class="js">let p1 = new Promise((resolve, reject) =&gt; {  setTimeout(() =&gt; resolve(&quot;1秒&quot;), 1000);});let p2 = new Promise((resolve, reject) =&gt; {  setTimeout(() =&gt; resolve(&quot;2秒&quot;), 2000);});let p3 = new Promise((resolve, reject) =&gt; {  setTimeout(() =&gt; resolve(&quot;3秒&quot;), 2000);});Promise.race([p1, p2, p3]).then((data) =&gt; console.log(data));//1秒Promise.all([p1, p2, p3]).then((data) =&gt; console.log(data));//[&quot;1秒&quot;, &quot;2秒&quot;, &quot;3秒&quot;]</code></pre><p>实现一个<code>Promise.all</code></p><pre><code class="js">function myPromiseAll(parr) {  let ans = [];  return new Promise((resolve, reject) =&gt; {    run(0);    function run(i) {      if (i &lt; parr.length)        return parr[i]          .then((data) =&gt; {            ans.push(data);            run(i + 1);          })          .catch((e) =&gt; reject(e));      else resolve(ans);    }  });}/*测试*/let p1 = new Promise((resolve, reject) =&gt; {  setTimeout(() =&gt; resolve(&quot;1秒&quot;), 1000);});let p2 = new Promise((resolve, reject) =&gt; {  setTimeout(() =&gt; resolve(&quot;2秒&quot;), 2000);});let p3 = new Promise((resolve, reject) =&gt; {  setTimeout(() =&gt; resolve(&quot;3秒&quot;), 3000);});let p4 = new Promise((resolve, reject) =&gt; {  setTimeout(() =&gt; reject(&quot;错误&quot;), 1000);});myPromiseAll([p1, p2, p3]).then((data) =&gt; console.log(data));//[&quot;1秒&quot;, &quot;2秒&quot;, &quot;3秒&quot;]myPromiseAll([p1, p2, p4])  .then((data) =&gt; console.log(data))  .catch((e) =&gt; console.log(e));//错误</code></pre><p>实现一个<code>Promise.race</code></p><pre><code class="js">function myPromiseRace(parr) {  return new Promise((resolve, reject) =&gt; {    for (let p of parr) p.then((data) =&gt; resolve(data)).catch((e) =&gt; reject(e));  });}/*测试*/let p1 = new Promise((resolve, reject) =&gt; {  setTimeout(() =&gt; resolve(&quot;1秒&quot;), 1000);});let p2 = new Promise((resolve, reject) =&gt; {  setTimeout(() =&gt; resolve(&quot;2秒&quot;), 2000);});let p3 = new Promise((resolve, reject) =&gt; {  setTimeout(() =&gt; resolve(&quot;3秒&quot;), 3000);});let p4 = new Promise((resolve, reject) =&gt; {  setTimeout(() =&gt; reject(&quot;错误&quot;), 1000);});myPromiseRace([p3, p2, p1]).then((d) =&gt; console.log(d));//1秒myPromiseRace([p2, p3, p4])  .then((d) =&gt; console.log(d))  .catch((e) =&gt; console.log(e));//错误</code></pre><p>参考：</p><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="noopener">Promise - MDN</a></li><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises" target="_blank" rel="noopener">使用 Promise - MDN</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JavaScript </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>JS 笔记：Symbol &amp; 判断数据类型</title>
+      <link href="2020/05/17/js-symbol/"/>
+      <url>2020/05/17/js-symbol/</url>
+      
+        <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><code>Symbol</code>是一种基本数据类型。<code>Symbol()</code>会返回一个唯一的值。<strong>不是<code>new Symbol()</code></strong>。</p><a id="more"></a><pre><code class="js">let s1 = Symbol();let s2 = Symbol(&quot;a&quot;);let s3 = Symbol(&quot;a&quot;);console.log(s1 == s2); //falseconsole.log(s2 == s3); //falseconsole.log(s1); //[object Symbol]</code></pre><h2 id="判断数据类型"><a href="#判断数据类型" class="headerlink" title="判断数据类型"></a>判断数据类型</h2><p>javascript 的数据类型有如下几种:</p><p>基本类型：</p><ul><li><code>Number</code></li><li><code>String</code></li><li><code>Boolean</code></li><li><code>Null</code></li><li><code>Undefined</code></li><li><code>Symbol</code></li></ul><p>引用类型：</p><ul><li><code>object</code>：其中又有 <code>function</code>,<code>Array</code>，<code>Date</code>，<code>Map</code> <code>Set</code> <code>WeakMap</code> <code>WeakSet</code> <code>json</code>等</li></ul><h3 id="使用-typeof-判断数据类型："><a href="#使用-typeof-判断数据类型：" class="headerlink" title="使用 typeof 判断数据类型："></a>使用 <code>typeof</code> 判断数据类型：</h3><pre><code class="js">function printType(ele) {  console.log(typeof ele);}let group = {  &quot;1&quot;: 1,  str: &quot;str&quot;,  true: true,  null: null,  undefined: undefined,  symbol: Symbol(),  &quot;[1,2,3]&quot;: [1, 2, 3],  Date: new Date(),  json: { a: &quot;aaa&quot; },};for (i in group) {  console.log(i + &quot; &quot; + typeof group[i]);}function f() {  return true;}console.log(&quot;function &quot; + typeof f);// 1 number// str string// true boolean// null object// undefined undefined// symbol symbol// [1,2,3] object// Date object// json object// function function </code></pre><p>奇异的是 <code>null</code> 会被判断成 <code>object</code>。经查是<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/typeof" target="_blank" rel="noopener">历史性 bug</a>。</p><h3 id="使用-instanceof-判断数据类型"><a href="#使用-instanceof-判断数据类型" class="headerlink" title="使用 instanceof 判断数据类型"></a>使用 <code>instanceof</code> 判断数据类型</h3><pre><code class="js">function f() {  return true;}console.log(new Date() instanceof Date); //trueconsole.log([1, 2, 3] instanceof Array); //trueconsole.log([1, 2, 3] instanceof Function); //falseconsole.log(f instanceof Function); //true</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JavaScript </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>CSS：盒模型</title>
+      <link href="2020/05/13/css-box/"/>
+      <url>2020/05/13/css-box/</url>
+      
+        <content type="html"><![CDATA[<p><code>盒模型</code>(Box Model)是 CSS 布局的一种模式。</p><a id="more"></a><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>一个盒模型元素从内到外分为：</p><ul><li>Content 内容</li><li>Padding 内边距</li><li>Border 边框</li><li>Margin 外边框</li></ul><p>指定盒模型：</p><pre><code class="css">box-sizing: content-box //宽度和高度应用到contentbox-sizing: border-box   //IE型，宽度和高度应用到Border为止</code></pre><h2 id="元素居中"><a href="#元素居中" class="headerlink" title="元素居中"></a>元素居中</h2><h3 id="水平居中"><a href="#水平居中" class="headerlink" title="水平居中"></a>水平居中</h3><ul><li>文字：设置 <code>text-align:center</code>。</li><li>块级元素：设置 <code>margin:0 auto</code>，必须自身有宽度。</li></ul><h3 id="垂直居中"><a href="#垂直居中" class="headerlink" title="垂直居中"></a>垂直居中</h3><ul><li>单行文字：设置 <code>line-height:&lt;父高度&gt;</code>。</li><li>块级元素：<code>position:relative;top:25%;</code>，必须自身有高度。</li><li>块级元素： <code>position:relative; top:50%; left:50%; transform: translate(-50%,-50%);</code>，自身可不设高度。</li></ul><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul><li>设置父元素为<code>display:flex;align-items: center;justify-content: center;</code>。<code>align-items</code>管上下，<code>justify-content</code>管左右。</li><li>设置父元素为<code>grid</code>，同上。</li></ul><h2 id="属性选择器的匹配"><a href="#属性选择器的匹配" class="headerlink" title="属性选择器的匹配"></a>属性选择器的匹配</h2><pre><code class="css">[class^=&quot;parent&quot;]//选择以parent开头的类[attribute^=&quot;value&quot;]//选属性值以value开头的元素[attribute=value]//选择属性值=value的元素[attribute~=value]//选择属性值包含value的元素</code></pre><p>参考：<a href="https://www.w3school.com.cn/cssref/css_selectors.asp" target="_blank" rel="noopener">CSS 选择器</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CSS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>前端安全（XSS &amp; CSRF）</title>
+      <link href="2020/04/29/fe-security/"/>
+      <url>2020/04/29/fe-security/</url>
+      
+        <content type="html"><![CDATA[<p>随便了。</p><a id="more"></a><h2 id="XSS-攻击"><a href="#XSS-攻击" class="headerlink" title="XSS 攻击"></a>XSS 攻击</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>XSS（Cross Site Scripting，跨站脚本）攻击。在页面中插入恶意代码，在运行时攻击。</p><p>主要分为反射型（修改 URL），存储型（上传到数据库，从数据库中提取返回时运行）。重点在于处理用户输入。</p><h3 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h3><ul><li>X-XSS-Protection</li></ul><p>HTTP 响应头中的 <code>X-XSS-Protection</code>属性(<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/X-XSS-Protection" target="_blank" rel="noopener">MDN</a>，<strong>非规范</strong>)。当检测到 XSS 攻击时，浏览器停止加载页面。</p><p>语法：</p><pre><code class="http">X-XSS-Protection: 0 //禁止xss过滤X-XSS-Protection: 1  //开启（默认）X-XSS-Protection: 1; mode=block //检测到攻击，阻止加载</code></pre><ul><li>Content-Security-Policy</li></ul><p>HTTP 响应头中的 <code>Content-Security-Policy</code>属性（<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy" target="_blank" rel="noopener">MDN</a>）。控制页面能加载哪些资源。</p><p>语法：</p><pre><code class="http">//在 http header 上使用Content-Security-Policy: &lt;策略&gt;; &lt;策略&gt;//在 html 上使用&lt;meta http-equiv=&quot;content-security-policy&quot; content=&quot;&lt;策略&gt;; &lt;策略&gt;&quot;&gt;</code></pre><p>举例：</p><p>所有资源均来自当前域名并使用 https 加载</p><pre><code class="http">Content-Security-Policy: default-src https:</code></pre><p>如果 <code>script-src</code> 设置了<code>unsafe-inline</code>，则可以执行页面内的内联代码。</p><p>扩展阅读：<a href="http://www.ruanyifeng.com/blog/2016/09/csp.html" target="_blank" rel="noopener">Content Security Policy 入门教程</a></p><ul><li>X-Content-Type-Options</li></ul><p>此响应头提示客户端一定要遵循文件标识的 MIME 类型，禁用了客户端的 MIME 嗅探行为。</p><pre><code class="http">X-Content-Type-Options: nosniff</code></pre><ul><li>对用户输入进行转义。</li></ul><p>常见转义符号：</p><table><thead><tr><th>符号</th><th>转义</th></tr></thead><tbody><tr><td>&lt;</td><td><code>&amp;lt;</code></td></tr><tr><td>&gt;</td><td><code>&amp;gt;</code></td></tr><tr><td>&amp;</td><td><code>&amp;amp;</code></td></tr><tr><td>“</td><td><code>&amp;quot;</code></td></tr><tr><td>‘</td><td><code>&amp;apos;</code></td></tr></tbody></table><p>使用正则</p><pre><code class="js">function escape(input) {  const sheet = {    &quot;&lt;&quot;: &quot;&amp;lt;&quot;,    &quot;&gt;&quot;: &quot;&amp;gt;&quot;,    &quot;&amp;&quot;: &quot;&amp;amp;&quot;,    &#39;&quot;&#39;: &quot;&amp;quot&quot;,    &quot;&#39;&quot;: `&amp;apos;`,  };  return input.replace(/([&#39;&quot;&lt;&gt;&amp;])/g, (c) =&gt; sheet[c]);}</code></pre><p>或者使用 div 的 <code>innerText</code>的方法：</p><pre><code class="js">function escape(input) {  let div = document.createElement(&quot;div&quot;);  div.innerText = input;  return div.innerHTML;}</code></pre><h2 id="CSRF-攻击"><a href="#CSRF-攻击" class="headerlink" title="CSRF 攻击"></a>CSRF 攻击</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>CSRF（Cross-site request forgery，跨站请求伪造）。在钓鱼网站利用用户的登录凭证（cookie 等）冒充用户进行操作。</p><h3 id="防御-1"><a href="#防御-1" class="headerlink" title="防御"></a>防御</h3><ul><li>对请求网站的限制</li></ul><p>判断请求头中的<code>Referer</code>。</p><ul><li>Token</li></ul><p><code>Token</code>是在服务器端生成的验证。可以设置每次请求都需携带特定的<code>Token</code>。</p><p><strong>session 和 token</strong></p><ul><li><code>session</code>由服务端生成，保存在服务端。</li><li><code>token</code>由服务端生成，存储在客户端。客户端请求时在请求头里携带<code>token</code>，服务端只需验证返回的<code>token</code>是否合法。</li></ul><h2 id="扩展：同源策略"><a href="#扩展：同源策略" class="headerlink" title="扩展：同源策略"></a>扩展：同源策略</h2><p>同源策略是浏览器的一个安全功能，即默认（未授权情况下）只执行来自同一个源（<code>协议</code>，<code>域名</code>，<code>端口</code>都相同）的资源。</p><p>如果进行跨域操作，通常：</p><ul><li>写（链接，重定向，表单提交等）：允许</li><li>资源嵌入（CDN, img）等：允许</li><li>读：不允许</li></ul><ol><li><p>请求非同源情况下，服务器返回结果，响应头中没有<code>Access-Control-Allow-Origin</code>相关（=CORS），则浏览器拦截。</p></li><li><p>可以使用<code>&lt;script&gt;</code>脚本 src 不检测跨源的特性绕过同源策略。 = jsonp，将数据填入回调函数。（只适用<code>GET</code>请求）。<br>示例：</p><pre><code class="html"> &lt;script src=&quot;www.domain.com/api?callback=cb&quot;&gt;</code></pre><pre><code class="js"> function cb(data) {   console.log(data); }</code></pre><p> 服务器脚本内容是<code>cb(data)</code>。也就是<strong>本地定义函数，服务器调用</strong>。</p></li><li><p><code>WebSocket</code>不遵循同源策略。</p></li></ol><p>参考：<a href="https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy" target="_blank" rel="noopener">浏览器的同源策略</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 学习 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>JS 笔记：Proxy &amp; Reflect</title>
+      <link href="2020/04/28/js-proxy/"/>
+      <url>2020/04/28/js-proxy/</url>
+      
+        <content type="html"><![CDATA[<p>Proxy 作为一个对象的代理——利用 Proxy 操作原对象，可覆盖原对象的方法。</p><a id="more"></a><h2 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h2><p>覆盖/添加对原对象的操作。</p><pre><code class="js">const handler = {  get(obj, prop) {    return prop in obj ? obj[prop] + &quot; from proxy&quot; : &quot;do not exist&quot;;  },};var target = { a: 100 };const p = new Proxy(target, handler);console.log(target.a);//100console.log(p.a);//100 from proxyconsole.log(target.b);//undefinedconsole.log(p.b);//do not exist</code></pre><p>对代理的操作=对原对象的操作</p><pre><code class="js">var target = { a: 100 };const p = new Proxy(target, {});p.b = &quot;b&quot;;console.log(target.b);//b</code></pre><h2 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h2><p><code>Reflect</code>是一个内置对象，提供一些原生的方法。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy" target="_blank" rel="noopener">Proxy - MDN</a></p></li><li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Reflect" target="_blank" rel="noopener">Reflect - MDN</a></p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JavaScript </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>JS 笔记：原型</title>
+      <link href="2020/04/22/js-prototype/"/>
+      <url>2020/04/22/js-prototype/</url>
+      
+        <content type="html"><![CDATA[<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>JavaScript 是一种基于原型的语言，每个对象都是原型对象的实例。</p><p>每个函数都有一个叫做原型(prototype)的属性。可以添加属性到 prototype 上。之后就可以利用<code>new</code>创造新的、含有这个属性的实例。</p><a id="more"></a><pre><code class="js">var Point = function () {};Point.prototype.value = [1, 2];let p = new Point();console.log(p.value);//[1, 2]</code></pre><p>使用的时候会链式查找是否有这个属性。</p><h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>定义在 <code>prototype</code> 上的属性（一个对象）可以继承。</p><pre><code class="js">var Vehicle = function () {};Vehicle.prototype.color = &quot;red&quot;;Vehicle.seats = 4;console.log(Vehicle.color);//undefinedconsole.log(Vehicle.seats);//4let car = new Vehicle();console.log(car.color);//redconsole.log(car.seats);//undefinedconsole.log(Vehicle);//function(){ }console.log(car);/*{}&lt;prototype&gt;: {…}​color: &quot;red&quot;​​constructor: function Vehicle()*/</code></pre><ul><li><code>Vehicle.color</code> 输出 <code>undefined</code>，<code>car.color</code> 不是， 而 <code>Vehicle.seats</code> 可以直接使用。 <strong>定义在<code>prototype</code>上的属性当前对象不能使用，继承对象才能使用。</strong></li><li>需要继承的属性定义在 <code>prototype</code> 上，比如说 <code>car</code> 能使用 <code>color</code> 而不能使用 <code>seats</code>。</li><li><code>car.__proto__</code> 就是对象<code>Vehicle</code>。</li></ul><h2 id="proto-和-prototype"><a href="#proto-和-prototype" class="headerlink" title="__proto__ 和 prototype"></a><code>__proto__</code> 和 <code>prototype</code></h2><blockquote><p>每个实例对象（ object ）都有一个私有属性（称之为 <strong>proto</strong> ）指向它的<em>构造函数的原型对象</em>（prototype）。</p></blockquote><p>在查找属性是否存在的时候，先查找属性是否存在，不然就查找其 <code>__proto__</code> 中是否存在，然后是 <code>__proto__</code> 指向的对象的 <code>__proto__</code> 中是否存在，直到 <code>__proto__</code> 为 <code>null</code>。</p><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>匿名函数的<code>prototype</code>：</p><pre><code class="js">const cola = () =&gt; &quot;Give me cola!&quot;;console.log(cola);//() =&gt; &quot;Give me cola!&quot;console.log(cola.prototype);//undefinedconsole.log(cola.__proto__);//function () {//  [native code]//}</code></pre><p>参考资料：</p><ul><li><p><a href="https://developer.mozilla.org/zh-CN/docs/Learn/JavaScript/Objects/Object_prototypes" target="_blank" rel="noopener">对象原型 - MDN</a></p></li><li><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain" target="_blank" rel="noopener">继承与原型链 - MDN</a></p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JavaScript </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>JS 笔记：类的用法</title>
+      <link href="2020/04/21/js-class/"/>
+      <url>2020/04/21/js-class/</url>
+      
+        <content type="html"><![CDATA[<p>类是 ES6 引进的新写法。实际上是一种特殊的函数。</p><a id="more"></a><h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>要先声明类才能访问。定义类：</p><pre><code class="js">class Vehicle {  _color = &quot;black&quot;;  //构造函数  constructor(color, size, seats) {    this._color = color;    this._size = size;    this._seats = seats;  }}let car = new Vehicle(&quot;red&quot;, &quot;s&quot;, 4);</code></pre><ul><li>类的构造函数为<code>constructor</code>，只能有一个。可以用<code>super</code>调用父类的构造函数。</li><li>类中，对象无<code>this</code>值的时候会返回<code>undefined</code>，不会自动定义<code>this</code>值。而用原型方法定义类则会自动定义<code>this</code>。</li><li>类中的<strong>实例属性</strong>必须定义在类的方法里。 <strong>静态属性</strong>在类定义的外面。</li></ul><pre><code class="js">class Vehicle {  //构造函数  constructor(color, size, seats) {    this._color = color;    this._size = size;    this._seats = seats;  }}let car = new Vehicle(&quot;red&quot;, &quot;s&quot;, 4);</code></pre><h2 id="Getter-和-Setter"><a href="#Getter-和-Setter" class="headerlink" title="Getter 和 Setter"></a>Getter 和 Setter</h2><p>便于返回一些需要动态计算的值，定义在原型上。</p><pre><code class="js">class Vehicle {  //构造函数  constructor(color, size, seats) {    this._color = color;    this._size = size;    this._seats = seats;  }  get seats() {    return this._seats + &quot; seats&quot;;  }  set seats(s) {    this._seats = s;  }}const car = new Vehicle(&quot;red&quot;, &quot;s&quot;, 4);console.log(car.seats);//4 seatscar.seats = 5;console.log(car.seats);//5 seats</code></pre><h2 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h2><pre><code class="js">class Vehicle {  //构造函数  constructor(color, size, seats) {    this._color = color;    this._size = size;    this._seats = seats;  }  static isVehicle() {    return true;  }}console.log(Vehicle.isVehicle());//true</code></pre><h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>会调用父级的构造函数。</p><pre><code class="js">class Vehicle {  //构造函数  constructor(color, size, seats) {    this._color = color;    this._size = size;    this._seats = seats;  }  get seats() {    return `${this._seats} seats`;  }  set seats(s) {    this._seats = s;  }}class Car extends Vehicle {  //覆盖了父级  get seats() {    return &quot;4 seats&quot;;  }  get color() {    return `The car&#39;s color is ${this._color}`;  }}const car = new Car(&quot;red&quot;, &quot;s&quot;, 100);console.log(car.seats);//4 seatsconsole.log(car.color);//The car&#39;s color is red</code></pre><p>自己的构造函数，一定要调用 super()。</p><pre><code class="js">class Vehicle {  //构造函数  constructor(color, size, seats) {    this._color = color;    this._size = size;    this._seats = seats;  }  get seats() {    return this._seats + &quot; seats&quot;;  }  set seats(s) {    this._seats = s;  }}class Car extends Vehicle {  constructor(color, size, seats) {    //不调用 super 会报错    super(&quot;blue&quot;, size, seats);  }  get seats() {    return &quot;4 seats&quot;;  }  get color() {    return &quot;The car&#39;s color is &quot; + this._color;  }}const car = new Car(&quot;red&quot;, &quot;s&quot;, 100);console.log(car.seats);//4 seatsconsole.log(car.color);//The car&#39;s color is blue</code></pre><h2 id="抽象？"><a href="#抽象？" class="headerlink" title="抽象？"></a>抽象？</h2><p>一个 js 的类只能有<strong>一个</strong>父类。</p><p>父类的定义子类去实现。没找到关于抽象函数的资料，写个类似的吧。</p><pre><code class="js">class Vehicle {  //构造函数  constructor(color, size, seats) {    this._color = color;    this._size = size;    this._seats = seats;  }  get seats() {    return this._seats + &quot; seats&quot;;  }  set seats(s) {    this._seats = s;  }  description() {    throw new Error(&quot;不能使用抽象方法！&quot;);  }}class Car extends Vehicle {  description() {    console.log(`a ${this._color} car with ${this._seats} seats. `);  }}const car = new Car(&quot;red&quot;, &quot;s&quot;, 100);car.description();//a red car with 100 seats.const v = new Vehicle(&quot;res&quot;, &quot;s&quot;, 100);try {  v.description();} catch (e) {  console.log(e);}//Error: &quot;不能使用抽象方法！&quot;</code></pre><p>参考资料:</p><ul><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JavaScript </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Elm 笔记（3）：表单</title>
+      <link href="2020/04/16/elm-note-forms/"/>
+      <url>2020/04/16/elm-note-forms/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://guide.elm-lang.org/architecture/forms.html" target="_blank" rel="noopener">官方例子三： Forms</a> 学习</p><a id="more"></a><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h3><pre><code class="elm">type Msg  = Name String  | Password String  | PasswordAgain Stringupdate : Msg -&gt; Model -&gt; Modelupdate msg model =  case msg of    Name name -&gt;      { model | name = name }    Password password -&gt;      { model | password = password }    PasswordAgain password -&gt;      { model | passwordAgain = password }</code></pre><ul><li>接收每个类型的消息并修改<code>Record</code>。</li></ul><h3 id="View"><a href="#View" class="headerlink" title="View"></a>View</h3><pre><code class="elm">view : Model -&gt; Html Msgview model =  div []    [ viewInput &quot;text&quot; &quot;Name&quot; model.name Name    , viewInput &quot;password&quot; &quot;Password&quot; model.password Password    , viewInput &quot;password&quot; &quot;Re-enter Password&quot; model.passwordAgain PasswordAgain    , viewValidation model    ]</code></pre><ul><li>这里没像前面一样使用普通的<code>input</code>，而使用了函数,方便统一建立和修改。</li></ul><pre><code class="elm">viewInput : String -&gt; String -&gt; String -&gt; (String -&gt; msg) -&gt; Html msgviewInput t p v toMsg =  input [ type_ t, placeholder p, value v, onInput toMsg ] []</code></pre><ul><li><code>viewInput</code>函数，输入 input 类型，占位符，绑定的值和响应函数生成文本框。</li></ul><pre><code class="elm">viewValidation : Model -&gt; Html msgviewValidation model =  if model.password == model.passwordAgain then    div [ style &quot;color&quot; &quot;green&quot; ] [ text &quot;OK&quot; ]  else    div [ style &quot;color&quot; &quot;red&quot; ] [ text &quot;Passwords do not match!&quot; ]</code></pre><ul><li><code>viewValidation</code>验证输入的函数。</li></ul><h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p>最后完成文档后留的作业：</p><ol><li>验证：密码必须长于 8 位。</li><li>验证：密码必须含有大写、小写字母和数字。</li></ol><p>（竟然绕了个大圈子去看<code>elm/parser</code>……其实根本用不到）</p><pre><code class="elm">module Form exposing (main)import Browserimport Html exposing (Html, div, input, text)import Html.Attributes exposing (placeholder, style, type_, value)import Html.Events exposing (onInput)-- MAINmain : Program () Model Msgmain =    Browser.sandbox { init = init, update = update, view = view }-- MODELtype alias Model =    { name : String    , password : String    , passwordAgain : String    }init : Modelinit =    Model &quot;&quot; &quot;&quot; &quot;&quot;-- UPDATEtype Msg    = Name String    | Password String    | PasswordAgain Stringupdate : Msg -&gt; Model -&gt; Modelupdate msg model =    case msg of        Name name -&gt;            { model | name = name }        Password password -&gt;            { model | password = password }        PasswordAgain password -&gt;            { model | passwordAgain = password }-- VIEWview : Model -&gt; Html Msgview model =    div []        [ viewInput &quot;text&quot; &quot;Name&quot; model.name Name        , viewInput &quot;password&quot; &quot;Password&quot; model.password Password        , viewInput &quot;password&quot; &quot;Re-enter Password&quot; model.passwordAgain PasswordAgain        , viewValidation model        ]viewInput : String -&gt; String -&gt; String -&gt; (String -&gt; msg) -&gt; Html msgviewInput t p v toMsg =    input [ type_ t, placeholder p, value v, onInput toMsg ] []viewValidation : Model -&gt; Html msgviewValidation model =    -- elm 使用 /= 表示 !=    if model.password /= model.passwordAgain then        div [ style &quot;color&quot; &quot;red&quot; ] [ text &quot;密码不匹配&quot; ]    else if String.length model.password &lt; 8 then        div [ style &quot;color&quot; &quot;red&quot; ] [ text &quot;密码必须长于8位&quot; ]    else if String.length (String.filter Char.isDigit model.password) == 0 || String.length (String.filter Char.isUpper model.password) == 0 || String.length (String.filter Char.isLower model.password) == 0 then        div [ style &quot;color&quot; &quot;red&quot; ] [ text &quot;密码必须含有大写、小写字母和数字。&quot; ]    else        div [ style &quot;color&quot; &quot;green&quot; ] [ text &quot;通过&quot; ]</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Elm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Elm 笔记（1）：计数器</title>
+      <link href="2020/03/27/elm-note-counter/"/>
+      <url>2020/03/27/elm-note-counter/</url>
+      
+        <content type="html"><![CDATA[<p>想学点新东西，同时看下函数式编程是什么样的，所以开始看<code>Elm</code>。不过函数式编程对我来说还是太陌生了，所以强制自己写点博文理解。</p><p>初步目标是根据官方文档的三个例子（<code>Buttons</code>,<code>Text Fields</code>,<code>Forms</code>）来做分析。这篇是第一篇，根据<code>Button</code>的计数器。</p><a id="more"></a><p><a href="https://guide.elm-lang.org/architecture/buttons.html" target="_blank" rel="noopener">📝 官方例子地址</a></p><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h3><pre><code class="Elm">-- MAINmain =  Browser.sandbox { init = init, update = update, view = view }</code></pre><ul><li><code>main</code>在 Elm 里是个特殊的值，它描述什么该显示在屏幕上。这里程序将用<code>init</code>初始化,<code>view</code>显示，<code>update</code>填充用户输入。</li><li><code>Browser.sandbox</code>：<code>Browser</code>是 Elm 的浏览器模块，允许用户创建在浏览器中运行的<code>Elm</code>程序。<code>Browser</code>下不同的模块对页面有不同的控制能力：<ul><li><code>sandbox</code>只处理和用户的交互，不能通信；</li><li><code>element</code>能对外通信；</li><li><code>document</code>在其上能控制页面的 title, body 等元素 ；</li><li><code>application</code>制作完整的单页 app。<br>能输入的参数也不同，下略。参考<a href="https://guide.elm-lang.org/effects/" target="_blank" rel="noopener">这个页面中对 Elm 运行时的说明</a></li></ul></li></ul><h3 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h3><pre><code class="Elm">-- MODELtype alias Model = Intinit : Modelinit =  0</code></pre><ul><li>数据模型管理所有程序数据的细节。在计数器程序中就是计数的数量。</li><li><code>type alias</code>表示类型别名，这里用<code>Model</code>指<code>Int</code>型。</li></ul><h3 id="View"><a href="#View" class="headerlink" title="View"></a>View</h3><pre><code class="Elm">-- VIEWview : Model -&gt; Html Msgview model =  div []    [ button [ onClick Decrement ] [ text &quot;-&quot; ]    , div [] [ text (String.fromInt model) ]    , button [ onClick Increment ] [ text &quot;+&quot; ]    ]</code></pre><ul><li><code>view</code>描述数据显示的方法。</li><li><code>view : Model -&gt; Html Msg</code>表示<code>view</code>为接受<code>Model</code>类型，输出<code>Html Msg</code>类型的函数。</li><li>Elm 中的函数和通常的表现方法不一样，为<code>&lt;函数名&gt; [参数...]&gt;</code>。<code>view model</code>即为参数为<code>model</code>的<code>view</code>函数。</li></ul><h3 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h3><pre><code class="Elm">-- UPDATEtype Msg = Increment | Decrementupdate : Msg -&gt; Model -&gt; Modelupdate msg model =  case msg of    Increment -&gt;      model + 1    Decrement -&gt;      model - 1</code></pre><ul><li><code>update</code>函数描述<code>model</code>如何变化。</li><li><code>type Msg = Increment | Decrement</code>定义了一个自定义类型<code>Msg</code>。它可以为<code>Increment</code>也可以是<code>Decrement</code>。</li><li><code>update : Msg -&gt; Model -&gt; Model</code>表示<code>update</code>接受<code>Msg</code>类型，输出一个函数（输入<code>Model</code>，输出<code>Model</code>类型的函数）。从概念上讲，每个函数只接受一个参数，但它可以返回带接受一个参数的函数。表现起来就像接受两个参数的函数。<a href="https://guide.elm-lang.org/appendix/function_types.html" target="_blank" rel="noopener">（见这里）</a></li></ul><h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p>最后完成文档后留的作业：给计数器添加“重置”键。</p><pre><code class="Elm">module Main exposing (..)import Browserimport Html exposing (Html, button, div, text)import Html.Events exposing (onClick)-- MAINmain =  Browser.sandbox { init = init, update = update, view = view }-- MODELtype alias Model = Intinit : Modelinit =  0-- UPDATEtype Msg = Increment | Decrement | Resetupdate : Msg -&gt; Model -&gt; Modelupdate msg model =  case msg of    Increment -&gt;      model + 1    Decrement -&gt;      model - 1    Reset -&gt;      0-- VIEWview : Model -&gt; Html Msgview model =  div []    [ button [ onClick Decrement ] [ text &quot;-&quot; ]    , div [] [ text (String.fromInt model) ]    , button [ onClick Increment ] [ text &quot;+&quot; ]    , button [ onClick Reset ] [ text &quot;Reset&quot; ]    ]</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Elm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Elm 笔记（2）：文本框</title>
+      <link href="2020/03/27/elm-note-text/"/>
+      <url>2020/03/27/elm-note-text/</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://guide.elm-lang.org/architecture/text_fields.html" target="_blank" rel="noopener">官方例子二：Text Fields</a> 学习。</p><a id="more"></a><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h3><pre><code class="elm">type alias Model =  { content : String  }</code></pre><ul><li>这个示例的功能是“反转用户输入的文字”，这里将<code>Model</code>设置为<code>Record</code>类型方便以后添加更多的数据。</li><li><code>Record</code>：<code>Record</code>类型可以包含许多值，每个值都有一个名称（我理解为 key-value 型)。</li></ul><h3 id="View"><a href="#View" class="headerlink" title="View"></a>View</h3><pre><code class="elm">view : Model -&gt; Html Msgview model =  div []    [ input [ placeholder &quot;Text to reverse&quot;, value model.content, onInput Change ] []    , div [] [ text (String.reverse model.content) ]    ]</code></pre><ul><li>创建一个含两个子元素的<code>div</code>。</li><li>注意到每个元素都是<code>&lt;元素名&gt; [&lt;元素属性&gt;] [&lt;内部内容&gt;]</code>的形式。</li><li>只要用户在 input 内输入时，<code>onInput</code>就会发送数据。（每个字符都会）</li></ul><h3 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h3><pre><code class="elm">type Msg  = Change Stringupdate : Msg -&gt; Model -&gt; Modelupdate msg model =  case msg of    Change newContent -&gt;      { model | content = newContent }</code></pre><ul><li>本例中只有一种<code>Msg</code>形式</li><li><code>{ model | content = newContent }</code> 表示修改<code>model</code>中<code>content</code>的值为<code>newContent</code>。</li></ul><h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p>最后完成文档后留的作业：显示输入的字符的长度</p><pre><code class="elm">-- 只修改 view 部分view : Model -&gt; Html Msgview model =  div []    [ input [ placeholder &quot;Text to reverse&quot;, value model.content, onInput Change ] []    , div [] [ text (String.reverse model.content) ]    , div [] [ text (String.fromInt (String.length model.content)) ]    ]</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Elm </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Three.js 笔记（4） 加载glTF模型</title>
+      <link href="2020/03/27/webgl-note-4/"/>
+      <url>2020/03/27/webgl-note-4/</url>
+      
+        <content type="html"><![CDATA[<p>🎯目标：1. 将模型导成glTF 2.在网页显示模型</p><a id="more"></a><p>鸽了几天继续，想到什么查什么。</p><h2 id="1-glTF"><a href="#1-glTF" class="headerlink" title="1. glTF"></a>1. glTF</h2><p>在某模型网站上看到使用说明中提到：“不能直接二次发布模型，但如果转成网页用的，不能直接读取的格式比如gltf则可以发布”，所以来看一下gltf是什么。</p><p>glTF(<a href="https://github.com/KhronosGroup/glTF-Tutorials/blob/master/gltfTutorial/gltfTutorial_001_Introduction.md" target="_blank" rel="noopener">应该是官方介绍</a>)是利于高效渲染、传输的一种格式，主要在目标运行时中使用。也就是说，用3D软件制作完成后的文件，最后转换成glTF在程序中使用。</p><p>将模型导成glTF，直接去找工具。这里使用Blender的插件<a href="https://github.com/KhronosGroup/glTF-Blender-IO" target="_blank" rel="noopener">glTF-Blender-IO</a>（Blender自带）将模型导出为<code>glTF</code>格式</p><h2 id="2-加载"><a href="#2-加载" class="headerlink" title="2. 加载"></a>2. 加载</h2><p>加载就用常用的库吧，这里使用<code>three.js</code>。查看教程，得，所有的都用threejs写吧（所以标题改掉了😂）</p><h3 id="2-1-HTML结构"><a href="#2-1-HTML结构" class="headerlink" title="2.1 HTML结构"></a>2.1 HTML结构</h3><p>由于是在three.js里将<code>canvas</code>挂在html下，所以准备一个空的html就可以了。</p><pre><code class="html">&lt;!DOCTYPE html&gt;&lt;html&gt;    &lt;head&gt;        &lt;meta charset=&quot;utf-8&quot;&gt;        &lt;title&gt;webgl&lt;/title&gt;        &lt;style&gt;            body { margin: 0; }            canvas { display: block; }        &lt;/style&gt;    &lt;/head&gt;    &lt;body&gt;        &lt;script src=&quot;libs/three.js&quot;&gt;&lt;/script&gt;        &lt;script src=&quot;libs/GLTFLoader.js&quot;&gt;&lt;/script&gt;        &lt;script src=&quot;我们的js的路径&quot;&gt;&lt;/script&gt; &lt;/body&gt;&lt;/html&gt;</code></pre><h3 id="2-2-建立场景"><a href="#2-2-建立场景" class="headerlink" title="2.2 建立场景"></a>2.2 建立场景</h3><p>在js文件里新建一个three.js场景</p><pre><code class="js">var scene = new THREE.Scene();//设置摄像机，参数分别是 fov, 长宽比， 近/远的剪切平面var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );var renderer = new THREE.WebGLRenderer();renderer.setSize( window.innerWidth, window.innerHeight );//canvas挂载document.body.appendChild( renderer.domElement );//由于在原点加载模型，拉开摄像机camera.position.z = 10;</code></pre><h3 id="2-3-加载模型"><a href="#2-3-加载模型" class="headerlink" title="2.3 加载模型"></a>2.3 加载模型</h3><p>用最简化的代码。注意<code>GLTFLoader</code>不包含在threejs本身，是另外的一个js文件……</p><pre><code class="js">var loader = new THREE.GLTFLoader();loader.load(    &#39;monkey.glb&#39;,    //加载完后    function ( gltf ) {        scene.add( gltf.scene ) //添加到场景    }//其他的暂时不需要);</code></pre><h3 id="2-4-渲染"><a href="#2-4-渲染" class="headerlink" title="2.4 渲染"></a>2.4 渲染</h3><p>准备一个渲染函数实施渲染。经测试，必须要循环渲染。</p><pre><code class="js">function animate() {  requestAnimationFrame(animate);  renderer.render(scene, camera);}animate();</code></pre><h3 id="2-5-随便加点灯光"><a href="#2-5-随便加点灯光" class="headerlink" title="2.5 随便加点灯光"></a>2.5 随便加点灯光</h3><p>加完了发现还是一片漆黑，想了想，哦，没加灯光。</p><pre><code class="js">var pointLight = new THREE.PointLight(0xffffff, 1, 100);pointLight.position.set(10, 10, 10);scene.add(pointLight);</code></pre><p>目前没专心three.js这里，所以只是潦草地看了一下……</p><p>到时候真要用再重来一遍.jpg</p><p><strong>参考资料</strong></p><ul><li><a href="https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene" target="_blank" rel="noopener">Three js 文档 Creating a scene</a></li><li><a href="https://threejs.org/docs/index.html#examples/en/loaders/GLTFLoader" target="_blank" rel="noopener">Three js 文档 GLTFLoader</a></li><li><a href="https://threejs.org/docs/index.html#api/en/helpers/PointLightHelper" target="_blank" rel="noopener">Three js 文档 PointLightHelper</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> WebGL </tag>
+            
+            <tag> Three.js </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>WebGL 笔记（3） 纹理</title>
+      <link href="2020/03/14/webgl-note-3/"/>
+      <url>2020/03/14/webgl-note-3/</url>
+      
+        <content type="html"><![CDATA[<p>🎯 目标：贴纹理</p><a id="more"></a><p>在平面上贴纹理。</p><h2 id="1-读取纹理"><a href="#1-读取纹理" class="headerlink" title="1. 读取纹理"></a>1. 读取纹理</h2><blockquote><p>参考资料：MDN 的<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL" target="_blank" rel="noopener">加载纹理</a></p></blockquote><p>因为只画一次，所以绘图函数写在了加载图像的回调后，保证设置完后再绘制纹理。</p><pre><code class="js">function loadTexture(gl, shaderProgram, imageSrc) {  let texture = gl.createTexture();  let image = new Image();  image.src = imageSrc;  //加载完图像后执行的函数  image.onload = function () {    //绑定纹理    gl.bindTexture(gl.TEXTURE_2D, texture);    //指定二维纹理贴图，详细级别。颜色组件，数据格式，数据类型，数据源    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);    //设置纹理在放大和缩小时候采用的采样方案。    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);    gl.texParameteri(      gl.TEXTURE_2D,      gl.TEXTURE_MIN_FILTER,      gl.LINEAR_MIPMAP_NEAREST    );    //生成mipmap    gl.generateMipmap(gl.TEXTURE_2D);    //绑定纹理    gl.activeTexture(gl.TEXTURE0); //TEXTURE0默认激活，注释掉也行    //传入纹理数据到着色器    gl.uniform1i(gl.getUniformLocation(shaderProgram, &quot;uSampler&quot;), 0);    //绘制    gl.useProgram(shaderProgram);    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);  };  return texture;}</code></pre><h2 id="2-修改着色器"><a href="#2-修改着色器" class="headerlink" title="2. 修改着色器"></a>2. 修改着色器</h2><p>因为是逐像素传数据，所以先用<code>attribute</code>型接受数据，然后传到<code>varying</code>中以传入片段着色器中。<br>在片段着色器中使用<code>sampler2D</code>类型承载<code>GL_TEXTURE</code>对象。<code>texture2D</code>获取纹理对应坐标上的颜色值。</p><pre><code class="js">const vertexSource = `attribute vec2 aPosition;attribute vec2 aTexCoord;varying lowp vec2 vTexCoord;void main(){    vTexCoord = aTexCoord;    gl_Position=vec4(aPosition,0.0,1.0);}`;const fragmentSource = `varying lowp vec2 vTexCoord;uniform sampler2D uSampler;void main(){      gl_FragColor = texture2D(uSampler,vTexCoord);  }`;</code></pre><h2 id="3-纹理映射"><a href="#3-纹理映射" class="headerlink" title="3.纹理映射"></a>3.纹理映射</h2><p>指定图形上显示的纹理的坐标，按照点的顺序来。</p><blockquote><p>2020.09.13：这里正方形的点只写<code>x</code>和<code>y</code>是因为上面的着色器里已经把<code>z</code>设定了。半年过去自己都忘记了 😅。</p></blockquote><pre><code class="js">//正方形的点const vertices = [-0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, 0.5];//纹理对应坐标const tex = [0, 0, 0, 1, 1, 0, 1, 1];</code></pre><p>上次写的一次性输入，这次分别绑定缓冲：</p><pre><code class="js">function simpleBindBuffer(gl, shaderProgram, name, data, size) {  const buffer = gl.createBuffer();  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW);  const index = gl.getAttribLocation(shaderProgram, name);  gl.vertexAttribPointer(index, size, gl.FLOAT, false, 0, 0);  gl.enableVertexAttribArray(index);  return buffer;}//设置缓冲simpleBindBuffer(gl, shaderProgram, &quot;aPosition&quot;, vertices, 2);simpleBindBuffer(gl, shaderProgram, &quot;aTexCoord&quot;, tex, 2);</code></pre><p>这样就能在平面上贴上纹理了。</p><h2 id="4-错误"><a href="#4-错误" class="headerlink" title="4. 错误"></a>4. 错误</h2><blockquote><p>generateMipmap: The base level of the texture does not have power-of-two dimensions.</p></blockquote><p><code>webgl 1.0</code> 只能给图片边长为 2 的幂的图片生成 mipmap, <code>webgl 2.0</code>就没有这个问题。</p><p>使用 <code>webgl 2.0</code> 需要 <code>const gl = canvas.getContext(&quot;webgl2&quot;)</code>。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> WebGL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>WebGL 笔记（2） 3D正方体</title>
+      <link href="2020/03/08/webgl-note-2/"/>
+      <url>2020/03/08/webgl-note-2/</url>
+      
+        <content type="html"><![CDATA[<p>上次是画了一个基础图形，在上次的基础上，这次画个正方体。</p><a id="more"></a><h2 id="线框正方体"><a href="#线框正方体" class="headerlink" title="线框正方体"></a>线框正方体</h2><p>准备好正方体的点，画线段所以比较杂……</p><pre><code class="js">const vertices=[1,1,1,1,-1,1,-1,-1,1,-1,1,1,-1,1,-1,1,1,-1,1,-1,-1,-1,-1,-1,-1,-1,1,1,-1,1,1,-1,-1,1,1,-1,1,1,1,-1,1,1,-1,1,-1,-1,-1,-1];</code></pre><p>然后就是有关摄影机，坐标等等相关内容了。相关概念教程可以看 <a href="https://learnopengl-cn.github.io/01%20Getting%20started/08%20Coordinate%20Systems/" target="_blank" rel="noopener">LearnOpenGL</a> 。</p><p><del>看到矩阵乘法，想起了被论文支配的恐惧</del>，四个坐标系之类的是3D场景的共识了。</p><p>使用 <a href="http://glmatrix.net" target="_blank" rel="noopener">gl-matrix</a> 库来进行矩阵的运算。最终需要物体，相机，投影三个矩阵。</p><pre><code class="js">  //物体本身转45度  let model = glMatrix.mat4.create();  glMatrix.mat4.rotate(    model,    model,    45,    glMatrix.vec3.fromValues(0.0, 1.0, 0.0)  );  //相机向后移四格  let camera = glMatrix.mat4.create();  glMatrix.mat4.translate(    camera,    camera,    glMatrix.vec3.fromValues(0.0, 0.0, -4.0)  );  //投影矩阵  let projection = glMatrix.mat4.create();  let ratio = 8 / 6;  glMatrix.mat4.perspective(projection, (75 * Math.PI) / 180, ratio, 0.1, 100);</code></pre><p>修改顶点着色器，添加放以上三个矩阵的变量。点的最终位置也改为矩阵乘法算出。</p><pre><code class="glsl">attribute vec3 pos;uniform mat4 model;uniform mat4 view;uniform mat4 proj;void main(){    gl_Position=proj * view * model *vec4(pos.x,pos.y,pos.z,1.0);}</code></pre><p>然后就是把数据传到着色器中。由于用的是<code>uniform</code>型变量，查找变量的函数也不一样。</p><pre><code class="js">//注：下面的要写在启用program之后gl.useProgram(shaderProgram);//矩阵传入着色器//1.找到变量的位置let modelPosIndex = gl.getUniformLocation(shaderProgram, &quot;model&quot;);//2.传值gl.uniformMatrix4fv(modelPosIndex,false,model);</code></pre><p><code>attribute</code>型是只能在顶点着色器使用的变量类型，主要描述顶点数据。<code>uniform</code>型在顶点和片段着色器内都可使用，描述颜色、光照等等信息。</p><p>查看结果：</p><p><img src="/2020/03/08/webgl-note-2/webgl-2_1_20200307.png" alt="线框正方体"></p><h2 id="实心正方体"><a href="#实心正方体" class="headerlink" title="实心正方体"></a>实心正方体</h2><p>上面画线框的顶点集实在是太扭曲了……这回做个真正的三角片。</p><pre><code class="js">const vertices=[1,1,1,1,1,-1,-1,1,-1,1,1,1,-1,1,1,-1,1,-1,1,1,-1,1,-1,-1,1,1,1,1,1,1,1,-1,-1,1,-1,1,1,-1,-1,1,-1,1,-1,-1,1,-1,-1,1,-1,-1,-1,1,-1,-1,-1,-1,1,-1,-1,-1,-1,1,1,-1,1,1,-1,1,-1,-1,-1,-1,1,-1,1,1,1,1,-1,-1,1,-1,-1,1,1,1,1,-1,1,1,1,-1,-1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,1,-1,1,1,-1];</code></pre><p>将绘图参数改为<code>gl.drawArrays(gl.TRIANGLES, 0, 36);</code>，结果是白色一片的轮廓……这是当然的啦！因为实心白色融合在一起了。为了更清楚的看见，尝试给各个面上不同的颜色。</p><p>首先给<code>vertices</code>里加上各个点的颜色：</p><pre><code class="js">const vertices=[1,1,1,1,0,0,1,1,-1,1,0,0,-1,1,-1,1,0,0,1,1,1,1,0,0,-1,1,1,1,0,0,-1,1,-1,1,0,0,1,1,-1,1,1,1,1,-1,-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,-1,-1,1,1,1,1,-1,1,1,1,1,1,-1,-1,0,1,0,1,-1,1,0,1,0,-1,-1,1,0,1,0,-1,-1,1,0,1,0,-1,-1,-1,0,1,0,1,-1,-1,0,1,0,-1,-1,1,0,0,1,-1,-1,-1,0,0,1,-1,1,1,0,0,1,-1,1,1,0,0,1,-1,1,-1,0,0,1,-1,-1,-1,0,0,1,1,-1,1,1,0,1,1,1,1,1,0,1,-1,-1,1,1,0,1,-1,-1,1,1,0,1,1,1,1,1,0,1,-1,1,1,1,0,1,1,-1,-1,1,1,0,1,1,-1,1,1,0,-1,-1,-1,1,1,0,-1,-1,-1,1,1,0,-1,1,-1,1,1,0,1,1,-1,1,1,0];</code></pre><p><code>uniform</code>变量是全局的、与顶点无关的，所以颜色使用<code>attribute</code>型。然后利用<code>varying</code>型变量传给片段着色器。修改着色器，加上输入的颜色:</p><pre><code class="glsl">attribute vec3 pos;attribute vec3 in_color;varying lowp vec3 color;uniform mat4 model;uniform mat4 view;uniform mat4 proj;void main(){    color = in_color;    gl_Position=proj * view * model *vec4(pos,1.0);}</code></pre><pre><code class="glsl">varying lowp vec3 color;void main(){      gl_FragColor = vec4(1.0,color.y,1.0,1.0);  }</code></pre><p>修改<code>vertices</code>的值，使六个数字表示一个点，前三个值为位置，后三个值为颜色。修改传入数据的地方。<code>gl.vertexAttribPointer</code>的最后两个参数：<code>步长</code>：一组数据的长度；<code>偏移量</code>：开始到第一个此类数据的长度。</p><pre><code class="js">//float元素长度  let size = Float32Array.BYTES_PER_ELEMENT;//输入位置let index = gl.getAttribLocation(shaderProgram, &quot;pos&quot;);gl.vertexAttribPointer(index, 3, gl.FLOAT, false, 6 * size, 0);//输入颜色let colorIndex = gl.getAttribLocation(shaderProgram, &quot;colors&quot;);gl.vertexAttribPointer(colorIndex, 3, gl.FLOAT, false, 6 * size, 3 * size);//启用属性gl.enableVertexAttribArray(index);gl.enableVertexAttribArray(colorIndex);</code></pre><p>查看结果，发现颜色堆叠了……深度测试，on！</p><pre><code class="js">gl.enable(gl.DEPTH_TEST);gl.clearDepth(1);</code></pre><p>最后调一下物体的旋转角度，好看到更多的面：</p><p><img src="/2020/03/08/webgl-note-2/webgl-2_2_20200308.png" alt="实心正方体"></p><h2 id="索引正方体"><a href="#索引正方体" class="headerlink" title="索引正方体"></a>索引正方体</h2><p>写36个点的正方体的确挺抽风的。利用<code>gl.drawElements</code>，用索引来画一系列物体，完成一个线框正方体。</p><p>经测试用索引画的话无法分开设置颜色（像上图一样）？</p><pre><code class="js">//正方体的点var vertices = [    -1, -1, -1,//    1, -1, -1,//    1, 1, -1,//    -1, 1, -1,//    -1, 1, 1,//    1, 1, 1,//    -1, -1, 1,//    1, -1, 1  ];//组成面的点索引 (12个三角形)const indices = [    1,2,5, 1,5,7,    1,2,3, 1,0,3,    0,3,4, 0,6,4,    6,4,7, 7,5,4,    6,7,0, 0,7,1,    4,5,3, 3,5,2];//...//正方体const buffer = gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER, buffer);gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);var index = gl.getAttribLocation(shaderProgram, &quot;pos&quot;);gl.vertexAttribPointer(index, 3, gl.FLOAT, false, 0, 0);const indexesBuffer = gl.createBuffer();//传入索引的时候使用 gl.ELEMENT_ARRAY_BUFFER 类型gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexesBuffer);gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);gl.enableVertexAttribArray(index);//...//利用`gl.drawElements&#39;，用索引来画一系列物体//类型，绘制的点数，数据类型，offset(离开始点的偏移量)gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);</code></pre><p><del>真实笔记，除了我没人看得懂</del></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> WebGL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>WebGL 笔记</title>
+      <link href="2020/03/05/webgl-note-1/"/>
+      <url>2020/03/05/webgl-note-1/</url>
+      
+        <content type="html"><![CDATA[<p>在这里主要写点自己的笔记。<del>最终目标是写个在线测试 Shader 的小工具。之前有看到过相似的工具但是网页始终打不开……所以自己写一个吧，以后可能（？）用得上。</del> flag 倒了，当时想得太简单了（</p><p>2020.12.25 写了一个超简单的版本用来学习 😃。</p><a id="more"></a><p>参考的是<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/WebGL_API/Tutorial" target="_blank" rel="noopener">MDN 的教程</a>和<a href="https://learnopengl-cn.github.io/" target="_blank" rel="noopener">LearnOpenGL</a>。</p><ul><li><p><code>WebGL</code>内容在<code>canvas</code>中渲染。</p></li><li><p><code>gl</code>上下文 <code>const gl=canvas.getContext(&quot;webgl&quot;)</code></p></li><li><p>着色器同样是字符串。简单的着色器</p><pre><code class="js">//注意分号const vertexSource = `attribute vec3 pos;void main(){    gl_Position=vec4(pos.x,pos.y,pos.z,1.0);}`;const fragmentSource = `void main(){        gl_FragColor = vec4(1.0,1.0,1.0,1.0);    }`;</code></pre></li><li><p>编译着色器，两种都需要</p><pre><code class="js">//gl.VERTEX_SHADER或gl.FRAGMENT_SHADERconst vertexShader = gl.createShader(gl.VERTEX_SHADER);//source为之前写好的着色器代码（字符串）gl.shaderSource(vertexShader, vertexSource);gl.compileShader(vertexShader); //void</code></pre></li><li><p>创建着色器程序：</p><pre><code class="js">const shaderProgram = gl.createProgram();gl.attachShader(shaderProgram, vertexShader);gl.attachShader(shaderProgram, fragShader);gl.linkProgram(shaderProgram);</code></pre></li><li><p>渲染对象顶点组（正方形）</p><pre><code class="js">const vertices = [0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, 0.5, 0, -0.5, -0.5, 0];</code></pre></li><li><p>创建缓冲器存储对象顶点数据:</p><pre><code class="js">//初始化一个buffer对象buffer = gl.createBuffer();//参数一：指定绑定buffer类型，参数二：要绑定的buffergl.bindBuffer(gl.ARRAY_BUFFER, buffer);//创建buffer的数据存储区域：类型，源数据，使用方法。gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);</code></pre></li><li><p>链接着色器和顶点数据</p><pre><code class="js">//参数为顶点属性索引，每个顶点中组成数量，数据类型，是否归一化，步长，offsetgl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);//启用顶点属性，参数为要激活的顶点属性索引//使用getAttribLocation获取索引的例子var index = gl.getAttribLocation(shaderProgram, &quot;pos&quot;);gl.enableVertexAttribArray(index);</code></pre></li><li><p>渲染场景</p><ul><li><p>清除<code>canvas</code>:</p><pre><code class="js">gl.clearColor(0, 0, 0, 1); // 设置清除颜色gl.clear(gl.COLOR_BUFFER_BIT);</code></pre></li><li><p>画图：</p><pre><code class="js">gl.useProgram(shaderProgram);gl.drawArrays(gl.LINE_LOOP, 0, 4);</code></pre></li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Web前端 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> WebGL </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="2019/03/07/hello-world/"/>
+      <url>2019/03/07/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>第一篇博客。<br>如果不开仓库写博客的事情就会一直拖，所以先建一个。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 日志 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <title>JS 笔记：类的用法 | Catalyst</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1.5.2.css">
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+  <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="Zou">
+            </div>
+            
+            <a href="/">Catalyst</a>
+            
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+                <a href="/">主页</a>
+                
+                <a href="/archives">归档</a>
+                
+                <a href="/projects">项目</a>
+                
+                <a href="/about">关于</a>
+                
+            </div>
+            <div class="header-menu-social">
+                
+    <a class="social" target="_blank" href="https://github.com/owlzou">
+        <box-icon type='logo' name='github'></box-icon>
+    </a>
+
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                    <a href="/">主页</a>
+                    
+                    <a href="/archives">归档</a>
+                    
+                    <a href="/projects">项目</a>
+                    
+                    <a href="/about">关于</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+  <div class="container">
+    <div class="main">
+      <section class="inner">
+        <section class="inner-main">
+          <div class="post">
+    <article id="post-ckj6tstue001b23oi558fde0l" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      JS 笔记：类的用法
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2020-04-21T00:00:00.000Z" itemprop="datePublished">2020-04-21</time>
+</div>
+
+            
+            <div class="article-category">
+                <a class="article-category-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a>
+            </div>
+            
+
+            
+            <div class="article-tag">
+                <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+            </div>
+            
+
+            
+
+            <div class="articel-wordcount">
+                共&nbsp;<span>684</span>&nbsp;字
+            </div>
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>类是 ES6 引进的新写法。实际上是一种特殊的函数。</p>
+<a id="more"></a>
+
+<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><p>要先声明类才能访问。定义类：</p>
+<pre><code class="js">class Vehicle {
+  _color = &quot;black&quot;;
+  //构造函数
+  constructor(color, size, seats) {
+    this._color = color;
+    this._size = size;
+    this._seats = seats;
+  }
+}
+
+let car = new Vehicle(&quot;red&quot;, &quot;s&quot;, 4);</code></pre>
+<ul>
+<li>类的构造函数为<code>constructor</code>，只能有一个。可以用<code>super</code>调用父类的构造函数。</li>
+<li>类中，对象无<code>this</code>值的时候会返回<code>undefined</code>，不会自动定义<code>this</code>值。而用原型方法定义类则会自动定义<code>this</code>。</li>
+<li>类中的<strong>实例属性</strong>必须定义在类的方法里。 <strong>静态属性</strong>在类定义的外面。</li>
+</ul>
+<pre><code class="js">class Vehicle {
+  //构造函数
+  constructor(color, size, seats) {
+    this._color = color;
+    this._size = size;
+    this._seats = seats;
+  }
+}
+
+let car = new Vehicle(&quot;red&quot;, &quot;s&quot;, 4);</code></pre>
+<h2 id="Getter-和-Setter"><a href="#Getter-和-Setter" class="headerlink" title="Getter 和 Setter"></a>Getter 和 Setter</h2><p>便于返回一些需要动态计算的值，定义在原型上。</p>
+<pre><code class="js">class Vehicle {
+  //构造函数
+  constructor(color, size, seats) {
+    this._color = color;
+    this._size = size;
+    this._seats = seats;
+  }
+
+  get seats() {
+    return this._seats + &quot; seats&quot;;
+  }
+
+  set seats(s) {
+    this._seats = s;
+  }
+}
+
+const car = new Vehicle(&quot;red&quot;, &quot;s&quot;, 4);
+console.log(car.seats);
+//4 seats
+car.seats = 5;
+console.log(car.seats);
+//5 seats</code></pre>
+<h2 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h2><pre><code class="js">class Vehicle {
+  //构造函数
+  constructor(color, size, seats) {
+    this._color = color;
+    this._size = size;
+    this._seats = seats;
+  }
+
+  static isVehicle() {
+    return true;
+  }
+}
+
+console.log(Vehicle.isVehicle());
+//true</code></pre>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>会调用父级的构造函数。</p>
+<pre><code class="js">class Vehicle {
+  //构造函数
+  constructor(color, size, seats) {
+    this._color = color;
+    this._size = size;
+    this._seats = seats;
+  }
+
+  get seats() {
+    return `${this._seats} seats`;
+  }
+
+  set seats(s) {
+    this._seats = s;
+  }
+}
+
+class Car extends Vehicle {
+  //覆盖了父级
+  get seats() {
+    return &quot;4 seats&quot;;
+  }
+
+  get color() {
+    return `The car&#39;s color is ${this._color}`;
+  }
+}
+
+const car = new Car(&quot;red&quot;, &quot;s&quot;, 100);
+console.log(car.seats);
+//4 seats
+console.log(car.color);
+//The car&#39;s color is red</code></pre>
+<p>自己的构造函数，一定要调用 super()。</p>
+<pre><code class="js">class Vehicle {
+  //构造函数
+  constructor(color, size, seats) {
+    this._color = color;
+    this._size = size;
+    this._seats = seats;
+  }
+
+  get seats() {
+    return this._seats + &quot; seats&quot;;
+  }
+
+  set seats(s) {
+    this._seats = s;
+  }
+}
+
+class Car extends Vehicle {
+  constructor(color, size, seats) {
+    //不调用 super 会报错
+    super(&quot;blue&quot;, size, seats);
+  }
+
+  get seats() {
+    return &quot;4 seats&quot;;
+  }
+
+  get color() {
+    return &quot;The car&#39;s color is &quot; + this._color;
+  }
+}
+
+const car = new Car(&quot;red&quot;, &quot;s&quot;, 100);
+console.log(car.seats);
+//4 seats
+console.log(car.color);
+//The car&#39;s color is blue</code></pre>
+<h2 id="抽象？"><a href="#抽象？" class="headerlink" title="抽象？"></a>抽象？</h2><p>一个 js 的类只能有<strong>一个</strong>父类。</p>
+<p>父类的定义子类去实现。没找到关于抽象函数的资料，写个类似的吧。</p>
+<pre><code class="js">class Vehicle {
+  //构造函数
+  constructor(color, size, seats) {
+    this._color = color;
+    this._size = size;
+    this._seats = seats;
+  }
+
+  get seats() {
+    return this._seats + &quot; seats&quot;;
+  }
+
+  set seats(s) {
+    this._seats = s;
+  }
+
+  description() {
+    throw new Error(&quot;不能使用抽象方法！&quot;);
+  }
+}
+
+class Car extends Vehicle {
+  description() {
+    console.log(`a ${this._color} car with ${this._seats} seats. `);
+  }
+}
+
+const car = new Car(&quot;red&quot;, &quot;s&quot;, 100);
+car.description();
+//a red car with 100 seats.
+
+const v = new Vehicle(&quot;res&quot;, &quot;s&quot;, 100);
+try {
+  v.description();
+} catch (e) {
+  console.log(e);
+}
+//Error: &quot;不能使用抽象方法！&quot;</code></pre>
+<p>参考资料:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes</a></li>
+</ul>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2020/04/22/js-prototype/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          JS 笔记：原型
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/04/16/elm-note-forms/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">Elm 笔记（3）：表单</div>
+    </a>
+  
+</nav>
+
+
+</article>
+
+
+
+<!-- utteranc comments -->
+
+<section class="comments">
+    <script src="https://utteranc.es/client.js"
+            repo='owlzou/owlzou.github.io'
+            issue-term='pathname'
+            theme='github-light'
+            crossorigin='anonymous'
+            async>
+    </script>
+</section>
+
+
+
+</div>
+        </section>
+      </section>
+      <aside class="sidebar">
+          <div class="widget">
+     
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+  
+  <div class="widget-wrap widget-cate">
+    <div class="widget-title"><span>Categories</span></div>
+    <div class="widget-inner">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%BF%97/">日志</a></li></ul>
+    </div>
+  </div>
+
+  
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elm/" rel="tag">Elm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/F/" rel="tag">F#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fabulous/" rel="tag">Fabulous</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Three-js/" rel="tag">Three.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/" rel="tag">WebGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%98%E8%85%BE/" rel="tag">折腾</a></li></ul>
+    </div>
+  </div>
+
+  
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2020/11/09/bitwise/">位运算笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/12/n-image-viewer/">翻出了 2018 年写的图片浏览器</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/09/rust-note-4-box/">Rust 笔记（四）智能指针等</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/05/rust-note-3-module-and-test/">Rust 笔记（三）模块和测试</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/03/rust-note-2/">Rust 笔记（二）其它类型</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+  
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li></ul>
+    </div>
+  </div>
+
+ 
+</div>
+<div id="backtop">
+    <i class="icon icon-arrow-up"></i>
+</div>
+    
+      </aside>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-info">
+            <span>&copy; 2019 - 2020 Catalyst @ Zou</span>
+        </div>
+        <div class="footer-powered">
+            <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Aomori</a> Theme · Powered By Hexo
+        </div>
+    </div>
+</footer>
+
+
+
+<script src="/dist/build.js?1.5.2.js"></script>
+
+
+<script src="/dist/custom.js?1.5.2.js"></script>
+
+
+
+
+
+
+
+</body>
+</html>
