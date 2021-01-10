@@ -1,0 +1,18 @@
+# Projects
+[[projects]]
+title = "Watermark+1"
+link = "https://owlzou.github.io/watermark1"
+cover = ""
+description="在线给图片添加水印。"
+
+[[projects]]
+title = "📔 Text Tool"
+link = "https://owlzou.github.io/text-tool/"
+cover = ""
+description="文字处理工具（正则、编码、js直接处理等）"
+
+[[projects]]
+title = "Z Shader Viewer"
+link = "https://owlzou.github.io/zsv/"
+cover = ""
+description="着色器编辑器（大概）"
