@@ -1,263 +1,143 @@
 <!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
+<html lang="en">
+  <head>
     
-    <title>search | Catalyst</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <meta charset="UTF-8"/>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="icon" type="image/x-icon"/>
+      <title>
+        
+    搜索 | Catalyst
+
+      </title>
+    
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="fab">
+  <i data-feather="chevron-up"></i>
+</div>
 
     
-
+      <div class="grass"></div>
     
-
-    
-
-    
-<link rel="stylesheet" href="/dist/build.css?v=1.5.2.css">
-
-
-<meta name="generator" content="Hexo 4.2.1"></head>
-
-<body>
-
-  <div class="container">
-    <header class="header">
-        <div class="header-type">
-            
-            <div class="avatar avatar-sm">
-                <img src="/images/avatar.jpg" alt="Zou">
-            </div>
-            
-            <a href="/">Catalyst</a>
-            
-                <span class="page-title">search</span>
-            
-        </div>
-        <div class="header-menu">
-            <div class="header-menu-inner">
+    <button class="burger">
+      <i data-feather="menu"></i>
+    </button>
+    <div class="wrapper">
+      <div
+        class="container">
+        <!-- sidebar -->
+        
+          <div class="mask"></div>
+          <div class="sidebar">
+            <div class="title">Catalyst</div>
+            <div class="divider"></div>
+            <nav>
+              <ul>
                 
-                <a href="/">主页</a>
+                  <li>
+                    <a href="&#x2F;">首页</a>
+                  </li>
                 
-                <a href="/archives">归档</a>
+                  <li>
+                    <a href="&#x2F;archives">归档</a>
+                  </li>
                 
-                <a href="/projects">项目</a>
+                  <li>
+                    <a href="&#x2F;projects">项目</a>
+                  </li>
                 
-                <a href="/about">关于</a>
+                  <li>
+                    <a href="&#x2F;about">关于</a>
+                  </li>
                 
-            </div>
-            <div class="header-menu-social">
+              </ul>
+              <div class="side-buttons">
                 
-    <a class="social" target="_blank" href="https://github.com/owlzou">
-        <box-icon type='logo' name='github'></box-icon>
-    </a>
-
-            </div>
-        </div>
-
-        <div class="header-menu-mobile">
-            <div class="header-menu-mobile-inner" id="mobile-menu-open">
-                <i class="icon icon-menu"></i>
-            </div>
-        </div>
-    </header>
-
-    <div class="header-menu-mobile-menu">
-        <div class="header-menu-mobile-menu-bg"></div>
-        <div class="header-menu-mobile-menu-wrap">
-            <div class="header-menu-mobile-menu-inner">
-                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
-                    <i class="icon icon-cross"></i>
-                </div>
-                <div class="header-menu-mobile-menu-list">
+                  
                     
-                    <a href="/">主页</a>
+                      <a class="side-button" href="&#x2F;search">
+                        <i data-feather="search"></i>
+                      </a>
                     
-                    <a href="/archives">归档</a>
+                  
                     
-                    <a href="/projects">项目</a>
+                      <a class="side-button" href="&#x2F;tags">
+                        <i data-feather="tag"></i>
+                      </a>
                     
-                    <a href="/about">关于</a>
+                  
                     
-                </div>
-            </div>
+                      <a class="side-button" href="&#x2F;categories">
+                        <i data-feather="feather"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="https:&#x2F;&#x2F;github.com&#x2F;owlzou" target="_blank">
+                        <i data-feather="github"></i>
+                      </a>
+                    
+                  
+                
+              </div>
+            </nav>
+            
+              <div class="toc-wrapper"></div>
+            
+            
+              <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"></path>
+              </svg>
+            
+          </div>
+        
+        <!-- main -->
+        <div class="main"> 
+    <h2 class="post-title">
+        搜索
+    </h2>
+    <div class="search">
+        <div class="search-bar">
+            <input id="search" type="text"/>
+            <i data-feather="search"></i>
+        </div>
+        <div class="search-results">
+            <div class="search-results__items"></div>
         </div>
     </div>
 
-</div>
-
-  <div class="container">
-    <div class="main">
-      <section class="inner">
-        <section class="inner-main">
-          
-<div class="page">
-  <div class="page">
-    <article id="page-ckj6tstto000823oi5l4o9te5" class="article article-type-page" itemscope
-    itemprop="blogPost">
-
-    <div class="article-inner">
-
-        
-
-        
-        <header class="article-header">
-            
-  
-    <h1 class="article-title" itemprop="name">
-      search
-    </h1>
-  
-
-        </header>
-        
-
-        <div class="article-more-info article-more-info-page hairline">
-
-            <div class="article-date">
-  <time datetime="2020-04-27T19:32:45.000Z" itemprop="datePublished">2020-04-27</time>
-</div>
-
-            
-
-            
-
-            
-
-            <div class="articel-wordcount">
-                共&nbsp;<span>0</span>&nbsp;字
-            </div>
-
+          <div class="footer">
+            <p>
+              
+                &copy;
+                <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+                2019-2021
+              
+            </p>
+            <p>Powerd by
+              <a href="https://www.getzola.org/">Zola</a>
+              | Theme
+              <a href="http://owlzou.github.io/posts/zola-theme-cafe/">Cafe</a>
+            </p>
+          </div>
         </div>
-
-        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
-            
-        </div>
-
+      </div>
     </div>
-
+    
+    <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;elasticlunr.min.js"></script>
+    <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;search_index.en.js"></script>
+    <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;search.js"></script>
+    
+      <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+      <script onload="feather.replace();" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     
 
-    
-
-    
-
-    
-
-    
-
-    
-
-</article>
-
-
-
-<!-- utteranc comments -->
-
-<section class="comments">
-    <script src="https://utteranc.es/client.js"
-            repo='owlzou/owlzou.github.io'
-            issue-term='pathname'
-            theme='github-light'
-            crossorigin='anonymous'
-            async>
-    </script>
-</section>
-
-
-
-</div>
-</div>
-        </section>
-      </section>
-      <aside class="sidebar">
-          <div class="widget">
-       
-  <div class="widget-wrap widget-cate">
-    <div class="widget-title"><span>Categories</span></div>
-    <div class="widget-inner">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Web%E5%89%8D%E7%AB%AF/">Web前端</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%97%A5%E5%BF%97/">日志</a></li></ul>
-    </div>
-  </div>
-
-  
-  <div class="widget-wrap widget-tags">
-    <div class="widget-title"><span>Tags</span></div>
-    <div class="widget-inner">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/" rel="tag">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Elm/" rel="tag">Elm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/F/" rel="tag">F#</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Fabulous/" rel="tag">Fabulous</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Rust/" rel="tag">Rust</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Three-js/" rel="tag">Three.js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebGL/" rel="tag">WebGL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8A%98%E8%85%BE/" rel="tag">折腾</a></li></ul>
-    </div>
-  </div>
-
-  
-  <div class="widget-wrap widget-recent-posts">
-    <div class="widget-title"><span>Recent Posts</span></div>
-    <div class="widget-inner">
-      <ul>
-        
-          <li>
-            <a href="/2020/11/09/bitwise/">位运算笔记</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/12/n-image-viewer/">翻出了 2018 年写的图片浏览器</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/09/rust-note-4-box/">Rust 笔记（四）智能指针等</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/05/rust-note-3-module-and-test/">Rust 笔记（三）模块和测试</a>
-          </li>
-        
-          <li>
-            <a href="/2020/10/03/rust-note-2/">Rust 笔记（二）其它类型</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-  
-  <div class="widget-wrap widget-archive">
-    <div class="widget-title"><span>Archive</span></div>
-    <div class="widget-inner">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li></ul>
-    </div>
-  </div>
-
- 
-</div>
-<div id="backtop">
-    <i class="icon icon-arrow-up"></i>
-</div>
-    
-      </aside>
-    </div>
-  </div>
-
-  <footer class="footer">
-    <div class="footer-inner">
-        <div class="footer-info">
-            <span>&copy; 2019 - 2020 Catalyst @ Zou</span>
-        </div>
-        <div class="footer-powered">
-            <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Aomori</a> Theme · Powered By Hexo
-        </div>
-    </div>
-</footer>
-
-
-
-<script src="/dist/build.js?1.5.2.js"></script>
-
-
-<script src="/dist/custom.js?1.5.2.js"></script>
-
-
-
-
-
-
-
-</body>
+  </body>
 </html>

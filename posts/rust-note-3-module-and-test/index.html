@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.css" rel="stylesheet"/>
+     
+      <meta charset="UTF-8"/>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="icon" type="image/x-icon"/>
+      <title>
+        
+    Rust 笔记（三）模块和测试 | Catalyst
+
+      </title>
+    
+
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="fab">
+  <i data-feather="chevron-up"></i>
+</div>
+
+    
+      <div class="grass"></div>
+    
+    <button class="burger">
+      <i data-feather="menu"></i>
+    </button>
+    <div class="wrapper">
+      <div
+        class="container">
+        <!-- sidebar -->
+        
+          <div class="mask"></div>
+          <div class="sidebar">
+            <div class="title">Catalyst</div>
+            <div class="divider"></div>
+            <nav>
+              <ul>
+                
+                  <li>
+                    <a href="&#x2F;">首页</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;archives">归档</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;projects">项目</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;about">关于</a>
+                  </li>
+                
+              </ul>
+              <div class="side-buttons">
+                
+                  
+                    
+                      <a class="side-button" href="&#x2F;search">
+                        <i data-feather="search"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;tags">
+                        <i data-feather="tag"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;categories">
+                        <i data-feather="feather"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="https:&#x2F;&#x2F;github.com&#x2F;owlzou" target="_blank">
+                        <i data-feather="github"></i>
+                      </a>
+                    
+                  
+                
+              </div>
+            </nav>
+            
+    <div class="toc-wrapper">
+        <div class="toc"></div>
+    </div>
+
+            
+              <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"></path>
+              </svg>
+            
+          </div>
+        
+        <!-- main -->
+        <div class="main"> 
+    <div class="post blog">
+        <h1 class="post-title">
+            Rust 笔记（三）模块和测试</h1>
+        <div class="post-info">
+            <i data-feather="clock"></i>
+            <div class="post-date">2020-10-05</div>
+            
+            
+                <i data-feather="tag"></i>
+                
+                    
+                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;rust&#x2F;">Rust</a>
+                
+            
+        </div>
+        
+            <div class="post-cover"><img class="lazyload" data-src="undraw_online_test_gba7.png"/>
+            </div>
+        
+        <article class="post-type">
+            <p>🧪 把测试写在标准里的还是第一次见（可能是我见识太少了）</p>
+<span id="continue-reading"></span><h2 id="mo-kuai">模块</h2>
+<h3 id="ding-yi">定义</h3>
+<p>总之，为了建立工程化的文件，使用 <code>cargo</code> 新建工程。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">cargo new </span><span style="color:#72ab00;">&lt;</span><span style="color:#1f1f1f;">工程名</span><span style="color:#72ab00;">&gt;</span><span style="color:#1f1f1f;">
+cargo new </span><span style="color:#72ab00;">--</span><span style="color:#1f1f1f;">lib </span><span style="color:#72ab00;">&lt;</span><span style="color:#1f1f1f;">库名</span><span style="color:#72ab00;">&gt;
+</span></code></pre>
+<p>工程中的 <code>main.rs</code> 和 <code>lib.rs</code> 是所有相关文件的根文件。</p>
+<p>利用 <code>mod</code> 定义模块，在模块之中还能再定义模块。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">mod </span><span style="color:#c23f31;">my_module</span><span style="color:#1f1f1f;">{
+	</span><span style="color:#668f14;">mod </span><span style="color:#c23f31;">module_in_module</span><span style="color:#1f1f1f;">{
+		</span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">add</span><span style="color:#1f1f1f;">() {}
+	}
+}
+</span></code></pre>
+<p>在模块中使用 <code>pub</code> 关键字标明公共方法。结构体和结构体内的字段， <code>pub</code> 是分开的。</p>
+<h3 id="lu-jing">路径</h3>
+<ul>
+<li>调用路径：使用 <code>::</code>分割。</li>
+<li>绝对路径： <code>crate</code> 开头。例 <code>crate::my_module::module_in_module</code>。</li>
+<li>相对路径： <code>my_module::module_in_module</code>。</li>
+<li>使用 <code>super</code> 开始父级的相对路径。</li>
+<li>用 <code>use</code> 简化后面路径的书写。可以用 <code>as</code> 给予别名。</li>
+<li>利用花括号调用同级： <code>use std::{cmp::Ordering, io};</code></li>
+<li>利用 <code>*</code> 导入所有 <code>use std::*;</code></li>
+</ul>
+<h3 id="chai-fen">拆分</h3>
+<p>在不同的文件写同一个模块的内容：在声明模块后使用 <code>;</code> ，说明加载其他同名文件夹中的内容。</p>
+<p>例,文件路径</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">│  calculate.rs
+│  lib.rs
+│  main.rs
+│
+└─calculate
+        add.rs
+</span></code></pre><pre style="background-color:#f5f5f5;">
+<code><span style="color:#7f8989;">//src\calculate\add.rs
+</span><span style="color:#668f14;">pub fn </span><span style="color:#c23f31;">add</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">a</span><span style="color:#1f1f1f;">: </span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">b</span><span style="color:#1f1f1f;">: </span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">) -&gt; </span><span style="color:#668f14;">i32 </span><span style="color:#1f1f1f;">{
+    a </span><span style="color:#72ab00;">+</span><span style="color:#1f1f1f;"> b
+}
+</span></code></pre><pre style="background-color:#f5f5f5;">
+<code><span style="color:#7f8989;">//src\calculate.rs
+</span><span style="color:#668f14;">pub mod </span><span style="color:#c23f31;">add</span><span style="color:#1f1f1f;">;
+</span></code></pre><pre style="background-color:#f5f5f5;">
+<code><span style="color:#7f8989;">//src\lib.rs
+</span><span style="color:#668f14;">pub mod </span><span style="color:#c23f31;">calculate</span><span style="color:#1f1f1f;">;
+
+</span><span style="color:#668f14;">pub fn </span><span style="color:#c23f31;">call_add</span><span style="color:#1f1f1f;">()-&gt;</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">{
+    calculate::add::add(</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">)
+}
+</span></code></pre><pre style="background-color:#f5f5f5;">
+<code><span style="color:#7f8989;">//src\main.rs
+</span><span style="color:#72ab00;">use </span><span style="color:#1f1f1f;">modul::calculate;
+
+</span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,calculate::add::add(</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">));
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,modul::call_add());
+}
+</span></code></pre><pre style="background-color:#f5f5f5;">
+<code><span style="background-color:#562d56bf;color:#f8f8f8;">//Cargo.toml</span><span style="color:#1f1f1f;">
+...
+[</span><span style="color:#6486ab;">lib</span><span style="color:#1f1f1f;">]
+</span><span style="color:#7f902a;">name </span><span style="color:#1f1f1f;">= </span><span style="color:#d07711;">&quot;modul&quot;
+</span><span style="color:#7f902a;">path </span><span style="color:#1f1f1f;">= </span><span style="color:#d07711;">&quot;src/lib.rs&quot;
+
+</span><span style="color:#1f1f1f;">[[</span><span style="color:#6486ab;">bin</span><span style="color:#1f1f1f;">]]
+</span><span style="color:#7f902a;">name </span><span style="color:#1f1f1f;">= </span><span style="color:#d07711;">&quot;modul&quot;
+</span><span style="color:#7f902a;">path </span><span style="color:#1f1f1f;">= </span><span style="color:#d07711;">&quot;src/main.rs&quot;
+</span></code></pre><h2 id="ce-shi">测试</h2>
+<h3 id="ji-chu">基础</h3>
+<p>在函数前添加 <code>#[test]</code> 表明这是一个测试用的函数。之后运行 <code>cargo test</code> 就可以执行测试函数。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;"> #[</span><span style="color:#5597d6;">test</span><span style="color:#1f1f1f;">]
+ </span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">test</span><span style="color:#1f1f1f;">(){
+ }
+</span></code></pre>
+<p>测试主要分 <code>单元测试</code> 和 <code>集成测试</code> 。</p>
+<ul>
+<li>
+<p><code>单元测试</code> 通常是在文件中创建一个名字为 <code>test</code> 的模块包含测试功能，代码在<code>src</code>目录内。</p>
+</li>
+<li>
+<p><code>集成测试</code> 则是纯外部代码。通常需要在工程中建立一个 和 <code>src</code> 同级的 <code>test</code> 文件夹。<code>集成测试</code> 只测试 <code>lib</code> 。</p>
+</li>
+</ul>
+<p>在模块前添加 <code>#[cfg(test)]</code> 表明测试用模块。测试模块只在测试时编译。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">#[cfg(test)]
+mod tests {
+    use super::*; //使用这让测试函数使用外部模块定义的代码
+
+    #[test]
+    fn is_true() {
+        assert!(true);
+    }
+}
+</span></code></pre><h3 id="hong">宏</h3>
+<p>执行断言：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#a2a001;">assert!</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">&lt;</span><span style="color:#1f1f1f;">表达式</span><span style="color:#72ab00;">&gt;</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//返回成功或失败
+</span><span style="color:#a2a001;">assert_eq!</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">&lt;</span><span style="color:#1f1f1f;">表达式1</span><span style="color:#72ab00;">&gt;</span><span style="color:#1f1f1f;">,&lt;表达式2&gt;); </span><span style="color:#7f8989;">//测试两个表达式是否相等
+</span></code></pre>
+<p>自定义错误信息：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#a2a001;">assert!</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">false</span><span style="color:#1f1f1f;">,</span><span style="color:#d07711;">&quot;错误信息 {}&quot;</span><span style="color:#1f1f1f;">, err);
+</span></code></pre>
+<p>对于应该 <code>panic</code> 的函数在 <code>#[test]</code> 下使用 <code>#[should_panic]</code>。</p>
+<p>使用 <code>#[ignore]</code> 忽略此测试函数。</p>
+<h3 id="kong-zhi">控制</h3>
+<p><code>cargo test</code> 的参数有作用于 <code>cargo test</code> 本身的，也有作用于生成的测试文件的。如果想要传给生成的测试文件参数，将参数放在分隔符 <code>--</code> 后： <code>cargo test &lt;参数&gt; -- &lt;生成二进制文件的参数&gt;</code> 。</p>
+<p>例： <code>cargo test -- --test-threads=1</code> 。</p>
+<table><thead><tr><th>作用于 cargo test 的参数</th><th>含义</th></tr></thead><tbody>
+<tr><td><code>&lt;测试名字&gt;</code></td><td>只运行函数名中包含此名字的测试函数/模块</td></tr>
+</tbody></table>
+<table><thead><tr><th>作用于测试文件的参数</th><th>含义</th></tr></thead><tbody>
+<tr><td><code>--test-threads=1</code></td><td>测试线程数</td></tr>
+<tr><td><code>--show-output</code></td><td>显示测试函数的结果</td></tr>
+<tr><td><code>--ignored</code></td><td>只运行被忽略的函数</td></tr>
+</tbody></table>
+<p><strong>参考资料</strong></p>
+<ul>
+<li>主要是<a href="https://doc.rust-lang.org/book/title-page.html">《The Book》</a>的读书笔记。</li>
+<li><a href="https://github.com/rust-lang/rustlings">Rustlings</a> 的做题感想</li>
+<li>封面图片：来自 <a href="https://undraw.co/">Undraw</a></li>
+</ul>
+
+        </article>
+        <div class="divider"></div>
+        
+            
+                <div id="comment">
+                    <div class="comment-placeholder"><i data-feather="loader"></i>加载评论中……</div>
+                    <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
+                </div>
+            
+        
+    </div>
+
+          <div class="footer">
+            <p>
+              
+                &copy;
+                <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+                2019-2021
+              
+            </p>
+            <p>Powerd by
+              <a href="https://www.getzola.org/">Zola</a>
+              | Theme
+              <a href="http://owlzou.github.io/posts/zola-theme-cafe/">Cafe</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+      <script onload="feather.replace();" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+    <script onload="toc_onload()" src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.min.js"></script>
+
+  </body>
+</html>

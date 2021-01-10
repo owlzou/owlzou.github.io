@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.css" rel="stylesheet"/>
+     
+      <meta charset="UTF-8"/>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="icon" type="image/x-icon"/>
+      <title>
+        
+    WebGL 笔记（3） 纹理 | Catalyst
+
+      </title>
+    
+
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="fab">
+  <i data-feather="chevron-up"></i>
+</div>
+
+    
+      <div class="grass"></div>
+    
+    <button class="burger">
+      <i data-feather="menu"></i>
+    </button>
+    <div class="wrapper">
+      <div
+        class="container">
+        <!-- sidebar -->
+        
+          <div class="mask"></div>
+          <div class="sidebar">
+            <div class="title">Catalyst</div>
+            <div class="divider"></div>
+            <nav>
+              <ul>
+                
+                  <li>
+                    <a href="&#x2F;">首页</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;archives">归档</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;projects">项目</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;about">关于</a>
+                  </li>
+                
+              </ul>
+              <div class="side-buttons">
+                
+                  
+                    
+                      <a class="side-button" href="&#x2F;search">
+                        <i data-feather="search"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;tags">
+                        <i data-feather="tag"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;categories">
+                        <i data-feather="feather"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="https:&#x2F;&#x2F;github.com&#x2F;owlzou" target="_blank">
+                        <i data-feather="github"></i>
+                      </a>
+                    
+                  
+                
+              </div>
+            </nav>
+            
+    <div class="toc-wrapper">
+        <div class="toc"></div>
+    </div>
+
+            
+              <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"></path>
+              </svg>
+            
+          </div>
+        
+        <!-- main -->
+        <div class="main"> 
+    <div class="post blog">
+        <h1 class="post-title">
+            WebGL 笔记（3） 纹理</h1>
+        <div class="post-info">
+            <i data-feather="clock"></i>
+            <div class="post-date">2020-03-14</div>
+            
+                
+                    
+                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;webqian-duan&#x2F;">Web前端</a>
+                
+            
+            
+                <i data-feather="tag"></i>
+                
+                    
+                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;webgl&#x2F;">WebGL</a>
+                
+            
+        </div>
+        
+        <article class="post-type">
+            <p>🎯 目标：贴纹理</p>
+<span id="continue-reading"></span>
+<p>在平面上贴纹理。</p>
+<h2 id="1-du-qu-wen-li">1. 读取纹理</h2>
+<blockquote>
+<p>参考资料：MDN 的<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL">加载纹理</a></p>
+</blockquote>
+<p>因为只画一次，所以绘图函数写在了加载图像的回调后，保证设置完后再绘制纹理。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">function </span><span style="color:#c23f31;">loadTexture</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">imageSrc</span><span style="color:#1f1f1f;">) {
+  </span><span style="color:#668f14;">let </span><span style="color:#5597d6;">texture </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">createTexture</span><span style="color:#1f1f1f;">();
+  </span><span style="color:#668f14;">let </span><span style="color:#5597d6;">image </span><span style="color:#72ab00;">= new </span><span style="color:#5597d6;">Image</span><span style="color:#1f1f1f;">();
+  </span><span style="color:#5597d6;">image</span><span style="color:#1f1f1f;">.src </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">imageSrc</span><span style="color:#1f1f1f;">;
+  </span><span style="color:#7f8989;">//加载完图像后执行的函数
+  </span><span style="color:#a2a001;">image</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">onload </span><span style="color:#72ab00;">= </span><span style="color:#668f14;">function </span><span style="color:#1f1f1f;">() {
+    </span><span style="color:#7f8989;">//绑定纹理
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">bindTexture</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.TEXTURE_2D, </span><span style="color:#5597d6;">texture</span><span style="color:#1f1f1f;">);
+    </span><span style="color:#7f8989;">//指定二维纹理贴图，详细级别。颜色组件，数据格式，数据类型，数据源
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">texImage2D</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.TEXTURE_2D, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.RGBA, </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.RGBA, </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.UNSIGNED_BYTE, </span><span style="color:#5597d6;">image</span><span style="color:#1f1f1f;">);
+    </span><span style="color:#7f8989;">//设置纹理在放大和缩小时候采用的采样方案。
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">texParameteri</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.TEXTURE_2D, </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.TEXTURE_MAG_FILTER, </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.LINEAR);
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">texParameteri</span><span style="color:#1f1f1f;">(
+      </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.TEXTURE_2D,
+      </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.TEXTURE_MIN_FILTER,
+      </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.LINEAR_MIPMAP_NEAREST
+    );
+    </span><span style="color:#7f8989;">//生成mipmap
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">generateMipmap</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.TEXTURE_2D);
+    </span><span style="color:#7f8989;">//绑定纹理
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">activeTexture</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.TEXTURE0); </span><span style="color:#7f8989;">//TEXTURE0默认激活，注释掉也行
+    //传入纹理数据到着色器
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">uniform1i</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">getUniformLocation</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;uSampler&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">);
+    </span><span style="color:#7f8989;">//绘制
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">useProgram</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">);
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">drawArrays</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.TRIANGLE_STRIP, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">);
+  };
+  </span><span style="color:#72ab00;">return </span><span style="color:#5597d6;">texture</span><span style="color:#1f1f1f;">;
+}
+</span></code></pre><h2 id="2-xiu-gai-zhao-se-qi">2. 修改着色器</h2>
+<p>因为是逐像素传数据，所以先用<code>attribute</code>型接受数据，然后传到<code>varying</code>中以传入片段着色器中。
+在片段着色器中使用<code>sampler2D</code>类型承载<code>GL_TEXTURE</code>对象。<code>texture2D</code>获取纹理对应坐标上的颜色值。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">const </span><span style="color:#5597d6;">vertexSource </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">`
+attribute vec2 aPosition;
+attribute vec2 aTexCoord;
+varying lowp vec2 vTexCoord;
+void main(){
+    vTexCoord = aTexCoord;
+    gl_Position=vec4(aPosition,0.0,1.0);
+}
+`</span><span style="color:#1f1f1f;">;
+
+</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">fragmentSource </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">`
+varying lowp vec2 vTexCoord;
+uniform sampler2D uSampler;
+void main(){
+      gl_FragColor = texture2D(uSampler,vTexCoord);
+  }
+`</span><span style="color:#1f1f1f;">;
+</span></code></pre><h2 id="3-wen-li-ying-she">3.纹理映射</h2>
+<p>指定图形上显示的纹理的坐标，按照点的顺序来。</p>
+<blockquote>
+<p>2020.09.13：这里正方形的点只写<code>x</code>和<code>y</code>是因为上面的着色器里已经把<code>z</code>设定了。半年过去自己都忘记了 😅。</p>
+</blockquote>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#7f8989;">//正方形的点
+</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">vertices </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">];
+</span><span style="color:#7f8989;">//纹理对应坐标
+</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">tex </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">];
+</span></code></pre>
+<p>上次写的一次性输入，这次分别绑定缓冲：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">function </span><span style="color:#c23f31;">simpleBindBuffer</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">name</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">) {
+  </span><span style="color:#668f14;">const </span><span style="color:#5597d6;">buffer </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">createBuffer</span><span style="color:#1f1f1f;">();
+  </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">bindBuffer</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.ARRAY_BUFFER, </span><span style="color:#5597d6;">buffer</span><span style="color:#1f1f1f;">);
+  </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">bufferData</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.ARRAY_BUFFER, </span><span style="color:#72ab00;">new </span><span style="color:#a2a001;">Float32Array</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">), </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.STATIC_DRAW);
+  </span><span style="color:#668f14;">const </span><span style="color:#5597d6;">index </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">getAttribLocation</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">name</span><span style="color:#1f1f1f;">);
+  </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">vertexAttribPointer</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">index</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.FLOAT, </span><span style="color:#b3933a;">false</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">);
+  </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">enableVertexAttribArray</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">index</span><span style="color:#1f1f1f;">);
+  </span><span style="color:#72ab00;">return </span><span style="color:#5597d6;">buffer</span><span style="color:#1f1f1f;">;
+}
+
+</span><span style="color:#7f8989;">//设置缓冲
+</span><span style="color:#5597d6;">simpleBindBuffer</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;aPosition&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">vertices</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">);
+</span><span style="color:#5597d6;">simpleBindBuffer</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;aTexCoord&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">tex</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">);
+</span></code></pre>
+<p>这样就能在平面上贴上纹理了。</p>
+<h2 id="4-cuo-wu">4. 错误</h2>
+<blockquote>
+<p>generateMipmap: The base level of the texture does not have power-of-two dimensions.</p>
+</blockquote>
+<p><code>webgl 1.0</code> 只能给图片边长为 2 的幂的图片生成 mipmap, <code>webgl 2.0</code>就没有这个问题。</p>
+<p>使用 <code>webgl 2.0</code> 需要 <code>const gl = canvas.getContext(&quot;webgl2&quot;)</code>。</p>
+
+        </article>
+        <div class="divider"></div>
+        
+            
+                <div id="comment">
+                    <div class="comment-placeholder"><i data-feather="loader"></i>加载评论中……</div>
+                    <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
+                </div>
+            
+        
+    </div>
+
+          <div class="footer">
+            <p>
+              
+                &copy;
+                <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+                2019-2021
+              
+            </p>
+            <p>Powerd by
+              <a href="https://www.getzola.org/">Zola</a>
+              | Theme
+              <a href="http://owlzou.github.io/posts/zola-theme-cafe/">Cafe</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+      <script onload="feather.replace();" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+    <script onload="toc_onload()" src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.min.js"></script>
+
+  </body>
+</html>

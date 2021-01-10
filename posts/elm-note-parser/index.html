@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.css" rel="stylesheet"/>
+     
+      <meta charset="UTF-8"/>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="icon" type="image/x-icon"/>
+      <title>
+        
+    将 HEX 颜色值转换为 RGB 颜色值 | Catalyst
+
+      </title>
+    
+
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="fab">
+  <i data-feather="chevron-up"></i>
+</div>
+
+    
+      <div class="grass"></div>
+    
+    <button class="burger">
+      <i data-feather="menu"></i>
+    </button>
+    <div class="wrapper">
+      <div
+        class="container">
+        <!-- sidebar -->
+        
+          <div class="mask"></div>
+          <div class="sidebar">
+            <div class="title">Catalyst</div>
+            <div class="divider"></div>
+            <nav>
+              <ul>
+                
+                  <li>
+                    <a href="&#x2F;">首页</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;archives">归档</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;projects">项目</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;about">关于</a>
+                  </li>
+                
+              </ul>
+              <div class="side-buttons">
+                
+                  
+                    
+                      <a class="side-button" href="&#x2F;search">
+                        <i data-feather="search"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;tags">
+                        <i data-feather="tag"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;categories">
+                        <i data-feather="feather"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="https:&#x2F;&#x2F;github.com&#x2F;owlzou" target="_blank">
+                        <i data-feather="github"></i>
+                      </a>
+                    
+                  
+                
+              </div>
+            </nav>
+            
+    <div class="toc-wrapper">
+        <div class="toc"></div>
+    </div>
+
+            
+              <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"></path>
+              </svg>
+            
+          </div>
+        
+        <!-- main -->
+        <div class="main"> 
+    <div class="post blog">
+        <h1 class="post-title">
+            将 HEX 颜色值转换为 RGB 颜色值</h1>
+        <div class="post-info">
+            <i data-feather="clock"></i>
+            <div class="post-date">2020-09-17</div>
+            
+                
+                    
+                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;webqian-duan&#x2F;">Web前端</a>
+                
+            
+            
+                <i data-feather="tag"></i>
+                
+                    
+                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;elm&#x2F;">Elm</a>
+                
+            
+        </div>
+        
+        <article class="post-type">
+            <p>目前写的项目需要把<code>hex</code>颜色转换成<code>rgb</code>的形式，想起了之前写了一半就没动的<code>elm/parser</code>的博文，正好趁这个机会写完。</p>
+<p>⚠️ 依旧是不完整笔记，只写用到的部分。</p>
+<p>🎯 目标是将 <code>#9fa0d7</code> 这种形式的字符串提取出 RGB 的值：rgb(159,160,215)</p>
+<span id="continue-reading"></span>
+<ul>
+<li><a href="https://github.com/elm/parser">🖥️ <code>elm/parser</code> 的 GitHub 地址</a></li>
+<li><a href="https://package.elm-lang.org/packages/elm/parser/latest/">📦 在<code>elm-package</code>上的地址</a></li>
+</ul>
+<h2 id="guan-dao-liu-cheng">管道流程</h2>
+<p>包文档里提供的一个例子说明了 parser 的工作方法：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#c23f31;">point </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Parser Point
+</span><span style="color:#c23f31;">point </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">
+  succeed </span><span style="color:#b3933a;">Point
+    </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> symbol </span><span style="color:#d07711;">&quot;(&quot;
+    </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> spaces
+    </span><span style="color:#72ab00;">|=</span><span style="color:#1f1f1f;"> float
+    </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> spaces
+    </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> symbol </span><span style="color:#d07711;">&quot;,&quot;
+    </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> spaces
+    </span><span style="color:#72ab00;">|=</span><span style="color:#1f1f1f;"> float
+    </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> spaces
+    </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> symbol </span><span style="color:#d07711;">&quot;)&quot;
+</span></code></pre>
+<p>上面的<code>|.</code>，<code>|=</code>之类的是处理数据的方法。</p>
+<table><thead><tr><th>管道</th><th>备注</th></tr></thead><tbody>
+<tr><td>|.</td><td>解析并略过结果</td></tr>
+<tr><td>|=</td><td>解析并保留结果，左侧类型要是<code>Parser (a-&gt;b)</code></td></tr>
+<tr><td>succeed</td><td>直接输出内容，类型是<code>a-&gt;Parser a</code></td></tr>
+<tr><td>lazy</td><td>递归解析，例如在 parser 中包含 parser</td></tr>
+<tr><td>andThen ,problem</td><td></td></tr>
+</tbody></table>
+<p>所以<code>point</code>解析器表示的意思就是抽取<code>(1,2)</code>，<code>（33 , 4324)</code>类似输入中的 xy 值。</p>
+<p>可以直接用于解析的解析器有:</p>
+<table><thead><tr><th>类型</th><th>备注</th></tr></thead><tbody>
+<tr><td>int, float, number</td><td>其中<code>number</code>可以同时解析不同类型的数字类型。</td></tr>
+<tr><td>symbol</td><td>符号，多用于<code>(</code>、 <code>)</code>、 <code>,</code>等</td></tr>
+<tr><td>end</td><td>检查是否到达字符串的终点。可以用于确保分析完了整个字符串</td></tr>
+<tr><td>spaces</td><td>包括<code>&lt;空格&gt;</code>, <code>\n</code> ,<code>\r</code></td></tr>
+<tr><td>keyword</td><td>解析关键字：内容是连贯完整的： n+1 位不能是字母、数字或下划线</td></tr>
+<tr><td>variable</td><td>解析类似变量名的内容：有特定开头，内容过滤，排除保留字</td></tr>
+<tr><td>lineComment ,multiComment</td><td>解析注释（跳过内容）</td></tr>
+</tbody></table>
+<p>对于我们的需求，颜色的有效输入格式是 <code>\#[\d(a-f)(A-F)]{6}\</code>。划分的时候两个两个一划并转换为十进制。大致流程如下：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#72ab00;">type alias </span><span style="color:#c23f31;">Color </span><span style="color:#72ab00;">=
+    </span><span style="color:#b39f04;">{</span><span style="color:#1f1f1f;"> red </span><span style="color:#72ab00;">: </span><span style="color:#b3933a;">Int
+    </span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> green </span><span style="color:#72ab00;">: </span><span style="color:#b3933a;">Int
+    </span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> blue </span><span style="color:#72ab00;">: </span><span style="color:#b3933a;">Int
+    </span><span style="color:#b39f04;">}
+
+</span><span style="color:#c23f31;">hexToColor </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Parser Int
+</span><span style="color:#c23f31;">hexToColor </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">
+    succeed </span><span style="color:#b3933a;">Color
+            </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> symbol </span><span style="color:#d07711;">&quot;#&quot;
+            </span><span style="color:#72ab00;">|=</span><span style="color:#1f1f1f;"> hexToInt
+            </span><span style="color:#72ab00;">|=</span><span style="color:#1f1f1f;"> hexToInt
+            </span><span style="color:#72ab00;">|=</span><span style="color:#1f1f1f;"> hexToInt
+            </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> end
+</span></code></pre>
+<p>忽略掉前面的<code>#</code>，然后实施 3 个<code>hexToInt</code>（每个处理两个字符），每个都保留传输到 Color 构造中。</p>
+<h2 id="zhu-zi-chu-li">逐字处理</h2>
+<p>由上，我们的第一行已经有了： <code>|. symbol &quot;#&quot;</code>，但后面的就要自己处理了。看文档使用<code>Chompers</code>（咀嚼？感觉像是吃豆人那样一个一个处理并移除）。</p>
+<table><thead><tr><th>名称</th><th>备注</th></tr></thead><tbody>
+<tr><td>chompIf</td><td>处理一个通过测试的字符</td></tr>
+<tr><td>chompWhile</td><td>处理连续的通过测试的字符</td></tr>
+<tr><td>chompUntil</td><td>处理直到碰到给定的字符</td></tr>
+<tr><td>chompUntilEndOr</td><td>处理直到碰到给定的字符或结尾</td></tr>
+<tr><td>getChompedString,mapChompedString</td><td>字面意思，上文中的管道方法其实都是 chomp 的一种，所以使用 symbol 函数也会收到</td></tr>
+</tbody></table>
+<p>接着使用</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#c23f31;">hexToInt </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Parser Int
+</span><span style="color:#c23f31;">hexToInt </span><span style="color:#72ab00;">=
+    </span><span style="color:#b3933a;">Parser</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">map intFromHexString </span><span style="color:#72ab00;">&lt;|</span><span style="color:#1f1f1f;">
+        getChompedString </span><span style="color:#72ab00;">&lt;|</span><span style="color:#1f1f1f;">
+            chompIf </span><span style="color:#b3933a;">Char</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">isHexDigit
+                </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> chompIf </span><span style="color:#b3933a;">Char</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">isHexDigit
+</span></code></pre>
+<ol>
+<li>用<code>chompIf</code>处理两个字符</li>
+<li>用<code>getChompedString</code>接受被 chomp 的字符</li>
+<li>最后用 map 将 String 转换为 Int，其中用了一个 hex 转 int 的函数。</li>
+</ol>
+<h2 id="wan-zheng-dai-ma">完整代码</h2>
+<details>
+<summary>点击查看</summary>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#72ab00;">module </span><span style="color:#a2a001;">Main </span><span style="color:#72ab00;">exposing </span><span style="color:#1f1f1f;">(</span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">)
+
+</span><span style="color:#72ab00;">import </span><span style="color:#a2a001;">Browser
+</span><span style="color:#72ab00;">import </span><span style="color:#a2a001;">Html </span><span style="color:#72ab00;">exposing </span><span style="color:#1f1f1f;">(</span><span style="color:#668f14;">Html</span><span style="color:#1f1f1f;">, </span><span style="color:#c23f31;">div</span><span style="color:#1f1f1f;">, </span><span style="color:#c23f31;">input</span><span style="color:#1f1f1f;">, </span><span style="color:#c23f31;">text</span><span style="color:#1f1f1f;">)
+</span><span style="color:#72ab00;">import </span><span style="color:#a2a001;">Html.Attributes </span><span style="color:#72ab00;">exposing </span><span style="color:#1f1f1f;">(</span><span style="color:#c23f31;">placeholder</span><span style="color:#1f1f1f;">, </span><span style="color:#c23f31;">type_</span><span style="color:#1f1f1f;">)
+</span><span style="color:#72ab00;">import </span><span style="color:#a2a001;">Html.Events </span><span style="color:#72ab00;">exposing </span><span style="color:#1f1f1f;">(</span><span style="color:#c23f31;">onInput</span><span style="color:#1f1f1f;">)
+</span><span style="color:#72ab00;">import </span><span style="color:#a2a001;">Parser </span><span style="color:#72ab00;">exposing </span><span style="color:#1f1f1f;">(..)
+
+
+
+</span><span style="color:#7f8989;">-- MAIN
+
+
+</span><span style="color:#c23f31;">main </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Program </span><span style="color:#da5d42;">() </span><span style="color:#668f14;">Model Msg
+</span><span style="color:#c23f31;">main </span><span style="color:#72ab00;">=
+    </span><span style="color:#b3933a;">Browser</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">sandbox </span><span style="color:#b39f04;">{</span><span style="color:#1f1f1f;"> init </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> init</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> update </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> update</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> view </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> view </span><span style="color:#b39f04;">}
+
+
+
+</span><span style="color:#7f8989;">-- MODEL
+
+
+</span><span style="color:#72ab00;">type alias </span><span style="color:#c23f31;">Model </span><span style="color:#72ab00;">=
+    </span><span style="color:#b3933a;">Maybe Color
+
+
+</span><span style="color:#72ab00;">type alias </span><span style="color:#c23f31;">Color </span><span style="color:#72ab00;">=
+    </span><span style="color:#b39f04;">{</span><span style="color:#1f1f1f;"> red </span><span style="color:#72ab00;">: </span><span style="color:#b3933a;">Int
+    </span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> green </span><span style="color:#72ab00;">: </span><span style="color:#b3933a;">Int
+    </span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> blue </span><span style="color:#72ab00;">: </span><span style="color:#b3933a;">Int
+    </span><span style="color:#b39f04;">}
+
+
+</span><span style="color:#c23f31;">init </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Model
+</span><span style="color:#c23f31;">init </span><span style="color:#72ab00;">=
+    </span><span style="color:#b3933a;">Nothing
+
+
+
+</span><span style="color:#7f8989;">-- UPDATE
+
+
+</span><span style="color:#72ab00;">type </span><span style="color:#c23f31;">Msg
+    </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">ToParse String
+
+
+</span><span style="color:#c23f31;">update </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Msg </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Model </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Model
+</span><span style="color:#c23f31;">update </span><span style="color:#1f1f1f;">msg model </span><span style="color:#72ab00;">=
+    case </span><span style="color:#1f1f1f;">msg </span><span style="color:#72ab00;">of
+        </span><span style="color:#b3933a;">ToParse</span><span style="color:#1f1f1f;"> input </span><span style="color:#72ab00;">-&gt;
+            case </span><span style="color:#1f1f1f;">run hexToColor input </span><span style="color:#72ab00;">of
+                </span><span style="color:#b3933a;">Ok</span><span style="color:#1f1f1f;"> color </span><span style="color:#72ab00;">-&gt;
+                    </span><span style="color:#b3933a;">Just</span><span style="color:#1f1f1f;"> color
+
+                </span><span style="color:#b3933a;">Err</span><span style="color:#1f1f1f;"> _ </span><span style="color:#72ab00;">-&gt;</span><span style="color:#1f1f1f;">
+                    model
+
+
+
+</span><span style="color:#7f8989;">-- VIEW
+
+
+</span><span style="color:#c23f31;">view </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Model </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Html Msg
+</span><span style="color:#c23f31;">view </span><span style="color:#1f1f1f;">model </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">
+    div </span><span style="color:#b39f04;">[]
+        [</span><span style="color:#1f1f1f;"> input </span><span style="color:#b39f04;">[</span><span style="color:#1f1f1f;"> type_ </span><span style="color:#d07711;">&quot;text&quot;</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> placeholder </span><span style="color:#d07711;">&quot;Input hex color&quot;</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> onInput </span><span style="color:#b3933a;">ToParse </span><span style="color:#b39f04;">] []
+        ,</span><span style="color:#1f1f1f;"> div </span><span style="color:#b39f04;">[] [</span><span style="color:#1f1f1f;"> text </span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">colorToString model</span><span style="color:#72ab00;">) </span><span style="color:#b39f04;">]
+        ]
+
+
+</span><span style="color:#c23f31;">hexToColor </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Parser Color
+</span><span style="color:#c23f31;">hexToColor </span><span style="color:#72ab00;">=
+    let
+        </span><span style="color:#1f1f1f;">hexToInt </span><span style="color:#72ab00;">: </span><span style="color:#b3933a;">Parser Int</span><span style="color:#1f1f1f;">
+        hexToInt </span><span style="color:#72ab00;">=
+            </span><span style="color:#b3933a;">Parser</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">map intFromHexString </span><span style="color:#72ab00;">&lt;|</span><span style="color:#1f1f1f;">
+                getChompedString </span><span style="color:#72ab00;">&lt;|</span><span style="color:#1f1f1f;">
+                    chompIf </span><span style="color:#b3933a;">Char</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">isHexDigit
+                        </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> chompIf </span><span style="color:#b3933a;">Char</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">isHexDigit
+    </span><span style="color:#72ab00;">in
+    </span><span style="color:#1f1f1f;">succeed </span><span style="color:#b3933a;">Color
+        </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> symbol </span><span style="color:#d07711;">&quot;#&quot;
+        </span><span style="color:#72ab00;">|=</span><span style="color:#1f1f1f;"> hexToInt
+        </span><span style="color:#72ab00;">|=</span><span style="color:#1f1f1f;"> hexToInt
+        </span><span style="color:#72ab00;">|=</span><span style="color:#1f1f1f;"> hexToInt
+        </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> end
+
+
+</span><span style="color:#c23f31;">intFromHexString </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">String </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Int
+</span><span style="color:#c23f31;">intFromHexString </span><span style="color:#1f1f1f;">hex </span><span style="color:#72ab00;">=
+    let
+        </span><span style="color:#1f1f1f;">singleHex c </span><span style="color:#72ab00;">=
+            if </span><span style="color:#b3933a;">Char</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">isDigit c </span><span style="color:#72ab00;">then
+                </span><span style="color:#b3933a;">Char</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">toCode c </span><span style="color:#72ab00;">- </span><span style="color:#b3933a;">Char</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">toCode </span><span style="color:#d07711;">&#39;0&#39;
+
+            </span><span style="color:#72ab00;">else
+                </span><span style="color:#b3933a;">Char</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">toCode c </span><span style="color:#72ab00;">- </span><span style="color:#b3933a;">Char</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">toCode </span><span style="color:#d07711;">&#39;A&#39; </span><span style="color:#72ab00;">+ </span><span style="color:#b3933a;">10</span><span style="color:#1f1f1f;">
+
+        power i </span><span style="color:#72ab00;">=
+            </span><span style="color:#b3933a;">List</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">product </span><span style="color:#72ab00;">(</span><span style="color:#b3933a;">List</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">repeat i </span><span style="color:#b3933a;">16</span><span style="color:#72ab00;">)
+    in
+    </span><span style="color:#b3933a;">String</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">toList </span><span style="color:#72ab00;">(</span><span style="color:#b3933a;">String</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">toUpper hex</span><span style="color:#72ab00;">)
+        |&gt; </span><span style="color:#b3933a;">List</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">indexedMap </span><span style="color:#72ab00;">(\</span><span style="color:#1f1f1f;">i item </span><span style="color:#72ab00;">-&gt;</span><span style="color:#1f1f1f;"> power </span><span style="color:#72ab00;">(</span><span style="color:#b3933a;">String</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">length hex </span><span style="color:#72ab00;">-</span><span style="color:#1f1f1f;"> i </span><span style="color:#72ab00;">- </span><span style="color:#b3933a;">1</span><span style="color:#72ab00;">) *</span><span style="color:#1f1f1f;"> singleHex item</span><span style="color:#72ab00;">)
+        |&gt; </span><span style="color:#b3933a;">List</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">sum
+
+
+</span><span style="color:#c23f31;">colorToString </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Maybe Color </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">String
+</span><span style="color:#c23f31;">colorToString </span><span style="color:#1f1f1f;">color </span><span style="color:#72ab00;">=
+    case </span><span style="color:#1f1f1f;">color </span><span style="color:#72ab00;">of
+        </span><span style="color:#b3933a;">Nothing </span><span style="color:#72ab00;">-&gt;
+            </span><span style="color:#d07711;">&quot;不合法的颜色值的输入。&quot;
+
+        </span><span style="color:#b3933a;">Just</span><span style="color:#1f1f1f;"> p </span><span style="color:#72ab00;">-&gt;
+            </span><span style="color:#d07711;">&quot;rgb(&quot; </span><span style="color:#72ab00;">++ </span><span style="color:#b3933a;">String</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">fromInt p</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">red </span><span style="color:#72ab00;">++ </span><span style="color:#d07711;">&quot;,&quot; </span><span style="color:#72ab00;">++ </span><span style="color:#b3933a;">String</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">fromInt p</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">green </span><span style="color:#72ab00;">++ </span><span style="color:#d07711;">&quot;,&quot; </span><span style="color:#72ab00;">++ </span><span style="color:#b3933a;">String</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">fromInt p</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">blue </span><span style="color:#72ab00;">++ </span><span style="color:#d07711;">&quot;)&quot;
+</span></code></pre></details>
+<!-- 创建日期：2020-03-27，半年后捡起来写完。不过一看当时写的还是挺多错的…… -->
+
+        </article>
+        <div class="divider"></div>
+        
+            
+                <div id="comment">
+                    <div class="comment-placeholder"><i data-feather="loader"></i>加载评论中……</div>
+                    <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
+                </div>
+            
+        
+    </div>
+
+          <div class="footer">
+            <p>
+              
+                &copy;
+                <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+                2019-2021
+              
+            </p>
+            <p>Powerd by
+              <a href="https://www.getzola.org/">Zola</a>
+              | Theme
+              <a href="http://owlzou.github.io/posts/zola-theme-cafe/">Cafe</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+      <script onload="feather.replace();" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+    <script onload="toc_onload()" src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.min.js"></script>
+
+  </body>
+</html>

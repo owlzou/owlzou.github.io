@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.css" rel="stylesheet"/>
+     
+      <meta charset="UTF-8"/>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="icon" type="image/x-icon"/>
+      <title>
+        
+    Elm 笔记（1）：计数器 | Catalyst
+
+      </title>
+    
+
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="fab">
+  <i data-feather="chevron-up"></i>
+</div>
+
+    
+      <div class="grass"></div>
+    
+    <button class="burger">
+      <i data-feather="menu"></i>
+    </button>
+    <div class="wrapper">
+      <div
+        class="container">
+        <!-- sidebar -->
+        
+          <div class="mask"></div>
+          <div class="sidebar">
+            <div class="title">Catalyst</div>
+            <div class="divider"></div>
+            <nav>
+              <ul>
+                
+                  <li>
+                    <a href="&#x2F;">首页</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;archives">归档</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;projects">项目</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;about">关于</a>
+                  </li>
+                
+              </ul>
+              <div class="side-buttons">
+                
+                  
+                    
+                      <a class="side-button" href="&#x2F;search">
+                        <i data-feather="search"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;tags">
+                        <i data-feather="tag"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;categories">
+                        <i data-feather="feather"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="https:&#x2F;&#x2F;github.com&#x2F;owlzou" target="_blank">
+                        <i data-feather="github"></i>
+                      </a>
+                    
+                  
+                
+              </div>
+            </nav>
+            
+    <div class="toc-wrapper">
+        <div class="toc"></div>
+    </div>
+
+            
+              <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"></path>
+              </svg>
+            
+          </div>
+        
+        <!-- main -->
+        <div class="main"> 
+    <div class="post blog">
+        <h1 class="post-title">
+            Elm 笔记（1）：计数器</h1>
+        <div class="post-info">
+            <i data-feather="clock"></i>
+            <div class="post-date">2020-03-27</div>
+            
+                
+                    
+                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;webqian-duan&#x2F;">Web前端</a>
+                
+            
+            
+                <i data-feather="tag"></i>
+                
+                    
+                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;elm&#x2F;">Elm</a>
+                
+            
+        </div>
+        
+        <article class="post-type">
+            <p>想学点新东西，同时看下函数式编程是什么样的，所以开始看<code>Elm</code>。不过函数式编程对我来说还是太陌生了，所以强制自己写点博文理解。</p>
+<p>初步目标是根据官方文档的三个例子（<code>Buttons</code>,<code>Text Fields</code>,<code>Forms</code>）来做分析。这篇是第一篇，根据<code>Button</code>的计数器。</p>
+<span id="continue-reading"></span>
+<p><a href="https://guide.elm-lang.org/architecture/buttons.html">📝 官方例子地址</a></p>
+<h2 id="gai-nian">概念</h2>
+<h3 id="main">Main</h3>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#7f8989;">-- MAIN
+
+</span><span style="color:#c23f31;">main </span><span style="color:#72ab00;">=
+  </span><span style="color:#b3933a;">Browser</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">sandbox </span><span style="color:#b39f04;">{</span><span style="color:#1f1f1f;"> init </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> init</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> update </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> update</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> view </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> view </span><span style="color:#b39f04;">}
+</span></code></pre>
+<ul>
+<li><code>main</code>在 Elm 里是个特殊的值，它描述什么该显示在屏幕上。这里程序将用<code>init</code>初始化,<code>view</code>显示，<code>update</code>填充用户输入。</li>
+<li><code>Browser.sandbox</code>：<code>Browser</code>是 Elm 的浏览器模块，允许用户创建在浏览器中运行的<code>Elm</code>程序。<code>Browser</code>下不同的模块对页面有不同的控制能力：
+<ul>
+<li><code>sandbox</code>只处理和用户的交互，不能通信；</li>
+<li><code>element</code>能对外通信；</li>
+<li><code>document</code>在其上能控制页面的 title, body 等元素 ；</li>
+<li><code>application</code>制作完整的单页 app。
+能输入的参数也不同，下略。参考<a href="https://guide.elm-lang.org/effects/">这个页面中对 Elm 运行时的说明</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="model">Model</h3>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#7f8989;">-- MODEL
+
+</span><span style="color:#72ab00;">type alias </span><span style="color:#c23f31;">Model </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">Int
+
+</span><span style="color:#c23f31;">init </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Model
+</span><span style="color:#c23f31;">init </span><span style="color:#72ab00;">=
+  </span><span style="color:#b3933a;">0
+</span></code></pre>
+<ul>
+<li>数据模型管理所有程序数据的细节。在计数器程序中就是计数的数量。</li>
+<li><code>type alias</code>表示类型别名，这里用<code>Model</code>指<code>Int</code>型。</li>
+</ul>
+<h3 id="view">View</h3>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#7f8989;">-- VIEW
+
+</span><span style="color:#c23f31;">view </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Model </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Html Msg
+</span><span style="color:#c23f31;">view </span><span style="color:#1f1f1f;">model </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">
+  div </span><span style="color:#b39f04;">[]
+    [</span><span style="color:#1f1f1f;"> button </span><span style="color:#b39f04;">[</span><span style="color:#1f1f1f;"> onClick </span><span style="color:#b3933a;">Decrement </span><span style="color:#b39f04;">] [</span><span style="color:#1f1f1f;"> text </span><span style="color:#d07711;">&quot;-&quot; </span><span style="color:#b39f04;">]
+    ,</span><span style="color:#1f1f1f;"> div </span><span style="color:#b39f04;">[] [</span><span style="color:#1f1f1f;"> text </span><span style="color:#72ab00;">(</span><span style="color:#b3933a;">String</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">fromInt model</span><span style="color:#72ab00;">) </span><span style="color:#b39f04;">]
+    ,</span><span style="color:#1f1f1f;"> button </span><span style="color:#b39f04;">[</span><span style="color:#1f1f1f;"> onClick </span><span style="color:#b3933a;">Increment </span><span style="color:#b39f04;">] [</span><span style="color:#1f1f1f;"> text </span><span style="color:#d07711;">&quot;+&quot; </span><span style="color:#b39f04;">]
+    ]
+</span></code></pre>
+<ul>
+<li><code>view</code>描述数据显示的方法。</li>
+<li><code>view : Model -&gt; Html Msg</code>表示<code>view</code>为接受<code>Model</code>类型，输出<code>Html Msg</code>类型的函数。</li>
+<li>Elm 中的函数和通常的表现方法不一样，为<code>&lt;函数名&gt; [参数...]&gt;</code>。<code>view model</code>即为参数为<code>model</code>的<code>view</code>函数。</li>
+</ul>
+<h3 id="update">Update</h3>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#7f8989;">-- UPDATE
+
+</span><span style="color:#72ab00;">type </span><span style="color:#c23f31;">Msg </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">Increment </span><span style="color:#72ab00;">| </span><span style="color:#b3933a;">Decrement
+
+</span><span style="color:#c23f31;">update </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Msg </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Model </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Model
+</span><span style="color:#c23f31;">update </span><span style="color:#1f1f1f;">msg model </span><span style="color:#72ab00;">=
+  case </span><span style="color:#1f1f1f;">msg </span><span style="color:#72ab00;">of
+    </span><span style="color:#b3933a;">Increment </span><span style="color:#72ab00;">-&gt;</span><span style="color:#1f1f1f;">
+      model </span><span style="color:#72ab00;">+ </span><span style="color:#b3933a;">1
+
+    Decrement </span><span style="color:#72ab00;">-&gt;</span><span style="color:#1f1f1f;">
+      model </span><span style="color:#72ab00;">- </span><span style="color:#b3933a;">1
+</span></code></pre>
+<ul>
+<li><code>update</code>函数描述<code>model</code>如何变化。</li>
+<li><code>type Msg = Increment | Decrement</code>定义了一个自定义类型<code>Msg</code>。它可以为<code>Increment</code>也可以是<code>Decrement</code>。</li>
+<li><code>update : Msg -&gt; Model -&gt; Model</code>表示<code>update</code>接受<code>Msg</code>类型，输出一个函数（输入<code>Model</code>，输出<code>Model</code>类型的函数）。从概念上讲，每个函数只接受一个参数，但它可以返回带接受一个参数的函数。表现起来就像接受两个参数的函数。<a href="https://guide.elm-lang.org/appendix/function_types.html">（见这里）</a></li>
+</ul>
+<h2 id="lian-xi">练习</h2>
+<p>最后完成文档后留的作业：给计数器添加“重置”键。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#72ab00;">module </span><span style="color:#a2a001;">Main </span><span style="color:#72ab00;">exposing </span><span style="color:#1f1f1f;">(..)
+
+</span><span style="color:#72ab00;">import </span><span style="color:#a2a001;">Browser
+</span><span style="color:#72ab00;">import </span><span style="color:#a2a001;">Html </span><span style="color:#72ab00;">exposing </span><span style="color:#1f1f1f;">(</span><span style="color:#668f14;">Html</span><span style="color:#1f1f1f;">, </span><span style="color:#c23f31;">button</span><span style="color:#1f1f1f;">, </span><span style="color:#c23f31;">div</span><span style="color:#1f1f1f;">, </span><span style="color:#c23f31;">text</span><span style="color:#1f1f1f;">)
+</span><span style="color:#72ab00;">import </span><span style="color:#a2a001;">Html.Events </span><span style="color:#72ab00;">exposing </span><span style="color:#1f1f1f;">(</span><span style="color:#c23f31;">onClick</span><span style="color:#1f1f1f;">)
+
+
+
+</span><span style="color:#7f8989;">-- MAIN
+
+
+</span><span style="color:#c23f31;">main </span><span style="color:#72ab00;">=
+  </span><span style="color:#b3933a;">Browser</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">sandbox </span><span style="color:#b39f04;">{</span><span style="color:#1f1f1f;"> init </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> init</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> update </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> update</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> view </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> view </span><span style="color:#b39f04;">}
+
+
+
+</span><span style="color:#7f8989;">-- MODEL
+
+</span><span style="color:#72ab00;">type alias </span><span style="color:#c23f31;">Model </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">Int
+
+</span><span style="color:#c23f31;">init </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Model
+</span><span style="color:#c23f31;">init </span><span style="color:#72ab00;">=
+  </span><span style="color:#b3933a;">0
+
+
+</span><span style="color:#7f8989;">-- UPDATE
+
+</span><span style="color:#72ab00;">type </span><span style="color:#c23f31;">Msg </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">Increment </span><span style="color:#72ab00;">| </span><span style="color:#b3933a;">Decrement </span><span style="color:#72ab00;">| </span><span style="color:#b3933a;">Reset
+
+</span><span style="color:#c23f31;">update </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Msg </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Model </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Model
+</span><span style="color:#c23f31;">update </span><span style="color:#1f1f1f;">msg model </span><span style="color:#72ab00;">=
+  case </span><span style="color:#1f1f1f;">msg </span><span style="color:#72ab00;">of
+    </span><span style="color:#b3933a;">Increment </span><span style="color:#72ab00;">-&gt;</span><span style="color:#1f1f1f;">
+      model </span><span style="color:#72ab00;">+ </span><span style="color:#b3933a;">1
+
+    Decrement </span><span style="color:#72ab00;">-&gt;</span><span style="color:#1f1f1f;">
+      model </span><span style="color:#72ab00;">- </span><span style="color:#b3933a;">1
+
+    Reset </span><span style="color:#72ab00;">-&gt;
+      </span><span style="color:#b3933a;">0
+
+
+</span><span style="color:#7f8989;">-- VIEW
+
+</span><span style="color:#c23f31;">view </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Model </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Html Msg
+</span><span style="color:#c23f31;">view </span><span style="color:#1f1f1f;">model </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">
+  div </span><span style="color:#b39f04;">[]
+    [</span><span style="color:#1f1f1f;"> button </span><span style="color:#b39f04;">[</span><span style="color:#1f1f1f;"> onClick </span><span style="color:#b3933a;">Decrement </span><span style="color:#b39f04;">] [</span><span style="color:#1f1f1f;"> text </span><span style="color:#d07711;">&quot;-&quot; </span><span style="color:#b39f04;">]
+    ,</span><span style="color:#1f1f1f;"> div </span><span style="color:#b39f04;">[] [</span><span style="color:#1f1f1f;"> text </span><span style="color:#72ab00;">(</span><span style="color:#b3933a;">String</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">fromInt model</span><span style="color:#72ab00;">) </span><span style="color:#b39f04;">]
+    ,</span><span style="color:#1f1f1f;"> button </span><span style="color:#b39f04;">[</span><span style="color:#1f1f1f;"> onClick </span><span style="color:#b3933a;">Increment </span><span style="color:#b39f04;">] [</span><span style="color:#1f1f1f;"> text </span><span style="color:#d07711;">&quot;+&quot; </span><span style="color:#b39f04;">]
+    ,</span><span style="color:#1f1f1f;"> button </span><span style="color:#b39f04;">[</span><span style="color:#1f1f1f;"> onClick </span><span style="color:#b3933a;">Reset </span><span style="color:#b39f04;">] [</span><span style="color:#1f1f1f;"> text </span><span style="color:#d07711;">&quot;Reset&quot; </span><span style="color:#b39f04;">]
+    ]
+</span></code></pre>
+        </article>
+        <div class="divider"></div>
+        
+            
+                <div id="comment">
+                    <div class="comment-placeholder"><i data-feather="loader"></i>加载评论中……</div>
+                    <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
+                </div>
+            
+        
+    </div>
+
+          <div class="footer">
+            <p>
+              
+                &copy;
+                <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+                2019-2021
+              
+            </p>
+            <p>Powerd by
+              <a href="https://www.getzola.org/">Zola</a>
+              | Theme
+              <a href="http://owlzou.github.io/posts/zola-theme-cafe/">Cafe</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+      <script onload="feather.replace();" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+    <script onload="toc_onload()" src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.min.js"></script>
+
+  </body>
+</html>

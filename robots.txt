@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: https://owlzou.github.io/sitemap.xml

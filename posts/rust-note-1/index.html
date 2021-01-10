@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.css" rel="stylesheet"/>
+     
+      <meta charset="UTF-8"/>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="icon" type="image/x-icon"/>
+      <title>
+        
+    Rust 笔记（一）基础 | Catalyst
+
+      </title>
+    
+
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="fab">
+  <i data-feather="chevron-up"></i>
+</div>
+
+    
+      <div class="grass"></div>
+    
+    <button class="burger">
+      <i data-feather="menu"></i>
+    </button>
+    <div class="wrapper">
+      <div
+        class="container">
+        <!-- sidebar -->
+        
+          <div class="mask"></div>
+          <div class="sidebar">
+            <div class="title">Catalyst</div>
+            <div class="divider"></div>
+            <nav>
+              <ul>
+                
+                  <li>
+                    <a href="&#x2F;">首页</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;archives">归档</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;projects">项目</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;about">关于</a>
+                  </li>
+                
+              </ul>
+              <div class="side-buttons">
+                
+                  
+                    
+                      <a class="side-button" href="&#x2F;search">
+                        <i data-feather="search"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;tags">
+                        <i data-feather="tag"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;categories">
+                        <i data-feather="feather"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="https:&#x2F;&#x2F;github.com&#x2F;owlzou" target="_blank">
+                        <i data-feather="github"></i>
+                      </a>
+                    
+                  
+                
+              </div>
+            </nav>
+            
+    <div class="toc-wrapper">
+        <div class="toc"></div>
+    </div>
+
+            
+              <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"></path>
+              </svg>
+            
+          </div>
+        
+        <!-- main -->
+        <div class="main"> 
+    <div class="post blog">
+        <h1 class="post-title">
+            Rust 笔记（一）基础</h1>
+        <div class="post-info">
+            <i data-feather="clock"></i>
+            <div class="post-date">2020-09-25</div>
+            
+            
+                <i data-feather="tag"></i>
+                
+                    
+                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;rust&#x2F;">Rust</a>
+                
+            
+        </div>
+        
+            <div class="post-cover"><img class="lazyload" data-src=".&#x2F;mae-mu-IHFa5s6xaRE-unsplash.webp"/>
+            </div>
+        
+        <article class="post-type">
+            <p>📔 简约我流语法笔记</p>
+<span id="continue-reading"></span><h2 id="chang-gui">常规</h2>
+<ul>
+<li>没有 <code>i++</code> 之类。</li>
+<li>没有三目运算符。</li>
+<li>代码命名规范使用 <code>snake case</code> ，全小写并使用 <code>_</code> 作分隔。</li>
+<li>没有用到却要留在代码里的变量加前缀 <code>_</code> ，例： <code>_member</code> 。</li>
+</ul>
+<h2 id="lei-xing">类型</h2>
+<table><thead><tr><th>名称</th><th>标志</th><th>备注</th></tr></thead><tbody>
+<tr><td>布尔</td><td>bool</td><td></td></tr>
+<tr><td>字符</td><td>char</td><td>定义用单引号</td></tr>
+<tr><td>整形</td><td>i*（带符号），u*(无符号)</td><td>*可以是 8，16，32，64，128，size(依赖于运行程序的电脑架构)</td></tr>
+<tr><td>浮点</td><td>f*</td><td>*为 32 或 64</td></tr>
+<tr><td>元组</td><td>(&lt;类型&gt;,&lt;类型&gt;)</td><td>组合不同类型的变量</td></tr>
+<tr><td>数组</td><td>[&lt;类型&gt;;&lt;个数&gt;]</td><td>可以使用 [&lt;值&gt;;&lt;个数&gt;] 来初始化数组</td></tr>
+</tbody></table>
+<p>关于字符串：通常创建的硬编码字符串属于<code>&amp;str</code>，而创建可变字符串需要使用<code>String</code>。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> a </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;string&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> b </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;string&quot;</span><span style="color:#1f1f1f;">);
+</span></code></pre><h3 id="yuan-zu">元组</h3>
+<p>元组是将多种类型的多个值组合为一个复合类型的一般方法。它的长度是固定的。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">(){
+	</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> tup:(</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">,</span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">) </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">12</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;abc&quot;</span><span style="color:#1f1f1f;">);
+}
+</span></code></pre>
+<p>取出元组中的物品需要解构或者用<code>.</code>取值。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> tup: (</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">&amp;</span><span style="color:#668f14;">str</span><span style="color:#1f1f1f;">) </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">12</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;abc&quot;</span><span style="color:#1f1f1f;">);
+    </span><span style="color:#668f14;">let </span><span style="color:#1f1f1f;">(x, y) </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> tup;
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> z </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> tup.</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">;
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;first value:</span><span style="color:#aeb52b;">{} {}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, x, z);
+    </span><span style="color:#7f8989;">//first value:12 12
+</span><span style="color:#1f1f1f;">}
+</span></code></pre><h3 id="shu-zu">数组</h3>
+<p>Rust 中的数组是定长的。建立数组可以用通常的方括号法：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> arr: [</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">; </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">] </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">];
+</span></code></pre>
+<p>或者用同一值初始化:</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> arr </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">;</span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">]; </span><span style="color:#7f8989;">//[1, 1, 1]
+</span></code></pre>
+<p>用于循环的快速索引：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#72ab00;">for</span><span style="color:#1f1f1f;"> i </span><span style="color:#72ab00;">in </span><span style="color:#b3933a;">0</span><span style="color:#72ab00;">..</span><span style="color:#b3933a;">4 </span><span style="color:#1f1f1f;">{
+        </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, i); </span><span style="color:#7f8989;">//0 1 2 3
+    </span><span style="color:#1f1f1f;">}
+</span></code></pre>
+<p>数组取值方法：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
+   </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> arr: [</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">; </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">] </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">];
+   </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> first </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> arr[</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">];
+}
+</span></code></pre><h2 id="ji-chu-yu-fa">基础语法</h2>
+<h3 id="bian-liang-he-chang-liang">变量和常量</h3>
+<p>变量使用 <code>let</code> 定义。默认不可变，如果需要可变则加上<code>mut</code>标志。
+用<code>let</code>定义同名变量将覆盖原先变量（这和可变变量不一样）。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> x </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">let mut</span><span style="color:#1f1f1f;"> y </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">;
+
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> x </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">//x最终等于3,let不能丢
+</span><span style="color:#1f1f1f;">y </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">5</span><span style="color:#1f1f1f;">;
+</span></code></pre>
+<p>常量使用<code>const</code>定义，并<strong>必须声明类型</strong>。常量一定是不可变的，所以不用<code>mut</code>。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">const</span><span style="color:#1f1f1f;"> c:</span><span style="color:#668f14;">u32 </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">99
+</span></code></pre><h3 id="han-shu">函数</h3>
+<p>函数用<code>fn</code>关键字定义。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">(){
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> result </span><span style="color:#72ab00;">= </span><span style="color:#b39f04;">add</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">);
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;value:</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,result);
+}
+
+</span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">add</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">a</span><span style="color:#1f1f1f;">:</span><span style="color:#668f14;">i64</span><span style="color:#1f1f1f;">,</span><span style="color:#5597d6;">b</span><span style="color:#1f1f1f;">:</span><span style="color:#668f14;">i64</span><span style="color:#1f1f1f;">) -&gt; </span><span style="color:#668f14;">i64</span><span style="color:#1f1f1f;">{
+    a</span><span style="color:#72ab00;">+</span><span style="color:#1f1f1f;">b
+}
+</span></code></pre>
+<p>函数的返回值与大括号内最后的表达式同值。注意，表达式最后不带<strong>分号</strong>，带分号的属于声明（statement)。</p>
+<p>借用使用<code>&amp;&lt;变量&gt;</code>。可变借用使用<code>&amp;mut &lt;变量&gt;</code>。<strong>同时使用</strong>的借用变量只能有一个可变借用或者多个不变借用。</p>
+<h3 id="zhu-shi">注释</h3>
+<p>单行注释 <code>//</code>，多行注释 <code>/**/</code>。</p>
+<h2 id="liu-cheng">流程</h2>
+<h3 id="tiao-jian">条件</h3>
+<p>使用 <code>if &lt;exp&gt; {&lt;then&gt;} else if &lt;exp&gt; {&lt;then&gt;} else {&lt;then&gt;}</code>。</p>
+<p>Rust 在碰到第一个满足条件的块就执行并返回，不检查后面的内容。</p>
+<h3 id="xun-huan">循环</h3>
+<p>三种循环方法：<code>loop</code>、<code>while</code>和<code>for</code>。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">(){
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> lo </span><span style="color:#72ab00;">= loop </span><span style="color:#1f1f1f;">{
+      </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;loop!&quot;</span><span style="color:#1f1f1f;">);
+      </span><span style="color:#72ab00;">break </span><span style="color:#d07711;">&quot;loop&quot;</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">//通过break终止循环并返回 &quot;loop&quot;
+    </span><span style="color:#1f1f1f;">};
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;loop:</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,lo);
+
+    </span><span style="color:#668f14;">let mut</span><span style="color:#1f1f1f;"> n </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">;
+    </span><span style="color:#72ab00;">while</span><span style="color:#1f1f1f;"> n </span><span style="color:#72ab00;">&gt; </span><span style="color:#b3933a;">0 </span><span style="color:#1f1f1f;">{
+      </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;while:</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,n);
+      n </span><span style="color:#72ab00;">-= </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">;
+    }
+
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> list </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[</span><span style="color:#d07711;">&quot;a&quot;</span><span style="color:#1f1f1f;">,</span><span style="color:#d07711;">&quot;b&quot;</span><span style="color:#1f1f1f;">,</span><span style="color:#d07711;">&quot;c&quot;</span><span style="color:#1f1f1f;">,</span><span style="color:#d07711;">&quot;d&quot;</span><span style="color:#1f1f1f;">];
+
+    </span><span style="color:#72ab00;">for</span><span style="color:#1f1f1f;"> i </span><span style="color:#72ab00;">in</span><span style="color:#1f1f1f;"> list.</span><span style="color:#b39f04;">iter</span><span style="color:#1f1f1f;">(){ </span><span style="color:#7f8989;">//iter()
+        </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;for:</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,i);
+    }
+
+    </span><span style="color:#72ab00;">for</span><span style="color:#1f1f1f;"> i </span><span style="color:#72ab00;">in </span><span style="color:#b3933a;">1</span><span style="color:#72ab00;">..</span><span style="color:#b3933a;">6 </span><span style="color:#1f1f1f;">{
+        </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;for:</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,i); </span><span style="color:#7f8989;">//打印出的是1-5
+    </span><span style="color:#1f1f1f;">}
+
+}
+</span></code></pre><h2 id="fen-ge">分割</h2>
+<p>数组和字符串的分割都是其一部分的引用，示例如下：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#7f8989;">//数组
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> a </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">5</span><span style="color:#1f1f1f;">];
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> slice </span><span style="color:#72ab00;">= &amp;</span><span style="color:#1f1f1f;">a[</span><span style="color:#b3933a;">1</span><span style="color:#72ab00;">..</span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">]; </span><span style="color:#7f8989;">//[2, 3, 4]
+
+//字符串
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> s </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;hello&quot;</span><span style="color:#1f1f1f;">);
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> he </span><span style="color:#72ab00;">= &amp;</span><span style="color:#1f1f1f;">s[</span><span style="color:#b3933a;">0</span><span style="color:#72ab00;">..</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">];
+</span></code></pre>
+<p>切片的数字是从 <code>开始</code> 到 <code>结束+1</code> 。如果是从第一个索引开始，0 可以省略(<code>[..2]</code>)。</p>
+<h2 id="jie-gou-ti">结构体</h2>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">struct </span><span style="color:#c23f31;">Person</span><span style="color:#1f1f1f;">{
+    </span><span style="color:#5597d6;">name</span><span style="color:#1f1f1f;">:String,
+    </span><span style="color:#5597d6;">age</span><span style="color:#1f1f1f;">: </span><span style="color:#668f14;">u64</span><span style="color:#1f1f1f;">,
+}
+
+</span><span style="color:#668f14;">struct </span><span style="color:#c23f31;">Member</span><span style="color:#1f1f1f;">{
+    </span><span style="color:#5597d6;">id</span><span style="color:#1f1f1f;">: </span><span style="color:#668f14;">u64</span><span style="color:#1f1f1f;">,
+    ..Person </span><span style="color:#7f8989;">//使用person内的定义
+</span><span style="color:#1f1f1f;">}
+
+</span><span style="color:#668f14;">struct </span><span style="color:#c23f31;">Point</span><span style="color:#1f1f1f;">(</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">,</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">) </span><span style="color:#7f8989;">//元组结构
+</span></code></pre>
+<p>初始化</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> p </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> Person {
+        name: </span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Robert&quot;</span><span style="color:#1f1f1f;">),
+        age: </span><span style="color:#b3933a;">8</span><span style="color:#1f1f1f;">,
+    };
+
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> pt </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> Point(</span><span style="color:#b3933a;">33</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">33</span><span style="color:#1f1f1f;">);
+
+</span><span style="color:#7f8989;">//如果需要一个新结构体和现存的某个结构体一样，但修改部分数据
+
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> p1 </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> Person {
+	name: </span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Alice&quot;</span><span style="color:#1f1f1f;">),
+	</span><span style="color:#72ab00;">..</span><span style="color:#1f1f1f;">p
+};
+</span></code></pre>
+<p>定义用于结构体的方法：往往在定义结构体的上下文，用<code>self</code>指代结构体。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">(){
+    </span><span style="color:#668f14;">struct </span><span style="color:#c23f31;">Point</span><span style="color:#1f1f1f;">(</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">,</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">);
+
+    </span><span style="color:#668f14;">impl </span><span style="color:#c23f31;">Point</span><span style="color:#1f1f1f;">{
+        </span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">print</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">&amp;</span><span style="color:#5597d6;">self</span><span style="color:#1f1f1f;">){
+            </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> Point(x,y) </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">self</span><span style="color:#1f1f1f;">;
+            </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;(x:</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">,y:</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">)&quot;</span><span style="color:#1f1f1f;">,x,y)
+        }
+    }
+
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> pt </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> Point(</span><span style="color:#b3933a;">33</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">33</span><span style="color:#1f1f1f;">);
+    pt.</span><span style="color:#b39f04;">print</span><span style="color:#1f1f1f;">();
+}
+</span></code></pre>
+<p><code>impl</code>代表 implementations ， 用于定义类型的实现。</p>
+<h2 id="qie-pian">切片</h2>
+<p>字符串<a href="https://doc.rust-lang.org/book/ch04-03-slices.html">切片</a>：对于字符串位置的引用（所以没有对应的所有权概念）</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">let str </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Hello&quot;</span><span style="color:#1f1f1f;">);
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> he </span><span style="color:#72ab00;">= &amp;</span><span style="color:#668f14;">str</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">0</span><span style="color:#72ab00;">..</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">];
+</span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,he);</span><span style="color:#7f8989;">//He
+//or
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> he </span><span style="color:#72ab00;">= &amp;</span><span style="color:#668f14;">str</span><span style="color:#1f1f1f;">[</span><span style="color:#72ab00;">..</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">]; </span><span style="color:#7f8989;">//开始为0可以屏蔽
+</span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,he);</span><span style="color:#7f8989;">//He
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> lo </span><span style="color:#72ab00;">= &amp;</span><span style="color:#668f14;">str</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">3</span><span style="color:#72ab00;">..</span><span style="color:#1f1f1f;">]; </span><span style="color:#7f8989;">//结尾为最后也可以屏蔽
+</span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,lo);</span><span style="color:#7f8989;">//lo
+</span></code></pre>
+<p><strong>参考资料</strong></p>
+<ul>
+<li>主要是<a href="https://doc.rust-lang.org/book/title-page.html">《The Book》</a>的读书笔记。</li>
+<li><a href="https://github.com/rust-lang/rustlings">Rustlings</a> 的做题感想</li>
+<li>封面图片：<span>Photo by <a href="https://unsplash.com/@picoftasty?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Mae Mu</a> on <a href="https://unsplash.com/s/photos/crab?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span></li>
+</ul>
+
+        </article>
+        <div class="divider"></div>
+        
+            
+                <div id="comment">
+                    <div class="comment-placeholder"><i data-feather="loader"></i>加载评论中……</div>
+                    <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
+                </div>
+            
+        
+    </div>
+
+          <div class="footer">
+            <p>
+              
+                &copy;
+                <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+                2019-2021
+              
+            </p>
+            <p>Powerd by
+              <a href="https://www.getzola.org/">Zola</a>
+              | Theme
+              <a href="http://owlzou.github.io/posts/zola-theme-cafe/">Cafe</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+      <script onload="feather.replace();" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+    <script onload="toc_onload()" src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.min.js"></script>
+
+  </body>
+</html>

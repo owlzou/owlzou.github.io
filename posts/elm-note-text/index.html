@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.css" rel="stylesheet"/>
+     
+      <meta charset="UTF-8"/>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="icon" type="image/x-icon"/>
+      <title>
+        
+    Elm 笔记（2）：文本框 | Catalyst
+
+      </title>
+    
+
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="fab">
+  <i data-feather="chevron-up"></i>
+</div>
+
+    
+      <div class="grass"></div>
+    
+    <button class="burger">
+      <i data-feather="menu"></i>
+    </button>
+    <div class="wrapper">
+      <div
+        class="container">
+        <!-- sidebar -->
+        
+          <div class="mask"></div>
+          <div class="sidebar">
+            <div class="title">Catalyst</div>
+            <div class="divider"></div>
+            <nav>
+              <ul>
+                
+                  <li>
+                    <a href="&#x2F;">首页</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;archives">归档</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;projects">项目</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;about">关于</a>
+                  </li>
+                
+              </ul>
+              <div class="side-buttons">
+                
+                  
+                    
+                      <a class="side-button" href="&#x2F;search">
+                        <i data-feather="search"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;tags">
+                        <i data-feather="tag"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;categories">
+                        <i data-feather="feather"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="https:&#x2F;&#x2F;github.com&#x2F;owlzou" target="_blank">
+                        <i data-feather="github"></i>
+                      </a>
+                    
+                  
+                
+              </div>
+            </nav>
+            
+    <div class="toc-wrapper">
+        <div class="toc"></div>
+    </div>
+
+            
+              <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"></path>
+              </svg>
+            
+          </div>
+        
+        <!-- main -->
+        <div class="main"> 
+    <div class="post blog">
+        <h1 class="post-title">
+            Elm 笔记（2）：文本框</h1>
+        <div class="post-info">
+            <i data-feather="clock"></i>
+            <div class="post-date">2020-03-27</div>
+            
+                
+                    
+                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;webqian-duan&#x2F;">Web前端</a>
+                
+            
+            
+                <i data-feather="tag"></i>
+                
+                    
+                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;elm&#x2F;">Elm</a>
+                
+            
+        </div>
+        
+        <article class="post-type">
+            <p><a href="https://guide.elm-lang.org/architecture/text_fields.html">官方例子二：Text Fields</a> 学习。</p>
+<span id="continue-reading"></span><h2 id="gai-nian">概念</h2>
+<h3 id="model">Model</h3>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#72ab00;">type alias </span><span style="color:#c23f31;">Model </span><span style="color:#72ab00;">=
+  </span><span style="color:#b39f04;">{</span><span style="color:#1f1f1f;"> content </span><span style="color:#72ab00;">: </span><span style="color:#b3933a;">String
+  </span><span style="color:#b39f04;">}
+</span></code></pre>
+<ul>
+<li>这个示例的功能是“反转用户输入的文字”，这里将<code>Model</code>设置为<code>Record</code>类型方便以后添加更多的数据。</li>
+<li><code>Record</code>：<code>Record</code>类型可以包含许多值，每个值都有一个名称（我理解为 key-value 型)。</li>
+</ul>
+<h3 id="view">View</h3>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#c23f31;">view </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Model </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Html Msg
+</span><span style="color:#c23f31;">view </span><span style="color:#1f1f1f;">model </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">
+  div </span><span style="color:#b39f04;">[]
+    [</span><span style="color:#1f1f1f;"> input </span><span style="color:#b39f04;">[</span><span style="color:#1f1f1f;"> placeholder </span><span style="color:#d07711;">&quot;Text to reverse&quot;</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> value model</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">content</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> onInput </span><span style="color:#b3933a;">Change </span><span style="color:#b39f04;">] []
+    ,</span><span style="color:#1f1f1f;"> div </span><span style="color:#b39f04;">[] [</span><span style="color:#1f1f1f;"> text </span><span style="color:#72ab00;">(</span><span style="color:#b3933a;">String</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">reverse model</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">content</span><span style="color:#72ab00;">) </span><span style="color:#b39f04;">]
+    ]
+</span></code></pre>
+<ul>
+<li>创建一个含两个子元素的<code>div</code>。</li>
+<li>注意到每个元素都是<code>&lt;元素名&gt; [&lt;元素属性&gt;] [&lt;内部内容&gt;]</code>的形式。</li>
+<li>只要用户在 input 内输入时，<code>onInput</code>就会发送数据。（每个字符都会）</li>
+</ul>
+<h3 id="update">Update</h3>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#72ab00;">type </span><span style="color:#c23f31;">Msg
+  </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">Change String
+
+</span><span style="color:#c23f31;">update </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Msg </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Model </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Model
+</span><span style="color:#c23f31;">update </span><span style="color:#1f1f1f;">msg model </span><span style="color:#72ab00;">=
+  case </span><span style="color:#1f1f1f;">msg </span><span style="color:#72ab00;">of
+    </span><span style="color:#b3933a;">Change</span><span style="color:#1f1f1f;"> newContent </span><span style="color:#72ab00;">-&gt;
+      </span><span style="color:#b39f04;">{</span><span style="color:#1f1f1f;"> model </span><span style="color:#72ab00;">|</span><span style="color:#1f1f1f;"> content </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> newContent </span><span style="color:#b39f04;">}
+</span></code></pre>
+<ul>
+<li>本例中只有一种<code>Msg</code>形式</li>
+<li><code>{ model | content = newContent }</code> 表示修改<code>model</code>中<code>content</code>的值为<code>newContent</code>。</li>
+</ul>
+<h2 id="lian-xi">练习</h2>
+<p>最后完成文档后留的作业：显示输入的字符的长度</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#7f8989;">-- 只修改 view 部分
+
+
+</span><span style="color:#c23f31;">view </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Model </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Html Msg
+</span><span style="color:#c23f31;">view </span><span style="color:#1f1f1f;">model </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">
+  div </span><span style="color:#b39f04;">[]
+    [</span><span style="color:#1f1f1f;"> input </span><span style="color:#b39f04;">[</span><span style="color:#1f1f1f;"> placeholder </span><span style="color:#d07711;">&quot;Text to reverse&quot;</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> value model</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">content</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> onInput </span><span style="color:#b3933a;">Change </span><span style="color:#b39f04;">] []
+    ,</span><span style="color:#1f1f1f;"> div </span><span style="color:#b39f04;">[] [</span><span style="color:#1f1f1f;"> text </span><span style="color:#72ab00;">(</span><span style="color:#b3933a;">String</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">reverse model</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">content</span><span style="color:#72ab00;">) </span><span style="color:#b39f04;">]
+    ,</span><span style="color:#1f1f1f;"> div </span><span style="color:#b39f04;">[] [</span><span style="color:#1f1f1f;"> text </span><span style="color:#72ab00;">(</span><span style="color:#b3933a;">String</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">fromInt </span><span style="color:#72ab00;">(</span><span style="color:#b3933a;">String</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">length model</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">content</span><span style="color:#72ab00;">)) </span><span style="color:#b39f04;">]
+    ]
+</span></code></pre>
+        </article>
+        <div class="divider"></div>
+        
+            
+                <div id="comment">
+                    <div class="comment-placeholder"><i data-feather="loader"></i>加载评论中……</div>
+                    <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
+                </div>
+            
+        
+    </div>
+
+          <div class="footer">
+            <p>
+              
+                &copy;
+                <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+                2019-2021
+              
+            </p>
+            <p>Powerd by
+              <a href="https://www.getzola.org/">Zola</a>
+              | Theme
+              <a href="http://owlzou.github.io/posts/zola-theme-cafe/">Cafe</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+      <script onload="feather.replace();" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+    <script onload="toc_onload()" src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.min.js"></script>
+
+  </body>
+</html>

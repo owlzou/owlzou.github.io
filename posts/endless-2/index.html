@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.css" rel="stylesheet"/>
+     
+      <meta charset="UTF-8"/>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="icon" type="image/x-icon"/>
+      <title>
+        
+    Endless开发笔记（2）：使用LiteDB | Catalyst
+
+      </title>
+    
+
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="fab">
+  <i data-feather="chevron-up"></i>
+</div>
+
+    
+      <div class="grass"></div>
+    
+    <button class="burger">
+      <i data-feather="menu"></i>
+    </button>
+    <div class="wrapper">
+      <div
+        class="container">
+        <!-- sidebar -->
+        
+          <div class="mask"></div>
+          <div class="sidebar">
+            <div class="title">Catalyst</div>
+            <div class="divider"></div>
+            <nav>
+              <ul>
+                
+                  <li>
+                    <a href="&#x2F;">首页</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;archives">归档</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;projects">项目</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;about">关于</a>
+                  </li>
+                
+              </ul>
+              <div class="side-buttons">
+                
+                  
+                    
+                      <a class="side-button" href="&#x2F;search">
+                        <i data-feather="search"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;tags">
+                        <i data-feather="tag"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;categories">
+                        <i data-feather="feather"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="https:&#x2F;&#x2F;github.com&#x2F;owlzou" target="_blank">
+                        <i data-feather="github"></i>
+                      </a>
+                    
+                  
+                
+              </div>
+            </nav>
+            
+    <div class="toc-wrapper">
+        <div class="toc"></div>
+    </div>
+
+            
+              <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"></path>
+              </svg>
+            
+          </div>
+        
+        <!-- main -->
+        <div class="main"> 
+    <div class="post blog">
+        <h1 class="post-title">
+            Endless开发笔记（2）：使用LiteDB</h1>
+        <div class="post-info">
+            <i data-feather="clock"></i>
+            <div class="post-date">2020-07-13</div>
+            
+                
+                    
+                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;android&#x2F;">Android</a>
+                
+            
+            
+                <i data-feather="tag"></i>
+                
+                    
+                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;fabulous&#x2F;">Fabulous</a>
+                
+                    
+                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;f&#x2F;">F#</a>
+                
+            
+        </div>
+        
+        <article class="post-type">
+            <p>能用就行 👿</p>
+<p>这篇主要是数据保存，使用<a href="https://github.com/mbdavid/LiteDB">LiteDB</a>。</p>
+<span id="continue-reading"></span><h2 id="an-zhuang">安装</h2>
+<ol>
+<li>在工程命令行下：<code>Install-Package LiteDB</code>（没成功）或<code>dotnet add &lt;项目名称&gt; package LiteDB --version 4.1.4</code>（目前<code>LiteDB.FSharp</code>不支持 5.0+的<code>LiteDB</code>）或者下载复制 <code>dll</code>文件。</li>
+<li>安装<a href="https://github.com/Zaid-Ajaj/LiteDB.FSharp">LiteDB.FSharp</a>:<code>dotnet add &lt;项目名称&gt; package LiteDB.FSharp --version 2.15.1</code>。</li>
+</ol>
+<p>注：</p>
+<p>生成时出现了错误</p>
+<blockquote>
+<p>错误 XA2002: 无法解析引用: <code>LiteDB</code>，引用者为 <code>Endless</code>。请为 <code>LiteDB</code> 添加 NuGet 包或程序集引用，或删除对 <code>Endless</code> 的引用。</p>
+</blockquote>
+<p>可能是因为我用官方给的安装方法失败了，所以包没装完全。</p>
+<p>解决方法：打开<code>Nuget包管理器</code>给 Android 包重装一遍库。</p>
+<h2 id="bao-cun-lu-jing">保存路径</h2>
+<p>新建一个文件来写数据库相关。</p>
+<p>文件保存在 android 的<a href="https://developer.android.google.cn/training/data-storage/app-specific">应用专属文件目录</a>中。利用<a href="https://docs.microsoft.com/zh-cn/xamarin/xamarin-forms/app-fundamentals/dependency-service/">dependency-service</a>可以先定义一个接口然后分平台实现。(参照了这个实现吐司的方法：<a href="https://stackoverflow.com/questions/35279403/toast-equivalent-for-xamarin-forms">Toast equivalent for Xamarin Forms</a>)</p>
+<p>定义：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">type IDataBasePath =
+    abstract member Path:unit-&gt;string
+</span></code></pre>
+<p>在 Android 文件夹下：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">type DataBasePath()=
+    interface ELType.IDataBasePath with
+        member this.Path() = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), &quot;mydata.db&quot;)
+
+[&lt;assembly: Xamarin.Forms.Dependency(typeof&lt;DataBasePath&gt;)&gt;]
+do()
+</span></code></pre>
+<p>最后使用的时候</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#72ab00;">open </span><span style="color:#c23f31;">LiteDB
+</span><span style="color:#72ab00;">open </span><span style="color:#c23f31;">LiteDB.FSharp
+</span><span style="color:#72ab00;">open </span><span style="color:#c23f31;">Xamarin.Forms
+
+</span><span style="color:#72ab00;">let </span><span style="color:#5597d6;">mapper </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> FSharpBsonMapper</span><span style="color:#b3933a;">()
+</span><span style="color:#72ab00;">let </span><span style="color:#5597d6;">path </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> DependencyService.Get</span><span style="color:#72ab00;">&lt;</span><span style="color:#1f1f1f;">IDataBasePath</span><span style="color:#72ab00;">&gt;</span><span style="color:#b3933a;">()</span><span style="color:#1f1f1f;">.Path</span><span style="color:#b3933a;">()
+</span><span style="color:#72ab00;">let </span><span style="color:#5597d6;">db </span><span style="color:#72ab00;">= new</span><span style="color:#1f1f1f;"> LiteDatabase</span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">path</span><span style="color:#72ab00;">,</span><span style="color:#1f1f1f;"> mapper</span><span style="color:#72ab00;">)
+</span></code></pre><h2 id="wen-dang-jie-gou">文档结构</h2>
+<p><code>LiteDB.FSharp</code>库使用 records 组织结构。这里直接使用之前定义的<code>ELEntry</code>作为存储数据：</p>
+<p>利用 ID 自增。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#b39f04;">[&lt;CLIMutable&gt;]
+</span><span style="color:#72ab00;">type </span><span style="color:#c23f31;">ELEntry</span><span style="color:#72ab00;">= {</span><span style="color:#1f1f1f;">
+    Id</span><span style="color:#72ab00;">:</span><span style="color:#c23f31;">int</span><span style="color:#1f1f1f;">
+    Content</span><span style="color:#72ab00;">:</span><span style="color:#c23f31;">string</span><span style="color:#1f1f1f;">
+    Date</span><span style="color:#72ab00;">:</span><span style="color:#c23f31;">string
+</span><span style="color:#72ab00;">}
+</span></code></pre>
+<p>之后添加的条目,需要自增的 id 填 0。</p>
+<h3 id="shu-ju-jie-gou">数据结构</h3>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">type ELEntry= {
+    Id:int
+    Content:string
+    Date:System.DateTime
+}
+
+type Model = {
+    NowId:int
+    NowWrite:string
+    Data:seq&lt;ELEntry&gt;
+}
+</span></code></pre>
+<p>消息有新建、打开、删除消息框、删除、反馈输入的文字、保存和切换 Tab 。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">type Msg =
+    | NewEntry
+    | Open of int
+    | Delete of bool*int
+    | DeleteAlert of int
+    | NowWriting of string
+    | Save
+    | Switch of int
+</span></code></pre><h2 id="zeng-shan-gai-cha">增删改查</h2>
+<p>先得到一个表。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#72ab00;">let </span><span style="color:#5597d6;">data </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> db.GetCollection</span><span style="color:#72ab00;">&lt;</span><span style="color:#1f1f1f;">ELEntry</span><span style="color:#72ab00;">&gt;(</span><span style="color:#d07711;">&quot;entries&quot;</span><span style="color:#72ab00;">)
+</span></code></pre>
+<ol>
+<li>增加：<code>data.Insert(newEntry)</code></li>
+<li>修改：<code>data.Upsert(newEntry)</code>（新增或插入），<code>data.Update(newEntry)</code>。</li>
+<li>查找：返回的数据类型是<code>seq&lt;类型&gt;</code>。所以 Model 中的 Data 为<code>seq&lt;ELEntry&gt;</code>型。
+<ul>
+<li>查找全部： <code>data.FindAll()</code></li>
+<li>按 id 查找: <code>data.FindOne(fun data-&gt;data.Id=id)</code></li>
+</ul>
+</li>
+<li>删除：
+<ul>
+<li>按 id 删除：<code>data.Delete id</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="li">例</h3>
+<ol>
+<li>
+<p>输入的时候，数据保存到<code>model.NowWrite</code>中。</p>
+<p>对应<code>type Msg</code>的消息类型<code>NowWriting</code>。在视图的 Editor 中，每当输入文字时发送消息。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">View.Editor
+</span><span style="color:#1f1f1f;">    (text = model.NowWrite,
+</span><span style="color:#1f1f1f;">    textChanged = (fun text -&gt; dispatch (NowWriting text.NewTextValue) |&gt; ignore),
+</span><span style="color:#1f1f1f;">    &lt;略&gt;)
+</span></code></pre>
+<p>处理方法：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">match msg with
+</span><span style="color:#1f1f1f;">| NowWriting str -&gt; { model with ELType.NowWrite = str }, Cmd.none
+</span><span style="color:#1f1f1f;">| &lt;略&gt;
+</span></code></pre></li>
+<li>
+<p>保存的时候，更新数据库。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">//输入界面
+
+</span><span style="color:#1f1f1f;">View.NavigationPage
+</span><span style="color:#1f1f1f;">    (icon = penImg, title = &quot;笔记&quot;, toolbarItems = [ View.ToolbarItem(icon = saveImg, command = (fun()-&gt; dispatch Save) ) ], &lt;略&gt;)
+
+</span><span style="color:#1f1f1f;">//update
+
+</span><span style="color:#1f1f1f;">match msg with
+</span><span style="color:#1f1f1f;">    | Save -&gt;
+</span><span style="color:#1f1f1f;">        let newEntry =
+</span><span style="color:#1f1f1f;">            { Content = model.NowWrite
+</span><span style="color:#1f1f1f;">            Date = System.DateTime.Today
+</span><span style="color:#1f1f1f;">            Id = model.NowId }
+
+</span><span style="color:#1f1f1f;">        ELDb.upsert (newEntry) |&gt; ignore
+</span><span style="color:#1f1f1f;">        { model with
+</span><span style="color:#1f1f1f;">            NowWrite = &quot;&quot;
+</span><span style="color:#1f1f1f;">            Data = ELDb.data.FindAll() },
+</span><span style="color:#1f1f1f;">        Cmd.none
+</span></code></pre></li>
+</ol>
+<h2 id="zui-hou-de-xiao-guo">最后的效果</h2>
+<p><img src="./endless-21.jpg" alt="结果" /></p>
+<h2 id="qi-ta">其他</h2>
+<ul>
+<li>
+<p>实际写的时候发现设计没做好，还需要一个“新建”按钮和“删除”按钮。新建的时候将 ID 置 0。（又回去改第一篇博文 😓）</p>
+</li>
+<li>
+<p>异常处理没做</p>
+</li>
+<li>
+<p>打包出来 20M，下次写 flutter。</p>
+</li>
+</ul>
+<p><strong>参考：</strong></p>
+<ul>
+<li><a href="https://www.litedb.org/docs/">LiteDB 文档参考</a></li>
+<li><a href="https://docs.microsoft.com/zh-cn/xamarin/android/platform/files/#reading-or-writing-to-files-on-internal-storage">内部存储上的文件读写 - Xamarin</a></li>
+</ul>
+
+        </article>
+        <div class="divider"></div>
+        
+            
+                <div id="comment">
+                    <div class="comment-placeholder"><i data-feather="loader"></i>加载评论中……</div>
+                    <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
+                </div>
+            
+        
+    </div>
+
+          <div class="footer">
+            <p>
+              
+                &copy;
+                <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+                2019-2021
+              
+            </p>
+            <p>Powerd by
+              <a href="https://www.getzola.org/">Zola</a>
+              | Theme
+              <a href="http://owlzou.github.io/posts/zola-theme-cafe/">Cafe</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+      <script onload="feather.replace();" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+    <script onload="toc_onload()" src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.min.js"></script>
+
+  </body>
+</html>

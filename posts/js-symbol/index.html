@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.css" rel="stylesheet"/>
+     
+      <meta charset="UTF-8"/>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="icon" type="image/x-icon"/>
+      <title>
+        
+    JS 笔记：Symbol &amp; 判断数据类型 | Catalyst
+
+      </title>
+    
+
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="fab">
+  <i data-feather="chevron-up"></i>
+</div>
+
+    
+      <div class="grass"></div>
+    
+    <button class="burger">
+      <i data-feather="menu"></i>
+    </button>
+    <div class="wrapper">
+      <div
+        class="container">
+        <!-- sidebar -->
+        
+          <div class="mask"></div>
+          <div class="sidebar">
+            <div class="title">Catalyst</div>
+            <div class="divider"></div>
+            <nav>
+              <ul>
+                
+                  <li>
+                    <a href="&#x2F;">首页</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;archives">归档</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;projects">项目</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;about">关于</a>
+                  </li>
+                
+              </ul>
+              <div class="side-buttons">
+                
+                  
+                    
+                      <a class="side-button" href="&#x2F;search">
+                        <i data-feather="search"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;tags">
+                        <i data-feather="tag"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;categories">
+                        <i data-feather="feather"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="https:&#x2F;&#x2F;github.com&#x2F;owlzou" target="_blank">
+                        <i data-feather="github"></i>
+                      </a>
+                    
+                  
+                
+              </div>
+            </nav>
+            
+    <div class="toc-wrapper">
+        <div class="toc"></div>
+    </div>
+
+            
+              <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"></path>
+              </svg>
+            
+          </div>
+        
+        <!-- main -->
+        <div class="main"> 
+    <div class="post blog">
+        <h1 class="post-title">
+            JS 笔记：Symbol &amp; 判断数据类型</h1>
+        <div class="post-info">
+            <i data-feather="clock"></i>
+            <div class="post-date">2020-05-17</div>
+            
+                
+                    
+                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;webqian-duan&#x2F;">Web前端</a>
+                
+            
+            
+                <i data-feather="tag"></i>
+                
+                    
+                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;javascript&#x2F;">JavaScript</a>
+                
+            
+        </div>
+        
+        <article class="post-type">
+            <h2 id="jian-jie">简介</h2>
+<p><code>Symbol</code>是一种基本数据类型。<code>Symbol()</code>会返回一个唯一的值。<strong>不是<code>new Symbol()</code></strong>。</p>
+<span id="continue-reading"></span><pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">let </span><span style="color:#5597d6;">s1 </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">Symbol</span><span style="color:#1f1f1f;">();
+</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">s2 </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">Symbol</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;a&quot;</span><span style="color:#1f1f1f;">);
+</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">s3 </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">Symbol</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;a&quot;</span><span style="color:#1f1f1f;">);
+
+</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">s1 </span><span style="color:#72ab00;">== </span><span style="color:#5597d6;">s2</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//false
+</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">s2 </span><span style="color:#72ab00;">== </span><span style="color:#5597d6;">s3</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//false
+</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">s1</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//[object Symbol]
+</span></code></pre><h2 id="pan-duan-shu-ju-lei-xing">判断数据类型</h2>
+<p>javascript 的数据类型有如下几种:</p>
+<p>基本类型：</p>
+<ul>
+<li><code>Number</code></li>
+<li><code>String</code></li>
+<li><code>Boolean</code></li>
+<li><code>Null</code></li>
+<li><code>Undefined</code></li>
+<li><code>Symbol</code></li>
+</ul>
+<p>引用类型：</p>
+<ul>
+<li><code>object</code>：其中又有 <code>function</code>,<code>Array</code>，<code>Date</code>，<code>Map</code> <code>Set</code> <code>WeakMap</code> <code>WeakSet</code> <code>json</code>等</li>
+</ul>
+<h3 id="shi-yong-typeof-pan-duan-shu-ju-lei-xing">使用 <code>typeof</code> 判断数据类型：</h3>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">function </span><span style="color:#c23f31;">printType</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">ele</span><span style="color:#1f1f1f;">) {
+  </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">typeof </span><span style="color:#5597d6;">ele</span><span style="color:#1f1f1f;">);
+}
+
+</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">group </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#d07711;">&quot;1&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,
+  str: </span><span style="color:#d07711;">&quot;str&quot;</span><span style="color:#1f1f1f;">,
+  true: </span><span style="color:#b3933a;">true</span><span style="color:#1f1f1f;">,
+  null: </span><span style="color:#b3933a;">null</span><span style="color:#1f1f1f;">,
+  undefined: </span><span style="color:#b3933a;">undefined</span><span style="color:#1f1f1f;">,
+  symbol: </span><span style="color:#a2a001;">Symbol</span><span style="color:#1f1f1f;">(),
+  </span><span style="color:#d07711;">&quot;[1,2,3]&quot;</span><span style="color:#1f1f1f;">: [</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">],
+  Date: </span><span style="color:#72ab00;">new </span><span style="color:#a2a001;">Date</span><span style="color:#1f1f1f;">(),
+  json: { a: </span><span style="color:#d07711;">&quot;aaa&quot; </span><span style="color:#1f1f1f;">},
+};
+
+</span><span style="color:#72ab00;">for </span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">i </span><span style="color:#72ab00;">in </span><span style="color:#5597d6;">group</span><span style="color:#1f1f1f;">) {
+  </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">i </span><span style="color:#72ab00;">+ </span><span style="color:#d07711;">&quot; &quot; </span><span style="color:#72ab00;">+ typeof </span><span style="color:#5597d6;">group</span><span style="color:#1f1f1f;">[</span><span style="color:#5597d6;">i</span><span style="color:#1f1f1f;">]);
+}
+
+</span><span style="color:#668f14;">function </span><span style="color:#c23f31;">f</span><span style="color:#1f1f1f;">() {
+  </span><span style="color:#72ab00;">return </span><span style="color:#b3933a;">true</span><span style="color:#1f1f1f;">;
+}
+</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;function &quot; </span><span style="color:#72ab00;">+ typeof </span><span style="color:#5597d6;">f</span><span style="color:#1f1f1f;">);
+
+</span><span style="color:#7f8989;">// 1 number
+// str string
+// true boolean
+// null object
+// undefined undefined
+// symbol symbol
+// [1,2,3] object
+// Date object
+// json object
+// function function 
+</span></code></pre>
+<p>奇异的是 <code>null</code> 会被判断成 <code>object</code>。经查是<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/typeof">历史性 bug</a>。</p>
+<h3 id="shi-yong-instanceof-pan-duan-shu-ju-lei-xing">使用 <code>instanceof</code> 判断数据类型</h3>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#668f14;">function </span><span style="color:#c23f31;">f</span><span style="color:#1f1f1f;">() {
+  </span><span style="color:#72ab00;">return </span><span style="color:#b3933a;">true</span><span style="color:#1f1f1f;">;
+}
+
+</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">new </span><span style="color:#a2a001;">Date</span><span style="color:#1f1f1f;">() </span><span style="color:#72ab00;">instanceof </span><span style="color:#a2a001;">Date</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//true
+</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">([</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">] </span><span style="color:#72ab00;">instanceof </span><span style="color:#a2a001;">Array</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//true
+</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">([</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">] </span><span style="color:#72ab00;">instanceof </span><span style="color:#a2a001;">Function</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//false
+</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">f </span><span style="color:#72ab00;">instanceof </span><span style="color:#a2a001;">Function</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//true
+</span></code></pre>
+        </article>
+        <div class="divider"></div>
+        
+            
+                <div id="comment">
+                    <div class="comment-placeholder"><i data-feather="loader"></i>加载评论中……</div>
+                    <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
+                </div>
+            
+        
+    </div>
+
+          <div class="footer">
+            <p>
+              
+                &copy;
+                <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+                2019-2021
+              
+            </p>
+            <p>Powerd by
+              <a href="https://www.getzola.org/">Zola</a>
+              | Theme
+              <a href="http://owlzou.github.io/posts/zola-theme-cafe/">Cafe</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+      <script onload="feather.replace();" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+    <script onload="toc_onload()" src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.min.js"></script>
+
+  </body>
+</html>

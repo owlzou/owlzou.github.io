@@ -11,7 +11,7 @@
       <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="icon" type="image/x-icon"/>
       <title>
         
-    关于 | Catalyst
+    位运算笔记 | Catalyst
 
       </title>
     
@@ -107,16 +107,46 @@
         <div class="main"> 
     <div class="post blog">
         <h1 class="post-title">
-            关于</h1>
+            位运算笔记</h1>
         <div class="post-info">
             <i data-feather="clock"></i>
-            <div class="post-date">2019-03-02</div>
+            <div class="post-date">2020-11-09</div>
+            
+                
+                    
+                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;xue-xi&#x2F;">学习</a>
+                
             
             
         </div>
         
         <article class="post-type">
-            <p>什么都想看一看。</p>
+            <p>📔</p>
+<span id="continue-reading"></span><h2 id="ji-chu">基础</h2>
+<table><thead><tr><th>名字</th><th>用法</th><th>说明</th><th>Rust 用法</th></tr></thead><tbody>
+<tr><td>位与</td><td><code>A&amp;B</code></td><td>每一位进行比较，都为 1 的情况下该位为 1</td><td></td></tr>
+<tr><td>位或</td><td><code>A \| B</code></td><td>每一位进行比较，只要一个为 1 则该位为 1</td><td></td></tr>
+<tr><td>异或</td><td><code>A^B</code></td><td>每一位进行比较，不同则该位为 1，否则为 0</td><td></td></tr>
+<tr><td>取反</td><td><code>~A</code></td><td>0 和 1 全部取反</td><td><code>!A</code></td></tr>
+<tr><td>左移</td><td><code>A&lt;&lt;B</code></td><td>二进制后左移 B 位，即在后面添加 B 个 0，相当于 <code>A*(2^B)</code></td><td></td></tr>
+<tr><td>右移</td><td><code>A&gt;&gt;B</code></td><td>二进制后右移 B 位，即去掉最后 B 位，相当于 <code>A/(2^B)</code></td><td></td></tr>
+</tbody></table>
+<h2 id="bu-ma">补码</h2>
+<p>补码是常用的表示负数的方法，数字上来讲是模减去绝对值。</p>
+<p>正数的补码=原码，负数的补码=绝对值取反后加 1。</p>
+<h2 id="chang-yong-fang-fa">常用方法</h2>
+<ol>
+<li>保留特定位置的数字：</li>
+</ol>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">a &amp; 0xf
+</span></code></pre>
+<p><code>0x</code>是十六进制数的开头， <code>0xf</code> 表示十六进制数字 <code>f</code>（15），二进制的 <code>1111</code>。 <code>a &amp; 0xf</code> 则是只保留 <code>a</code>的后四位。</p>
+<ol start="2">
+<li>2 的 n 次幂</li>
+</ol>
+<p>2 的 n 次幂在二进制下，为<code>100..00</code>模式。例： <code>2=10</code>, <code>4=100</code>, <code>8=1000</code>……</p>
+<p>而其补码（取反加一）则刚好只有最高位相同。例： <code>-2=11111110</code> 和 <code>2=10</code> 。</p>
 
         </article>
         <div class="divider"></div>
