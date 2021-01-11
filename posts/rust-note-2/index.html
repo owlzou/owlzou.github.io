@@ -2,8 +2,6 @@
 <html lang="en">
   <head>
     
-    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.css" rel="stylesheet"/>
-     
       <meta charset="UTF-8"/>
       <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
       <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
@@ -15,7 +13,6 @@
 
       </title>
     
-
   </head>
   <body>
     <div class="background"></div>
@@ -26,15 +23,11 @@
     
       <div class="grass"></div>
     
-    <button class="burger">
-      <i data-feather="menu"></i>
-    </button>
     <div class="wrapper">
       <div
         class="container">
         <!-- sidebar -->
         
-          <div class="mask"></div>
           <div class="sidebar">
             <div class="title">Catalyst</div>
             <div class="divider"></div>
@@ -88,11 +81,46 @@
                 
               </div>
             </nav>
+            <div class="toc-wrapper">
+              
+    <ul class="toc">
+    
+        <li >
+            <a id="to-pi-pei-he-mei-ju" href="https://owlzou.github.io/posts/rust-note-2/#pi-pei-he-mei-ju">匹配和枚举</a>
             
-    <div class="toc-wrapper">
-        <div class="toc"></div>
-    </div>
+                <ul>
+                    
+                        <li >
+                            <a id="to-if-let-he-while-let" href="https://owlzou.github.io/posts/rust-note-2/#if-let-he-while-let">if let 和 while let</a>
+                        </li>
+                    
+                </ul>
+            
+        </li>
+    
+        <li >
+            <a id="to-xiang-liang-zu" href="https://owlzou.github.io/posts/rust-note-2/#xiang-liang-zu">向量组</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-ha-xi-biao" href="https://owlzou.github.io/posts/rust-note-2/#ha-xi-biao">哈希表</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-cuo-wu-chu-li" href="https://owlzou.github.io/posts/rust-note-2/#cuo-wu-chu-li">错误处理</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-die-dai-qi" href="https://owlzou.github.io/posts/rust-note-2/#die-dai-qi">迭代器</a>
+            
+        </li>
+    
+</ul>
 
+            </div>
             
               <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
@@ -104,8 +132,16 @@
           </div>
         
         <!-- main -->
-        <div class="main"> 
-    <div class="post blog">
+        <div class="main">
+          <div class="moblie-header">
+            <div class="moblie-title">Catalyst</div>
+            <button class="burger">
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+          <!-- content -->
+          
+    <div class="blog">
         <h1 class="post-title">
             Rust 笔记（二）其它类型</h1>
         <div class="post-info">
@@ -130,187 +166,175 @@
 <p><strong>未完</strong></p>
 <span id="continue-reading"></span><h2 id="pi-pei-he-mei-ju">匹配和枚举</h2>
 <p>Option 和 Result</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">enum </span><span style="color:#c23f31;">Fruit </span><span style="color:#1f1f1f;">{
+<pre><code>enum Fruit {
     Apple,
     Banana,
     Pear,
     Orange,
 }
 
-</span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">show_fruit</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">fruit</span><span style="color:#1f1f1f;">: Fruit) -&gt; String {
-    </span><span style="color:#72ab00;">match</span><span style="color:#1f1f1f;"> fruit {
-        Fruit::Apple </span><span style="color:#72ab00;">=&gt; </span><span style="color:#d07711;">&quot;apple&quot;</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">to_string</span><span style="color:#1f1f1f;">(),
-        Fruit::Banana </span><span style="color:#72ab00;">=&gt; </span><span style="color:#d07711;">&quot;banana&quot;</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">to_string</span><span style="color:#1f1f1f;">(),
-        Fruit::Pear </span><span style="color:#72ab00;">=&gt; </span><span style="color:#d07711;">&quot;pear&quot;</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">to_string</span><span style="color:#1f1f1f;">(),
-        Fruit::Orange </span><span style="color:#72ab00;">=&gt; </span><span style="color:#d07711;">&quot;orange&quot;</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">to_string</span><span style="color:#1f1f1f;">(),
+fn show_fruit(fruit: Fruit) -&gt; String {
+    match fruit {
+        Fruit::Apple =&gt; &quot;apple&quot;.to_string(),
+        Fruit::Banana =&gt; &quot;banana&quot;.to_string(),
+        Fruit::Pear =&gt; &quot;pear&quot;.to_string(),
+        Fruit::Orange =&gt; &quot;orange&quot;.to_string(),
     }
 }
 
-</span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
-    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> myfavorite </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">Fruit::Orange;
-    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;my favorite fruit is </span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#b39f04;">show_fruit</span><span style="color:#1f1f1f;">(myfavorite));
+fn main() {
+    let myfavorite = Fruit::Orange;
+    println!(&quot;my favorite fruit is {}&quot;, show_fruit(myfavorite));
 }
-</span></code></pre>
+</code></pre>
 <p>对于匹配时没有匹配上的项目留下的默认选项：<code>_=&gt;&lt;exp&gt;</code>，和<code>elm</code>一样。</p>
 <p>利用类型选项来进行匹配（类似<code>Elm</code>的<code>Maybe</code>）。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
-    </span><span style="color:#b39f04;">print_number</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">Some</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">32</span><span style="color:#1f1f1f;">));
-    </span><span style="color:#b39f04;">print_number</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">None</span><span style="color:#1f1f1f;">);
+<pre><code>fn main() {
+    print_number(Some(32));
+    print_number(None);
 }
 
-</span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">print_number</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">str</span><span style="color:#1f1f1f;">: </span><span style="color:#a2a001;">Option</span><span style="color:#1f1f1f;">&lt;</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">&gt;) {
-    </span><span style="color:#72ab00;">match </span><span style="color:#668f14;">str </span><span style="color:#1f1f1f;">{
-        </span><span style="color:#a2a001;">Some</span><span style="color:#1f1f1f;">(s) </span><span style="color:#72ab00;">=&gt; </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;你输入的数字是：</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, s),
-        </span><span style="color:#a2a001;">None </span><span style="color:#72ab00;">=&gt; </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;输入为空！&quot;</span><span style="color:#1f1f1f;">)
+fn print_number(str: Option&lt;i32&gt;) {
+    match str {
+        Some(s) =&gt; println!(&quot;你输入的数字是：{}&quot;, s),
+        None =&gt; println!(&quot;输入为空！&quot;)
     }
 }
-</span></code></pre>
+</code></pre>
 <p>可以对枚举成员添加属性描述：</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">enum </span><span style="color:#c23f31;">Message</span><span style="color:#1f1f1f;">{
-	Id(</span><span style="color:#668f14;">u32</span><span style="color:#1f1f1f;">),
-	Position {x:</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">,y:</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">},
-	Msg(</span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">),
-	Color(</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">,</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">,</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">)
+<pre><code>enum Message{
+	Id(u32),
+	Position {x:i32,y:i32},
+	Msg(String),
+	Color(i32,i32,i32)
 }
 
-</span><span style="color:#72ab00;">match</span><span style="color:#1f1f1f;"> message {
-	Message::Id(id) </span><span style="color:#72ab00;">=&gt; ...
-</span><span style="color:#1f1f1f;">}
-</span></code></pre><h3 id="if-let-he-while-let">if let 和 while let</h3>
+match message {
+	Message::Id(id) =&gt; ...
+}
+</code></pre>
+<h3 id="if-let-he-while-let">if let 和 while let</h3>
 <p>有时需要这样的使用场景</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#72ab00;">if </span><span style="color:#668f14;">let </span><span style="color:#a2a001;">Some</span><span style="color:#1f1f1f;">(i) </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> value {
-	</span><span style="color:#72ab00;">...
-</span><span style="color:#1f1f1f;">}
+<pre><code>if let Some(i) = value {
+	...
+}
 
-</span><span style="color:#72ab00;">while </span><span style="color:#668f14;">let </span><span style="color:#a2a001;">Some</span><span style="color:#1f1f1f;">(i) </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> value{
-	</span><span style="color:#72ab00;">...
-</span><span style="color:#1f1f1f;">}
-</span></code></pre>
+while let Some(i) = value{
+	...
+}
+</code></pre>
 <p><code>while let</code> 和 <code>if let</code> 将 <code>value</code>解构到 <code>Some(i)</code> 中。如果<code>value</code>是<code>None</code>则为否/跳过。</p>
 <h2 id="xiang-liang-zu">向量组</h2>
 <p>Vectors</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
-    </span><span style="color:#7f8989;">//向量组
-    </span><span style="color:#668f14;">let mut</span><span style="color:#1f1f1f;"> v: </span><span style="color:#a2a001;">Vec</span><span style="color:#1f1f1f;">&lt;</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">&gt; </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">Vec</span><span style="color:#1f1f1f;">::new();
-    </span><span style="color:#7f8989;">//向向量组内添加
-</span><span style="color:#1f1f1f;">    v.</span><span style="color:#b39f04;">push</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">);
+<pre><code>fn main() {
+    //向量组
+    let mut v: Vec&lt;i32&gt; = Vec::new();
+    //向向量组内添加
+    v.push(1);
 
-    </span><span style="color:#7f8989;">//根据内容创建向量组
-    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> v2 </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">vec!</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">];
+    //根据内容创建向量组
+    let v2 = vec![1, 2, 3];
 
-    </span><span style="color:#7f8989;">//读取数据,
-    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> data: </span><span style="color:#72ab00;">&amp;</span><span style="color:#668f14;">i32 </span><span style="color:#72ab00;">= &amp;</span><span style="color:#1f1f1f;">v2[</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">];
-    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> data2: std::option::Option&lt;</span><span style="color:#72ab00;">&amp;</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">&gt; </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> v2.</span><span style="color:#b39f04;">get</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//可能get到的是None
-</span><span style="color:#1f1f1f;">}
-</span></code></pre>
+    //读取数据,
+    let data: &amp;i32 = &amp;v2[0];
+    let data2: std::option::Option&lt;&amp;i32&gt; = v2.get(0); //可能get到的是None
+}
+</code></pre>
 <p>迭代：</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">    </span><span style="color:#72ab00;">for</span><span style="color:#1f1f1f;"> i </span><span style="color:#72ab00;">in &amp;</span><span style="color:#1f1f1f;">v2{
-        </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, i);
+<pre><code>    for i in &amp;v2{
+        println!(&quot;{}&quot;, i);
     }
 
-    </span><span style="color:#72ab00;">for</span><span style="color:#1f1f1f;"> i </span><span style="color:#72ab00;">in &amp;</span><span style="color:#668f14;">mut</span><span style="color:#1f1f1f;"> v {
-        </span><span style="color:#72ab00;">*</span><span style="color:#1f1f1f;">i </span><span style="color:#72ab00;">+=</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">//更改可变引用所引用的值，使用解除引用符号（*）
-        </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, i);
+    for i in &amp;mut v {
+        *i +=1; //更改可变引用所引用的值，使用解除引用符号（*）
+        println!(&quot;{}&quot;, i);
     }
-</span></code></pre><h2 id="ha-xi-biao">哈希表</h2>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#7f8989;">//哈希表
-</span><span style="color:#72ab00;">use </span><span style="color:#1f1f1f;">std::collections::HashMap;
-</span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
-    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> field_name </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Blue&quot;</span><span style="color:#1f1f1f;">);
-    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> field_value </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;蓝色&quot;</span><span style="color:#1f1f1f;">);
+</code></pre>
+<h2 id="ha-xi-biao">哈希表</h2>
+<pre><code>//哈希表
+use std::collections::HashMap;
+fn main() {
+    let field_name = String::from(&quot;Blue&quot;);
+    let field_value = String::from(&quot;蓝色&quot;);
 
-    </span><span style="color:#668f14;">let mut</span><span style="color:#1f1f1f;"> map </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">HashMap::new();
-    </span><span style="color:#7f8989;">//插入数据
-</span><span style="color:#1f1f1f;">    map.</span><span style="color:#b39f04;">insert</span><span style="color:#1f1f1f;">(field_name, field_value);
-</span></code></pre>
+    let mut map = HashMap::new();
+    //插入数据
+    map.insert(field_name, field_value);
+</code></pre>
 <p>读取数据</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">    </span><span style="color:#7f8989;">//读取数据
-    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> _fav_color </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> map.</span><span style="color:#b39f04;">get</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">&amp;</span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Blue&quot;</span><span style="color:#1f1f1f;">));
+<pre><code>    //读取数据
+    let _fav_color = map.get(&amp;String::from(&quot;Blue&quot;));
 
-    </span><span style="color:#7f8989;">//打印哈希表结构,如果在结构体中打开这种格式化需要打开debug（#[derive(Debug)]）
-    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{:?}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, map);
-    </span><span style="color:#7f8989;">//{&quot;Blue&quot;: &quot;蓝色&quot;}
-</span></code></pre>
+    //打印哈希表结构,如果在结构体中打开这种格式化需要打开debug（#[derive(Debug)]）
+    println!(&quot;{:?}&quot;, map);
+    //{&quot;Blue&quot;: &quot;蓝色&quot;}
+</code></pre>
 <p>更新数据</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">    </span><span style="color:#7f8989;">//更新数据,覆盖
-</span><span style="color:#1f1f1f;">    map.</span><span style="color:#b39f04;">insert</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Blue&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;总之是蓝色&quot;</span><span style="color:#1f1f1f;">));
+<pre><code>    //更新数据,覆盖
+    map.insert(String::from(&quot;Blue&quot;), String::from(&quot;总之是蓝色&quot;));
 
-    </span><span style="color:#7f8989;">//更新数据（如果没有和该键相关联的值）
-</span><span style="color:#1f1f1f;">    map.</span><span style="color:#b39f04;">entry</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Red&quot;</span><span style="color:#1f1f1f;">))
-        .</span><span style="color:#b39f04;">or_insert</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;红色&quot;</span><span style="color:#1f1f1f;">));
-    map.</span><span style="color:#b39f04;">entry</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Blue&quot;</span><span style="color:#1f1f1f;">))
-        .</span><span style="color:#b39f04;">or_insert</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;不会被覆盖&quot;</span><span style="color:#1f1f1f;">));
+    //更新数据（如果没有和该键相关联的值）
+    map.entry(String::from(&quot;Red&quot;))
+        .or_insert(String::from(&quot;红色&quot;));
+    map.entry(String::from(&quot;Blue&quot;))
+        .or_insert(String::from(&quot;不会被覆盖&quot;));
 
-    map.</span><span style="color:#b39f04;">entry</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Yellow&quot;</span><span style="color:#1f1f1f;">)).</span><span style="color:#b39f04;">or_default</span><span style="color:#1f1f1f;">(); </span><span style="color:#7f8989;">//插入default
-    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{:?}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, map);
-    </span><span style="color:#7f8989;">//{&quot;Blue&quot;: &quot;总之是蓝色&quot;, &quot;Red&quot;: &quot;红色&quot;, &quot;Yellow&quot;: &quot;&quot;}
-</span></code></pre>
+    map.entry(String::from(&quot;Yellow&quot;)).or_default(); //插入default
+    println!(&quot;{:?}&quot;, map);
+    //{&quot;Blue&quot;: &quot;总之是蓝色&quot;, &quot;Red&quot;: &quot;红色&quot;, &quot;Yellow&quot;: &quot;&quot;}
+</code></pre>
 <p>删除数据</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">    </span><span style="color:#7f8989;">//删除数据
-    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> blue </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> map.</span><span style="color:#b39f04;">remove</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">&amp;</span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Blue&quot;</span><span style="color:#1f1f1f;">)); </span><span style="color:#7f8989;">//返回值
-    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> red </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> map.</span><span style="color:#b39f04;">remove_entry</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">&amp;</span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Red&quot;</span><span style="color:#1f1f1f;">)); </span><span style="color:#7f8989;">//返回键和值
-    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{:?}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, blue); </span><span style="color:#7f8989;">//Some(&quot;总之是蓝色&quot;)
-    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{:?}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, red); </span><span style="color:#7f8989;">//Some((&quot;Red&quot;, &quot;红色&quot;))
-</span></code></pre>
+<pre><code>    //删除数据
+    let blue = map.remove(&amp;String::from(&quot;Blue&quot;)); //返回值
+    let red = map.remove_entry(&amp;String::from(&quot;Red&quot;)); //返回键和值
+    println!(&quot;{:?}&quot;, blue); //Some(&quot;总之是蓝色&quot;)
+    println!(&quot;{:?}&quot;, red); //Some((&quot;Red&quot;, &quot;红色&quot;))
+</code></pre>
 <p>遍历数据</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">    </span><span style="color:#7f8989;">//遍历
-    </span><span style="color:#72ab00;">for </span><span style="color:#1f1f1f;">(key, value) </span><span style="color:#72ab00;">in &amp;</span><span style="color:#1f1f1f;">map {
-        </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;-- </span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">:</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">,&quot;</span><span style="color:#1f1f1f;">, key, value);
+<pre><code>    //遍历
+    for (key, value) in &amp;map {
+        println!(&quot;-- {}:{},&quot;, key, value);
     }
 }
-</span></code></pre><h2 id="cuo-wu-chu-li">错误处理</h2>
+</code></pre>
+<h2 id="cuo-wu-chu-li">错误处理</h2>
 <p><code>Rust</code>有一个<code>panic!</code>宏。碰到无法处理的错误时，该宏运行，程序将输出错误信息并清理堆栈，退出程序。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#7f8989;">//对于可能出现的错误，使用 Result 类型处理。
+<pre><code>//对于可能出现的错误，使用 Result 类型处理。
 //enum Result&lt;T, E&gt; {
 //     Ok(T),
 //     Err(E),
 // }
 
-</span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
-    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> input1 </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;abcde&quot;</span><span style="color:#1f1f1f;">;
+fn main() {
+    let input1 = &quot;abcde&quot;;
 
-    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> _number: </span><span style="color:#668f14;">i32 </span><span style="color:#72ab00;">= match</span><span style="color:#1f1f1f;"> input1.</span><span style="color:#b39f04;">parse</span><span style="color:#1f1f1f;">() {
-        </span><span style="color:#a2a001;">Ok</span><span style="color:#1f1f1f;">(num) </span><span style="color:#72ab00;">=&gt;</span><span style="color:#1f1f1f;"> num,
-        </span><span style="color:#a2a001;">Err</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">_</span><span style="color:#1f1f1f;">) </span><span style="color:#72ab00;">=&gt; </span><span style="color:#a2a001;">panic!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;该字符串不是数字!&quot;</span><span style="color:#1f1f1f;">),
+    let _number: i32 = match input1.parse() {
+        Ok(num) =&gt; num,
+        Err(_) =&gt; panic!(&quot;该字符串不是数字!&quot;),
     };
-    </span><span style="color:#7f8989;">//thread &#39;main&#39; panicked at &#39;该字符串不是数字!&#39;, ./error.rs:13:19
-</span><span style="color:#1f1f1f;">}
-</span></code></pre>
+    //thread 'main' panicked at '该字符串不是数字!', ./error.rs:13:19
+}
+</code></pre>
 <p>错误的再匹配：<code>error.kind</code>查看错误类型。</p>
 <p>简写：</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#7f8989;">//如果失败会触发panic(由unwrap触发)
-</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> _n1: </span><span style="color:#668f14;">i32 </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;abced&quot;</span><span style="color:#1f1f1f;">).</span><span style="color:#b39f04;">parse</span><span style="color:#1f1f1f;">().</span><span style="color:#b39f04;">unwrap</span><span style="color:#1f1f1f;">();
-</span><span style="color:#7f8989;">//thread &#39;main&#39; panicked at &#39;called `Result::unwrap()` on an `Err` value: ParseIntError { kind: InvalidDigit }&#39;, ./error.rs:11:50
-</span></code></pre>
+<pre><code>//如果失败会触发panic(由unwrap触发)
+let _n1: i32 = String::from(&quot;abced&quot;).parse().unwrap();
+//thread 'main' panicked at 'called `Result::unwrap()` on an `Err` value: ParseIntError { kind: InvalidDigit }', ./error.rs:11:50
+</code></pre>
 <p>使用<code>expect</code>可以提供自定义错误信息。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> _n2: </span><span style="color:#668f14;">i32 </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;abced&quot;</span><span style="color:#1f1f1f;">).</span><span style="color:#b39f04;">parse</span><span style="color:#1f1f1f;">().</span><span style="color:#b39f04;">expect</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;non-number&quot;</span><span style="color:#1f1f1f;">);
-</span><span style="color:#7f8989;">//thread &#39;main&#39; panicked at &#39;non-number: ParseIntError { kind: InvalidDigit }&#39;, ./error.rs:11:50
-</span></code></pre>
+<pre><code>let _n2: i32 = String::from(&quot;abced&quot;).parse().expect(&quot;non-number&quot;);
+//thread 'main' panicked at 'non-number: ParseIntError { kind: InvalidDigit }', ./error.rs:11:50
+</code></pre>
 <p><code>?</code>接在<code>Result</code>型后面，如果 Ok 则返回值，不然返回并传播 Err（退出整个函数）。所以整个函数的返回值是<code>Result</code>,例如<code>Ok(())</code>。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#72ab00;">use </span><span style="color:#1f1f1f;">std::num::ParseIntError;
-</span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">pars</span><span style="color:#1f1f1f;">() -&gt; </span><span style="color:#a2a001;">Result</span><span style="color:#1f1f1f;">&lt;</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">, ParseIntError&gt; {
-    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> n3 </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;abcde&quot;</span><span style="color:#1f1f1f;">;
-    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> n4 </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> n3.parse::&lt;</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">&gt;()</span><span style="color:#72ab00;">?</span><span style="color:#1f1f1f;">;
-    </span><span style="color:#a2a001;">Ok</span><span style="color:#1f1f1f;">(n4)
+<pre><code>use std::num::ParseIntError;
+fn pars() -&gt; Result&lt;i32, ParseIntError&gt; {
+    let n3 = &quot;abcde&quot;;
+    let n4 = n3.parse::&lt;i32&gt;()?;
+    Ok(n4)
 }
-</span><span style="color:#7f8989;">//调用pars()并打印结果
+//调用pars()并打印结果
 //Err(ParseIntError { kind: InvalidDigit })
-</span></code></pre>
+</code></pre>
 <p><code>Box&lt;dyn std::error::Error&gt;</code>可以接受任何类型的<code>error</code>。在函数中，可以把多种类型的错误展成此一种错误。</p>
 <p><a href="https://doc.rust-lang.org/std/keyword.dyn.html">dyn</a>是<code>trait</code>对象的前缀，说明对<code>trait</code>上方法是动态调用的。</p>
 <h2 id="die-dai-qi">迭代器</h2>
@@ -332,7 +356,8 @@
         
             
                 <div id="comment">
-                    <div class="comment-placeholder"><i data-feather="loader"></i>加载评论中……</div>
+                    <div class="comment-placeholder">
+                        <i data-feather="loader"></i>Loading……</div>
                     <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
                 </div>
             
@@ -350,18 +375,15 @@
             <p>Powerd by
               <a href="https://www.getzola.org/">Zola</a>
               | Theme
-              <a href="http://owlzou.github.io/posts/zola-theme-cafe/">Cafe</a>
+              <a href="">Cafe</a>
             </p>
           </div>
         </div>
       </div>
     </div>
     
-    
       <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
       <script onload="feather.replace();" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     
-    <script onload="toc_onload()" src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.min.js"></script>
-
   </body>
 </html>

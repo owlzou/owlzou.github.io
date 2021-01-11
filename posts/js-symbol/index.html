@@ -2,8 +2,6 @@
 <html lang="en">
   <head>
     
-    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.css" rel="stylesheet"/>
-     
       <meta charset="UTF-8"/>
       <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
       <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
@@ -15,7 +13,6 @@
 
       </title>
     
-
   </head>
   <body>
     <div class="background"></div>
@@ -26,15 +23,11 @@
     
       <div class="grass"></div>
     
-    <button class="burger">
-      <i data-feather="menu"></i>
-    </button>
     <div class="wrapper">
       <div
         class="container">
         <!-- sidebar -->
         
-          <div class="mask"></div>
           <div class="sidebar">
             <div class="title">Catalyst</div>
             <div class="divider"></div>
@@ -88,11 +81,35 @@
                 
               </div>
             </nav>
+            <div class="toc-wrapper">
+              
+    <ul class="toc">
+    
+        <li >
+            <a id="to-jian-jie" href="https://owlzou.github.io/posts/js-symbol/#jian-jie">简介</a>
             
-    <div class="toc-wrapper">
-        <div class="toc"></div>
-    </div>
+        </li>
+    
+        <li >
+            <a id="to-pan-duan-shu-ju-lei-xing" href="https://owlzou.github.io/posts/js-symbol/#pan-duan-shu-ju-lei-xing">判断数据类型</a>
+            
+                <ul>
+                    
+                        <li >
+                            <a id="to-shi-yong-typeof-pan-duan-shu-ju-lei-xing" href="https://owlzou.github.io/posts/js-symbol/#shi-yong-typeof-pan-duan-shu-ju-lei-xing">使用 typeof 判断数据类型：</a>
+                        </li>
+                    
+                        <li >
+                            <a id="to-shi-yong-instanceof-pan-duan-shu-ju-lei-xing" href="https://owlzou.github.io/posts/js-symbol/#shi-yong-instanceof-pan-duan-shu-ju-lei-xing">使用 instanceof 判断数据类型</a>
+                        </li>
+                    
+                </ul>
+            
+        </li>
+    
+</ul>
 
+            </div>
             
               <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
@@ -104,8 +121,16 @@
           </div>
         
         <!-- main -->
-        <div class="main"> 
-    <div class="post blog">
+        <div class="main">
+          <div class="moblie-header">
+            <div class="moblie-title">Catalyst</div>
+            <button class="burger">
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+          <!-- content -->
+          
+    <div class="blog">
         <h1 class="post-title">
             JS 笔记：Symbol &amp; 判断数据类型</h1>
         <div class="post-info">
@@ -129,15 +154,15 @@
         <article class="post-type">
             <h2 id="jian-jie">简介</h2>
 <p><code>Symbol</code>是一种基本数据类型。<code>Symbol()</code>会返回一个唯一的值。<strong>不是<code>new Symbol()</code></strong>。</p>
-<span id="continue-reading"></span><pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">let </span><span style="color:#5597d6;">s1 </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">Symbol</span><span style="color:#1f1f1f;">();
-</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">s2 </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">Symbol</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;a&quot;</span><span style="color:#1f1f1f;">);
-</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">s3 </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">Symbol</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;a&quot;</span><span style="color:#1f1f1f;">);
+<span id="continue-reading"></span><pre><code>let s1 = Symbol();
+let s2 = Symbol(&quot;a&quot;);
+let s3 = Symbol(&quot;a&quot;);
 
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">s1 </span><span style="color:#72ab00;">== </span><span style="color:#5597d6;">s2</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//false
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">s2 </span><span style="color:#72ab00;">== </span><span style="color:#5597d6;">s3</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//false
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">s1</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//[object Symbol]
-</span></code></pre><h2 id="pan-duan-shu-ju-lei-xing">判断数据类型</h2>
+console.log(s1 == s2); //false
+console.log(s2 == s3); //false
+console.log(s1); //[object Symbol]
+</code></pre>
+<h2 id="pan-duan-shu-ju-lei-xing">判断数据类型</h2>
 <p>javascript 的数据类型有如下几种:</p>
 <p>基本类型：</p>
 <ul>
@@ -153,33 +178,32 @@
 <li><code>object</code>：其中又有 <code>function</code>,<code>Array</code>，<code>Date</code>，<code>Map</code> <code>Set</code> <code>WeakMap</code> <code>WeakSet</code> <code>json</code>等</li>
 </ul>
 <h3 id="shi-yong-typeof-pan-duan-shu-ju-lei-xing">使用 <code>typeof</code> 判断数据类型：</h3>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">function </span><span style="color:#c23f31;">printType</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">ele</span><span style="color:#1f1f1f;">) {
-  </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">typeof </span><span style="color:#5597d6;">ele</span><span style="color:#1f1f1f;">);
+<pre><code>function printType(ele) {
+  console.log(typeof ele);
 }
 
-</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">group </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">{
-  </span><span style="color:#d07711;">&quot;1&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,
-  str: </span><span style="color:#d07711;">&quot;str&quot;</span><span style="color:#1f1f1f;">,
-  true: </span><span style="color:#b3933a;">true</span><span style="color:#1f1f1f;">,
-  null: </span><span style="color:#b3933a;">null</span><span style="color:#1f1f1f;">,
-  undefined: </span><span style="color:#b3933a;">undefined</span><span style="color:#1f1f1f;">,
-  symbol: </span><span style="color:#a2a001;">Symbol</span><span style="color:#1f1f1f;">(),
-  </span><span style="color:#d07711;">&quot;[1,2,3]&quot;</span><span style="color:#1f1f1f;">: [</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">],
-  Date: </span><span style="color:#72ab00;">new </span><span style="color:#a2a001;">Date</span><span style="color:#1f1f1f;">(),
-  json: { a: </span><span style="color:#d07711;">&quot;aaa&quot; </span><span style="color:#1f1f1f;">},
+let group = {
+  &quot;1&quot;: 1,
+  str: &quot;str&quot;,
+  true: true,
+  null: null,
+  undefined: undefined,
+  symbol: Symbol(),
+  &quot;[1,2,3]&quot;: [1, 2, 3],
+  Date: new Date(),
+  json: { a: &quot;aaa&quot; },
 };
 
-</span><span style="color:#72ab00;">for </span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">i </span><span style="color:#72ab00;">in </span><span style="color:#5597d6;">group</span><span style="color:#1f1f1f;">) {
-  </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">i </span><span style="color:#72ab00;">+ </span><span style="color:#d07711;">&quot; &quot; </span><span style="color:#72ab00;">+ typeof </span><span style="color:#5597d6;">group</span><span style="color:#1f1f1f;">[</span><span style="color:#5597d6;">i</span><span style="color:#1f1f1f;">]);
+for (i in group) {
+  console.log(i + &quot; &quot; + typeof group[i]);
 }
 
-</span><span style="color:#668f14;">function </span><span style="color:#c23f31;">f</span><span style="color:#1f1f1f;">() {
-  </span><span style="color:#72ab00;">return </span><span style="color:#b3933a;">true</span><span style="color:#1f1f1f;">;
+function f() {
+  return true;
 }
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;function &quot; </span><span style="color:#72ab00;">+ typeof </span><span style="color:#5597d6;">f</span><span style="color:#1f1f1f;">);
+console.log(&quot;function &quot; + typeof f);
 
-</span><span style="color:#7f8989;">// 1 number
+// 1 number
 // str string
 // true boolean
 // null object
@@ -189,25 +213,26 @@
 // Date object
 // json object
 // function function 
-</span></code></pre>
+</code></pre>
 <p>奇异的是 <code>null</code> 会被判断成 <code>object</code>。经查是<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/typeof">历史性 bug</a>。</p>
 <h3 id="shi-yong-instanceof-pan-duan-shu-ju-lei-xing">使用 <code>instanceof</code> 判断数据类型</h3>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">function </span><span style="color:#c23f31;">f</span><span style="color:#1f1f1f;">() {
-  </span><span style="color:#72ab00;">return </span><span style="color:#b3933a;">true</span><span style="color:#1f1f1f;">;
+<pre><code>function f() {
+  return true;
 }
 
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">new </span><span style="color:#a2a001;">Date</span><span style="color:#1f1f1f;">() </span><span style="color:#72ab00;">instanceof </span><span style="color:#a2a001;">Date</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//true
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">([</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">] </span><span style="color:#72ab00;">instanceof </span><span style="color:#a2a001;">Array</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//true
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">([</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">] </span><span style="color:#72ab00;">instanceof </span><span style="color:#a2a001;">Function</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//false
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">f </span><span style="color:#72ab00;">instanceof </span><span style="color:#a2a001;">Function</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//true
-</span></code></pre>
+console.log(new Date() instanceof Date); //true
+console.log([1, 2, 3] instanceof Array); //true
+console.log([1, 2, 3] instanceof Function); //false
+console.log(f instanceof Function); //true
+</code></pre>
+
         </article>
         <div class="divider"></div>
         
             
                 <div id="comment">
-                    <div class="comment-placeholder"><i data-feather="loader"></i>加载评论中……</div>
+                    <div class="comment-placeholder">
+                        <i data-feather="loader"></i>Loading……</div>
                     <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
                 </div>
             
@@ -225,18 +250,15 @@
             <p>Powerd by
               <a href="https://www.getzola.org/">Zola</a>
               | Theme
-              <a href="http://owlzou.github.io/posts/zola-theme-cafe/">Cafe</a>
+              <a href="">Cafe</a>
             </p>
           </div>
         </div>
       </div>
     </div>
     
-    
       <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
       <script onload="feather.replace();" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     
-    <script onload="toc_onload()" src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.min.js"></script>
-
   </body>
 </html>

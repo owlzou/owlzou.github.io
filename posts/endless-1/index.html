@@ -2,8 +2,6 @@
 <html lang="en">
   <head>
     
-    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.css" rel="stylesheet"/>
-     
       <meta charset="UTF-8"/>
       <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
       <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
@@ -15,7 +13,6 @@
 
       </title>
     
-
   </head>
   <body>
     <div class="background"></div>
@@ -26,15 +23,11 @@
     
       <div class="grass"></div>
     
-    <button class="burger">
-      <i data-feather="menu"></i>
-    </button>
     <div class="wrapper">
       <div
         class="container">
         <!-- sidebar -->
         
-          <div class="mask"></div>
           <div class="sidebar">
             <div class="title">Catalyst</div>
             <div class="divider"></div>
@@ -88,11 +81,73 @@
                 
               </div>
             </nav>
+            <div class="toc-wrapper">
+              
+    <ul class="toc">
+    
+        <li >
+            <a id="to-ruan-jian-yuan-xing" href="https://owlzou.github.io/posts/endless-1/#ruan-jian-yuan-xing">软件原型</a>
             
-    <div class="toc-wrapper">
-        <div class="toc"></div>
-    </div>
+        </li>
+    
+        <li >
+            <a id="to-an-zhuang" href="https://owlzou.github.io/posts/endless-1/#an-zhuang">安装</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-bu-ju" href="https://owlzou.github.io/posts/endless-1/#bu-ju">布局</a>
+            
+                <ul>
+                    
+                        <li >
+                            <a id="to-shi-yong-zi-ti-tu-biao" href="https://owlzou.github.io/posts/endless-1/#shi-yong-zi-ti-tu-biao">使用字体图标</a>
+                        </li>
+                    
+                        <li >
+                            <a id="to-biao-ti-lan" href="https://owlzou.github.io/posts/endless-1/#biao-ti-lan">标题栏</a>
+                        </li>
+                    
+                        <li >
+                            <a id="to-shu-ru-kuang" href="https://owlzou.github.io/posts/endless-1/#shu-ru-kuang">输入框</a>
+                        </li>
+                    
+                        <li >
+                            <a id="to-gui-dang-ye-mian" href="https://owlzou.github.io/posts/endless-1/#gui-dang-ye-mian">归档页面</a>
+                        </li>
+                    
+                </ul>
+            
+        </li>
+    
+        <li >
+            <a id="to-jiao-hu" href="https://owlzou.github.io/posts/endless-1/#jiao-hu">交互</a>
+            
+                <ul>
+                    
+                        <li >
+                            <a id="to-1-dian-ji-qia-pian" href="https://owlzou.github.io/posts/endless-1/#1-dian-ji-qia-pian">1. 点击卡片</a>
+                        </li>
+                    
+                        <li >
+                            <a id="to-2-shi-yong-dai-ma-qie-huan-tab" href="https://owlzou.github.io/posts/endless-1/#2-shi-yong-dai-ma-qie-huan-tab">2. 使用代码切换 Tab</a>
+                        </li>
+                    
+                        <li >
+                            <a id="to-3-ti-qu-shu-ru-de-biao-ti" href="https://owlzou.github.io/posts/endless-1/#3-ti-qu-shu-ru-de-biao-ti">3. 提取输入的标题</a>
+                        </li>
+                    
+                        <li >
+                            <a id="to-4-dan-chuang" href="https://owlzou.github.io/posts/endless-1/#4-dan-chuang">4. 弹窗</a>
+                        </li>
+                    
+                </ul>
+            
+        </li>
+    
+</ul>
 
+            </div>
             
               <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
@@ -104,8 +159,16 @@
           </div>
         
         <!-- main -->
-        <div class="main"> 
-    <div class="post blog">
+        <div class="main">
+          <div class="moblie-header">
+            <div class="moblie-title">Catalyst</div>
+            <button class="burger">
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+          <!-- content -->
+          
+    <div class="blog">
         <h1 class="post-title">
             Endless开发笔记（1）：基础布局</h1>
         <div class="post-info">
@@ -150,25 +213,24 @@
 </li>
 <li>
 <p>在共用工程下，建立<code>AssemblyInfo.fs</code>（或者在别的文件里），注册资源：</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">namespace Endless
+<pre><code>namespace Endless
 
-</span><span style="color:#1f1f1f;">open Xamarin.Forms
+open Xamarin.Forms
 
-</span><span style="color:#1f1f1f;">[&lt;assembly:ExportFont(&quot;MaterialIcons-Regular.ttf&quot;, Alias = &quot;MaterialIcons&quot;)&gt;]
-</span><span style="color:#1f1f1f;">do ()
-</span></code></pre></li>
+[&lt;assembly:ExportFont(&quot;MaterialIcons-Regular.ttf&quot;, Alias = &quot;MaterialIcons&quot;)&gt;]
+do ()
+</code></pre>
+</li>
 <li>
 <p>引用字体的时候直接写。例：从字体图标中找到“笔”并将其作为图片。<code>Glyph</code>是图标的 unicode 码。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">let penImg = Image.ImageFont(FontImageSource(Glyph=&quot;\ue254&quot;,FontFamily=&quot;MaterialIcons&quot;))
-</span></code></pre>
+<pre><code>let penImg = Image.ImageFont(FontImageSource(Glyph=&quot;\ue254&quot;,FontFamily=&quot;MaterialIcons&quot;))
+</code></pre>
 <p>然后</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">View.TabbedPage(children=[
-</span><span style="color:#1f1f1f;">        View.ContentPage(icon =penImg, title=&quot;笔记&quot;)
-</span><span style="color:#1f1f1f;">        View.ContentPage(icon=archiveImg, title=&quot;归档&quot;)])
-</span></code></pre></li>
+<pre><code>View.TabbedPage(children=[
+        View.ContentPage(icon =penImg, title=&quot;笔记&quot;)
+        View.ContentPage(icon=archiveImg, title=&quot;归档&quot;)])
+</code></pre>
+</li>
 </ol>
 <h3 id="biao-ti-lan">标题栏</h3>
 <p>为了显示标题栏，给每个页面套了个<code>NavigationPage</code>。</p>
@@ -183,22 +245,21 @@
 <li><code>Priority</code> 显示顺序</li>
 </ul>
 <p>例：</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">  let writePage = View.NavigationPage
+<pre><code>  let writePage = View.NavigationPage
             (icon = penImg, title = &quot;笔记&quot;,
              toolbarItems=[View.ToolbarItem(icon=saveImg)],  //saveImg也是一个图片
              pages = &lt;略&gt;)
 
   let archivePage = &lt;略&gt;
-</span></code></pre>
+</code></pre>
 <p>而原<code>TabbedPage</code>变成：</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">View.TabbedPage(children = [ writePage; archivePage ])
-</span></code></pre><h3 id="shu-ru-kuang">输入框</h3>
+<pre><code>View.TabbedPage(children = [ writePage; archivePage ])
+</code></pre>
+<h3 id="shu-ru-kuang">输入框</h3>
 <p>自动改变大小</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">View.Editor(placeholder = &quot;等待输入&quot;, autoSize = EditorAutoSizeOption.TextChanges)
-</span></code></pre><h3 id="gui-dang-ye-mian">归档页面</h3>
+<pre><code>View.Editor(placeholder = &quot;等待输入&quot;, autoSize = EditorAutoSizeOption.TextChanges)
+</code></pre>
+<h3 id="gui-dang-ye-mian">归档页面</h3>
 <p>卡片布局，没什么特别要写的。实现主要是<code>FlexLayout</code> + <code>StackLayout</code>和一个<code>Frame</code>.</p>
 <p><code>Frame</code>不设置边框属性的话不显示阴影，有点奇怪。</p>
 <ul>
@@ -211,18 +272,17 @@
 <ul>
 <li><a href="https://fsprojects.github.io/Fabulous/Fabulous.XamarinForms/views-gestures.html">手势参考</a></li>
 </ul>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">//在卡片里设置点击反应
+<pre><code>//在卡片里设置点击反应
 gestureRecognizers = ([ View.TapGestureRecognizer(command = (fun () -&gt; dispatch (Open entry.Id))) ]),
 ...
 
 //update
 | Open id -&gt; let e=(search id model.Data) in {model with  NowWrite= e.Content; NowId = e.Id},Cmd.none
-</span></code></pre><h3 id="2-shi-yong-dai-ma-qie-huan-tab">2. 使用代码切换 Tab</h3>
+</code></pre>
+<h3 id="2-shi-yong-dai-ma-qie-huan-tab">2. 使用代码切换 Tab</h3>
 <p>上文中“点击卡片返回输入界面”的实现。观察发现<code>TabbedPage</code>有属性<code>currentPage</code>可以<code>get,set</code>。所以尝试通过改变<code>currentPage</code>来改变当前页面的值。</p>
 <p>引用<code>TabbedPage</code>使用了<a href="https://fsprojects.github.io/Fabulous/Fabulous.XamarinForms/views-animations.html#viewrefs">ViewRef</a>。<code>ViewRef</code>是弱引用，初始为空，<em>在<code>view</code>函数被调用并显示后才填充值</em>，所以将对<code>ViewRef</code>的处理放到了<code>update</code>函数中。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">//声明
+<pre><code>//声明
 let tabRef = ViewRef&lt;TabbedPage&gt;()
 
 ...
@@ -230,20 +290,18 @@ let tabRef = ViewRef&lt;TabbedPage&gt;()
 //设置
 View.TabbedPage
         (ref = tabRef, children = [ writePage; archivePage ])
-</span></code></pre>
+</code></pre>
 <p>修改上文点击反应，发送切换页面的消息。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">gestureRecognizers =
+<pre><code>gestureRecognizers =
     ([ View.TapGestureRecognizer
         (command =
             (fun () -&gt;
                 dispatch (Open entry.Id)
                 dispatch (Switch 0))) ])
 
-</span></code></pre>
+</code></pre>
 <p>update 中处理页面切换。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">    let update (msg: Msg) (model: Model) =
+<pre><code>    let update (msg: Msg) (model: Model) =
         match msg with
         | Switch index -&gt;
             match tabRef.TryValue with
@@ -251,14 +309,15 @@ View.TabbedPage
             | Some page -&gt; page.CurrentPage &lt;- page.GetPageByIndex(index)
             model, Cmd.none
         |  &lt;略&gt;
-</span></code></pre><h3 id="3-ti-qu-shu-ru-de-biao-ti">3. 提取输入的标题</h3>
+</code></pre>
+<h3 id="3-ti-qu-shu-ru-de-biao-ti">3. 提取输入的标题</h3>
 <p>设计：输入笔记的第一行如果是<code># 标题</code>，那么将第一行设置为标题。 //非常简陋</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">let cardParser (str:string) =
+<pre><code>let cardParser (str:string) =
     let res = Regex(&quot;#(.*)&quot;).Match(str)
     if res.Success then (res.Value.[1..].Trim(), str.[res.Length..].Trim())
     else (&quot;&quot;,str)
-</span></code></pre><h3 id="4-dan-chuang">4. 弹窗</h3>
+</code></pre>
+<h3 id="4-dan-chuang">4. 弹窗</h3>
 <p>弹窗：<a href="https://fsprojects.github.io/Fabulous/Fabulous.XamarinForms/views-popups.html">Pop-ups</a></p>
 <p>根据文档里的说法，</p>
 <blockquote>
@@ -266,8 +325,7 @@ View.TabbedPage
 在<code>Fabulous for Xamarin.Forms</code>中我们仅描述页面该是什么样，并不访问 UI 控件本身，所以没有直接的方法使用这两个函数。不过我们可以使用<code>Xamarin.Forms</code>暴露的静态属性 <code>Application.Current.MainPage</code> 。</p>
 </blockquote>
 <p>所以,点击删除时 <del>（其实在原型图里忘画了）</del></p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">| DeleteAlert id -&gt;
+<pre><code>| DeleteAlert id -&gt;
             let alertResult =
                 async {
                     let! alert =
@@ -279,13 +337,15 @@ View.TabbedPage
 
             model, Cmd.ofAsyncMsg alertResult
 | Delete (alert,id) -&gt; &lt;后续处理&gt;
-</span></code></pre>
+</code></pre>
+
         </article>
         <div class="divider"></div>
         
             
                 <div id="comment">
-                    <div class="comment-placeholder"><i data-feather="loader"></i>加载评论中……</div>
+                    <div class="comment-placeholder">
+                        <i data-feather="loader"></i>Loading……</div>
                     <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
                 </div>
             
@@ -303,18 +363,15 @@ View.TabbedPage
             <p>Powerd by
               <a href="https://www.getzola.org/">Zola</a>
               | Theme
-              <a href="http://owlzou.github.io/posts/zola-theme-cafe/">Cafe</a>
+              <a href="">Cafe</a>
             </p>
           </div>
         </div>
       </div>
     </div>
     
-    
       <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
       <script onload="feather.replace();" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     
-    <script onload="toc_onload()" src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.min.js"></script>
-
   </body>
 </html>

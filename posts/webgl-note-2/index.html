@@ -2,8 +2,6 @@
 <html lang="en">
   <head>
     
-    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.css" rel="stylesheet"/>
-     
       <meta charset="UTF-8"/>
       <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
       <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
@@ -15,7 +13,6 @@
 
       </title>
     
-
   </head>
   <body>
     <div class="background"></div>
@@ -26,15 +23,11 @@
     
       <div class="grass"></div>
     
-    <button class="burger">
-      <i data-feather="menu"></i>
-    </button>
     <div class="wrapper">
       <div
         class="container">
         <!-- sidebar -->
         
-          <div class="mask"></div>
           <div class="sidebar">
             <div class="title">Catalyst</div>
             <div class="divider"></div>
@@ -88,11 +81,28 @@
                 
               </div>
             </nav>
+            <div class="toc-wrapper">
+              
+    <ul class="toc">
+    
+        <li >
+            <a id="to-xian-kuang-zheng-fang-ti" href="https://owlzou.github.io/posts/webgl-note-2/#xian-kuang-zheng-fang-ti">线框正方体</a>
             
-    <div class="toc-wrapper">
-        <div class="toc"></div>
-    </div>
+        </li>
+    
+        <li >
+            <a id="to-shi-xin-zheng-fang-ti" href="https://owlzou.github.io/posts/webgl-note-2/#shi-xin-zheng-fang-ti">实心正方体</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-suo-yin-zheng-fang-ti" href="https://owlzou.github.io/posts/webgl-note-2/#suo-yin-zheng-fang-ti">索引正方体</a>
+            
+        </li>
+    
+</ul>
 
+            </div>
             
               <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
@@ -104,8 +114,16 @@
           </div>
         
         <!-- main -->
-        <div class="main"> 
-    <div class="post blog">
+        <div class="main">
+          <div class="moblie-header">
+            <div class="moblie-title">Catalyst</div>
+            <button class="burger">
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+          <!-- content -->
+          
+    <div class="blog">
         <h1 class="post-title">
             WebGL 笔记（2） 3D正方体</h1>
         <div class="post-info">
@@ -131,150 +149,140 @@
 <!-- more-->
 <h2 id="xian-kuang-zheng-fang-ti">线框正方体</h2>
 <p>准备好正方体的点，画线段所以比较杂……</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">const </span><span style="color:#5597d6;">vertices</span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">];
-</span></code></pre>
+<pre><code>const vertices=[1,1,1,1,-1,1,-1,-1,1,-1,1,1,-1,1,-1,1,1,-1,1,-1,-1,-1,-1,-1,-1,-1,1,1,-1,1,1,-1,-1,1,1,-1,1,1,1,-1,1,1,-1,1,-1,-1,-1,-1];
+</code></pre>
 <p>然后就是有关摄影机，坐标等等相关内容了。相关概念教程可以看 <a href="https://learnopengl-cn.github.io/01%20Getting%20started/08%20Coordinate%20Systems/">LearnOpenGL</a> 。</p>
 <p><del>看到矩阵乘法，想起了被论文支配的恐惧</del>，四个坐标系之类的是3D场景的共识了。</p>
 <p>使用 <a href="http://glmatrix.net">gl-matrix</a> 库来进行矩阵的运算。最终需要物体，相机，投影三个矩阵。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">  </span><span style="color:#7f8989;">//物体本身转45度
-  </span><span style="color:#668f14;">let </span><span style="color:#5597d6;">model </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">glMatrix</span><span style="color:#1f1f1f;">.mat4.</span><span style="color:#5597d6;">create</span><span style="color:#1f1f1f;">();
-  </span><span style="color:#5597d6;">glMatrix</span><span style="color:#1f1f1f;">.mat4.</span><span style="color:#5597d6;">rotate</span><span style="color:#1f1f1f;">(
-    </span><span style="color:#5597d6;">model</span><span style="color:#1f1f1f;">,
-    </span><span style="color:#5597d6;">model</span><span style="color:#1f1f1f;">,
-    </span><span style="color:#b3933a;">45</span><span style="color:#1f1f1f;">,
-    </span><span style="color:#5597d6;">glMatrix</span><span style="color:#1f1f1f;">.vec3.</span><span style="color:#5597d6;">fromValues</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">0.0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1.0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0.0</span><span style="color:#1f1f1f;">)
+<pre><code>  //物体本身转45度
+  let model = glMatrix.mat4.create();
+  glMatrix.mat4.rotate(
+    model,
+    model,
+    45,
+    glMatrix.vec3.fromValues(0.0, 1.0, 0.0)
   );
-  </span><span style="color:#7f8989;">//相机向后移四格
-  </span><span style="color:#668f14;">let </span><span style="color:#5597d6;">camera </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">glMatrix</span><span style="color:#1f1f1f;">.mat4.</span><span style="color:#5597d6;">create</span><span style="color:#1f1f1f;">();
-  </span><span style="color:#5597d6;">glMatrix</span><span style="color:#1f1f1f;">.mat4.</span><span style="color:#5597d6;">translate</span><span style="color:#1f1f1f;">(
-    </span><span style="color:#5597d6;">camera</span><span style="color:#1f1f1f;">,
-    </span><span style="color:#5597d6;">camera</span><span style="color:#1f1f1f;">,
-    </span><span style="color:#5597d6;">glMatrix</span><span style="color:#1f1f1f;">.vec3.</span><span style="color:#5597d6;">fromValues</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">0.0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0.0</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">4.0</span><span style="color:#1f1f1f;">)
+  //相机向后移四格
+  let camera = glMatrix.mat4.create();
+  glMatrix.mat4.translate(
+    camera,
+    camera,
+    glMatrix.vec3.fromValues(0.0, 0.0, -4.0)
   );
-  </span><span style="color:#7f8989;">//投影矩阵
-  </span><span style="color:#668f14;">let </span><span style="color:#5597d6;">projection </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">glMatrix</span><span style="color:#1f1f1f;">.mat4.</span><span style="color:#5597d6;">create</span><span style="color:#1f1f1f;">();
-  </span><span style="color:#668f14;">let </span><span style="color:#5597d6;">ratio </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">8 </span><span style="color:#72ab00;">/ </span><span style="color:#b3933a;">6</span><span style="color:#1f1f1f;">;
-  </span><span style="color:#5597d6;">glMatrix</span><span style="color:#1f1f1f;">.mat4.</span><span style="color:#5597d6;">perspective</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">projection</span><span style="color:#1f1f1f;">, (</span><span style="color:#b3933a;">75 </span><span style="color:#72ab00;">* </span><span style="color:#da5d42;">Math</span><span style="color:#1f1f1f;">.</span><span style="color:#da5d42;">PI</span><span style="color:#1f1f1f;">) </span><span style="color:#72ab00;">/ </span><span style="color:#b3933a;">180</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">ratio</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0.1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">100</span><span style="color:#1f1f1f;">);
-</span></code></pre>
+  //投影矩阵
+  let projection = glMatrix.mat4.create();
+  let ratio = 8 / 6;
+  glMatrix.mat4.perspective(projection, (75 * Math.PI) / 180, ratio, 0.1, 100);
+</code></pre>
 <p>修改顶点着色器，添加放以上三个矩阵的变量。点的最终位置也改为矩阵乘法算出。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">attribute vec3</span><span style="color:#1f1f1f;"> pos;
-</span><span style="color:#668f14;">uniform mat4</span><span style="color:#1f1f1f;"> model;
-</span><span style="color:#668f14;">uniform mat4</span><span style="color:#1f1f1f;"> view;
-</span><span style="color:#668f14;">uniform mat4</span><span style="color:#1f1f1f;"> proj;
-</span><span style="color:#668f14;">void </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">(){
-    </span><span style="color:#5597d6;">gl_Position</span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">proj </span><span style="color:#72ab00;">*</span><span style="color:#1f1f1f;"> view </span><span style="color:#72ab00;">*</span><span style="color:#1f1f1f;"> model </span><span style="color:#72ab00;">*</span><span style="color:#668f14;">vec4</span><span style="color:#1f1f1f;">(pos.</span><span style="color:#5597d6;">x</span><span style="color:#1f1f1f;">,pos.</span><span style="color:#5597d6;">y</span><span style="color:#1f1f1f;">,pos.</span><span style="color:#5597d6;">z</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1.0</span><span style="color:#1f1f1f;">);
+<pre><code>attribute vec3 pos;
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 proj;
+void main(){
+    gl_Position=proj * view * model *vec4(pos.x,pos.y,pos.z,1.0);
 }
-</span></code></pre>
+</code></pre>
 <p>然后就是把数据传到着色器中。由于用的是<code>uniform</code>型变量，查找变量的函数也不一样。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#7f8989;">//注：下面的要写在启用program之后
-</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">useProgram</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">);
-</span><span style="color:#7f8989;">//矩阵传入着色器
+<pre><code>//注：下面的要写在启用program之后
+gl.useProgram(shaderProgram);
+//矩阵传入着色器
 //1.找到变量的位置
-</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">modelPosIndex </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">getUniformLocation</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;model&quot;</span><span style="color:#1f1f1f;">);
-</span><span style="color:#7f8989;">//2.传值
-</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">uniformMatrix4fv</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">modelPosIndex</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">false</span><span style="color:#1f1f1f;">,</span><span style="color:#5597d6;">model</span><span style="color:#1f1f1f;">);
-</span></code></pre>
+let modelPosIndex = gl.getUniformLocation(shaderProgram, &quot;model&quot;);
+//2.传值
+gl.uniformMatrix4fv(modelPosIndex,false,model);
+</code></pre>
 <p><code>attribute</code>型是只能在顶点着色器使用的变量类型，主要描述顶点数据。<code>uniform</code>型在顶点和片段着色器内都可使用，描述颜色、光照等等信息。</p>
 <p>查看结果：</p>
 <p><img src="./webgl-2_1_20200307.png" alt="线框正方体" /></p>
 <h2 id="shi-xin-zheng-fang-ti">实心正方体</h2>
 <p>上面画线框的顶点集实在是太扭曲了……这回做个真正的三角片。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">const </span><span style="color:#5597d6;">vertices</span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">];
-</span></code></pre>
+<pre><code>const vertices=[1,1,1,1,1,-1,-1,1,-1,1,1,1,-1,1,1,-1,1,-1,1,1,-1,1,-1,-1,1,1,1,1,1,1,1,-1,-1,1,-1,1,1,-1,-1,1,-1,1,-1,-1,1,-1,-1,1,-1,-1,-1,1,-1,-1,-1,-1,1,-1,-1,-1,-1,1,1,-1,1,1,-1,1,-1,-1,-1,-1,1,-1,1,1,1,1,-1,-1,1,-1,-1,1,1,1,1,-1,1,1,1,-1,-1,1,1,-1,-1,-1,-1,-1,-1,-1,-1,1,-1,1,1,-1];
+</code></pre>
 <p>将绘图参数改为<code>gl.drawArrays(gl.TRIANGLES, 0, 36);</code>，结果是白色一片的轮廓……这是当然的啦！因为实心白色融合在一起了。为了更清楚的看见，尝试给各个面上不同的颜色。</p>
 <p>首先给<code>vertices</code>里加上各个点的颜色：</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">const </span><span style="color:#5597d6;">vertices</span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">];
-</span></code></pre>
+<pre><code>const vertices=[1,1,1,1,0,0,1,1,-1,1,0,0,-1,1,-1,1,0,0,1,1,1,1,0,0,-1,1,1,1,0,0,-1,1,-1,1,0,0,1,1,-1,1,1,1,1,-1,-1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,-1,-1,1,1,1,1,-1,1,1,1,1,1,-1,-1,0,1,0,1,-1,1,0,1,0,-1,-1,1,0,1,0,-1,-1,1,0,1,0,-1,-1,-1,0,1,0,1,-1,-1,0,1,0,-1,-1,1,0,0,1,-1,-1,-1,0,0,1,-1,1,1,0,0,1,-1,1,1,0,0,1,-1,1,-1,0,0,1,-1,-1,-1,0,0,1,1,-1,1,1,0,1,1,1,1,1,0,1,-1,-1,1,1,0,1,-1,-1,1,1,0,1,1,1,1,1,0,1,-1,1,1,1,0,1,1,-1,-1,1,1,0,1,1,-1,1,1,0,-1,-1,-1,1,1,0,-1,-1,-1,1,1,0,-1,1,-1,1,1,0,1,1,-1,1,1,0];
+</code></pre>
 <p><code>uniform</code>变量是全局的、与顶点无关的，所以颜色使用<code>attribute</code>型。然后利用<code>varying</code>型变量传给片段着色器。修改着色器，加上输入的颜色:</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">attribute vec3</span><span style="color:#1f1f1f;"> pos;
-</span><span style="color:#668f14;">attribute vec3</span><span style="color:#1f1f1f;"> in_color;
-</span><span style="color:#668f14;">varying</span><span style="color:#1f1f1f;"> lowp </span><span style="color:#668f14;">vec3</span><span style="color:#1f1f1f;"> color;
-</span><span style="color:#668f14;">uniform mat4</span><span style="color:#1f1f1f;"> model;
-</span><span style="color:#668f14;">uniform mat4</span><span style="color:#1f1f1f;"> view;
-</span><span style="color:#668f14;">uniform mat4</span><span style="color:#1f1f1f;"> proj;
+<pre><code>attribute vec3 pos;
+attribute vec3 in_color;
+varying lowp vec3 color;
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 proj;
 
-</span><span style="color:#668f14;">void </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">(){
-    color </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> in_color;
-    </span><span style="color:#5597d6;">gl_Position</span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">proj </span><span style="color:#72ab00;">*</span><span style="color:#1f1f1f;"> view </span><span style="color:#72ab00;">*</span><span style="color:#1f1f1f;"> model </span><span style="color:#72ab00;">*</span><span style="color:#668f14;">vec4</span><span style="color:#1f1f1f;">(pos,</span><span style="color:#b3933a;">1.0</span><span style="color:#1f1f1f;">);
+void main(){
+    color = in_color;
+    gl_Position=proj * view * model *vec4(pos,1.0);
 }
-</span></code></pre><pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">varying</span><span style="color:#1f1f1f;"> lowp </span><span style="color:#668f14;">vec3</span><span style="color:#1f1f1f;"> color;
-</span><span style="color:#668f14;">void </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">(){
-      </span><span style="color:#5597d6;">gl_FragColor </span><span style="color:#72ab00;">= </span><span style="color:#668f14;">vec4</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">1.0</span><span style="color:#1f1f1f;">,color.</span><span style="color:#5597d6;">y</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1.0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1.0</span><span style="color:#1f1f1f;">);
+</code></pre>
+<pre><code>varying lowp vec3 color;
+void main(){
+      gl_FragColor = vec4(1.0,color.y,1.0,1.0);
   }
-</span></code></pre>
+</code></pre>
 <p>修改<code>vertices</code>的值，使六个数字表示一个点，前三个值为位置，后三个值为颜色。修改传入数据的地方。<code>gl.vertexAttribPointer</code>的最后两个参数：<code>步长</code>：一组数据的长度；<code>偏移量</code>：开始到第一个此类数据的长度。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#7f8989;">//float元素长度  
-</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">size </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">Float32Array</span><span style="color:#1f1f1f;">.</span><span style="color:#da5d42;">BYTES_PER_ELEMENT</span><span style="color:#1f1f1f;">;
-</span><span style="color:#7f8989;">//输入位置
-</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">index </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">getAttribLocation</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;pos&quot;</span><span style="color:#1f1f1f;">);
-</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">vertexAttribPointer</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">index</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.FLOAT, </span><span style="color:#b3933a;">false</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">6 </span><span style="color:#72ab00;">* </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">);
-</span><span style="color:#7f8989;">//输入颜色
-</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">colorIndex </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">getAttribLocation</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;colors&quot;</span><span style="color:#1f1f1f;">);
-</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">vertexAttribPointer</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">colorIndex</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.FLOAT, </span><span style="color:#b3933a;">false</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">6 </span><span style="color:#72ab00;">* </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3 </span><span style="color:#72ab00;">* </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">);
-</span><span style="color:#7f8989;">//启用属性
-</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">enableVertexAttribArray</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">index</span><span style="color:#1f1f1f;">);
-</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">enableVertexAttribArray</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">colorIndex</span><span style="color:#1f1f1f;">);
-</span></code></pre>
+<pre><code>//float元素长度  
+let size = Float32Array.BYTES_PER_ELEMENT;
+//输入位置
+let index = gl.getAttribLocation(shaderProgram, &quot;pos&quot;);
+gl.vertexAttribPointer(index, 3, gl.FLOAT, false, 6 * size, 0);
+//输入颜色
+let colorIndex = gl.getAttribLocation(shaderProgram, &quot;colors&quot;);
+gl.vertexAttribPointer(colorIndex, 3, gl.FLOAT, false, 6 * size, 3 * size);
+//启用属性
+gl.enableVertexAttribArray(index);
+gl.enableVertexAttribArray(colorIndex);
+</code></pre>
 <p>查看结果，发现颜色堆叠了……深度测试，on！</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">enable</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.DEPTH_TEST);
-</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">clearDepth</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">);
-</span></code></pre>
+<pre><code>gl.enable(gl.DEPTH_TEST);
+gl.clearDepth(1);
+</code></pre>
 <p>最后调一下物体的旋转角度，好看到更多的面：</p>
 <p><img src="./webgl-2_2_20200308.png" alt="实心正方体" /></p>
 <h2 id="suo-yin-zheng-fang-ti">索引正方体</h2>
 <p>写36个点的正方体的确挺抽风的。利用<code>gl.drawElements</code>，用索引来画一系列物体，完成一个线框正方体。</p>
 <p>经测试用索引画的话无法分开设置颜色（像上图一样）？</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#7f8989;">//正方体的点
-</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">vertices </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[
-    </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#7f8989;">//
-    </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#7f8989;">//
-    </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#7f8989;">//
-    </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#7f8989;">//
-    </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#7f8989;">//
-    </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#7f8989;">//
-    </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#7f8989;">//
-    </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1
-  </span><span style="color:#1f1f1f;">];
-</span><span style="color:#7f8989;">//组成面的点索引 (12个三角形)
-</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">indices </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[
-    </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">5</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">5</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">7</span><span style="color:#1f1f1f;">,
-    </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">,
-    </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">6</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">,
-    </span><span style="color:#b3933a;">6</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">7</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">7</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">5</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">,
-    </span><span style="color:#b3933a;">6</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">7</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">7</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,
-    </span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">5</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">5</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">2
-</span><span style="color:#1f1f1f;">];
-</span><span style="color:#7f8989;">//...
+<pre><code>//正方体的点
+var vertices = [
+    -1, -1, -1,//
+    1, -1, -1,//
+    1, 1, -1,//
+    -1, 1, -1,//
+    -1, 1, 1,//
+    1, 1, 1,//
+    -1, -1, 1,//
+    1, -1, 1
+  ];
+//组成面的点索引 (12个三角形)
+const indices = [
+    1,2,5, 1,5,7,
+    1,2,3, 1,0,3,
+    0,3,4, 0,6,4,
+    6,4,7, 7,5,4,
+    6,7,0, 0,7,1,
+    4,5,3, 3,5,2
+];
+//...
 //正方体
-</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">buffer </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">createBuffer</span><span style="color:#1f1f1f;">();
-</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">bindBuffer</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.ARRAY_BUFFER, </span><span style="color:#5597d6;">buffer</span><span style="color:#1f1f1f;">);
-</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">bufferData</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.ARRAY_BUFFER, </span><span style="color:#72ab00;">new </span><span style="color:#a2a001;">Float32Array</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">vertices</span><span style="color:#1f1f1f;">), </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.STATIC_DRAW);
-</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">index </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">getAttribLocation</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;pos&quot;</span><span style="color:#1f1f1f;">);
-</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">vertexAttribPointer</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">index</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.FLOAT, </span><span style="color:#b3933a;">false</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">);
+const buffer = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+var index = gl.getAttribLocation(shaderProgram, &quot;pos&quot;);
+gl.vertexAttribPointer(index, 3, gl.FLOAT, false, 0, 0);
 
-</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">indexesBuffer </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">createBuffer</span><span style="color:#1f1f1f;">();
-</span><span style="color:#7f8989;">//传入索引的时候使用 gl.ELEMENT_ARRAY_BUFFER 类型
-</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">bindBuffer</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.ELEMENT_ARRAY_BUFFER, </span><span style="color:#5597d6;">indexesBuffer</span><span style="color:#1f1f1f;">);
-</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">bufferData</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.ELEMENT_ARRAY_BUFFER, </span><span style="color:#72ab00;">new </span><span style="color:#a2a001;">Uint16Array</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">indices</span><span style="color:#1f1f1f;">), </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.STATIC_DRAW);
-</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">enableVertexAttribArray</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">index</span><span style="color:#1f1f1f;">);
+const indexesBuffer = gl.createBuffer();
+//传入索引的时候使用 gl.ELEMENT_ARRAY_BUFFER 类型
+gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexesBuffer);
+gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
+gl.enableVertexAttribArray(index);
 
-</span><span style="color:#7f8989;">//...
+//...
 
-//利用`gl.drawElements&#39;，用索引来画一系列物体
+//利用`gl.drawElements'，用索引来画一系列物体
 //类型，绘制的点数，数据类型，offset(离开始点的偏移量)
-</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">drawElements</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.TRIANGLES, </span><span style="color:#5597d6;">indices</span><span style="color:#1f1f1f;">.length, </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.UNSIGNED_SHORT, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">);
-</span></code></pre>
+gl.drawElements(gl.TRIANGLES, indices.length, gl.UNSIGNED_SHORT, 0);
+</code></pre>
 <p><del>真实笔记，除了我没人看得懂</del></p>
 
         </article>
@@ -282,7 +290,8 @@
         
             
                 <div id="comment">
-                    <div class="comment-placeholder"><i data-feather="loader"></i>加载评论中……</div>
+                    <div class="comment-placeholder">
+                        <i data-feather="loader"></i>Loading……</div>
                     <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
                 </div>
             
@@ -300,18 +309,15 @@
             <p>Powerd by
               <a href="https://www.getzola.org/">Zola</a>
               | Theme
-              <a href="http://owlzou.github.io/posts/zola-theme-cafe/">Cafe</a>
+              <a href="">Cafe</a>
             </p>
           </div>
         </div>
       </div>
     </div>
     
-    
       <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
       <script onload="feather.replace();" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     
-    <script onload="toc_onload()" src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.min.js"></script>
-
   </body>
 </html>

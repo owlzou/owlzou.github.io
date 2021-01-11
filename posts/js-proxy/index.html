@@ -2,8 +2,6 @@
 <html lang="en">
   <head>
     
-    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.css" rel="stylesheet"/>
-     
       <meta charset="UTF-8"/>
       <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
       <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
@@ -15,7 +13,6 @@
 
       </title>
     
-
   </head>
   <body>
     <div class="background"></div>
@@ -26,15 +23,11 @@
     
       <div class="grass"></div>
     
-    <button class="burger">
-      <i data-feather="menu"></i>
-    </button>
     <div class="wrapper">
       <div
         class="container">
         <!-- sidebar -->
         
-          <div class="mask"></div>
           <div class="sidebar">
             <div class="title">Catalyst</div>
             <div class="divider"></div>
@@ -88,11 +81,28 @@
                 
               </div>
             </nav>
+            <div class="toc-wrapper">
+              
+    <ul class="toc">
+    
+        <li >
+            <a id="to-proxy" href="https://owlzou.github.io/posts/js-proxy/#proxy">Proxy</a>
             
-    <div class="toc-wrapper">
-        <div class="toc"></div>
-    </div>
+        </li>
+    
+        <li >
+            <a id="to-reflect" href="https://owlzou.github.io/posts/js-proxy/#reflect">Reflect</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-can-kao-zi-liao" href="https://owlzou.github.io/posts/js-proxy/#can-kao-zi-liao">参考资料</a>
+            
+        </li>
+    
+</ul>
 
+            </div>
             
               <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
@@ -104,8 +114,16 @@
           </div>
         
         <!-- main -->
-        <div class="main"> 
-    <div class="post blog">
+        <div class="main">
+          <div class="moblie-header">
+            <div class="moblie-title">Catalyst</div>
+            <button class="burger">
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+          <!-- content -->
+          
+    <div class="blog">
         <h1 class="post-title">
             JS 笔记：Proxy &amp; Reflect</h1>
         <div class="post-info">
@@ -130,34 +148,33 @@
             <p>Proxy 作为一个对象的代理——利用 Proxy 操作原对象，可覆盖原对象的方法。</p>
 <span id="continue-reading"></span><h2 id="proxy">Proxy</h2>
 <p>覆盖/添加对原对象的操作。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">const </span><span style="color:#5597d6;">handler </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">{
-  </span><span style="color:#c23f31;">get</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">obj</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">prop</span><span style="color:#1f1f1f;">) {
-    </span><span style="color:#72ab00;">return </span><span style="color:#5597d6;">prop </span><span style="color:#72ab00;">in </span><span style="color:#5597d6;">obj </span><span style="color:#72ab00;">? </span><span style="color:#5597d6;">obj</span><span style="color:#1f1f1f;">[</span><span style="color:#5597d6;">prop</span><span style="color:#1f1f1f;">] </span><span style="color:#72ab00;">+ </span><span style="color:#d07711;">&quot; from proxy&quot; </span><span style="color:#72ab00;">: </span><span style="color:#d07711;">&quot;do not exist&quot;</span><span style="color:#1f1f1f;">;
+<pre><code>const handler = {
+  get(obj, prop) {
+    return prop in obj ? obj[prop] + &quot; from proxy&quot; : &quot;do not exist&quot;;
   },
 };
-</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">target </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">{ a: </span><span style="color:#b3933a;">100 </span><span style="color:#1f1f1f;">};
-</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">p </span><span style="color:#72ab00;">= new </span><span style="color:#a2a001;">Proxy</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">target</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">handler</span><span style="color:#1f1f1f;">);
+var target = { a: 100 };
+const p = new Proxy(target, handler);
 
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">target</span><span style="color:#1f1f1f;">.a);
-</span><span style="color:#7f8989;">//100
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">p</span><span style="color:#1f1f1f;">.a);
-</span><span style="color:#7f8989;">//100 from proxy
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">target</span><span style="color:#1f1f1f;">.b);
-</span><span style="color:#7f8989;">//undefined
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">p</span><span style="color:#1f1f1f;">.b);
-</span><span style="color:#7f8989;">//do not exist
-</span></code></pre>
+console.log(target.a);
+//100
+console.log(p.a);
+//100 from proxy
+console.log(target.b);
+//undefined
+console.log(p.b);
+//do not exist
+</code></pre>
 <p>对代理的操作=对原对象的操作</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">var </span><span style="color:#5597d6;">target </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">{ a: </span><span style="color:#b3933a;">100 </span><span style="color:#1f1f1f;">};
-</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">p </span><span style="color:#72ab00;">= new </span><span style="color:#a2a001;">Proxy</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">target</span><span style="color:#1f1f1f;">, {});
+<pre><code>var target = { a: 100 };
+const p = new Proxy(target, {});
 
-</span><span style="color:#5597d6;">p</span><span style="color:#1f1f1f;">.b </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;b&quot;</span><span style="color:#1f1f1f;">;
+p.b = &quot;b&quot;;
 
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">target</span><span style="color:#1f1f1f;">.b);
-</span><span style="color:#7f8989;">//b
-</span></code></pre><h2 id="reflect">Reflect</h2>
+console.log(target.b);
+//b
+</code></pre>
+<h2 id="reflect">Reflect</h2>
 <p><code>Reflect</code>是一个内置对象，提供一些原生的方法。</p>
 <h2 id="can-kao-zi-liao">参考资料</h2>
 <ul>
@@ -174,7 +191,8 @@
         
             
                 <div id="comment">
-                    <div class="comment-placeholder"><i data-feather="loader"></i>加载评论中……</div>
+                    <div class="comment-placeholder">
+                        <i data-feather="loader"></i>Loading……</div>
                     <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
                 </div>
             
@@ -192,18 +210,15 @@
             <p>Powerd by
               <a href="https://www.getzola.org/">Zola</a>
               | Theme
-              <a href="http://owlzou.github.io/posts/zola-theme-cafe/">Cafe</a>
+              <a href="">Cafe</a>
             </p>
           </div>
         </div>
       </div>
     </div>
     
-    
       <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
       <script onload="feather.replace();" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     
-    <script onload="toc_onload()" src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.min.js"></script>
-
   </body>
 </html>

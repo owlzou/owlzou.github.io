@@ -2,8 +2,6 @@
 <html lang="en">
   <head>
     
-    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.css" rel="stylesheet"/>
-     
       <meta charset="UTF-8"/>
       <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
       <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
@@ -15,7 +13,6 @@
 
       </title>
     
-
   </head>
   <body>
     <div class="background"></div>
@@ -26,15 +23,11 @@
     
       <div class="grass"></div>
     
-    <button class="burger">
-      <i data-feather="menu"></i>
-    </button>
     <div class="wrapper">
       <div
         class="container">
         <!-- sidebar -->
         
-          <div class="mask"></div>
           <div class="sidebar">
             <div class="title">Catalyst</div>
             <div class="divider"></div>
@@ -88,11 +81,38 @@
                 
               </div>
             </nav>
+            <div class="toc-wrapper">
+              
+    <ul class="toc">
+    
+        <li >
+            <a id="to-sheng-ming" href="https://owlzou.github.io/posts/js-class/#sheng-ming">声明</a>
             
-    <div class="toc-wrapper">
-        <div class="toc"></div>
-    </div>
+        </li>
+    
+        <li >
+            <a id="to-getter-he-setter" href="https://owlzou.github.io/posts/js-class/#getter-he-setter">Getter 和 Setter</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-jing-tai-fang-fa" href="https://owlzou.github.io/posts/js-class/#jing-tai-fang-fa">静态方法</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-ji-cheng" href="https://owlzou.github.io/posts/js-class/#ji-cheng">继承</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-chou-xiang" href="https://owlzou.github.io/posts/js-class/#chou-xiang">抽象？</a>
+            
+        </li>
+    
+</ul>
 
+            </div>
             
               <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
@@ -104,8 +124,16 @@
           </div>
         
         <!-- main -->
-        <div class="main"> 
-    <div class="post blog">
+        <div class="main">
+          <div class="moblie-header">
+            <div class="moblie-title">Catalyst</div>
+            <button class="burger">
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+          <!-- content -->
+          
+    <div class="blog">
         <h1 class="post-title">
             JS 笔记：类的用法</h1>
         <div class="post-info">
@@ -130,197 +158,194 @@
             <p>类是 ES6 引进的新写法。实际上是一种特殊的函数。</p>
 <span id="continue-reading"></span><h2 id="sheng-ming">声明</h2>
 <p>要先声明类才能访问。定义类：</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">class </span><span style="color:#c23f31;">Vehicle </span><span style="color:#1f1f1f;">{
-  </span><span style="color:#5597d6;">_color </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;black&quot;</span><span style="color:#1f1f1f;">;
-  </span><span style="color:#7f8989;">//构造函数
-  </span><span style="color:#c23f31;">constructor</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">color</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">seats</span><span style="color:#1f1f1f;">) {
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._color </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">color</span><span style="color:#1f1f1f;">;
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._size </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">;
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._seats </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">seats</span><span style="color:#1f1f1f;">;
+<pre><code>class Vehicle {
+  _color = &quot;black&quot;;
+  //构造函数
+  constructor(color, size, seats) {
+    this._color = color;
+    this._size = size;
+    this._seats = seats;
   }
 }
 
-</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">car </span><span style="color:#72ab00;">= new </span><span style="color:#5597d6;">Vehicle</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;red&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;s&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">);
-</span></code></pre>
+let car = new Vehicle(&quot;red&quot;, &quot;s&quot;, 4);
+</code></pre>
 <ul>
 <li>类的构造函数为<code>constructor</code>，只能有一个。可以用<code>super</code>调用父类的构造函数。</li>
 <li>类中，对象无<code>this</code>值的时候会返回<code>undefined</code>，不会自动定义<code>this</code>值。而用原型方法定义类则会自动定义<code>this</code>。</li>
 <li>类中的<strong>实例属性</strong>必须定义在类的方法里。 <strong>静态属性</strong>在类定义的外面。</li>
 </ul>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">class </span><span style="color:#c23f31;">Vehicle </span><span style="color:#1f1f1f;">{
-  </span><span style="color:#7f8989;">//构造函数
-  </span><span style="color:#c23f31;">constructor</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">color</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">seats</span><span style="color:#1f1f1f;">) {
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._color </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">color</span><span style="color:#1f1f1f;">;
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._size </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">;
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._seats </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">seats</span><span style="color:#1f1f1f;">;
+<pre><code>class Vehicle {
+  //构造函数
+  constructor(color, size, seats) {
+    this._color = color;
+    this._size = size;
+    this._seats = seats;
   }
 }
 
-</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">car </span><span style="color:#72ab00;">= new </span><span style="color:#5597d6;">Vehicle</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;red&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;s&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">);
-</span></code></pre><h2 id="getter-he-setter">Getter 和 Setter</h2>
+let car = new Vehicle(&quot;red&quot;, &quot;s&quot;, 4);
+</code></pre>
+<h2 id="getter-he-setter">Getter 和 Setter</h2>
 <p>便于返回一些需要动态计算的值，定义在原型上。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">class </span><span style="color:#c23f31;">Vehicle </span><span style="color:#1f1f1f;">{
-  </span><span style="color:#7f8989;">//构造函数
-  </span><span style="color:#c23f31;">constructor</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">color</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">seats</span><span style="color:#1f1f1f;">) {
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._color </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">color</span><span style="color:#1f1f1f;">;
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._size </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">;
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._seats </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">seats</span><span style="color:#1f1f1f;">;
+<pre><code>class Vehicle {
+  //构造函数
+  constructor(color, size, seats) {
+    this._color = color;
+    this._size = size;
+    this._seats = seats;
   }
 
-  </span><span style="color:#668f14;">get </span><span style="color:#c23f31;">seats</span><span style="color:#1f1f1f;">() {
-    </span><span style="color:#72ab00;">return </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._seats </span><span style="color:#72ab00;">+ </span><span style="color:#d07711;">&quot; seats&quot;</span><span style="color:#1f1f1f;">;
+  get seats() {
+    return this._seats + &quot; seats&quot;;
   }
 
-  </span><span style="color:#668f14;">set </span><span style="color:#c23f31;">seats</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">s</span><span style="color:#1f1f1f;">) {
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._seats </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">s</span><span style="color:#1f1f1f;">;
-  }
-}
-
-</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">car </span><span style="color:#72ab00;">= new </span><span style="color:#5597d6;">Vehicle</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;red&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;s&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">);
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">car</span><span style="color:#1f1f1f;">.seats);
-</span><span style="color:#7f8989;">//4 seats
-</span><span style="color:#5597d6;">car</span><span style="color:#1f1f1f;">.seats </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">5</span><span style="color:#1f1f1f;">;
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">car</span><span style="color:#1f1f1f;">.seats);
-</span><span style="color:#7f8989;">//5 seats
-</span></code></pre><h2 id="jing-tai-fang-fa">静态方法</h2>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">class </span><span style="color:#c23f31;">Vehicle </span><span style="color:#1f1f1f;">{
-  </span><span style="color:#7f8989;">//构造函数
-  </span><span style="color:#c23f31;">constructor</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">color</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">seats</span><span style="color:#1f1f1f;">) {
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._color </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">color</span><span style="color:#1f1f1f;">;
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._size </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">;
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._seats </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">seats</span><span style="color:#1f1f1f;">;
-  }
-
-  </span><span style="color:#668f14;">static </span><span style="color:#c23f31;">isVehicle</span><span style="color:#1f1f1f;">() {
-    </span><span style="color:#72ab00;">return </span><span style="color:#b3933a;">true</span><span style="color:#1f1f1f;">;
+  set seats(s) {
+    this._seats = s;
   }
 }
 
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">Vehicle</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">isVehicle</span><span style="color:#1f1f1f;">());
-</span><span style="color:#7f8989;">//true
-</span></code></pre><h2 id="ji-cheng">继承</h2>
+const car = new Vehicle(&quot;red&quot;, &quot;s&quot;, 4);
+console.log(car.seats);
+//4 seats
+car.seats = 5;
+console.log(car.seats);
+//5 seats
+</code></pre>
+<h2 id="jing-tai-fang-fa">静态方法</h2>
+<pre><code>class Vehicle {
+  //构造函数
+  constructor(color, size, seats) {
+    this._color = color;
+    this._size = size;
+    this._seats = seats;
+  }
+
+  static isVehicle() {
+    return true;
+  }
+}
+
+console.log(Vehicle.isVehicle());
+//true
+</code></pre>
+<h2 id="ji-cheng">继承</h2>
 <p>会调用父级的构造函数。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">class </span><span style="color:#c23f31;">Vehicle </span><span style="color:#1f1f1f;">{
-  </span><span style="color:#7f8989;">//构造函数
-  </span><span style="color:#c23f31;">constructor</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">color</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">seats</span><span style="color:#1f1f1f;">) {
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._color </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">color</span><span style="color:#1f1f1f;">;
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._size </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">;
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._seats </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">seats</span><span style="color:#1f1f1f;">;
+<pre><code>class Vehicle {
+  //构造函数
+  constructor(color, size, seats) {
+    this._color = color;
+    this._size = size;
+    this._seats = seats;
   }
 
-  </span><span style="color:#668f14;">get </span><span style="color:#c23f31;">seats</span><span style="color:#1f1f1f;">() {
-    </span><span style="color:#72ab00;">return </span><span style="color:#d07711;">`</span><span style="color:#1f1f1f;">${</span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._seats}</span><span style="color:#d07711;"> seats`</span><span style="color:#1f1f1f;">;
+  get seats() {
+    return `${this._seats} seats`;
   }
 
-  </span><span style="color:#668f14;">set </span><span style="color:#c23f31;">seats</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">s</span><span style="color:#1f1f1f;">) {
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._seats </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">s</span><span style="color:#1f1f1f;">;
-  }
-}
-
-</span><span style="color:#668f14;">class </span><span style="color:#c23f31;">Car </span><span style="color:#668f14;">extends </span><span style="font-style:italic;color:#b06936;">Vehicle </span><span style="color:#1f1f1f;">{
-  </span><span style="color:#7f8989;">//覆盖了父级
-  </span><span style="color:#668f14;">get </span><span style="color:#c23f31;">seats</span><span style="color:#1f1f1f;">() {
-    </span><span style="color:#72ab00;">return </span><span style="color:#d07711;">&quot;4 seats&quot;</span><span style="color:#1f1f1f;">;
-  }
-
-  </span><span style="color:#668f14;">get </span><span style="color:#c23f31;">color</span><span style="color:#1f1f1f;">() {
-    </span><span style="color:#72ab00;">return </span><span style="color:#d07711;">`The car&#39;s color is </span><span style="color:#1f1f1f;">${</span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._color}</span><span style="color:#d07711;">`</span><span style="color:#1f1f1f;">;
+  set seats(s) {
+    this._seats = s;
   }
 }
 
-</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">car </span><span style="color:#72ab00;">= new </span><span style="color:#5597d6;">Car</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;red&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;s&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">100</span><span style="color:#1f1f1f;">);
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">car</span><span style="color:#1f1f1f;">.seats);
-</span><span style="color:#7f8989;">//4 seats
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">car</span><span style="color:#1f1f1f;">.color);
-</span><span style="color:#7f8989;">//The car&#39;s color is red
-</span></code></pre>
+class Car extends Vehicle {
+  //覆盖了父级
+  get seats() {
+    return &quot;4 seats&quot;;
+  }
+
+  get color() {
+    return `The car's color is ${this._color}`;
+  }
+}
+
+const car = new Car(&quot;red&quot;, &quot;s&quot;, 100);
+console.log(car.seats);
+//4 seats
+console.log(car.color);
+//The car's color is red
+</code></pre>
 <p>自己的构造函数，一定要调用 super()。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">class </span><span style="color:#c23f31;">Vehicle </span><span style="color:#1f1f1f;">{
-  </span><span style="color:#7f8989;">//构造函数
-  </span><span style="color:#c23f31;">constructor</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">color</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">seats</span><span style="color:#1f1f1f;">) {
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._color </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">color</span><span style="color:#1f1f1f;">;
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._size </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">;
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._seats </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">seats</span><span style="color:#1f1f1f;">;
+<pre><code>class Vehicle {
+  //构造函数
+  constructor(color, size, seats) {
+    this._color = color;
+    this._size = size;
+    this._seats = seats;
   }
 
-  </span><span style="color:#668f14;">get </span><span style="color:#c23f31;">seats</span><span style="color:#1f1f1f;">() {
-    </span><span style="color:#72ab00;">return </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._seats </span><span style="color:#72ab00;">+ </span><span style="color:#d07711;">&quot; seats&quot;</span><span style="color:#1f1f1f;">;
+  get seats() {
+    return this._seats + &quot; seats&quot;;
   }
 
-  </span><span style="color:#668f14;">set </span><span style="color:#c23f31;">seats</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">s</span><span style="color:#1f1f1f;">) {
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._seats </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">s</span><span style="color:#1f1f1f;">;
-  }
-}
-
-</span><span style="color:#668f14;">class </span><span style="color:#c23f31;">Car </span><span style="color:#668f14;">extends </span><span style="font-style:italic;color:#b06936;">Vehicle </span><span style="color:#1f1f1f;">{
-  </span><span style="color:#c23f31;">constructor</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">color</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">seats</span><span style="color:#1f1f1f;">) {
-    </span><span style="color:#7f8989;">//不调用 super 会报错
-    </span><span style="color:#5597d6;">super</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;blue&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">seats</span><span style="color:#1f1f1f;">);
-  }
-
-  </span><span style="color:#668f14;">get </span><span style="color:#c23f31;">seats</span><span style="color:#1f1f1f;">() {
-    </span><span style="color:#72ab00;">return </span><span style="color:#d07711;">&quot;4 seats&quot;</span><span style="color:#1f1f1f;">;
-  }
-
-  </span><span style="color:#668f14;">get </span><span style="color:#c23f31;">color</span><span style="color:#1f1f1f;">() {
-    </span><span style="color:#72ab00;">return </span><span style="color:#d07711;">&quot;The car&#39;s color is &quot; </span><span style="color:#72ab00;">+ </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._color;
+  set seats(s) {
+    this._seats = s;
   }
 }
 
-</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">car </span><span style="color:#72ab00;">= new </span><span style="color:#5597d6;">Car</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;red&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;s&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">100</span><span style="color:#1f1f1f;">);
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">car</span><span style="color:#1f1f1f;">.seats);
-</span><span style="color:#7f8989;">//4 seats
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">car</span><span style="color:#1f1f1f;">.color);
-</span><span style="color:#7f8989;">//The car&#39;s color is blue
-</span></code></pre><h2 id="chou-xiang">抽象？</h2>
+class Car extends Vehicle {
+  constructor(color, size, seats) {
+    //不调用 super 会报错
+    super(&quot;blue&quot;, size, seats);
+  }
+
+  get seats() {
+    return &quot;4 seats&quot;;
+  }
+
+  get color() {
+    return &quot;The car's color is &quot; + this._color;
+  }
+}
+
+const car = new Car(&quot;red&quot;, &quot;s&quot;, 100);
+console.log(car.seats);
+//4 seats
+console.log(car.color);
+//The car's color is blue
+</code></pre>
+<h2 id="chou-xiang">抽象？</h2>
 <p>一个 js 的类只能有<strong>一个</strong>父类。</p>
 <p>父类的定义子类去实现。没找到关于抽象函数的资料，写个类似的吧。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">class </span><span style="color:#c23f31;">Vehicle </span><span style="color:#1f1f1f;">{
-  </span><span style="color:#7f8989;">//构造函数
-  </span><span style="color:#c23f31;">constructor</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">color</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">seats</span><span style="color:#1f1f1f;">) {
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._color </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">color</span><span style="color:#1f1f1f;">;
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._size </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">;
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._seats </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">seats</span><span style="color:#1f1f1f;">;
+<pre><code>class Vehicle {
+  //构造函数
+  constructor(color, size, seats) {
+    this._color = color;
+    this._size = size;
+    this._seats = seats;
   }
 
-  </span><span style="color:#668f14;">get </span><span style="color:#c23f31;">seats</span><span style="color:#1f1f1f;">() {
-    </span><span style="color:#72ab00;">return </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._seats </span><span style="color:#72ab00;">+ </span><span style="color:#d07711;">&quot; seats&quot;</span><span style="color:#1f1f1f;">;
+  get seats() {
+    return this._seats + &quot; seats&quot;;
   }
 
-  </span><span style="color:#668f14;">set </span><span style="color:#c23f31;">seats</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">s</span><span style="color:#1f1f1f;">) {
-    </span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._seats </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">s</span><span style="color:#1f1f1f;">;
+  set seats(s) {
+    this._seats = s;
   }
 
-  </span><span style="color:#c23f31;">description</span><span style="color:#1f1f1f;">() {
-    </span><span style="color:#72ab00;">throw new </span><span style="color:#a2a001;">Error</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;不能使用抽象方法！&quot;</span><span style="color:#1f1f1f;">);
-  }
-}
-
-</span><span style="color:#668f14;">class </span><span style="color:#c23f31;">Car </span><span style="color:#668f14;">extends </span><span style="font-style:italic;color:#b06936;">Vehicle </span><span style="color:#1f1f1f;">{
-  </span><span style="color:#c23f31;">description</span><span style="color:#1f1f1f;">() {
-    </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">`a </span><span style="color:#1f1f1f;">${</span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._color}</span><span style="color:#d07711;"> car with </span><span style="color:#1f1f1f;">${</span><span style="color:#5597d6;">this</span><span style="color:#1f1f1f;">._seats}</span><span style="color:#d07711;"> seats. `</span><span style="color:#1f1f1f;">);
+  description() {
+    throw new Error(&quot;不能使用抽象方法！&quot;);
   }
 }
 
-</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">car </span><span style="color:#72ab00;">= new </span><span style="color:#5597d6;">Car</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;red&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;s&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">100</span><span style="color:#1f1f1f;">);
-</span><span style="color:#5597d6;">car</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">description</span><span style="color:#1f1f1f;">();
-</span><span style="color:#7f8989;">//a red car with 100 seats.
-
-</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">v </span><span style="color:#72ab00;">= new </span><span style="color:#5597d6;">Vehicle</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;res&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;s&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">100</span><span style="color:#1f1f1f;">);
-</span><span style="color:#72ab00;">try </span><span style="color:#1f1f1f;">{
-  </span><span style="color:#5597d6;">v</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">description</span><span style="color:#1f1f1f;">();
-} </span><span style="color:#72ab00;">catch </span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">) {
-  </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">);
+class Car extends Vehicle {
+  description() {
+    console.log(`a ${this._color} car with ${this._seats} seats. `);
+  }
 }
-</span><span style="color:#7f8989;">//Error: &quot;不能使用抽象方法！&quot;
-</span></code></pre>
+
+const car = new Car(&quot;red&quot;, &quot;s&quot;, 100);
+car.description();
+//a red car with 100 seats.
+
+const v = new Vehicle(&quot;res&quot;, &quot;s&quot;, 100);
+try {
+  v.description();
+} catch (e) {
+  console.log(e);
+}
+//Error: &quot;不能使用抽象方法！&quot;
+</code></pre>
 <p>参考资料:</p>
 <ul>
 <li>https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes</li>
@@ -331,7 +356,8 @@
         
             
                 <div id="comment">
-                    <div class="comment-placeholder"><i data-feather="loader"></i>加载评论中……</div>
+                    <div class="comment-placeholder">
+                        <i data-feather="loader"></i>Loading……</div>
                     <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
                 </div>
             
@@ -349,18 +375,15 @@
             <p>Powerd by
               <a href="https://www.getzola.org/">Zola</a>
               | Theme
-              <a href="http://owlzou.github.io/posts/zola-theme-cafe/">Cafe</a>
+              <a href="">Cafe</a>
             </p>
           </div>
         </div>
       </div>
     </div>
     
-    
       <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
       <script onload="feather.replace();" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     
-    <script onload="toc_onload()" src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.min.js"></script>
-
   </body>
 </html>

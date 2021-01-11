@@ -2,8 +2,6 @@
 <html lang="en">
   <head>
     
-    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.css" rel="stylesheet"/>
-     
       <meta charset="UTF-8"/>
       <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
       <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
@@ -15,7 +13,6 @@
 
       </title>
     
-
   </head>
   <body>
     <div class="background"></div>
@@ -26,15 +23,11 @@
     
       <div class="grass"></div>
     
-    <button class="burger">
-      <i data-feather="menu"></i>
-    </button>
     <div class="wrapper">
       <div
         class="container">
         <!-- sidebar -->
         
-          <div class="mask"></div>
           <div class="sidebar">
             <div class="title">Catalyst</div>
             <div class="divider"></div>
@@ -88,11 +81,33 @@
                 
               </div>
             </nav>
+            <div class="toc-wrapper">
+              
+    <ul class="toc">
+    
+        <li >
+            <a id="to-yuan-xing" href="https://owlzou.github.io/posts/js-prototype/#yuan-xing">原型</a>
             
-    <div class="toc-wrapper">
-        <div class="toc"></div>
-    </div>
+        </li>
+    
+        <li >
+            <a id="to-ji-cheng" href="https://owlzou.github.io/posts/js-prototype/#ji-cheng">继承</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-proto-he-prototype" href="https://owlzou.github.io/posts/js-prototype/#proto-he-prototype">__proto__ 和 prototype</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-qi-ta" href="https://owlzou.github.io/posts/js-prototype/#qi-ta">其他</a>
+            
+        </li>
+    
+</ul>
 
+            </div>
             
               <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
@@ -104,8 +119,16 @@
           </div>
         
         <!-- main -->
-        <div class="main"> 
-    <div class="post blog">
+        <div class="main">
+          <div class="moblie-header">
+            <div class="moblie-title">Catalyst</div>
+            <button class="burger">
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+          <!-- content -->
+          
+    <div class="blog">
         <h1 class="post-title">
             JS 笔记：原型</h1>
         <div class="post-info">
@@ -130,41 +153,39 @@
             <h2 id="yuan-xing">原型</h2>
 <p>JavaScript 是一种基于原型的语言，每个对象都是原型对象的实例。</p>
 <p>每个函数都有一个叫做原型(prototype)的属性。可以添加属性到 prototype 上。之后就可以利用<code>new</code>创造新的、含有这个属性的实例。</p>
-<span id="continue-reading"></span><pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">var </span><span style="color:#5597d6;">Point </span><span style="color:#72ab00;">= </span><span style="color:#668f14;">function </span><span style="color:#1f1f1f;">() {};
-</span><span style="color:#a2a001;">Point</span><span style="color:#1f1f1f;">.</span><span style="color:#da5d42;">prototype</span><span style="color:#1f1f1f;">.value </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">];
+<span id="continue-reading"></span><pre><code>var Point = function () {};
+Point.prototype.value = [1, 2];
 
-</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">p </span><span style="color:#72ab00;">= new </span><span style="color:#5597d6;">Point</span><span style="color:#1f1f1f;">();
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">p</span><span style="color:#1f1f1f;">.value);
-</span><span style="color:#7f8989;">//[1, 2]
-</span></code></pre>
+let p = new Point();
+console.log(p.value);
+//[1, 2]
+</code></pre>
 <p>使用的时候会链式查找是否有这个属性。</p>
 <h2 id="ji-cheng">继承</h2>
 <p>定义在 <code>prototype</code> 上的属性（一个对象）可以继承。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">var </span><span style="color:#5597d6;">Vehicle </span><span style="color:#72ab00;">= </span><span style="color:#668f14;">function </span><span style="color:#1f1f1f;">() {};
-</span><span style="color:#a2a001;">Vehicle</span><span style="color:#1f1f1f;">.</span><span style="color:#da5d42;">prototype</span><span style="color:#1f1f1f;">.color </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;red&quot;</span><span style="color:#1f1f1f;">;
-</span><span style="color:#a2a001;">Vehicle</span><span style="color:#1f1f1f;">.seats </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">;
+<pre><code>var Vehicle = function () {};
+Vehicle.prototype.color = &quot;red&quot;;
+Vehicle.seats = 4;
 
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">Vehicle</span><span style="color:#1f1f1f;">.color);
-</span><span style="color:#7f8989;">//undefined
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">Vehicle</span><span style="color:#1f1f1f;">.seats);
-</span><span style="color:#7f8989;">//4
+console.log(Vehicle.color);
+//undefined
+console.log(Vehicle.seats);
+//4
 
-</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">car </span><span style="color:#72ab00;">= new </span><span style="color:#5597d6;">Vehicle</span><span style="color:#1f1f1f;">();
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">car</span><span style="color:#1f1f1f;">.color);
-</span><span style="color:#7f8989;">//red
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">car</span><span style="color:#1f1f1f;">.seats);
-</span><span style="color:#7f8989;">//undefined
+let car = new Vehicle();
+console.log(car.color);
+//red
+console.log(car.seats);
+//undefined
 
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">Vehicle</span><span style="color:#1f1f1f;">);
-</span><span style="color:#7f8989;">//function(){ }
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">car</span><span style="color:#1f1f1f;">);
-</span><span style="color:#7f8989;">/*{}
+console.log(Vehicle);
+//function(){ }
+console.log(car);
+/*{}
 &lt;prototype&gt;: {…}
 ​color: &quot;red&quot;
 ​​constructor: function Vehicle()*/
-</span></code></pre>
+</code></pre>
 <ul>
 <li><code>Vehicle.color</code> 输出 <code>undefined</code>，<code>car.color</code> 不是， 而 <code>Vehicle.seats</code> 可以直接使用。 <strong>定义在<code>prototype</code>上的属性当前对象不能使用，继承对象才能使用。</strong></li>
 <li>需要继承的属性定义在 <code>prototype</code> 上，比如说 <code>car</code> 能使用 <code>color</code> 而不能使用 <code>seats</code>。</li>
@@ -177,17 +198,16 @@
 <p>在查找属性是否存在的时候，先查找属性是否存在，不然就查找其 <code>__proto__</code> 中是否存在，然后是 <code>__proto__</code> 指向的对象的 <code>__proto__</code> 中是否存在，直到 <code>__proto__</code> 为 <code>null</code>。</p>
 <h2 id="qi-ta">其他</h2>
 <p>匿名函数的<code>prototype</code>：</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">const </span><span style="color:#5597d6;">cola </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">() </span><span style="color:#668f14;">=&gt; </span><span style="color:#d07711;">&quot;Give me cola!&quot;</span><span style="color:#1f1f1f;">;
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">cola</span><span style="color:#1f1f1f;">);
-</span><span style="color:#7f8989;">//() =&gt; &quot;Give me cola!&quot;
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">cola</span><span style="color:#1f1f1f;">.</span><span style="color:#da5d42;">prototype</span><span style="color:#1f1f1f;">);
-</span><span style="color:#7f8989;">//undefined
-</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">cola</span><span style="color:#1f1f1f;">.</span><span style="text-decoration:underline;font-style:italic;color:#5597d6;">__proto__</span><span style="color:#1f1f1f;">);
-</span><span style="color:#7f8989;">//function () {
+<pre><code>const cola = () =&gt; &quot;Give me cola!&quot;;
+console.log(cola);
+//() =&gt; &quot;Give me cola!&quot;
+console.log(cola.prototype);
+//undefined
+console.log(cola.__proto__);
+//function () {
 //  [native code]
 //}
-</span></code></pre>
+</code></pre>
 <p>参考资料：</p>
 <ul>
 <li>
@@ -203,7 +223,8 @@
         
             
                 <div id="comment">
-                    <div class="comment-placeholder"><i data-feather="loader"></i>加载评论中……</div>
+                    <div class="comment-placeholder">
+                        <i data-feather="loader"></i>Loading……</div>
                     <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
                 </div>
             
@@ -221,18 +242,15 @@
             <p>Powerd by
               <a href="https://www.getzola.org/">Zola</a>
               | Theme
-              <a href="http://owlzou.github.io/posts/zola-theme-cafe/">Cafe</a>
+              <a href="">Cafe</a>
             </p>
           </div>
         </div>
       </div>
     </div>
     
-    
       <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
       <script onload="feather.replace();" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     
-    <script onload="toc_onload()" src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.min.js"></script>
-
   </body>
 </html>

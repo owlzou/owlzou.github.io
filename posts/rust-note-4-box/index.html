@@ -2,8 +2,6 @@
 <html lang="en">
   <head>
     
-    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.css" rel="stylesheet"/>
-     
       <meta charset="UTF-8"/>
       <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
       <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
@@ -15,7 +13,6 @@
 
       </title>
     
-
   </head>
   <body>
     <div class="background"></div>
@@ -26,15 +23,11 @@
     
       <div class="grass"></div>
     
-    <button class="burger">
-      <i data-feather="menu"></i>
-    </button>
     <div class="wrapper">
       <div
         class="container">
         <!-- sidebar -->
         
-          <div class="mask"></div>
           <div class="sidebar">
             <div class="title">Catalyst</div>
             <div class="divider"></div>
@@ -88,11 +81,33 @@
                 
               </div>
             </nav>
+            <div class="toc-wrapper">
+              
+    <ul class="toc">
+    
+        <li >
+            <a id="to-box" href="https://owlzou.github.io/posts/rust-note-4-box/#box">Box</a>
             
-    <div class="toc-wrapper">
-        <div class="toc"></div>
-    </div>
+        </li>
+    
+        <li >
+            <a id="to-rc" href="https://owlzou.github.io/posts/rust-note-4-box/#rc">Rc</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-arc" href="https://owlzou.github.io/posts/rust-note-4-box/#arc">Arc</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-cell" href="https://owlzou.github.io/posts/rust-note-4-box/#cell">Cell</a>
+            
+        </li>
+    
+</ul>
 
+            </div>
             
               <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
@@ -104,8 +119,16 @@
           </div>
         
         <!-- main -->
-        <div class="main"> 
-    <div class="post blog">
+        <div class="main">
+          <div class="moblie-header">
+            <div class="moblie-title">Catalyst</div>
+            <button class="burger">
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+          <!-- content -->
+          
+    <div class="blog">
         <h1 class="post-title">
             Rust 笔记（四）智能指针等</h1>
         <div class="post-info">
@@ -136,26 +159,25 @@
 <li>你只希望确定变量是有某种特征的变量而并不在意它的具体类型。</li>
 </ul>
 <p>使用<code>Box</code>：</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> a </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">Box</span><span style="color:#1f1f1f;">::new(</span><span style="color:#b3933a;">123</span><span style="color:#1f1f1f;">);
-</span></code></pre><h2 id="rc">Rc</h2>
+<pre><code>let a = Box::new(123);
+</code></pre>
+<h2 id="rc">Rc</h2>
 <p><a href="https://doc.rust-lang.org/rust-by-example/std/rc.html"><code>Rc</code>（Reference Counting)</a> 记录变量的多个所有者。当<code>Rc</code>的计数为 0 时,证明无所有者，<strong>所有</strong>值都被删除。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#7f8989;">//建立一个Rc计数
-</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> ori </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">;
-</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> a </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">Rc::new(ori);
+<pre><code>//建立一个Rc计数
+let ori = 3;
+let a = Rc::new(ori);
 
-</span><span style="color:#7f8989;">//clone 增加Rc计数, 浅拷贝
-</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> b </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">Rc::clone(</span><span style="color:#72ab00;">&amp;</span><span style="color:#1f1f1f;">a);
-</span></code></pre><h2 id="arc">Arc</h2>
+//clone 增加Rc计数, 浅拷贝
+let b = Rc::clone(&amp;a);
+</code></pre>
+<h2 id="arc">Arc</h2>
 <p>Arc(Atomic Reference Counted),在线程间共享所有权。</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#72ab00;">use </span><span style="color:#1f1f1f;">std::sync::Arc;
+<pre><code>use std::sync::Arc;
 
-</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> value </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">Arc::new(</span><span style="color:#d07711;">&quot;value&quot;</span><span style="color:#1f1f1f;">);
-</span><span style="color:#7f8989;">//在线程中
-</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> value2 </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">Arc::clone(</span><span style="color:#72ab00;">&amp;</span><span style="color:#1f1f1f;">value);
-</span></code></pre>
+let value = Arc::new(&quot;value&quot;);
+//在线程中
+let value2 = Arc::clone(&amp;value);
+</code></pre>
 <p>如果只改变单个线程中共享的量，则用不上 <code>Rc</code>。</p>
 <h2 id="cell">Cell</h2>
 <p><a href="https://doc.rust-lang.org/std/cell/">Cell</a>分为 <code>Cell&lt;T&gt;</code> 和 <code>RefCell&lt;T&gt;</code>。</p>
@@ -163,31 +185,27 @@
 <p><code>Cell</code> 通过操作值本身实现可变性， <code>RefCell</code> 通过操作引用实现。</p>
 <p><a href="https://doc.rust-lang.org/std/cell/struct.Cell.html">Cell 文档</a></p>
 <p>新建一个<code>Cell</code>:</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#72ab00;">use </span><span style="color:#1f1f1f;">std::cell::Cell
-</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> a </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">Cell::new(</span><span style="color:#b3933a;">123</span><span style="color:#1f1f1f;">);
-</span></code></pre>
+<pre><code>use std::cell::Cell
+let a = Cell::new(123);
+</code></pre>
 <p>使用<code>Cell</code>里的数据</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#7f8989;">//返回里面的值的拷贝
-</span><span style="color:#1f1f1f;">a.</span><span style="color:#b39f04;">get</span><span style="color:#1f1f1f;">();
+<pre><code>//返回里面的值的拷贝
+a.get();
 
-</span><span style="color:#7f8989;">//设置里面的数据
-</span><span style="color:#1f1f1f;">a.</span><span style="color:#b39f04;">set</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">);
+//设置里面的数据
+a.set(1);
 
-</span><span style="color:#7f8989;">//替换数据并返回原数据
-</span><span style="color:#1f1f1f;">a.</span><span style="color:#b39f04;">replace</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">10</span><span style="color:#1f1f1f;">);
-</span></code></pre>
+//替换数据并返回原数据
+a.replace(10);
+</code></pre>
 <p>新建一个<code>RefCell</code>：</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#72ab00;">use </span><span style="color:#1f1f1f;">std::cell::RefCell
-</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> b </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">RefCell::new(</span><span style="color:#b3933a;">123</span><span style="color:#1f1f1f;">);
-</span></code></pre>
+<pre><code>use std::cell::RefCell
+let b = RefCell::new(123);
+</code></pre>
 <p>使用<code>RefCell</code>里的数据</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">b.</span><span style="color:#b39f04;">borrow_mut</span><span style="color:#1f1f1f;">();
-b.</span><span style="color:#b39f04;">borrow</span><span style="color:#1f1f1f;">();
-</span></code></pre>
+<pre><code>b.borrow_mut();
+b.borrow();
+</code></pre>
 <p>通常结合 <code>Rc</code> 一起使用( <code>Rc&lt;RefCell&lt;T&gt;&gt;</code> )，这样就有了多个所有者的同时还能改变内容。</p>
 
         </article>
@@ -195,7 +213,8 @@ b.</span><span style="color:#b39f04;">borrow</span><span style="color:#1f1f1f;">
         
             
                 <div id="comment">
-                    <div class="comment-placeholder"><i data-feather="loader"></i>加载评论中……</div>
+                    <div class="comment-placeholder">
+                        <i data-feather="loader"></i>Loading……</div>
                     <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
                 </div>
             
@@ -213,18 +232,15 @@ b.</span><span style="color:#b39f04;">borrow</span><span style="color:#1f1f1f;">
             <p>Powerd by
               <a href="https://www.getzola.org/">Zola</a>
               | Theme
-              <a href="http://owlzou.github.io/posts/zola-theme-cafe/">Cafe</a>
+              <a href="">Cafe</a>
             </p>
           </div>
         </div>
       </div>
     </div>
     
-    
       <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
       <script onload="feather.replace();" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     
-    <script onload="toc_onload()" src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.min.js"></script>
-
   </body>
 </html>

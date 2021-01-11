@@ -2,8 +2,6 @@
 <html lang="en">
   <head>
     
-    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.css" rel="stylesheet"/>
-     
       <meta charset="UTF-8"/>
       <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
       <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
@@ -15,7 +13,6 @@
 
       </title>
     
-
   </head>
   <body>
     <div class="background"></div>
@@ -26,15 +23,11 @@
     
       <div class="grass"></div>
     
-    <button class="burger">
-      <i data-feather="menu"></i>
-    </button>
     <div class="wrapper">
       <div
         class="container">
         <!-- sidebar -->
         
-          <div class="mask"></div>
           <div class="sidebar">
             <div class="title">Catalyst</div>
             <div class="divider"></div>
@@ -88,11 +81,28 @@
                 
               </div>
             </nav>
+            <div class="toc-wrapper">
+              
+    <ul class="toc">
+    
+        <li >
+            <a id="to-guan-dao-liu-cheng" href="https://owlzou.github.io/posts/elm-note-parser/#guan-dao-liu-cheng">管道流程</a>
             
-    <div class="toc-wrapper">
-        <div class="toc"></div>
-    </div>
+        </li>
+    
+        <li >
+            <a id="to-zhu-zi-chu-li" href="https://owlzou.github.io/posts/elm-note-parser/#zhu-zi-chu-li">逐字处理</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-wan-zheng-dai-ma" href="https://owlzou.github.io/posts/elm-note-parser/#wan-zheng-dai-ma">完整代码</a>
+            
+        </li>
+    
+</ul>
 
+            </div>
             
               <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
                 <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
@@ -104,8 +114,16 @@
           </div>
         
         <!-- main -->
-        <div class="main"> 
-    <div class="post blog">
+        <div class="main">
+          <div class="moblie-header">
+            <div class="moblie-title">Catalyst</div>
+            <button class="burger">
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+          <!-- content -->
+          
+    <div class="blog">
         <h1 class="post-title">
             将 HEX 颜色值转换为 RGB 颜色值</h1>
         <div class="post-info">
@@ -137,20 +155,19 @@
 </ul>
 <h2 id="guan-dao-liu-cheng">管道流程</h2>
 <p>包文档里提供的一个例子说明了 parser 的工作方法：</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#c23f31;">point </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Parser Point
-</span><span style="color:#c23f31;">point </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">
-  succeed </span><span style="color:#b3933a;">Point
-    </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> symbol </span><span style="color:#d07711;">&quot;(&quot;
-    </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> spaces
-    </span><span style="color:#72ab00;">|=</span><span style="color:#1f1f1f;"> float
-    </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> spaces
-    </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> symbol </span><span style="color:#d07711;">&quot;,&quot;
-    </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> spaces
-    </span><span style="color:#72ab00;">|=</span><span style="color:#1f1f1f;"> float
-    </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> spaces
-    </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> symbol </span><span style="color:#d07711;">&quot;)&quot;
-</span></code></pre>
+<pre><code>point : Parser Point
+point =
+  succeed Point
+    |. symbol &quot;(&quot;
+    |. spaces
+    |= float
+    |. spaces
+    |. symbol &quot;,&quot;
+    |. spaces
+    |= float
+    |. spaces
+    |. symbol &quot;)&quot;
+</code></pre>
 <p>上面的<code>|.</code>，<code>|=</code>之类的是处理数据的方法。</p>
 <table><thead><tr><th>管道</th><th>备注</th></tr></thead><tbody>
 <tr><td>|.</td><td>解析并略过结果</td></tr>
@@ -171,22 +188,21 @@
 <tr><td>lineComment ,multiComment</td><td>解析注释（跳过内容）</td></tr>
 </tbody></table>
 <p>对于我们的需求，颜色的有效输入格式是 <code>\#[\d(a-f)(A-F)]{6}\</code>。划分的时候两个两个一划并转换为十进制。大致流程如下：</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#72ab00;">type alias </span><span style="color:#c23f31;">Color </span><span style="color:#72ab00;">=
-    </span><span style="color:#b39f04;">{</span><span style="color:#1f1f1f;"> red </span><span style="color:#72ab00;">: </span><span style="color:#b3933a;">Int
-    </span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> green </span><span style="color:#72ab00;">: </span><span style="color:#b3933a;">Int
-    </span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> blue </span><span style="color:#72ab00;">: </span><span style="color:#b3933a;">Int
-    </span><span style="color:#b39f04;">}
+<pre><code>type alias Color =
+    { red : Int
+    , green : Int
+    , blue : Int
+    }
 
-</span><span style="color:#c23f31;">hexToColor </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Parser Int
-</span><span style="color:#c23f31;">hexToColor </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">
-    succeed </span><span style="color:#b3933a;">Color
-            </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> symbol </span><span style="color:#d07711;">&quot;#&quot;
-            </span><span style="color:#72ab00;">|=</span><span style="color:#1f1f1f;"> hexToInt
-            </span><span style="color:#72ab00;">|=</span><span style="color:#1f1f1f;"> hexToInt
-            </span><span style="color:#72ab00;">|=</span><span style="color:#1f1f1f;"> hexToInt
-            </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> end
-</span></code></pre>
+hexToColor : Parser Int
+hexToColor =
+    succeed Color
+            |. symbol &quot;#&quot;
+            |= hexToInt
+            |= hexToInt
+            |= hexToInt
+            |. end
+</code></pre>
 <p>忽略掉前面的<code>#</code>，然后实施 3 个<code>hexToInt</code>（每个处理两个字符），每个都保留传输到 Color 构造中。</p>
 <h2 id="zhu-zi-chu-li">逐字处理</h2>
 <p>由上，我们的第一行已经有了： <code>|. symbol &quot;#&quot;</code>，但后面的就要自己处理了。看文档使用<code>Chompers</code>（咀嚼？感觉像是吃豆人那样一个一个处理并移除）。</p>
@@ -198,138 +214,138 @@
 <tr><td>getChompedString,mapChompedString</td><td>字面意思，上文中的管道方法其实都是 chomp 的一种，所以使用 symbol 函数也会收到</td></tr>
 </tbody></table>
 <p>接着使用</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#c23f31;">hexToInt </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Parser Int
-</span><span style="color:#c23f31;">hexToInt </span><span style="color:#72ab00;">=
-    </span><span style="color:#b3933a;">Parser</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">map intFromHexString </span><span style="color:#72ab00;">&lt;|</span><span style="color:#1f1f1f;">
-        getChompedString </span><span style="color:#72ab00;">&lt;|</span><span style="color:#1f1f1f;">
-            chompIf </span><span style="color:#b3933a;">Char</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">isHexDigit
-                </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> chompIf </span><span style="color:#b3933a;">Char</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">isHexDigit
-</span></code></pre>
+<pre><code>hexToInt : Parser Int
+hexToInt =
+    Parser.map intFromHexString &lt;|
+        getChompedString &lt;|
+            chompIf Char.isHexDigit
+                |. chompIf Char.isHexDigit
+</code></pre>
 <ol>
 <li>用<code>chompIf</code>处理两个字符</li>
 <li>用<code>getChompedString</code>接受被 chomp 的字符</li>
 <li>最后用 map 将 String 转换为 Int，其中用了一个 hex 转 int 的函数。</li>
 </ol>
 <h2 id="wan-zheng-dai-ma">完整代码</h2>
-<details>
-<summary>点击查看</summary>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#72ab00;">module </span><span style="color:#a2a001;">Main </span><span style="color:#72ab00;">exposing </span><span style="color:#1f1f1f;">(</span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">)
+<details class="fold">
+    <summary>点击查看</summary>
+    <pre><code class="language-elm">module Main exposing (main)
 
-</span><span style="color:#72ab00;">import </span><span style="color:#a2a001;">Browser
-</span><span style="color:#72ab00;">import </span><span style="color:#a2a001;">Html </span><span style="color:#72ab00;">exposing </span><span style="color:#1f1f1f;">(</span><span style="color:#668f14;">Html</span><span style="color:#1f1f1f;">, </span><span style="color:#c23f31;">div</span><span style="color:#1f1f1f;">, </span><span style="color:#c23f31;">input</span><span style="color:#1f1f1f;">, </span><span style="color:#c23f31;">text</span><span style="color:#1f1f1f;">)
-</span><span style="color:#72ab00;">import </span><span style="color:#a2a001;">Html.Attributes </span><span style="color:#72ab00;">exposing </span><span style="color:#1f1f1f;">(</span><span style="color:#c23f31;">placeholder</span><span style="color:#1f1f1f;">, </span><span style="color:#c23f31;">type_</span><span style="color:#1f1f1f;">)
-</span><span style="color:#72ab00;">import </span><span style="color:#a2a001;">Html.Events </span><span style="color:#72ab00;">exposing </span><span style="color:#1f1f1f;">(</span><span style="color:#c23f31;">onInput</span><span style="color:#1f1f1f;">)
-</span><span style="color:#72ab00;">import </span><span style="color:#a2a001;">Parser </span><span style="color:#72ab00;">exposing </span><span style="color:#1f1f1f;">(..)
-
-
-
-</span><span style="color:#7f8989;">-- MAIN
-
-
-</span><span style="color:#c23f31;">main </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Program </span><span style="color:#da5d42;">() </span><span style="color:#668f14;">Model Msg
-</span><span style="color:#c23f31;">main </span><span style="color:#72ab00;">=
-    </span><span style="color:#b3933a;">Browser</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">sandbox </span><span style="color:#b39f04;">{</span><span style="color:#1f1f1f;"> init </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> init</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> update </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> update</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> view </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> view </span><span style="color:#b39f04;">}
+import Browser
+import Html exposing (Html, div, input, text)
+import Html.Attributes exposing (placeholder, type_)
+import Html.Events exposing (onInput)
+import Parser exposing (..)
 
 
 
-</span><span style="color:#7f8989;">-- MODEL
+-- MAIN
 
 
-</span><span style="color:#72ab00;">type alias </span><span style="color:#c23f31;">Model </span><span style="color:#72ab00;">=
-    </span><span style="color:#b3933a;">Maybe Color
-
-
-</span><span style="color:#72ab00;">type alias </span><span style="color:#c23f31;">Color </span><span style="color:#72ab00;">=
-    </span><span style="color:#b39f04;">{</span><span style="color:#1f1f1f;"> red </span><span style="color:#72ab00;">: </span><span style="color:#b3933a;">Int
-    </span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> green </span><span style="color:#72ab00;">: </span><span style="color:#b3933a;">Int
-    </span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> blue </span><span style="color:#72ab00;">: </span><span style="color:#b3933a;">Int
-    </span><span style="color:#b39f04;">}
-
-
-</span><span style="color:#c23f31;">init </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Model
-</span><span style="color:#c23f31;">init </span><span style="color:#72ab00;">=
-    </span><span style="color:#b3933a;">Nothing
+main : Program () Model Msg
+main =
+    Browser.sandbox { init = init, update = update, view = view }
 
 
 
-</span><span style="color:#7f8989;">-- UPDATE
+-- MODEL
 
 
-</span><span style="color:#72ab00;">type </span><span style="color:#c23f31;">Msg
-    </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">ToParse String
+type alias Model =
+    Maybe Color
 
 
-</span><span style="color:#c23f31;">update </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Msg </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Model </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Model
-</span><span style="color:#c23f31;">update </span><span style="color:#1f1f1f;">msg model </span><span style="color:#72ab00;">=
-    case </span><span style="color:#1f1f1f;">msg </span><span style="color:#72ab00;">of
-        </span><span style="color:#b3933a;">ToParse</span><span style="color:#1f1f1f;"> input </span><span style="color:#72ab00;">-&gt;
-            case </span><span style="color:#1f1f1f;">run hexToColor input </span><span style="color:#72ab00;">of
-                </span><span style="color:#b3933a;">Ok</span><span style="color:#1f1f1f;"> color </span><span style="color:#72ab00;">-&gt;
-                    </span><span style="color:#b3933a;">Just</span><span style="color:#1f1f1f;"> color
+type alias Color =
+    { red : Int
+    , green : Int
+    , blue : Int
+    }
 
-                </span><span style="color:#b3933a;">Err</span><span style="color:#1f1f1f;"> _ </span><span style="color:#72ab00;">-&gt;</span><span style="color:#1f1f1f;">
+
+init : Model
+init =
+    Nothing
+
+
+
+-- UPDATE
+
+
+type Msg
+    = ToParse String
+
+
+update : Msg -&gt; Model -&gt; Model
+update msg model =
+    case msg of
+        ToParse input -&gt;
+            case run hexToColor input of
+                Ok color -&gt;
+                    Just color
+
+                Err _ -&gt;
                     model
 
 
 
-</span><span style="color:#7f8989;">-- VIEW
+-- VIEW
 
 
-</span><span style="color:#c23f31;">view </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Model </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Html Msg
-</span><span style="color:#c23f31;">view </span><span style="color:#1f1f1f;">model </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">
-    div </span><span style="color:#b39f04;">[]
-        [</span><span style="color:#1f1f1f;"> input </span><span style="color:#b39f04;">[</span><span style="color:#1f1f1f;"> type_ </span><span style="color:#d07711;">&quot;text&quot;</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> placeholder </span><span style="color:#d07711;">&quot;Input hex color&quot;</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> onInput </span><span style="color:#b3933a;">ToParse </span><span style="color:#b39f04;">] []
-        ,</span><span style="color:#1f1f1f;"> div </span><span style="color:#b39f04;">[] [</span><span style="color:#1f1f1f;"> text </span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">colorToString model</span><span style="color:#72ab00;">) </span><span style="color:#b39f04;">]
+view : Model -&gt; Html Msg
+view model =
+    div []
+        [ input [ type_ &quot;text&quot;, placeholder &quot;Input hex color&quot;, onInput ToParse ] []
+        , div [] [ text (colorToString model) ]
         ]
 
 
-</span><span style="color:#c23f31;">hexToColor </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Parser Color
-</span><span style="color:#c23f31;">hexToColor </span><span style="color:#72ab00;">=
+hexToColor : Parser Color
+hexToColor =
     let
-        </span><span style="color:#1f1f1f;">hexToInt </span><span style="color:#72ab00;">: </span><span style="color:#b3933a;">Parser Int</span><span style="color:#1f1f1f;">
-        hexToInt </span><span style="color:#72ab00;">=
-            </span><span style="color:#b3933a;">Parser</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">map intFromHexString </span><span style="color:#72ab00;">&lt;|</span><span style="color:#1f1f1f;">
-                getChompedString </span><span style="color:#72ab00;">&lt;|</span><span style="color:#1f1f1f;">
-                    chompIf </span><span style="color:#b3933a;">Char</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">isHexDigit
-                        </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> chompIf </span><span style="color:#b3933a;">Char</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">isHexDigit
-    </span><span style="color:#72ab00;">in
-    </span><span style="color:#1f1f1f;">succeed </span><span style="color:#b3933a;">Color
-        </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> symbol </span><span style="color:#d07711;">&quot;#&quot;
-        </span><span style="color:#72ab00;">|=</span><span style="color:#1f1f1f;"> hexToInt
-        </span><span style="color:#72ab00;">|=</span><span style="color:#1f1f1f;"> hexToInt
-        </span><span style="color:#72ab00;">|=</span><span style="color:#1f1f1f;"> hexToInt
-        </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> end
-
-
-</span><span style="color:#c23f31;">intFromHexString </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">String </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Int
-</span><span style="color:#c23f31;">intFromHexString </span><span style="color:#1f1f1f;">hex </span><span style="color:#72ab00;">=
-    let
-        </span><span style="color:#1f1f1f;">singleHex c </span><span style="color:#72ab00;">=
-            if </span><span style="color:#b3933a;">Char</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">isDigit c </span><span style="color:#72ab00;">then
-                </span><span style="color:#b3933a;">Char</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">toCode c </span><span style="color:#72ab00;">- </span><span style="color:#b3933a;">Char</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">toCode </span><span style="color:#d07711;">&#39;0&#39;
-
-            </span><span style="color:#72ab00;">else
-                </span><span style="color:#b3933a;">Char</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">toCode c </span><span style="color:#72ab00;">- </span><span style="color:#b3933a;">Char</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">toCode </span><span style="color:#d07711;">&#39;A&#39; </span><span style="color:#72ab00;">+ </span><span style="color:#b3933a;">10</span><span style="color:#1f1f1f;">
-
-        power i </span><span style="color:#72ab00;">=
-            </span><span style="color:#b3933a;">List</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">product </span><span style="color:#72ab00;">(</span><span style="color:#b3933a;">List</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">repeat i </span><span style="color:#b3933a;">16</span><span style="color:#72ab00;">)
+        hexToInt : Parser Int
+        hexToInt =
+            Parser.map intFromHexString &lt;|
+                getChompedString &lt;|
+                    chompIf Char.isHexDigit
+                        |. chompIf Char.isHexDigit
     in
-    </span><span style="color:#b3933a;">String</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">toList </span><span style="color:#72ab00;">(</span><span style="color:#b3933a;">String</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">toUpper hex</span><span style="color:#72ab00;">)
-        |&gt; </span><span style="color:#b3933a;">List</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">indexedMap </span><span style="color:#72ab00;">(\</span><span style="color:#1f1f1f;">i item </span><span style="color:#72ab00;">-&gt;</span><span style="color:#1f1f1f;"> power </span><span style="color:#72ab00;">(</span><span style="color:#b3933a;">String</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">length hex </span><span style="color:#72ab00;">-</span><span style="color:#1f1f1f;"> i </span><span style="color:#72ab00;">- </span><span style="color:#b3933a;">1</span><span style="color:#72ab00;">) *</span><span style="color:#1f1f1f;"> singleHex item</span><span style="color:#72ab00;">)
-        |&gt; </span><span style="color:#b3933a;">List</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">sum
+    succeed Color
+        |. symbol &quot;#&quot;
+        |= hexToInt
+        |= hexToInt
+        |= hexToInt
+        |. end
 
 
-</span><span style="color:#c23f31;">colorToString </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Maybe Color </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">String
-</span><span style="color:#c23f31;">colorToString </span><span style="color:#1f1f1f;">color </span><span style="color:#72ab00;">=
-    case </span><span style="color:#1f1f1f;">color </span><span style="color:#72ab00;">of
-        </span><span style="color:#b3933a;">Nothing </span><span style="color:#72ab00;">-&gt;
-            </span><span style="color:#d07711;">&quot;不合法的颜色值的输入。&quot;
+intFromHexString : String -&gt; Int
+intFromHexString hex =
+    let
+        singleHex c =
+            if Char.isDigit c then
+                Char.toCode c - Char.toCode '0'
 
-        </span><span style="color:#b3933a;">Just</span><span style="color:#1f1f1f;"> p </span><span style="color:#72ab00;">-&gt;
-            </span><span style="color:#d07711;">&quot;rgb(&quot; </span><span style="color:#72ab00;">++ </span><span style="color:#b3933a;">String</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">fromInt p</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">red </span><span style="color:#72ab00;">++ </span><span style="color:#d07711;">&quot;,&quot; </span><span style="color:#72ab00;">++ </span><span style="color:#b3933a;">String</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">fromInt p</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">green </span><span style="color:#72ab00;">++ </span><span style="color:#d07711;">&quot;,&quot; </span><span style="color:#72ab00;">++ </span><span style="color:#b3933a;">String</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">fromInt p</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">blue </span><span style="color:#72ab00;">++ </span><span style="color:#d07711;">&quot;)&quot;
-</span></code></pre></details>
+            else
+                Char.toCode c - Char.toCode 'A' + 10
+
+        power i =
+            List.product (List.repeat i 16)
+    in
+    String.toList (String.toUpper hex)
+        |&gt; List.indexedMap (\i item -&gt; power (String.length hex - i - 1) * singleHex item)
+        |&gt; List.sum
+
+
+colorToString : Maybe Color -&gt; String
+colorToString color =
+    case color of
+        Nothing -&gt;
+            &quot;不合法的颜色值的输入。&quot;
+
+        Just p -&gt;
+            &quot;rgb(&quot; ++ String.fromInt p.red ++ &quot;,&quot; ++ String.fromInt p.green ++ &quot;,&quot; ++ String.fromInt p.blue ++ &quot;)&quot;
+</code></pre>
+
+</details>
 <!-- 创建日期：2020-03-27，半年后捡起来写完。不过一看当时写的还是挺多错的…… -->
 
         </article>
@@ -337,7 +353,8 @@
         
             
                 <div id="comment">
-                    <div class="comment-placeholder"><i data-feather="loader"></i>加载评论中……</div>
+                    <div class="comment-placeholder">
+                        <i data-feather="loader"></i>Loading……</div>
                     <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
                 </div>
             
@@ -355,18 +372,15 @@
             <p>Powerd by
               <a href="https://www.getzola.org/">Zola</a>
               | Theme
-              <a href="http://owlzou.github.io/posts/zola-theme-cafe/">Cafe</a>
+              <a href="">Cafe</a>
             </p>
           </div>
         </div>
       </div>
     </div>
     
-    
       <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
       <script onload="feather.replace();" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     
-    <script onload="toc_onload()" src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tocbot.min.js"></script>
-
   </body>
 </html>
