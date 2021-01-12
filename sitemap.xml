@@ -97,6 +97,15 @@
         <lastmod>2020-10-12</lastmod>
     </url>
     <url>
+        <loc>https://owlzou.github.io/posts/page/1/</loc>
+    </url>
+    <url>
+        <loc>https://owlzou.github.io/posts/page/2/</loc>
+    </url>
+    <url>
+        <loc>https://owlzou.github.io/posts/page/3/</loc>
+    </url>
+    <url>
         <loc>https://owlzou.github.io/posts/rust-note-1/</loc>
         <lastmod>2020-09-25T17:36:45Z</lastmod>
     </url>
@@ -130,7 +139,7 @@
     </url>
     <url>
         <loc>https://owlzou.github.io/posts/zola-theme-cafe/</loc>
-        <lastmod>2021-01-09</lastmod>
+        <lastmod>2021-01-12</lastmod>
     </url>
     <url>
         <loc>https://owlzou.github.io/projects/</loc>

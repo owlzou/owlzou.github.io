@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     
+    
       <meta charset="UTF-8"/>
       <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
       <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
@@ -13,6 +14,8 @@
 
       </title>
     
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;custom.css" rel="stylesheet"/>
+
   </head>
   <body>
     <div class="background"></div>
@@ -85,6 +88,11 @@
               
     <ul class="toc">
     
+        <li >
+            <a id="to-zi-ti-zi-ji-hua" href="https://owlzou.github.io/posts/zola-theme-cafe/#zi-ti-zi-ji-hua">字体子集化</a>
+            
+        </li>
+    
 </ul>
 
             </div>
@@ -113,7 +121,11 @@
             写了个新主题 Cafe☕</h1>
         <div class="post-info">
             <i data-feather="clock"></i>
-            <div class="post-date">2021-01-09</div>
+            <div class="post-date">2021-01-09
+                
+                    | Last Update：2021-01-12
+                
+            </div>
             
                 
                     
@@ -127,6 +139,27 @@
             <p>将博客转移到 Zola，并写了一个主题，暂定名 <code>Cafe</code>。</p>
 <span id="continue-reading"></span>
 <p>先用一段时间，完善了后再考虑发布出去 😎。<del>也可能因为太丑没人想要用</del></p>
+<p>一些关于主题的笔记：</p>
+<h2 id="zi-ti-zi-ji-hua">字体子集化</h2>
+<p>就侧边目录这几个字的程度，还是可以用上自定义中文字体的。使用 <a href="https://github.com/googlefonts/sfntly">sfntly</a>可以制作字体字集。</p>
+<pre><code>java -jar sfnttool.jar -s '首页归档项目关于' '猫啃网风雅宋.ttf' 'maokenwangfengyasong.min.ttf'
+</code></pre>
+<p>从 17318kb 减到了 5kb ……</p>
+<p>将输出的文件复制到<code>static</code>文件夹。在<code>sass</code>文件夹中新建 <code>custom.css</code> 加载本地字体：</p>
+<pre><code>@font-face {
+  font-family: &quot;猫啃网风雅宋&quot;;
+  src: url(&quot;/maokenwangfengyasong.min.ttf&quot;); 
+}
+</code></pre>
+<p>然后使用继承模板功能，在不修改原主题的情况下添加 css 文件。(扩展阅读：<a href="https://www.getzola.org/documentation/themes/extending-a-theme/">Extending a theme | Zola</a>)</p>
+<p>在 <code>templates</code> 文件夹下新建 <code>base.html</code></p>
+<pre><code>{% extends &quot;zola-theme-cafe/templates/base.html&quot; %}
+{%  block head %}
+    {{ super() }}
+    &lt;link href=&quot;{{ config.base_url }}custom.css&quot; rel=&quot;stylesheet&quot;/&gt;
+{% endblock %}
+</code></pre>
+<p>完成，收工。</p>
 
         </article>
         <div class="divider"></div>
