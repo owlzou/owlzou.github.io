@@ -35,6 +35,9 @@
             <div class="title">Catalyst</div>
             <div class="divider"></div>
             <nav>
+              <div class="moblie-header">
+                <div class="moblie-title">Catalyst</div>
+              </div>
               <ul>
                 
                   <li>
@@ -118,7 +121,7 @@
         
         <!-- main -->
         <div class="main">
-          <div class="moblie-header">
+          <div class="moblie-header" id="moblie-header">
             <div class="moblie-title">Catalyst</div>
             <button class="burger">
               <i data-feather="menu"></i>
@@ -156,13 +159,14 @@
 <p>Promise 对象用于表示一个异步操作的最终完成 (或失败), 及其结果值.</p>
 </blockquote>
 <span id="continue-reading"></span><h2 id="gou-zao-yi-ge-promise">构造一个 Promise</h2>
-<pre><code>let p = new Promise((resolve, reject) =&gt; {
-  setTimeout(() =&gt; resolve(&quot;1秒后执行代码&quot;), 1000);
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">let </span><span style="color:#5597d6;">p </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Promise</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">resolve</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">reject</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#b39f04;">setTimeout</span><span style="color:#1f1f1f;">(() </span><span style="color:#668f14;">=&gt; </span><span style="color:#c23f31;">resolve</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;1秒后执行代码&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#b3933a;">1000</span><span style="color:#1f1f1f;">);
 });
 
-p.then((data) =&gt; console.log(data));
-//1秒后执行代码
-</code></pre>
+</span><span style="color:#5597d6;">p</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">then</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">));
+</span><span style="color:#7f8989;">//1秒后执行代码
+</span></code></pre>
 <p><code>Promise</code>有三种状态：</p>
 <ul>
 <li>初始状态 <code>pending</code></li>
@@ -170,128 +174,131 @@ p.then((data) =&gt; console.log(data));
 <li>失败 <code>rejected</code>。</li>
 </ul>
 <p>一个完成前的控制台打印：</p>
-<pre><code>let p = new Promise((resolve, reject) =&gt; {
-  setTimeout(() =&gt; resolve(&quot;1秒后执行代码&quot;), 1000);
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">let </span><span style="color:#5597d6;">p </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Promise</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">resolve</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">reject</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#b39f04;">setTimeout</span><span style="color:#1f1f1f;">(() </span><span style="color:#668f14;">=&gt; </span><span style="color:#c23f31;">resolve</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;1秒后执行代码&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#b3933a;">1000</span><span style="color:#1f1f1f;">);
 });
 
-console.log(p);
-//Promise { &lt;state&gt;: &quot;pending&quot; }
+</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">p</span><span style="color:#1f1f1f;">);
+</span><span style="color:#7f8989;">//Promise { &lt;state&gt;: &quot;pending&quot; }
 
-p.then((data) =&gt; console.log(p));
-//Promise { &lt;state&gt;: &quot;fulfilled&quot;, &lt;value&gt;: &quot;1秒后执行代码&quot; }
-</code></pre>
-<h2 id="shi-yong-yi-ge-promise">使用一个 Promise</h2>
+</span><span style="color:#5597d6;">p</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">then</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">p</span><span style="color:#1f1f1f;">));
+</span><span style="color:#7f8989;">//Promise { &lt;state&gt;: &quot;fulfilled&quot;, &lt;value&gt;: &quot;1秒后执行代码&quot; }
+</span></code></pre><h2 id="shi-yong-yi-ge-promise">使用一个 Promise</h2>
 <ul>
 <li>回调函数在本轮所有事件循环运行完成后执行。</li>
 <li>使用 <code>catch</code> 终止链以捕获异常。</li>
 <li>使用 <code>finally</code> 完成无论成功与否的后续操作。</li>
 </ul>
-<pre><code>let p1 = new Promise((resolve, reject) =&gt; {
-  reject(&quot;fail&quot;);
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">let </span><span style="color:#5597d6;">p1 </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Promise</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">resolve</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">reject</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#c23f31;">reject</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;fail&quot;</span><span style="color:#1f1f1f;">);
 });
-p1.then((data) =&gt; console.log(data))
-  .catch((e) =&gt; console.log(e))
-  .finally(() =&gt; {
-    console.log(&quot;finally&quot;);
+</span><span style="color:#5597d6;">p1</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">then</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">))
+  .</span><span style="color:#b39f04;">catch</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">))
+  .</span><span style="color:#b39f04;">finally</span><span style="color:#1f1f1f;">(() </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
+    </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;finally&quot;</span><span style="color:#1f1f1f;">);
   });
-//fail
+</span><span style="color:#7f8989;">//fail
 //finally
-</code></pre>
-<h2 id="fang-fa">方法</h2>
+</span></code></pre><h2 id="fang-fa">方法</h2>
 <p><code>Promise.all</code></p>
 <p>方法返回一个<code>Promise</code>对象，所有参数里的<code>promise</code>都触发成功的时候才会成功，并将参数里所有<code>promise</code>的返回值数组作为成功回调的返回值，第一个失败的<code>promise</code>信息作为失败信息。</p>
 <p><code>Promise.race</code></p>
 <p>任意一个参数中的子<code>promise</code>返回结果后，将其结果返回。</p>
-<pre><code>let p1 = new Promise((resolve, reject) =&gt; {
-  setTimeout(() =&gt; resolve(&quot;1秒&quot;), 1000);
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">let </span><span style="color:#5597d6;">p1 </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Promise</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">resolve</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">reject</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#b39f04;">setTimeout</span><span style="color:#1f1f1f;">(() </span><span style="color:#668f14;">=&gt; </span><span style="color:#c23f31;">resolve</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;1秒&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#b3933a;">1000</span><span style="color:#1f1f1f;">);
 });
 
-let p2 = new Promise((resolve, reject) =&gt; {
-  setTimeout(() =&gt; resolve(&quot;2秒&quot;), 2000);
+</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">p2 </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Promise</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">resolve</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">reject</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#b39f04;">setTimeout</span><span style="color:#1f1f1f;">(() </span><span style="color:#668f14;">=&gt; </span><span style="color:#c23f31;">resolve</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;2秒&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#b3933a;">2000</span><span style="color:#1f1f1f;">);
 });
 
-let p3 = new Promise((resolve, reject) =&gt; {
-  setTimeout(() =&gt; resolve(&quot;3秒&quot;), 2000);
+</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">p3 </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Promise</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">resolve</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">reject</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#b39f04;">setTimeout</span><span style="color:#1f1f1f;">(() </span><span style="color:#668f14;">=&gt; </span><span style="color:#c23f31;">resolve</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;3秒&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#b3933a;">2000</span><span style="color:#1f1f1f;">);
 });
 
-Promise.race([p1, p2, p3]).then((data) =&gt; console.log(data));
-//1秒
-Promise.all([p1, p2, p3]).then((data) =&gt; console.log(data));
-//[&quot;1秒&quot;, &quot;2秒&quot;, &quot;3秒&quot;]
-</code></pre>
+</span><span style="color:#a2a001;">Promise</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">race</span><span style="color:#1f1f1f;">([</span><span style="color:#5597d6;">p1</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">p2</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">p3</span><span style="color:#1f1f1f;">]).</span><span style="color:#b39f04;">then</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">));
+</span><span style="color:#7f8989;">//1秒
+</span><span style="color:#a2a001;">Promise</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">all</span><span style="color:#1f1f1f;">([</span><span style="color:#5597d6;">p1</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">p2</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">p3</span><span style="color:#1f1f1f;">]).</span><span style="color:#b39f04;">then</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">));
+</span><span style="color:#7f8989;">//[&quot;1秒&quot;, &quot;2秒&quot;, &quot;3秒&quot;]
+</span></code></pre>
 <p>实现一个<code>Promise.all</code></p>
-<pre><code>function myPromiseAll(parr) {
-  let ans = [];
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">function </span><span style="color:#c23f31;">myPromiseAll</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">parr</span><span style="color:#1f1f1f;">) {
+  </span><span style="color:#668f14;">let </span><span style="color:#5597d6;">ans </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[];
 
-  return new Promise((resolve, reject) =&gt; {
-    run(0);
+  </span><span style="color:#72ab00;">return new </span><span style="color:#c23f31;">Promise</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">resolve</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">reject</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
+    </span><span style="color:#c23f31;">run</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">);
 
-    function run(i) {
-      if (i &lt; parr.length)
-        return parr[i].then((data) =&gt; {
-            ans.push(data);
-            run(i + 1);
-          }).catch((e) =&gt; reject(e));
-      else resolve(ans);
+    </span><span style="color:#668f14;">function </span><span style="color:#c23f31;">run</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">i</span><span style="color:#1f1f1f;">) {
+      </span><span style="color:#72ab00;">if </span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">i </span><span style="color:#72ab00;">&lt; </span><span style="color:#5597d6;">parr</span><span style="color:#1f1f1f;">.</span><span style="color:#a2a001;">length</span><span style="color:#1f1f1f;">)
+        </span><span style="color:#72ab00;">return </span><span style="color:#5597d6;">parr</span><span style="color:#1f1f1f;">[</span><span style="color:#5597d6;">i</span><span style="color:#1f1f1f;">].</span><span style="color:#b39f04;">then</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
+            </span><span style="color:#5597d6;">ans</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">push</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">);
+            </span><span style="color:#c23f31;">run</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">i </span><span style="color:#72ab00;">+ </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">);
+          }).</span><span style="color:#b39f04;">catch</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#c23f31;">reject</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">));
+      </span><span style="color:#72ab00;">else </span><span style="color:#c23f31;">resolve</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">ans</span><span style="color:#1f1f1f;">);
     }
   });
 }
 
-/*测试*/
-let p1 = new Promise((resolve, reject) =&gt; {
-  setTimeout(() =&gt; resolve(&quot;1秒&quot;), 1000);
+</span><span style="color:#7f8989;">/*测试*/
+</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">p1 </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Promise</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">resolve</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">reject</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#b39f04;">setTimeout</span><span style="color:#1f1f1f;">(() </span><span style="color:#668f14;">=&gt; </span><span style="color:#c23f31;">resolve</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;1秒&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#b3933a;">1000</span><span style="color:#1f1f1f;">);
 });
 
-let p2 = new Promise((resolve, reject) =&gt; {
-  setTimeout(() =&gt; resolve(&quot;2秒&quot;), 2000);
+</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">p2 </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Promise</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">resolve</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">reject</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#b39f04;">setTimeout</span><span style="color:#1f1f1f;">(() </span><span style="color:#668f14;">=&gt; </span><span style="color:#c23f31;">resolve</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;2秒&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#b3933a;">2000</span><span style="color:#1f1f1f;">);
 });
 
-let p3 = new Promise((resolve, reject) =&gt; {
-  setTimeout(() =&gt; resolve(&quot;3秒&quot;), 3000);
+</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">p3 </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Promise</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">resolve</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">reject</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#b39f04;">setTimeout</span><span style="color:#1f1f1f;">(() </span><span style="color:#668f14;">=&gt; </span><span style="color:#c23f31;">resolve</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;3秒&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#b3933a;">3000</span><span style="color:#1f1f1f;">);
 });
 
-let p4 = new Promise((resolve, reject) =&gt; {
-  setTimeout(() =&gt; reject(&quot;错误&quot;), 1000);
+</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">p4 </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Promise</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">resolve</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">reject</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#b39f04;">setTimeout</span><span style="color:#1f1f1f;">(() </span><span style="color:#668f14;">=&gt; </span><span style="color:#c23f31;">reject</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;错误&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#b3933a;">1000</span><span style="color:#1f1f1f;">);
 });
 
-myPromiseAll([p1, p2, p3]).then((data) =&gt; console.log(data));
-//[&quot;1秒&quot;, &quot;2秒&quot;, &quot;3秒&quot;]
-myPromiseAll([p1, p2, p4])
-  .then((data) =&gt; console.log(data))
-  .catch((e) =&gt; console.log(e));
-//错误
-</code></pre>
+</span><span style="color:#c23f31;">myPromiseAll</span><span style="color:#1f1f1f;">([</span><span style="color:#5597d6;">p1</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">p2</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">p3</span><span style="color:#1f1f1f;">]).</span><span style="color:#b39f04;">then</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">));
+</span><span style="color:#7f8989;">//[&quot;1秒&quot;, &quot;2秒&quot;, &quot;3秒&quot;]
+</span><span style="color:#c23f31;">myPromiseAll</span><span style="color:#1f1f1f;">([</span><span style="color:#5597d6;">p1</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">p2</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">p4</span><span style="color:#1f1f1f;">])
+  .</span><span style="color:#b39f04;">then</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">))
+  .</span><span style="color:#b39f04;">catch</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">));
+</span><span style="color:#7f8989;">//错误
+</span></code></pre>
 <p>实现一个<code>Promise.race</code></p>
-<pre><code>function myPromiseRace(parr) {
-  return new Promise((resolve, reject) =&gt; {
-    for (let p of parr) p.then((data) =&gt; resolve(data)).catch((e) =&gt; reject(e));
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">function </span><span style="color:#c23f31;">myPromiseRace</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">parr</span><span style="color:#1f1f1f;">) {
+  </span><span style="color:#72ab00;">return new </span><span style="color:#c23f31;">Promise</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">resolve</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">reject</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
+    </span><span style="color:#72ab00;">for </span><span style="color:#1f1f1f;">(</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">p </span><span style="color:#72ab00;">of </span><span style="color:#5597d6;">parr</span><span style="color:#1f1f1f;">) </span><span style="color:#5597d6;">p</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">then</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#c23f31;">resolve</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">)).</span><span style="color:#b39f04;">catch</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#c23f31;">reject</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">));
   });
 }
 
-/*测试*/
-let p1 = new Promise((resolve, reject) =&gt; {
-  setTimeout(() =&gt; resolve(&quot;1秒&quot;), 1000);
+</span><span style="color:#7f8989;">/*测试*/
+</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">p1 </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Promise</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">resolve</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">reject</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#b39f04;">setTimeout</span><span style="color:#1f1f1f;">(() </span><span style="color:#668f14;">=&gt; </span><span style="color:#c23f31;">resolve</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;1秒&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#b3933a;">1000</span><span style="color:#1f1f1f;">);
 });
 
-let p2 = new Promise((resolve, reject) =&gt; {
-  setTimeout(() =&gt; resolve(&quot;2秒&quot;), 2000);
+</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">p2 </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Promise</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">resolve</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">reject</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#b39f04;">setTimeout</span><span style="color:#1f1f1f;">(() </span><span style="color:#668f14;">=&gt; </span><span style="color:#c23f31;">resolve</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;2秒&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#b3933a;">2000</span><span style="color:#1f1f1f;">);
 });
 
-let p3 = new Promise((resolve, reject) =&gt; {
-  setTimeout(() =&gt; resolve(&quot;3秒&quot;), 3000);
+</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">p3 </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Promise</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">resolve</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">reject</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#b39f04;">setTimeout</span><span style="color:#1f1f1f;">(() </span><span style="color:#668f14;">=&gt; </span><span style="color:#c23f31;">resolve</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;3秒&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#b3933a;">3000</span><span style="color:#1f1f1f;">);
 });
 
-let p4 = new Promise((resolve, reject) =&gt; {
-  setTimeout(() =&gt; reject(&quot;错误&quot;), 1000);
+</span><span style="color:#668f14;">let </span><span style="color:#5597d6;">p4 </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Promise</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">resolve</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">reject</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#b39f04;">setTimeout</span><span style="color:#1f1f1f;">(() </span><span style="color:#668f14;">=&gt; </span><span style="color:#c23f31;">reject</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;错误&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#b3933a;">1000</span><span style="color:#1f1f1f;">);
 });
 
-myPromiseRace([p3, p2, p1]).then((d) =&gt; console.log(d));
-//1秒
-myPromiseRace([p2, p3, p4])
-  .then((d) =&gt; console.log(d))
-  .catch((e) =&gt; console.log(e));
-//错误
-</code></pre>
+</span><span style="color:#c23f31;">myPromiseRace</span><span style="color:#1f1f1f;">([</span><span style="color:#5597d6;">p3</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">p2</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">p1</span><span style="color:#1f1f1f;">]).</span><span style="color:#b39f04;">then</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">d</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">d</span><span style="color:#1f1f1f;">));
+</span><span style="color:#7f8989;">//1秒
+</span><span style="color:#c23f31;">myPromiseRace</span><span style="color:#1f1f1f;">([</span><span style="color:#5597d6;">p2</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">p3</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">p4</span><span style="color:#1f1f1f;">])
+  .</span><span style="color:#b39f04;">then</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">d</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">d</span><span style="color:#1f1f1f;">))
+  .</span><span style="color:#b39f04;">catch</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">));
+</span><span style="color:#7f8989;">//错误
+</span></code></pre>
 <p>参考：</p>
 <ul>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise - MDN</a></li>

@@ -35,6 +35,9 @@
             <div class="title">Catalyst</div>
             <div class="divider"></div>
             <nav>
+              <div class="moblie-header">
+                <div class="moblie-title">Catalyst</div>
+              </div>
               <ul>
                 
                   <li>
@@ -134,7 +137,7 @@
         
         <!-- main -->
         <div class="main">
-          <div class="moblie-header">
+          <div class="moblie-header" id="moblie-header">
             <div class="moblie-title">Catalyst</div>
             <button class="burger">
               <i data-feather="menu"></i>
@@ -176,10 +179,10 @@
 <li>Margin 外边框</li>
 </ul>
 <p>指定盒模型：</p>
-<pre><code>box-sizing: content-box //宽度和高度应用到content
-box-sizing: border-box   //IE型，宽度和高度应用到Border为止
-</code></pre>
-<h2 id="yuan-su-ju-zhong">元素居中</h2>
+<pre style="background-color:#f5f5f5;">
+<code class="language-css" data-lang="css"><span style="color:#cda869;">box-sizing</span><span style="color:#1f1f1f;">: </span><span style="color:#cda869;">content-box </span><span style="color:#1f1f1f;">//宽度和高度应用到content
+</span><span style="color:#cda869;">box-sizing</span><span style="color:#1f1f1f;">: </span><span style="color:#cda869;">border-box   </span><span style="color:#1f1f1f;">//IE型，宽度和高度应用到Border为止
+</span></code></pre><h2 id="yuan-su-ju-zhong">元素居中</h2>
 <h3 id="shui-ping-ju-zhong">水平居中</h3>
 <ul>
 <li>文字：设置 <code>text-align:center</code>。</li>
@@ -197,18 +200,19 @@ box-sizing: border-box   //IE型，宽度和高度应用到Border为止
 <li>设置父元素为<code>grid</code>，同上。</li>
 </ul>
 <h2 id="shu-xing-xuan-ze-qi-de-pi-pei">属性选择器的匹配</h2>
-<pre><code>[class^=&quot;parent&quot;]
+<pre style="background-color:#f5f5f5;">
+<code class="language-css" data-lang="css"><span style="color:#1f1f1f;">[</span><span style="color:#7f902a;">class</span><span style="color:#72ab00;">^=</span><span style="color:#d07711;">&quot;parent&quot;</span><span style="color:#1f1f1f;">]
 //选择以parent开头的类
 
-[attribute^=&quot;value&quot;]
+[</span><span style="color:#7f902a;">attribute</span><span style="color:#72ab00;">^=</span><span style="color:#d07711;">&quot;value&quot;</span><span style="color:#1f1f1f;">]
 //选属性值以value开头的元素
 
-[attribute=value]
+[</span><span style="color:#7f902a;">attribute</span><span style="color:#72ab00;">=</span><span style="color:#d07711;">value</span><span style="color:#1f1f1f;">]
 //选择属性值=value的元素
 
-[attribute~=value]
+[</span><span style="color:#7f902a;">attribute</span><span style="color:#72ab00;">~=</span><span style="color:#d07711;">value</span><span style="color:#1f1f1f;">]
 //选择属性值包含value的元素
-</code></pre>
+</span></code></pre>
 <p>参考：<a href="https://www.w3school.com.cn/cssref/css_selectors.asp">CSS 选择器</a></p>
 
         </article>

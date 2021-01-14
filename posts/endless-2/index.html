@@ -35,6 +35,9 @@
             <div class="title">Catalyst</div>
             <div class="divider"></div>
             <nav>
+              <div class="moblie-header">
+                <div class="moblie-title">Catalyst</div>
+              </div>
               <ul>
                 
                   <li>
@@ -149,7 +152,7 @@
         
         <!-- main -->
         <div class="main">
-          <div class="moblie-header">
+          <div class="moblie-header" id="moblie-header">
             <div class="moblie-title">Catalyst</div>
             <button class="burger">
               <i data-feather="menu"></i>
@@ -202,39 +205,43 @@
 <p>新建一个文件来写数据库相关。</p>
 <p>文件保存在 android 的<a href="https://developer.android.google.cn/training/data-storage/app-specific">应用专属文件目录</a>中。利用<a href="https://docs.microsoft.com/zh-cn/xamarin/xamarin-forms/app-fundamentals/dependency-service/">dependency-service</a>可以先定义一个接口然后分平台实现。(参照了这个实现吐司的方法：<a href="https://stackoverflow.com/questions/35279403/toast-equivalent-for-xamarin-forms">Toast equivalent for Xamarin Forms</a>)</p>
 <p>定义：</p>
-<pre><code>type IDataBasePath =
+<pre style="background-color:#f5f5f5;">
+<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">type IDataBasePath =
     abstract member Path:unit-&gt;string
-</code></pre>
+</span></code></pre>
 <p>在 Android 文件夹下：</p>
-<pre><code>type DataBasePath()=
+<pre style="background-color:#f5f5f5;">
+<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">type DataBasePath()=
     interface ELType.IDataBasePath with
         member this.Path() = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), &quot;mydata.db&quot;)
 
 [&lt;assembly: Xamarin.Forms.Dependency(typeof&lt;DataBasePath&gt;)&gt;]
 do()
-</code></pre>
+</span></code></pre>
 <p>最后使用的时候</p>
-<pre><code>open LiteDB
-open LiteDB.FSharp
-open Xamarin.Forms
+<pre style="background-color:#f5f5f5;">
+<code class="language-f#" data-lang="f#"><span style="color:#72ab00;">open </span><span style="color:#c23f31;">LiteDB
+</span><span style="color:#72ab00;">open </span><span style="color:#c23f31;">LiteDB.FSharp
+</span><span style="color:#72ab00;">open </span><span style="color:#c23f31;">Xamarin.Forms
 
-let mapper = FSharpBsonMapper()
-let path = DependencyService.Get&lt;IDataBasePath&gt;().Path()
-let db = new LiteDatabase(path, mapper)
-</code></pre>
-<h2 id="wen-dang-jie-gou">文档结构</h2>
+</span><span style="color:#72ab00;">let </span><span style="color:#5597d6;">mapper </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> FSharpBsonMapper</span><span style="color:#b3933a;">()
+</span><span style="color:#72ab00;">let </span><span style="color:#5597d6;">path </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> DependencyService.Get</span><span style="color:#72ab00;">&lt;</span><span style="color:#1f1f1f;">IDataBasePath</span><span style="color:#72ab00;">&gt;</span><span style="color:#b3933a;">()</span><span style="color:#1f1f1f;">.Path</span><span style="color:#b3933a;">()
+</span><span style="color:#72ab00;">let </span><span style="color:#5597d6;">db </span><span style="color:#72ab00;">= new</span><span style="color:#1f1f1f;"> LiteDatabase</span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">path</span><span style="color:#72ab00;">,</span><span style="color:#1f1f1f;"> mapper</span><span style="color:#72ab00;">)
+</span></code></pre><h2 id="wen-dang-jie-gou">文档结构</h2>
 <p><code>LiteDB.FSharp</code>库使用 records 组织结构。这里直接使用之前定义的<code>ELEntry</code>作为存储数据：</p>
 <p>利用 ID 自增。</p>
-<pre><code>[&lt;CLIMutable&gt;]
-type ELEntry= {
-    Id:int
-    Content:string
-    Date:string
-}
-</code></pre>
+<pre style="background-color:#f5f5f5;">
+<code class="language-f#" data-lang="f#"><span style="color:#b39f04;">[&lt;CLIMutable&gt;]
+</span><span style="color:#72ab00;">type </span><span style="color:#c23f31;">ELEntry</span><span style="color:#72ab00;">= {
+</span><span style="color:#1f1f1f;">    Id</span><span style="color:#72ab00;">:</span><span style="color:#c23f31;">int
+</span><span style="color:#1f1f1f;">    Content</span><span style="color:#72ab00;">:</span><span style="color:#c23f31;">string
+</span><span style="color:#1f1f1f;">    Date</span><span style="color:#72ab00;">:</span><span style="color:#c23f31;">string
+</span><span style="color:#72ab00;">}
+</span></code></pre>
 <p>之后添加的条目,需要自增的 id 填 0。</p>
 <h3 id="shu-ju-jie-gou">数据结构</h3>
-<pre><code>type ELEntry= {
+<pre style="background-color:#f5f5f5;">
+<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">type ELEntry= {
     Id:int
     Content:string
     Date:System.DateTime
@@ -245,9 +252,10 @@ type Model = {
     NowWrite:string
     Data:seq&lt;ELEntry&gt;
 }
-</code></pre>
+</span></code></pre>
 <p>消息有新建、打开、删除消息框、删除、反馈输入的文字、保存和切换 Tab 。</p>
-<pre><code>type Msg =
+<pre style="background-color:#f5f5f5;">
+<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">type Msg =
     | NewEntry
     | Open of int
     | Delete of bool*int
@@ -255,11 +263,11 @@ type Model = {
     | NowWriting of string
     | Save
     | Switch of int
-</code></pre>
-<h2 id="zeng-shan-gai-cha">增删改查</h2>
+</span></code></pre><h2 id="zeng-shan-gai-cha">增删改查</h2>
 <p>先得到一个表。</p>
-<pre><code>let data = db.GetCollection&lt;ELEntry&gt;(&quot;entries&quot;)
-</code></pre>
+<pre style="background-color:#f5f5f5;">
+<code class="language-f#" data-lang="f#"><span style="color:#72ab00;">let </span><span style="color:#5597d6;">data </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> db.GetCollection</span><span style="color:#72ab00;">&lt;</span><span style="color:#1f1f1f;">ELEntry</span><span style="color:#72ab00;">&gt;(</span><span style="color:#d07711;">&quot;entries&quot;</span><span style="color:#72ab00;">)
+</span></code></pre>
 <ol>
 <li>增加：<code>data.Insert(newEntry)</code></li>
 <li>修改：<code>data.Upsert(newEntry)</code>（新增或插入），<code>data.Update(newEntry)</code>。</li>
@@ -280,40 +288,41 @@ type Model = {
 <li>
 <p>输入的时候，数据保存到<code>model.NowWrite</code>中。</p>
 <p>对应<code>type Msg</code>的消息类型<code>NowWriting</code>。在视图的 Editor 中，每当输入文字时发送消息。</p>
-<pre><code>View.Editor
-    (text = model.NowWrite,
-    textChanged = (fun text -&gt; dispatch (NowWriting text.NewTextValue) |&gt; ignore),
-    &lt;略&gt;)
-</code></pre>
+<pre style="background-color:#f5f5f5;">
+<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">View.Editor
+</span><span style="color:#1f1f1f;">    (text = model.NowWrite,
+</span><span style="color:#1f1f1f;">    textChanged = (fun text -&gt; dispatch (NowWriting text.NewTextValue) |&gt; ignore),
+</span><span style="color:#1f1f1f;">    &lt;略&gt;)
+</span></code></pre>
 <p>处理方法：</p>
-<pre><code>match msg with
-| NowWriting str -&gt; { model with ELType.NowWrite = str }, Cmd.none
-| &lt;略&gt;
-</code></pre>
-</li>
+<pre style="background-color:#f5f5f5;">
+<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">match msg with
+</span><span style="color:#1f1f1f;">| NowWriting str -&gt; { model with ELType.NowWrite = str }, Cmd.none
+</span><span style="color:#1f1f1f;">| &lt;略&gt;
+</span></code></pre></li>
 <li>
 <p>保存的时候，更新数据库。</p>
-<pre><code>//输入界面
+<pre style="background-color:#f5f5f5;">
+<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">//输入界面
 
-View.NavigationPage
-    (icon = penImg, title = &quot;笔记&quot;, toolbarItems = [ View.ToolbarItem(icon = saveImg, command = (fun()-&gt; dispatch Save) ) ], &lt;略&gt;)
+</span><span style="color:#1f1f1f;">View.NavigationPage
+</span><span style="color:#1f1f1f;">    (icon = penImg, title = &quot;笔记&quot;, toolbarItems = [ View.ToolbarItem(icon = saveImg, command = (fun()-&gt; dispatch Save) ) ], &lt;略&gt;)
 
-//update
+</span><span style="color:#1f1f1f;">//update
 
-match msg with
-    | Save -&gt;
-        let newEntry =
-            { Content = model.NowWrite
-            Date = System.DateTime.Today
-            Id = model.NowId }
+</span><span style="color:#1f1f1f;">match msg with
+</span><span style="color:#1f1f1f;">    | Save -&gt;
+</span><span style="color:#1f1f1f;">        let newEntry =
+</span><span style="color:#1f1f1f;">            { Content = model.NowWrite
+</span><span style="color:#1f1f1f;">            Date = System.DateTime.Today
+</span><span style="color:#1f1f1f;">            Id = model.NowId }
 
-        ELDb.upsert (newEntry) |&gt; ignore
-        { model with
-            NowWrite = &quot;&quot;
-            Data = ELDb.data.FindAll() },
-        Cmd.none
-</code></pre>
-</li>
+</span><span style="color:#1f1f1f;">        ELDb.upsert (newEntry) |&gt; ignore
+</span><span style="color:#1f1f1f;">        { model with
+</span><span style="color:#1f1f1f;">            NowWrite = &quot;&quot;
+</span><span style="color:#1f1f1f;">            Data = ELDb.data.FindAll() },
+</span><span style="color:#1f1f1f;">        Cmd.none
+</span></code></pre></li>
 </ol>
 <h2 id="zui-hou-de-xiao-guo">最后的效果</h2>
 <p><img src="./endless-21.jpg" alt="结果" /></p>

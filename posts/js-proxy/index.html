@@ -35,6 +35,9 @@
             <div class="title">Catalyst</div>
             <div class="divider"></div>
             <nav>
+              <div class="moblie-header">
+                <div class="moblie-title">Catalyst</div>
+              </div>
               <ul>
                 
                   <li>
@@ -118,7 +121,7 @@
         
         <!-- main -->
         <div class="main">
-          <div class="moblie-header">
+          <div class="moblie-header" id="moblie-header">
             <div class="moblie-title">Catalyst</div>
             <button class="burger">
               <i data-feather="menu"></i>
@@ -153,33 +156,34 @@
             <p>Proxy 作为一个对象的代理——利用 Proxy 操作原对象，可覆盖原对象的方法。</p>
 <span id="continue-reading"></span><h2 id="proxy">Proxy</h2>
 <p>覆盖/添加对原对象的操作。</p>
-<pre><code>const handler = {
-  get(obj, prop) {
-    return prop in obj ? obj[prop] + &quot; from proxy&quot; : &quot;do not exist&quot;;
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">const </span><span style="color:#5597d6;">handler </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#c23f31;">get</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">obj</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">prop</span><span style="color:#1f1f1f;">) {
+    </span><span style="color:#72ab00;">return </span><span style="color:#5597d6;">prop </span><span style="color:#72ab00;">in </span><span style="color:#5597d6;">obj </span><span style="color:#72ab00;">? </span><span style="color:#5597d6;">obj</span><span style="color:#1f1f1f;">[</span><span style="color:#5597d6;">prop</span><span style="color:#1f1f1f;">] </span><span style="color:#72ab00;">+ </span><span style="color:#d07711;">&quot; from proxy&quot; </span><span style="color:#72ab00;">: </span><span style="color:#d07711;">&quot;do not exist&quot;</span><span style="color:#1f1f1f;">;
   },
 };
-var target = { a: 100 };
-const p = new Proxy(target, handler);
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">target </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">{ a: </span><span style="color:#b3933a;">100 </span><span style="color:#1f1f1f;">};
+</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">p </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Proxy</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">target</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">handler</span><span style="color:#1f1f1f;">);
 
-console.log(target.a);
-//100
-console.log(p.a);
-//100 from proxy
-console.log(target.b);
-//undefined
-console.log(p.b);
-//do not exist
-</code></pre>
+</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">target</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">a</span><span style="color:#1f1f1f;">);
+</span><span style="color:#7f8989;">//100
+</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">p</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">a</span><span style="color:#1f1f1f;">);
+</span><span style="color:#7f8989;">//100 from proxy
+</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">target</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">b</span><span style="color:#1f1f1f;">);
+</span><span style="color:#7f8989;">//undefined
+</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">p</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">b</span><span style="color:#1f1f1f;">);
+</span><span style="color:#7f8989;">//do not exist
+</span></code></pre>
 <p>对代理的操作=对原对象的操作</p>
-<pre><code>var target = { a: 100 };
-const p = new Proxy(target, {});
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">var </span><span style="color:#5597d6;">target </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">{ a: </span><span style="color:#b3933a;">100 </span><span style="color:#1f1f1f;">};
+</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">p </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Proxy</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">target</span><span style="color:#1f1f1f;">, {});
 
-p.b = &quot;b&quot;;
+</span><span style="color:#5597d6;">p</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">b </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;b&quot;</span><span style="color:#1f1f1f;">;
 
-console.log(target.b);
-//b
-</code></pre>
-<h2 id="reflect">Reflect</h2>
+</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">target</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">b</span><span style="color:#1f1f1f;">);
+</span><span style="color:#7f8989;">//b
+</span></code></pre><h2 id="reflect">Reflect</h2>
 <p><code>Reflect</code>是一个内置对象，提供一些原生的方法。</p>
 <h2 id="can-kao-zi-liao">参考资料</h2>
 <ul>

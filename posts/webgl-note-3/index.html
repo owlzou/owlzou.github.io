@@ -35,6 +35,9 @@
             <div class="title">Catalyst</div>
             <div class="divider"></div>
             <nav>
+              <div class="moblie-header">
+                <div class="moblie-title">Catalyst</div>
+              </div>
               <ul>
                 
                   <li>
@@ -123,7 +126,7 @@
         
         <!-- main -->
         <div class="main">
-          <div class="moblie-header">
+          <div class="moblie-header" id="moblie-header">
             <div class="moblie-title">Catalyst</div>
             <button class="burger">
               <i data-feather="menu"></i>
@@ -163,40 +166,41 @@
 <p>参考资料：MDN 的<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL">加载纹理</a></p>
 </blockquote>
 <p>因为只画一次，所以绘图函数写在了加载图像的回调后，保证设置完后再绘制纹理。</p>
-<pre><code>function loadTexture(gl, shaderProgram, imageSrc) {
-  let texture = gl.createTexture();
-  let image = new Image();
-  image.src = imageSrc;
-  //加载完图像后执行的函数
-  image.onload = function () {
-    //绑定纹理
-    gl.bindTexture(gl.TEXTURE_2D, texture);
-    //指定二维纹理贴图，详细级别。颜色组件，数据格式，数据类型，数据源
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-    //设置纹理在放大和缩小时候采用的采样方案。
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    gl.texParameteri(
-      gl.TEXTURE_2D,
-      gl.TEXTURE_MIN_FILTER,
-      gl.LINEAR_MIPMAP_NEAREST
-    );
-    //生成mipmap
-    gl.generateMipmap(gl.TEXTURE_2D);
-    //绑定纹理
-    gl.activeTexture(gl.TEXTURE0); //TEXTURE0默认激活，注释掉也行
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">function </span><span style="color:#c23f31;">loadTexture</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">imageSrc</span><span style="color:#1f1f1f;">) {
+  </span><span style="color:#668f14;">let </span><span style="color:#5597d6;">texture </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">createTexture</span><span style="color:#1f1f1f;">();
+  </span><span style="color:#668f14;">let </span><span style="color:#5597d6;">image </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Image</span><span style="color:#1f1f1f;">();
+  </span><span style="color:#5597d6;">image</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">src </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">imageSrc</span><span style="color:#1f1f1f;">;
+  </span><span style="color:#7f8989;">//加载完图像后执行的函数
+  </span><span style="color:#5597d6;">image</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">onload </span><span style="color:#72ab00;">= </span><span style="color:#668f14;">function </span><span style="color:#1f1f1f;">() {
+    </span><span style="color:#7f8989;">//绑定纹理
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">bindTexture</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">TEXTURE_2D</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">texture</span><span style="color:#1f1f1f;">);
+    </span><span style="color:#7f8989;">//指定二维纹理贴图，详细级别。颜色组件，数据格式，数据类型，数据源
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">texImage2D</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">TEXTURE_2D</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">RGBA</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">RGBA</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">UNSIGNED_BYTE</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">image</span><span style="color:#1f1f1f;">);
+    </span><span style="color:#7f8989;">//设置纹理在放大和缩小时候采用的采样方案。
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">texParameteri</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">TEXTURE_2D</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">TEXTURE_MAG_FILTER</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">LINEAR</span><span style="color:#1f1f1f;">);
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">texParameteri</span><span style="color:#1f1f1f;">(
+      </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">TEXTURE_2D</span><span style="color:#1f1f1f;">,
+      </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">TEXTURE_MIN_FILTER</span><span style="color:#1f1f1f;">,
+      </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">LINEAR_MIPMAP_NEAREST
+    </span><span style="color:#1f1f1f;">);
+    </span><span style="color:#7f8989;">//生成mipmap
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">generateMipmap</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">TEXTURE_2D</span><span style="color:#1f1f1f;">);
+    </span><span style="color:#7f8989;">//绑定纹理
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">activeTexture</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">TEXTURE0</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//TEXTURE0默认激活，注释掉也行
     //传入纹理数据到着色器
-    gl.uniform1i(gl.getUniformLocation(shaderProgram, &quot;uSampler&quot;), 0);
-    //绘制
-    gl.useProgram(shaderProgram);
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">uniform1i</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">getUniformLocation</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;uSampler&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">);
+    </span><span style="color:#7f8989;">//绘制
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">useProgram</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">);
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">drawArrays</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">TRIANGLE_STRIP</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">);
   };
-  return texture;
+  </span><span style="color:#72ab00;">return </span><span style="color:#5597d6;">texture</span><span style="color:#1f1f1f;">;
 }
-</code></pre>
-<h2 id="2-xiu-gai-zhao-se-qi">2. 修改着色器</h2>
+</span></code></pre><h2 id="2-xiu-gai-zhao-se-qi">2. 修改着色器</h2>
 <p>因为是逐像素传数据，所以先用<code>attribute</code>型接受数据，然后传到<code>varying</code>中以传入片段着色器中。
 在片段着色器中使用<code>sampler2D</code>类型承载<code>GL_TEXTURE</code>对象。<code>texture2D</code>获取纹理对应坐标上的颜色值。</p>
-<pre><code>const vertexSource = `
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">const </span><span style="color:#5597d6;">vertexSource </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">`
 attribute vec2 aPosition;
 attribute vec2 aTexCoord;
 varying lowp vec2 vTexCoord;
@@ -204,41 +208,42 @@ void main(){
     vTexCoord = aTexCoord;
     gl_Position=vec4(aPosition,0.0,1.0);
 }
-`;
+`</span><span style="color:#1f1f1f;">;
 
-const fragmentSource = `
+</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">fragmentSource </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">`
 varying lowp vec2 vTexCoord;
 uniform sampler2D uSampler;
 void main(){
       gl_FragColor = texture2D(uSampler,vTexCoord);
   }
-`;
-</code></pre>
-<h2 id="3-wen-li-ying-she">3.纹理映射</h2>
+`</span><span style="color:#1f1f1f;">;
+</span></code></pre><h2 id="3-wen-li-ying-she">3.纹理映射</h2>
 <p>指定图形上显示的纹理的坐标，按照点的顺序来。</p>
 <blockquote>
 <p>2020.09.13：这里正方形的点只写<code>x</code>和<code>y</code>是因为上面的着色器里已经把<code>z</code>设定了。半年过去自己都忘记了 😅。</p>
 </blockquote>
-<pre><code>//正方形的点
-const vertices = [-0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, 0.5];
-//纹理对应坐标
-const tex = [0, 0, 0, 1, 1, 0, 1, 1];
-</code></pre>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#7f8989;">//正方形的点
+</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">vertices </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[</span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">];
+</span><span style="color:#7f8989;">//纹理对应坐标
+</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">tex </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">];
+</span></code></pre>
 <p>上次写的一次性输入，这次分别绑定缓冲：</p>
-<pre><code>function simpleBindBuffer(gl, shaderProgram, name, data, size) {
-  const buffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW);
-  const index = gl.getAttribLocation(shaderProgram, name);
-  gl.vertexAttribPointer(index, size, gl.FLOAT, false, 0, 0);
-  gl.enableVertexAttribArray(index);
-  return buffer;
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">function </span><span style="color:#c23f31;">simpleBindBuffer</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">name</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">) {
+  </span><span style="color:#668f14;">const </span><span style="color:#5597d6;">buffer </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">createBuffer</span><span style="color:#1f1f1f;">();
+  </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">bindBuffer</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">ARRAY_BUFFER</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">buffer</span><span style="color:#1f1f1f;">);
+  </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">bufferData</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">ARRAY_BUFFER</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">new </span><span style="color:#c23f31;">Float32Array</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">), </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">STATIC_DRAW</span><span style="color:#1f1f1f;">);
+  </span><span style="color:#668f14;">const </span><span style="color:#5597d6;">index </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">getAttribLocation</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">name</span><span style="color:#1f1f1f;">);
+  </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">vertexAttribPointer</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">index</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">size</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">FLOAT</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">false</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">);
+  </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">enableVertexAttribArray</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">index</span><span style="color:#1f1f1f;">);
+  </span><span style="color:#72ab00;">return </span><span style="color:#5597d6;">buffer</span><span style="color:#1f1f1f;">;
 }
 
-//设置缓冲
-simpleBindBuffer(gl, shaderProgram, &quot;aPosition&quot;, vertices, 2);
-simpleBindBuffer(gl, shaderProgram, &quot;aTexCoord&quot;, tex, 2);
-</code></pre>
+</span><span style="color:#7f8989;">//设置缓冲
+</span><span style="color:#c23f31;">simpleBindBuffer</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;aPosition&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">vertices</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">);
+</span><span style="color:#c23f31;">simpleBindBuffer</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;aTexCoord&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">tex</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">);
+</span></code></pre>
 <p>这样就能在平面上贴上纹理了。</p>
 <h2 id="4-cuo-wu">4. 错误</h2>
 <blockquote>

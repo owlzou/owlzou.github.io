@@ -35,6 +35,9 @@
             <div class="title">Catalyst</div>
             <div class="divider"></div>
             <nav>
+              <div class="moblie-header">
+                <div class="moblie-title">Catalyst</div>
+              </div>
               <ul>
                 
                   <li>
@@ -137,7 +140,7 @@
         
         <!-- main -->
         <div class="main">
-          <div class="moblie-header">
+          <div class="moblie-header" id="moblie-header">
             <div class="moblie-title">Catalyst</div>
             <button class="burger">
               <i data-feather="menu"></i>
@@ -183,65 +186,66 @@
 <p>加载就用常用的库吧，这里使用<code>three.js</code>。查看教程，得，所有的都用threejs写吧（所以标题改掉了😂）</p>
 <h3 id="2-1-htmljie-gou">2.1 HTML结构</h3>
 <p>由于是在three.js里将<code>canvas</code>挂在html下，所以准备一个空的html就可以了。</p>
-<pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
+<pre style="background-color:#f5f5f5;">
+<code class="language-html" data-lang="html"><span style="color:#494949;">&lt;!</span><span style="color:#72ab00;">DOCTYPE </span><span style="color:#b3933a;">html</span><span style="color:#494949;">&gt;
+</span><span style="color:#6486ab;">&lt;html&gt;
     &lt;head&gt;
-        &lt;meta charset=&quot;utf-8&quot;&gt;
-        &lt;title&gt;webgl&lt;/title&gt;
-        &lt;style&gt;
-            body { margin: 0; }
-            canvas { display: block; }
-        &lt;/style&gt;
+        </span><span style="color:#7f902a;">&lt;meta charset=</span><span style="color:#d07711;">&quot;utf-8&quot;</span><span style="color:#7f902a;">&gt;
+        &lt;title&gt;</span><span style="color:#1f1f1f;">webgl</span><span style="color:#7f902a;">&lt;/title&gt;
+        </span><span style="color:#6486ab;">&lt;style&gt;
+            </span><span style="background-color:#b0b3ba14;color:#cda869;">body </span><span style="background-color:#b0b3ba14;color:#1f1f1f;">{ </span><span style="background-color:#b0b3ba14;color:#c5af75;">margin</span><span style="background-color:#b0b3ba14;color:#1f1f1f;">: </span><span style="background-color:#b0b3ba14;color:#ca7840;">0</span><span style="background-color:#b0b3ba14;color:#1f1f1f;">; }
+            </span><span style="background-color:#b0b3ba14;color:#cda869;">canvas </span><span style="background-color:#b0b3ba14;color:#1f1f1f;">{ </span><span style="background-color:#b0b3ba14;color:#c5af75;">display</span><span style="background-color:#b0b3ba14;color:#1f1f1f;">: </span><span style="background-color:#b0b3ba14;color:#949175;">block</span><span style="background-color:#b0b3ba14;color:#1f1f1f;">; }
+        </span><span style="color:#6486ab;">&lt;/style&gt;
     &lt;/head&gt;
     &lt;body&gt;
-        &lt;script src=&quot;libs/three.js&quot;&gt;&lt;/script&gt;
-        &lt;script src=&quot;libs/GLTFLoader.js&quot;&gt;&lt;/script&gt;
-        &lt;script src=&quot;我们的js的路径&quot;&gt;&lt;/script&gt;
+        &lt;script src=</span><span style="color:#d07711;">&quot;libs/three.js&quot;</span><span style="color:#6486ab;">&gt;&lt;/script&gt;
+        &lt;script src=</span><span style="color:#d07711;">&quot;libs/GLTFLoader.js&quot;</span><span style="color:#6486ab;">&gt;&lt;/script&gt;
+        &lt;script src=</span><span style="color:#d07711;">&quot;我们的js的路径&quot;</span><span style="color:#6486ab;">&gt;&lt;/script&gt;
  &lt;/body&gt;
 &lt;/html&gt;
-</code></pre>
-<h3 id="2-2-jian-li-chang-jing">2.2 建立场景</h3>
+</span></code></pre><h3 id="2-2-jian-li-chang-jing">2.2 建立场景</h3>
 <p>在js文件里新建一个three.js场景</p>
-<pre><code>var scene = new THREE.Scene();
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">var </span><span style="color:#5597d6;">scene </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">THREE</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">Scene</span><span style="color:#1f1f1f;">();
 
-//设置摄像机，参数分别是 fov, 长宽比， 近/远的剪切平面
-var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+</span><span style="color:#7f8989;">//设置摄像机，参数分别是 fov, 长宽比， 近/远的剪切平面
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">camera </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">THREE</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">PerspectiveCamera</span><span style="color:#1f1f1f;">( </span><span style="color:#b3933a;">75</span><span style="color:#1f1f1f;">, </span><span style="color:#a2a001;">window</span><span style="color:#1f1f1f;">.</span><span style="color:#a2a001;">innerWidth </span><span style="color:#72ab00;">/ </span><span style="color:#a2a001;">window</span><span style="color:#1f1f1f;">.</span><span style="color:#a2a001;">innerHeight</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0.1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1000 </span><span style="color:#1f1f1f;">);
 
-var renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">renderer </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">THREE</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">WebGLRenderer</span><span style="color:#1f1f1f;">();
+</span><span style="color:#5597d6;">renderer</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">setSize</span><span style="color:#1f1f1f;">( </span><span style="color:#a2a001;">window</span><span style="color:#1f1f1f;">.</span><span style="color:#a2a001;">innerWidth</span><span style="color:#1f1f1f;">, </span><span style="color:#a2a001;">window</span><span style="color:#1f1f1f;">.</span><span style="color:#a2a001;">innerHeight </span><span style="color:#1f1f1f;">);
 
-//canvas挂载
-document.body.appendChild( renderer.domElement );
+</span><span style="color:#7f8989;">//canvas挂载
+</span><span style="color:#a2a001;">document</span><span style="color:#1f1f1f;">.</span><span style="color:#a2a001;">body</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">appendChild</span><span style="color:#1f1f1f;">( </span><span style="color:#5597d6;">renderer</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">domElement </span><span style="color:#1f1f1f;">);
 
-//由于在原点加载模型，拉开摄像机
-camera.position.z = 10;
-</code></pre>
-<h3 id="2-3-jia-zai-mo-xing">2.3 加载模型</h3>
+</span><span style="color:#7f8989;">//由于在原点加载模型，拉开摄像机
+</span><span style="color:#5597d6;">camera</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">position</span><span style="color:#1f1f1f;">.</span><span style="color:#a2a001;">z </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">10</span><span style="color:#1f1f1f;">;
+</span></code></pre><h3 id="2-3-jia-zai-mo-xing">2.3 加载模型</h3>
 <p>用最简化的代码。注意<code>GLTFLoader</code>不包含在threejs本身，是另外的一个js文件……</p>
-<pre><code>var loader = new THREE.GLTFLoader();
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">var </span><span style="color:#5597d6;">loader </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">THREE</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">GLTFLoader</span><span style="color:#1f1f1f;">();
 
-loader.load(
-    'monkey.glb',
-    //加载完后
-	function ( gltf ) {
-		scene.add( gltf.scene ) //添加到场景
-	}//其他的暂时不需要
-);
-</code></pre>
-<h3 id="2-4-xuan-ran">2.4 渲染</h3>
+</span><span style="color:#5597d6;">loader</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">load</span><span style="color:#1f1f1f;">(
+    </span><span style="color:#d07711;">&#39;monkey.glb&#39;</span><span style="color:#1f1f1f;">,
+    </span><span style="color:#7f8989;">//加载完后
+	</span><span style="color:#668f14;">function </span><span style="color:#1f1f1f;">( </span><span style="color:#5597d6;">gltf </span><span style="color:#1f1f1f;">) {
+		</span><span style="color:#5597d6;">scene</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">add</span><span style="color:#1f1f1f;">( </span><span style="color:#5597d6;">gltf</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">scene </span><span style="color:#1f1f1f;">) </span><span style="color:#7f8989;">//添加到场景
+	</span><span style="color:#1f1f1f;">}</span><span style="color:#7f8989;">//其他的暂时不需要
+</span><span style="color:#1f1f1f;">);
+</span></code></pre><h3 id="2-4-xuan-ran">2.4 渲染</h3>
 <p>准备一个渲染函数实施渲染。经测试，必须要循环渲染。</p>
-<pre><code>function animate() {
-  requestAnimationFrame(animate);
-  renderer.render(scene, camera);
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">function </span><span style="color:#c23f31;">animate</span><span style="color:#1f1f1f;">() {
+  </span><span style="color:#c23f31;">requestAnimationFrame</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">animate</span><span style="color:#1f1f1f;">);
+  </span><span style="color:#5597d6;">renderer</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">render</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">scene</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">camera</span><span style="color:#1f1f1f;">);
 }
-animate();
-</code></pre>
-<h3 id="2-5-sui-bian-jia-dian-deng-guang">2.5 随便加点灯光</h3>
+</span><span style="color:#c23f31;">animate</span><span style="color:#1f1f1f;">();
+</span></code></pre><h3 id="2-5-sui-bian-jia-dian-deng-guang">2.5 随便加点灯光</h3>
 <p>加完了发现还是一片漆黑，想了想，哦，没加灯光。</p>
-<pre><code>var pointLight = new THREE.PointLight(0xffffff, 1, 100);
-pointLight.position.set(10, 10, 10);
-scene.add(pointLight);
-</code></pre>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">var </span><span style="color:#5597d6;">pointLight </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">THREE</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">PointLight</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">0xffffff</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">100</span><span style="color:#1f1f1f;">);
+</span><span style="color:#5597d6;">pointLight</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">position</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">set</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">10</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">10</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">10</span><span style="color:#1f1f1f;">);
+</span><span style="color:#5597d6;">scene</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">add</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">pointLight</span><span style="color:#1f1f1f;">);
+</span></code></pre>
 <p>目前没专心three.js这里，所以只是潦草地看了一下……</p>
 <p>到时候真要用再重来一遍.jpg</p>
 <p><strong>参考资料</strong></p>

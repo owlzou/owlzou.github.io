@@ -35,6 +35,9 @@
             <div class="title">Catalyst</div>
             <div class="divider"></div>
             <nav>
+              <div class="moblie-header">
+                <div class="moblie-title">Catalyst</div>
+              </div>
               <ul>
                 
                   <li>
@@ -145,7 +148,7 @@
         
         <!-- main -->
         <div class="main">
-          <div class="moblie-header">
+          <div class="moblie-header" id="moblie-header">
             <div class="moblie-title">Catalyst</div>
             <button class="burger">
               <i data-feather="menu"></i>
@@ -179,17 +182,19 @@
 <span id="continue-reading"></span><h2 id="mo-kuai">模块</h2>
 <h3 id="ding-yi">定义</h3>
 <p>总之，为了建立工程化的文件，使用 <code>cargo</code> 新建工程。</p>
-<pre><code>cargo new &lt;工程名&gt;
-cargo new --lib &lt;库名&gt;
-</code></pre>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#1f1f1f;">cargo new </span><span style="color:#72ab00;">&lt;</span><span style="color:#1f1f1f;">工程名</span><span style="color:#72ab00;">&gt;
+</span><span style="color:#1f1f1f;">cargo new </span><span style="color:#72ab00;">--</span><span style="color:#1f1f1f;">lib </span><span style="color:#72ab00;">&lt;</span><span style="color:#1f1f1f;">库名</span><span style="color:#72ab00;">&gt;
+</span></code></pre>
 <p>工程中的 <code>main.rs</code> 和 <code>lib.rs</code> 是所有相关文件的根文件。</p>
 <p>利用 <code>mod</code> 定义模块，在模块之中还能再定义模块。</p>
-<pre><code>mod my_module{
-	mod module_in_module{
-		fn add() {}
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#668f14;">mod </span><span style="color:#c23f31;">my_module</span><span style="color:#1f1f1f;">{
+	</span><span style="color:#668f14;">mod </span><span style="color:#c23f31;">module_in_module</span><span style="color:#1f1f1f;">{
+		</span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">add</span><span style="color:#1f1f1f;">() {}
 	}
 }
-</code></pre>
+</span></code></pre>
 <p>在模块中使用 <code>pub</code> 关键字标明公共方法。结构体和结构体内的字段， <code>pub</code> 是分开的。</p>
 <h3 id="lu-jing">路径</h3>
 <ul>
@@ -204,53 +209,54 @@ cargo new --lib &lt;库名&gt;
 <h3 id="chai-fen">拆分</h3>
 <p>在不同的文件写同一个模块的内容：在声明模块后使用 <code>;</code> ，说明加载其他同名文件夹中的内容。</p>
 <p>例,文件路径</p>
-<pre><code>│  calculate.rs
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">│  calculate.rs
 │  lib.rs
 │  main.rs
 │
 └─calculate
         add.rs
-</code></pre>
-<pre><code>//src\calculate\add.rs
-pub fn add(a: i32, b: i32) -&gt; i32 {
-    a + b
+</span></code></pre><pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#7f8989;">//src\calculate\add.rs
+</span><span style="color:#668f14;">pub fn </span><span style="color:#c23f31;">add</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">a</span><span style="color:#1f1f1f;">: </span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">b</span><span style="color:#1f1f1f;">: </span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">) -&gt; </span><span style="color:#668f14;">i32 </span><span style="color:#1f1f1f;">{
+    a </span><span style="color:#72ab00;">+</span><span style="color:#1f1f1f;"> b
 }
-</code></pre>
-<pre><code>//src\calculate.rs
-pub mod add;
-</code></pre>
-<pre><code>//src\lib.rs
-pub mod calculate;
+</span></code></pre><pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#7f8989;">//src\calculate.rs
+</span><span style="color:#668f14;">pub mod </span><span style="color:#c23f31;">add</span><span style="color:#1f1f1f;">;
+</span></code></pre><pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#7f8989;">//src\lib.rs
+</span><span style="color:#668f14;">pub mod </span><span style="color:#c23f31;">calculate</span><span style="color:#1f1f1f;">;
 
-pub fn call_add()-&gt;i32{
-    calculate::add::add(1,2)
+</span><span style="color:#668f14;">pub fn </span><span style="color:#c23f31;">call_add</span><span style="color:#1f1f1f;">()-&gt;</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">{
+    calculate::add::add(</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">)
 }
-</code></pre>
-<pre><code>//src\main.rs
-use modul::calculate;
+</span></code></pre><pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#7f8989;">//src\main.rs
+</span><span style="color:#72ab00;">use </span><span style="color:#1f1f1f;">modul::calculate;
 
-fn main() {
-    println!(&quot;{}&quot;,calculate::add::add(2,2));
-    println!(&quot;{}&quot;,modul::call_add());
+</span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,calculate::add::add(</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">));
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,modul::call_add());
 }
-</code></pre>
-<pre><code>//Cargo.toml
+</span></code></pre><pre style="background-color:#f5f5f5;">
+<code class="language-toml" data-lang="toml"><span style="background-color:#562d56bf;color:#f8f8f8;">//Cargo.toml</span><span style="color:#1f1f1f;">
 ...
-[lib]
-name = &quot;modul&quot;
-path = &quot;src/lib.rs&quot;
+[</span><span style="color:#6486ab;">lib</span><span style="color:#1f1f1f;">]
+</span><span style="color:#7f902a;">name </span><span style="color:#1f1f1f;">= </span><span style="color:#d07711;">&quot;modul&quot;
+</span><span style="color:#7f902a;">path </span><span style="color:#1f1f1f;">= </span><span style="color:#d07711;">&quot;src/lib.rs&quot;
 
-[[bin]]
-name = &quot;modul&quot;
-path = &quot;src/main.rs&quot;
-</code></pre>
-<h2 id="ce-shi">测试</h2>
+</span><span style="color:#1f1f1f;">[[</span><span style="color:#6486ab;">bin</span><span style="color:#1f1f1f;">]]
+</span><span style="color:#7f902a;">name </span><span style="color:#1f1f1f;">= </span><span style="color:#d07711;">&quot;modul&quot;
+</span><span style="color:#7f902a;">path </span><span style="color:#1f1f1f;">= </span><span style="color:#d07711;">&quot;src/main.rs&quot;
+</span></code></pre><h2 id="ce-shi">测试</h2>
 <h3 id="ji-chu">基础</h3>
 <p>在函数前添加 <code>#[test]</code> 表明这是一个测试用的函数。之后运行 <code>cargo test</code> 就可以执行测试函数。</p>
-<pre><code> #[test]
- fn test(){
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#1f1f1f;"> #[</span><span style="color:#5597d6;">test</span><span style="color:#1f1f1f;">]
+ </span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">test</span><span style="color:#1f1f1f;">(){
  }
-</code></pre>
+</span></code></pre>
 <p>测试主要分 <code>单元测试</code> 和 <code>集成测试</code> 。</p>
 <ul>
 <li>
@@ -261,7 +267,8 @@ path = &quot;src/main.rs&quot;
 </li>
 </ul>
 <p>在模块前添加 <code>#[cfg(test)]</code> 表明测试用模块。测试模块只在测试时编译。</p>
-<pre><code>#[cfg(test)]
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">#[cfg(test)]
 mod tests {
     use super::*; //使用这让测试函数使用外部模块定义的代码
 
@@ -270,15 +277,16 @@ mod tests {
         assert!(true);
     }
 }
-</code></pre>
-<h3 id="hong">宏</h3>
+</span></code></pre><h3 id="hong">宏</h3>
 <p>执行断言：</p>
-<pre><code>assert!(&lt;表达式&gt;); //返回成功或失败
-assert_eq!(&lt;表达式1&gt;,&lt;表达式2&gt;); //测试两个表达式是否相等
-</code></pre>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#a2a001;">assert!</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">&lt;</span><span style="color:#1f1f1f;">表达式</span><span style="color:#72ab00;">&gt;</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//返回成功或失败
+</span><span style="color:#a2a001;">assert_eq!</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">&lt;</span><span style="color:#1f1f1f;">表达式1</span><span style="color:#72ab00;">&gt;</span><span style="color:#1f1f1f;">,&lt;表达式2&gt;); </span><span style="color:#7f8989;">//测试两个表达式是否相等
+</span></code></pre>
 <p>自定义错误信息：</p>
-<pre><code>assert!(false,&quot;错误信息 {}&quot;, err);
-</code></pre>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#a2a001;">assert!</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">false</span><span style="color:#1f1f1f;">,</span><span style="color:#d07711;">&quot;错误信息 {}&quot;</span><span style="color:#1f1f1f;">, err);
+</span></code></pre>
 <p>对于应该 <code>panic</code> 的函数在 <code>#[test]</code> 下使用 <code>#[should_panic]</code>。</p>
 <p>使用 <code>#[ignore]</code> 忽略此测试函数。</p>
 <h3 id="kong-zhi">控制</h3>

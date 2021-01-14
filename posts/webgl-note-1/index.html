@@ -35,6 +35,9 @@
             <div class="title">Catalyst</div>
             <div class="divider"></div>
             <nav>
+              <div class="moblie-header">
+                <div class="moblie-title">Catalyst</div>
+              </div>
               <ul>
                 
                   <li>
@@ -103,7 +106,7 @@
         
         <!-- main -->
         <div class="main">
-          <div class="moblie-header">
+          <div class="moblie-header" id="moblie-header">
             <div class="moblie-title">Catalyst</div>
             <button class="burger">
               <i data-feather="menu"></i>
@@ -148,77 +151,77 @@
 </li>
 <li>
 <p>着色器同样是字符串。简单的着色器</p>
-<pre><code>//注意分号
-const vertexSource = `
-attribute vec3 pos;
-void main(){
-    gl_Position=vec4(pos.x,pos.y,pos.z,1.0);
-}
-`;
-const fragmentSource = `
-void main(){
-        gl_FragColor = vec4(1.0,1.0,1.0,1.0);
-    }
-`;
-</code></pre>
-</li>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#7f8989;">//注意分号
+</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">vertexSource </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">`
+</span><span style="color:#d07711;">attribute vec3 pos;
+</span><span style="color:#d07711;">void main(){
+</span><span style="color:#d07711;">    gl_Position=vec4(pos.x,pos.y,pos.z,1.0);
+</span><span style="color:#d07711;">}
+</span><span style="color:#d07711;">`</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">fragmentSource </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">`
+</span><span style="color:#d07711;">void main(){
+</span><span style="color:#d07711;">        gl_FragColor = vec4(1.0,1.0,1.0,1.0);
+</span><span style="color:#d07711;">    }
+</span><span style="color:#d07711;">`</span><span style="color:#1f1f1f;">;
+</span></code></pre></li>
 <li>
 <p>编译着色器，两种都需要</p>
-<pre><code>//gl.VERTEX_SHADER或gl.FRAGMENT_SHADER
-const vertexShader = gl.createShader(gl.VERTEX_SHADER);
-//source为之前写好的着色器代码（字符串）
-gl.shaderSource(vertexShader, vertexSource);
-gl.compileShader(vertexShader); //void
-</code></pre>
-</li>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#7f8989;">//gl.VERTEX_SHADER或gl.FRAGMENT_SHADER
+</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">vertexShader </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">createShader</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">VERTEX_SHADER</span><span style="color:#1f1f1f;">);
+</span><span style="color:#7f8989;">//source为之前写好的着色器代码（字符串）
+</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">shaderSource</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">vertexShader</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">vertexSource</span><span style="color:#1f1f1f;">);
+</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">compileShader</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">vertexShader</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//void
+</span></code></pre></li>
 <li>
 <p>创建着色器程序：</p>
-<pre><code>const shaderProgram = gl.createProgram();
-gl.attachShader(shaderProgram, vertexShader);
-gl.attachShader(shaderProgram, fragShader);
-gl.linkProgram(shaderProgram);
-</code></pre>
-</li>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">const </span><span style="color:#5597d6;">shaderProgram </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">createProgram</span><span style="color:#1f1f1f;">();
+</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">attachShader</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">vertexShader</span><span style="color:#1f1f1f;">);
+</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">attachShader</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">fragShader</span><span style="color:#1f1f1f;">);
+</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">linkProgram</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">);
+</span></code></pre></li>
 <li>
 <p>渲染对象顶点组（正方形）</p>
-<pre><code>const vertices = [0.5, -0.5, 0, 0.5, 0.5, 0, -0.5, 0.5, 0, -0.5, -0.5, 0];
-</code></pre>
-</li>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">const </span><span style="color:#5597d6;">vertices </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">-</span><span style="color:#b3933a;">0.5</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">];
+</span></code></pre></li>
 <li>
 <p>创建缓冲器存储对象顶点数据:</p>
-<pre><code>//初始化一个buffer对象
-buffer = gl.createBuffer();
-//参数一：指定绑定buffer类型，参数二：要绑定的buffer
-gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-//创建buffer的数据存储区域：类型，源数据，使用方法。
-gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-</code></pre>
-</li>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#7f8989;">//初始化一个buffer对象
+</span><span style="color:#5597d6;">buffer </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">createBuffer</span><span style="color:#1f1f1f;">();
+</span><span style="color:#7f8989;">//参数一：指定绑定buffer类型，参数二：要绑定的buffer
+</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">bindBuffer</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">ARRAY_BUFFER</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">buffer</span><span style="color:#1f1f1f;">);
+</span><span style="color:#7f8989;">//创建buffer的数据存储区域：类型，源数据，使用方法。
+</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">bufferData</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">ARRAY_BUFFER</span><span style="color:#1f1f1f;">, </span><span style="color:#72ab00;">new </span><span style="color:#c23f31;">Float32Array</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">vertices</span><span style="color:#1f1f1f;">), </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">STATIC_DRAW</span><span style="color:#1f1f1f;">);
+</span></code></pre></li>
 <li>
 <p>链接着色器和顶点数据</p>
-<pre><code>//参数为顶点属性索引，每个顶点中组成数量，数据类型，是否归一化，步长，offset
-gl.vertexAttribPointer(0, 3, gl.FLOAT, false, 0, 0);
-//启用顶点属性，参数为要激活的顶点属性索引
-//使用getAttribLocation获取索引的例子
-var index = gl.getAttribLocation(shaderProgram, &quot;pos&quot;);
-gl.enableVertexAttribArray(index);
-</code></pre>
-</li>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#7f8989;">//参数为顶点属性索引，每个顶点中组成数量，数据类型，是否归一化，步长，offset
+</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">vertexAttribPointer</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">FLOAT</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">false</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">);
+</span><span style="color:#7f8989;">//启用顶点属性，参数为要激活的顶点属性索引
+</span><span style="color:#7f8989;">//使用getAttribLocation获取索引的例子
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">index </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">getAttribLocation</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;pos&quot;</span><span style="color:#1f1f1f;">);
+</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">enableVertexAttribArray</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">index</span><span style="color:#1f1f1f;">);
+</span></code></pre></li>
 <li>
 <p>渲染场景</p>
 <ul>
 <li>
 <p>清除<code>canvas</code>:</p>
-<pre><code>gl.clearColor(0, 0, 0, 1); // 设置清除颜色
-gl.clear(gl.COLOR_BUFFER_BIT);
-</code></pre>
-</li>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">clearColor</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">// 设置清除颜色
+</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">clear</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">COLOR_BUFFER_BIT</span><span style="color:#1f1f1f;">);
+</span></code></pre></li>
 <li>
 <p>画图：</p>
-<pre><code>gl.useProgram(shaderProgram);
-gl.drawArrays(gl.LINE_LOOP, 0, 4);
-</code></pre>
-</li>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">useProgram</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">);
+</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">drawArrays</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">LINE_LOOP</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">);
+</span></code></pre></li>
 </ul>
 </li>
 </ul>

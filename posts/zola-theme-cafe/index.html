@@ -35,6 +35,9 @@
             <div class="title">Catalyst</div>
             <div class="divider"></div>
             <nav>
+              <div class="moblie-header">
+                <div class="moblie-title">Catalyst</div>
+              </div>
               <ul>
                 
                   <li>
@@ -108,7 +111,7 @@
         
         <!-- main -->
         <div class="main">
-          <div class="moblie-header">
+          <div class="moblie-header" id="moblie-header">
             <div class="moblie-title">Catalyst</div>
             <button class="burger">
               <i data-feather="menu"></i>
@@ -142,23 +145,26 @@
 <p>一些关于主题的笔记：</p>
 <h2 id="zi-ti-zi-ji-hua">字体子集化</h2>
 <p>就侧边目录这几个字的程度，还是可以用上自定义中文字体的。使用 <a href="https://github.com/googlefonts/sfntly">sfntly</a>可以制作字体字集。</p>
-<pre><code>java -jar sfnttool.jar -s '首页归档项目关于' '猫啃网风雅宋.ttf' 'maokenwangfengyasong.min.ttf'
-</code></pre>
+<pre style="background-color:#f5f5f5;">
+<code class="language-bash" data-lang="bash"><span style="color:#5597d6;">java -jar</span><span style="color:#1f1f1f;"> sfnttool.jar</span><span style="color:#5597d6;"> -s </span><span style="color:#d07711;">&#39;首页归档项目关于&#39; &#39;猫啃网风雅宋.ttf&#39; &#39;maokenwangfengyasong.min.ttf&#39;
+</span></code></pre>
 <p>从 17318kb 减到了 5kb ……</p>
 <p>将输出的文件复制到<code>static</code>文件夹。在<code>sass</code>文件夹中新建 <code>custom.css</code> 加载本地字体：</p>
-<pre><code>@font-face {
-  font-family: &quot;猫啃网风雅宋&quot;;
-  src: url(&quot;/maokenwangfengyasong.min.ttf&quot;); 
+<pre style="background-color:#f5f5f5;">
+<code class="language-css" data-lang="css"><span style="color:#72ab00;">@font-face </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#c5af75;">font-family</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;猫啃网风雅宋&quot;</span><span style="color:#1f1f1f;">;
+  </span><span style="color:#c5af75;">src</span><span style="color:#1f1f1f;">: </span><span style="color:#b39f04;">url</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;/maokenwangfengyasong.min.ttf&quot;</span><span style="color:#1f1f1f;">); 
 }
-</code></pre>
+</span></code></pre>
 <p>然后使用继承模板功能，在不修改原主题的情况下添加 css 文件。(扩展阅读：<a href="https://www.getzola.org/documentation/themes/extending-a-theme/">Extending a theme | Zola</a>)</p>
 <p>在 <code>templates</code> 文件夹下新建 <code>base.html</code></p>
-<pre><code>{% extends &quot;zola-theme-cafe/templates/base.html&quot; %}
+<pre style="background-color:#f5f5f5;">
+<code class="language-tera" data-lang="tera"><span style="color:#1f1f1f;">{% extends &quot;zola-theme-cafe/templates/base.html&quot; %}
 {%  block head %}
     {{ super() }}
     &lt;link href=&quot;{{ config.base_url }}custom.css&quot; rel=&quot;stylesheet&quot;/&gt;
 {% endblock %}
-</code></pre>
+</span></code></pre>
 <p>完成，收工。</p>
 
         </article>

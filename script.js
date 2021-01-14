@@ -10,7 +10,7 @@ document.querySelectorAll(".lazyload").forEach((img) => {
 });
 
 //Menu
-const $moblie_header = document.querySelector(".moblie-header");
+const $moblie_header = document.querySelector("#moblie-header");
 document.querySelector(".burger").addEventListener("click", () => {
   if (is_menu_open) {
     document.querySelector(".sidebar").classList.remove("active");
