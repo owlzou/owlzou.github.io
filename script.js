@@ -92,7 +92,36 @@ if (document.querySelector(".toc") != null) {
       );
       document.getElementById(id).classList.add("active");
     });
-  }else{
+  } else {
     document.querySelector(".toc").remove();
   }
+}
+
+//feather Icon loaded
+function icon_loaded() {
+  
+  // Copy Code
+  document.querySelectorAll(".post-type pre").forEach((ele) => {
+    //wrap
+    let $div = document.createElement("div");
+    $div.style = "position:relative";
+    ele.parentNode.insertBefore($div, ele);
+    $div.append(ele);
+    //建立按钮
+    let $btn = document.createElement("button");
+    $btn.classList.add("copy");
+    $btn.innerHTML = `<i data-feather="copy">copy</i>`;
+    $btn.onclick = () => {
+      const $input = document.createElement("input");
+      $input.style = "position:fixed;left:-1000px";
+      $input.setAttribute("readonly", "readonly");
+      document.querySelector("body").append($input);
+      $input.setAttribute("value", ele.innerText);
+      $input.select();
+      document.execCommand("Copy");
+    };
+    ele.parentNode.insertBefore($btn, ele);
+  });
+
+  feather.replace();
 }
