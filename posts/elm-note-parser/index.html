@@ -230,7 +230,6 @@
 <tr><td>getChompedString</td><td>Parser a -&gt; Parser String</td><td>字面意思</td></tr>
 <tr><td>mapChompedString</td><td>(String -&gt; a -&gt; b) -&gt; Parser a -&gt; Parser b</td><td>字面意思</td></tr>
 </tbody></table>
-<p>上文中的管道方法其实都是 chomp 的一种，所以使用 symbol 函数，<code>getChompedString</code>和<code>mapChompedString</code>也会收到。</p>
 <p>接着使用</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-elm" data-lang="elm"><span style="color:#c23f31;">hexToInt </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Parser Int
