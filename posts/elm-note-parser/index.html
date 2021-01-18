@@ -136,6 +136,8 @@
             <i data-feather="clock"></i>
             <div class="post-date">2020-09-17
                 
+                    | Last Update：2021-01-18
+                
             </div>
             
                 
@@ -161,7 +163,10 @@
 <li><a href="https://github.com/elm/parser">🖥️ <code>elm/parser</code> 的 GitHub 地址</a></li>
 <li><a href="https://package.elm-lang.org/packages/elm/parser/latest/">📦 在<code>elm-package</code>上的地址</a></li>
 </ul>
-<h2 id="guan-dao-liu-cheng">管道流程</h2>
+<p>安装方法:</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">elm install elm/parser
+</span></code></pre><h2 id="guan-dao-liu-cheng">管道流程</h2>
 <p>包文档里提供的一个例子说明了 parser 的工作方法：</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-elm" data-lang="elm"><span style="color:#c23f31;">point </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Parser Point
@@ -178,12 +183,13 @@
     </span><span style="color:#72ab00;">|.</span><span style="color:#1f1f1f;"> symbol </span><span style="color:#d07711;">&quot;)&quot;
 </span></code></pre>
 <p>上面的<code>|.</code>，<code>|=</code>之类的是处理数据的方法。</p>
-<table><thead><tr><th>管道</th><th>备注</th></tr></thead><tbody>
-<tr><td>|.</td><td>解析并略过结果</td></tr>
-<tr><td>|=</td><td>解析并保留结果，左侧类型要是<code>Parser (a-&gt;b)</code></td></tr>
-<tr><td>succeed</td><td>直接输出内容，类型是<code>a-&gt;Parser a</code></td></tr>
-<tr><td>lazy</td><td>递归解析，例如在 parser 中包含 parser</td></tr>
-<tr><td>andThen ,problem</td><td></td></tr>
+<table><thead><tr><th>管道</th><th>类型</th><th>备注</th></tr></thead><tbody>
+<tr><td>|.</td><td><code> Parser keep -&gt; Parser ignore -&gt; Parser keep</code></td><td>解析并略过结果</td></tr>
+<tr><td>|=</td><td><code> Parser (a -&gt; b) -&gt; Parser a -&gt; Parser b</code></td><td>解析并保留结果，左侧类型要是<code>Parser (a-&gt;b)</code></td></tr>
+<tr><td>succeed</td><td><code>a-&gt;Parser a</code></td><td>直接输出内容</td></tr>
+<tr><td>lazy</td><td><code>(() -&gt; Parser a) -&gt; Parser a</code></td><td>递归解析，例如在 parser 中包含 parser</td></tr>
+<tr><td>andThen</td><td><code>(a -&gt; Parser b) -&gt; Parser a -&gt; Parser b</code></td><td>解析一个之后接着解析另一个</td></tr>
+<tr><td>problem</td><td><code>String -&gt; Parser a</code></td><td></td></tr>
 </tbody></table>
 <p>所以<code>point</code>解析器表示的意思就是抽取<code>(1,2)</code>，<code>（33 , 4324)</code>类似输入中的 xy 值。</p>
 <p>可以直接用于解析的解析器有:</p>
@@ -216,13 +222,15 @@
 <p>忽略掉前面的<code>#</code>，然后实施 3 个<code>hexToInt</code>（每个处理两个字符），每个都保留传输到 Color 构造中。</p>
 <h2 id="zhu-zi-chu-li">逐字处理</h2>
 <p>由上，我们的第一行已经有了： <code>|. symbol &quot;#&quot;</code>，但后面的就要自己处理了。看文档使用<code>Chompers</code>（咀嚼？感觉像是吃豆人那样一个一个处理并移除）。</p>
-<table><thead><tr><th>名称</th><th>备注</th></tr></thead><tbody>
-<tr><td>chompIf</td><td>处理一个通过测试的字符</td></tr>
-<tr><td>chompWhile</td><td>处理连续的通过测试的字符</td></tr>
-<tr><td>chompUntil</td><td>处理直到碰到给定的字符</td></tr>
-<tr><td>chompUntilEndOr</td><td>处理直到碰到给定的字符或结尾</td></tr>
-<tr><td>getChompedString,mapChompedString</td><td>字面意思，上文中的管道方法其实都是 chomp 的一种，所以使用 symbol 函数也会收到</td></tr>
+<table><thead><tr><th>名称</th><th>类型</th><th>备注</th></tr></thead><tbody>
+<tr><td>chompIf</td><td>(Char -&gt; Bool) -&gt; Parser ()</td><td>处理一个通过测试的字符</td></tr>
+<tr><td>chompWhile</td><td>(Char -&gt; Bool) -&gt; Parser ()</td><td>处理连续的通过测试的字符</td></tr>
+<tr><td>chompUntil</td><td>String -&gt; Parser ()</td><td>处理直到碰到给定的字符</td></tr>
+<tr><td>chompUntilEndOr</td><td>String -&gt; Parser ()</td><td>处理直到碰到给定的字符或结尾</td></tr>
+<tr><td>getChompedString</td><td>Parser a -&gt; Parser String</td><td>字面意思</td></tr>
+<tr><td>mapChompedString</td><td>(String -&gt; a -&gt; b) -&gt; Parser a -&gt; Parser b</td><td>字面意思</td></tr>
 </tbody></table>
+<p>上文中的管道方法其实都是 chomp 的一种，所以使用 symbol 函数，<code>getChompedString</code>和<code>mapChompedString</code>也会收到。</p>
 <p>接着使用</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-elm" data-lang="elm"><span style="color:#c23f31;">hexToInt </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Parser Int

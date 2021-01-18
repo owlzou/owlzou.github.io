@@ -112,12 +112,13 @@ function icon_loaded() {
     $btn.classList.add("copy");
     $btn.innerHTML = `<i data-feather="copy">copy</i>`;
     $btn.onclick = () => {
-      const $input = document.createElement("input");
-      $input.style = "position:fixed;left:-1000px";
-      $input.setAttribute("readonly", "readonly");
-      document.querySelector("body").append($input);
-      $input.setAttribute("value", ele.innerText);
-      $input.select();
+      const $textarea = document.createElement("textarea");
+      $textarea.style = "position:fixed;left:-1000px";
+      $textarea.setAttribute("readonly", "readonly");
+      document.querySelector("body").append($textarea);
+      //$textarea.setAttribute("value", ele.innerText);
+      $textarea.innerHTML = ele.innerText;
+      $textarea.select();
       document.execCommand("Copy");
     };
     ele.parentNode.insertBefore($btn, ele);
