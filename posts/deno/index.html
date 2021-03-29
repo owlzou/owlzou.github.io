@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    
+      <meta charset="UTF-8"/>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="icon" type="image/x-icon"/>
+      <title>
+        
+    Deno笔记 | Catalyst
+
+      </title>
+    
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;custom.css" rel="stylesheet"/>
+
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="fab">
+  <i data-feather="chevron-up"></i>
+</div>
+
+    
+      <div class="grass"></div>
+    
+    <div class="wrapper">
+      <div
+        class="container">
+        <!-- sidebar -->
+        
+          <div class="sidebar">
+            <div class="title"><a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a></div>
+            <div class="divider"></div>
+            <nav>
+              <div class="moblie-header">
+                <div class="moblie-title">Catalyst</div>
+              </div>
+              <ul>
+                
+                  <li>
+                    <a href="&#x2F;">首页</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;archives">归档</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;projects">项目</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;about">关于</a>
+                  </li>
+                
+              </ul>
+              <div class="side-buttons">
+                
+                  
+                    
+                      <a class="side-button" href="&#x2F;search">
+                        <i data-feather="search"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;tags">
+                        <i data-feather="tag"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;categories">
+                        <i data-feather="feather"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="https:&#x2F;&#x2F;github.com&#x2F;owlzou" target="_blank">
+                        <i data-feather="github"></i>
+                      </a>
+                    
+                  
+                
+              </div>
+            </nav>
+            <div class="toc-wrapper">
+              
+    <ul class="toc">
+    
+        <li >
+            <a id="to-an-zhuang" href="https://owlzou.github.io/posts/deno/#an-zhuang">安装</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-bian-xie" href="https://owlzou.github.io/posts/deno/#bian-xie">编写</a>
+            
+                <ul>
+                    
+                        <li >
+                            <a id="to-cli-xiang-guan" href="https://owlzou.github.io/posts/deno/#cli-xiang-guan">Cli 相关</a>
+                        </li>
+                    
+                        <li >
+                            <a id="to-wen-jian-cao-zuo" href="https://owlzou.github.io/posts/deno/#wen-jian-cao-zuo">文件操作</a>
+                        </li>
+                    
+                        <li >
+                            <a id="to-shi-yong-npm-xi-bao" href="https://owlzou.github.io/posts/deno/#shi-yong-npm-xi-bao">使用 NPM 系包</a>
+                        </li>
+                    
+                </ul>
+            
+        </li>
+    
+        <li >
+            <a id="to-yun-xing" href="https://owlzou.github.io/posts/deno/#yun-xing">运行</a>
+            
+        </li>
+    
+</ul>
+
+            </div>
+            
+              <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"></path>
+              </svg>
+            
+          </div>
+        
+        <!-- main -->
+        <div class="main">
+          <div class="moblie-header" id="moblie-header">
+            <div class="moblie-title">Catalyst</div>
+            <button class="burger">
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+          <!-- content -->
+          
+    <div class="blog">
+        <h1 class="post-title">
+            Deno笔记</h1>
+        <div class="post-info">
+            <i data-feather="clock"></i>
+            <div class="post-date">2021-03-10
+                
+            </div>
+            
+            
+                <i data-feather="tag"></i>
+                
+                    
+                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;javascript&#x2F;">JavaScript</a>
+                
+            
+        </div>
+        
+        <article class="post-type">
+            <p>当我发现 js 写得比 python 熟的时候——反正都是脚本，做一些本地处理为什么不能用 js 呢？</p>
+<p>然后我发现了 Deno。</p>
+<span id="continue-reading"></span>
+<p>部分特点有：</p>
+<ul>
+<li>安全，默认不开启敏感权限。</li>
+<li>本体只需要一个二进制文件，不像<code>nodejs</code>。</li>
+</ul>
+<h2 id="an-zhuang">安装</h2>
+<p><a href="https://deno.land/">Deno 的官网</a></p>
+<p>介绍：Deno 是一个简单、现代并安全的 JavaScript 和 TypeScript 运行时，使用 V8，利用 Rust 构建。</p>
+<p>用<code>scoop</code>安装：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">scoop install deno
+</span></code></pre><h2 id="bian-xie">编写</h2>
+<p><code>Deno</code>不使用<code>npm</code>而使用文件/网络 URL 导包。比如使用 <code>deno-sqlite</code> 库时的导入方法：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-typescript" data-lang="typescript"><span style="color:#72ab00;">import </span><span style="color:#1f1f1f;">{ </span><span style="color:#5597d6;">DB </span><span style="color:#1f1f1f;">} </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;https://deno.land/x/sqlite/mod.ts&quot;</span><span style="color:#1f1f1f;">;
+</span></code></pre>
+<p>运行<code>deno cache &lt;file&gt;</code>缓存当前使用的包。<a href="https://deno.land/manual/linking_to_external_code">包缓存在</a>：</p>
+<ul>
+<li>Linux: <code>$XDG_CACHE_HOME/deno</code> 或者 <code>$HOME/.cache/deno</code></li>
+<li>Windows: <code>%LOCALAPPDATA%/deno</code></li>
+</ul>
+<h3 id="cli-xiang-guan">Cli 相关</h3>
+<p>获取命令行参数：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-typescript" data-lang="typescript"><span style="color:#5597d6;">Deno</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">args</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">//返回Array
+</span></code></pre>
+<p>更高级的命令行：使用库 <a href="https://github.com/siokas/denomander">Denomander</a> 。</p>
+<p>使用<code>Deno</code>的 api：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">Deno.stdin
+Deno.stdout
+</span></code></pre><pre style="background-color:#f5f5f5;">
+<code class="language-typescript" data-lang="typescript"><span style="color:#72ab00;">import </span><span style="color:#1f1f1f;">{ </span><span style="color:#5597d6;">readLines </span><span style="color:#1f1f1f;">} </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;https://deno.land/std@0.82.0/io/bufio.ts&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">notebook </span><span style="color:#72ab00;">= await </span><span style="color:#c23f31;">readLines</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">Deno</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">stdin</span><span style="color:#1f1f1f;">);
+</span></code></pre><h3 id="wen-jian-cao-zuo">文件操作</h3>
+<p>读取</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-typescript" data-lang="typescript"><span style="color:#668f14;">const </span><span style="color:#5597d6;">text </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">Deno</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">readTextFile</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;./a.txt&quot;</span><span style="color:#1f1f1f;">);
+</span><span style="color:#5597d6;">text</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">then</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">response</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">response</span><span style="color:#1f1f1f;">));
+</span></code></pre>
+<p>写入</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-typescript" data-lang="typescript"><span style="color:#668f14;">const </span><span style="color:#5597d6;">write </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">Deno</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">writeTextFile</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;./hello.txt&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;Hello World!&quot;</span><span style="color:#1f1f1f;">);
+</span><span style="color:#5597d6;">write</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">then</span><span style="color:#1f1f1f;">(() </span><span style="color:#668f14;">=&gt; </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;File written to ./hello.txt&quot;</span><span style="color:#1f1f1f;">));
+</span></code></pre>
+<p><a href="https://deno.land/manual@v1.8.0/examples/read_write_files">示例</a></p>
+<h3 id="shi-yong-npm-xi-bao">使用 NPM 系包</h3>
+<p><code>Deno</code>仅支持<code>esm</code>。可以借用类似 <a href="https://jspm.org/">JSPM</a> 或者 <a href="https://www.pika.dev/">Pika</a> 的服务导入兼容包。</p>
+<p>例：导入<code>dayjs</code></p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-typescript" data-lang="typescript"><span style="color:#72ab00;">import </span><span style="color:#5597d6;">dayjs </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;https://cdn.skypack.dev/dayjs?dts&quot;</span><span style="color:#1f1f1f;">;
+</span></code></pre><h2 id="yun-xing">运行</h2>
+<p>设编写的脚本是<code>index.ts</code>。</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-sh" data-lang="sh"><span style="color:#5597d6;">deno</span><span style="color:#1f1f1f;"> run index.ts
+</span></code></pre>
+<p>注意部分脚本运行所需要的<a href="https://deno.land/manual@v1.8.0/getting_started/permissions">权限设置</a>：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-sh" data-lang="sh"><span style="color:#7f8989;">#例：读写权限
+</span><span style="color:#5597d6;">deno</span><span style="color:#1f1f1f;"> run</span><span style="color:#5597d6;"> --allow-read --allow-write</span><span style="color:#1f1f1f;"> index.ts
+</span></code></pre>
+        </article>
+        <div class="divider"></div>
+        
+            
+                <div id="comment">
+                    <div class="comment-placeholder">
+                        <i data-feather="loader"></i>Loading……</div>
+                    <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
+                </div>
+            
+        
+    </div>
+
+          <div class="footer">
+            <p>
+              
+                &copy;
+                <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+                2019-2021
+              
+            </p>
+            <p>Powerd by
+              <a href="https://www.getzola.org/">Zola</a>
+              | Theme
+              <a href="">Cafe</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+      <script onload="icon_loaded()" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+  </body>
+</html>

@@ -32,7 +32,7 @@
         <!-- sidebar -->
         
           <div class="sidebar">
-            <div class="title">Catalyst</div>
+            <div class="title"><a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a></div>
             <div class="divider"></div>
             <nav>
               <div class="moblie-header">
@@ -165,12 +165,11 @@
                 
             </div>
             
-            
-                <i data-feather="tag"></i>
                 
                     
-                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;rust&#x2F;">Rust</a>
+                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;rust&#x2F;">Rust</a>
                 
+            
             
         </div>
         
@@ -196,10 +195,11 @@
 }
 </span></code></pre>
 <p>在模块中使用 <code>pub</code> 关键字标明公共方法。结构体和结构体内的字段， <code>pub</code> 是分开的。</p>
+<p>主文件以外的文件本身不需要重复定义。如果有文件<code>am.rs</code>，如果再在<code>am.rs</code>里定义<code>mod am {fn add}</code>，那么需要<code>am::am::add</code>才能拿到函数。 </p>
 <h3 id="lu-jing">路径</h3>
 <ul>
 <li>调用路径：使用 <code>::</code>分割。</li>
-<li>绝对路径： <code>crate</code> 开头。例 <code>crate::my_module::module_in_module</code>。</li>
+<li>绝对路径： <code>crate</code> 开头。例 <code>crate::my_module::module_in_module</code>。（需要先在根文件里声明<code>pub mod a;</code>）</li>
 <li>相对路径： <code>my_module::module_in_module</code>。</li>
 <li>使用 <code>super</code> 开始父级的相对路径。</li>
 <li>用 <code>use</code> 简化后面路径的书写。可以用 <code>as</code> 给予别名。</li>

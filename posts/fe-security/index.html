@@ -32,7 +32,7 @@
         <!-- sidebar -->
         
           <div class="sidebar">
-            <div class="title">Catalyst</div>
+            <div class="title"><a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a></div>
             <div class="divider"></div>
             <nav>
               <div class="moblie-header">
@@ -160,6 +160,8 @@
             <i data-feather="clock"></i>
             <div class="post-date">2020-04-29
                 
+                    | Last Update：2021-02-08
+                
             </div>
             
                 
@@ -270,9 +272,14 @@ Content-Security-Policy: &lt;策略&gt;; &lt;策略&gt;
 <li>读：不允许</li>
 </ul>
 <ol>
-<li>
-<p>请求非同源情况下，服务器返回结果，响应头中没有<code>Access-Control-Allow-Origin</code>相关（=CORS），则浏览器拦截。</p>
-</li>
+<li>请求非同源情况下，服务器返回结果，响应头中没有<code>Access-Control-Allow-Origin</code>相关（=CORS），则浏览器拦截。参考:<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS">跨源资源共享（CORS）</a></li>
+</ol>
+<ul>
+<li>Access-Control-Allow-Origin：请求返回的响应头中含有<code>Access-Control-Allow-Origin: *</code>则表示资源可以被任意不同源域访问。或者可以<code>Access-Control-Allow-Origin: http://web.com</code> 只允许来自 <code>http://web.com</code> 的访问。</li>
+<li>Access-Control-Allow-Methods: 用于预检请求的响应，其指明了实际请求所允许使用的 HTTP 方法。</li>
+<li>Access-Control-Allow-Headers: 用于预检请求的响应，其指明了实际请求中允许携带的首部字段。</li>
+</ul>
+<ol start="2">
 <li>
 <p>可以使用<code>&lt;script&gt;</code>脚本 src 不检测跨源的特性绕过同源策略。 = jsonp，将数据填入回调函数。（只适用<code>GET</code>请求）。
 示例：</p>
@@ -286,7 +293,7 @@ Content-Security-Policy: &lt;策略&gt;; &lt;策略&gt;
 <p>服务器脚本内容是<code>cb(data)</code>。也就是<strong>本地定义函数，服务器调用</strong>。</p>
 </li>
 <li>
-<p><code>WebSocket</code>不遵循同源策略。</p>
+<p><code>WebSocket</code>不遵循同源策略。<code>XMLHttpRequest</code>和<code>Fetch API</code>遵循。</p>
 </li>
 </ol>
 <p>参考：<a href="https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy">浏览器的同源策略</a></p>
