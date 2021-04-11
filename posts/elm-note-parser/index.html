@@ -106,6 +106,11 @@
             
         </li>
     
+        <li >
+            <a id="to-21-04-11-ji-xu-yan-jiu-parser" href="https://owlzou.github.io/posts/elm-note-parser/#21-04-11-ji-xu-yan-jiu-parser">21.04.11 继续研究 Parser</a>
+            
+        </li>
+    
 </ul>
 
             </div>
@@ -136,7 +141,7 @@
             <i data-feather="clock"></i>
             <div class="post-date">2020-09-17
                 
-                    | Last Update：2021-01-18
+                    | Last Updated：2021-04-11
                 
             </div>
             
@@ -366,6 +371,67 @@
 </span></code>
 </details></pre>
 <!-- 创建日期：2020-03-27，半年后捡起来写完。不过一看当时写的还是挺多错的…… -->
+<h2 id="21-04-11-ji-xu-yan-jiu-parser">21.04.11 继续研究 Parser</h2>
+<blockquote>
+<p>写太短了不能变成一个新的博文，先放这里吧，以后写多了再独立出来</p>
+</blockquote>
+<p>研究 HTML 套壳技术而写了一个笔记 APP BubbleNote，里面需要分析输入的笔记内容中属于标签（<code>#标签#</code>）的部分和属于链接的部分（<code>https://github.com/</code>）提取出来做样式，于是又回到了解析器的研究 ✍️</p>
+<ul>
+<li><code>backtrackable : Parser a -&gt; Parser a</code></li>
+</ul>
+<p>可回溯的。例子：设定的语法中两个<code>#</code>中夹的是标签内容，但如果输入的内容只有一个<code>#</code>（作为普通的内容输入的），结果碰到<code>#</code>就分配到标签解析器，却因为少了一个<code>#</code>解析失败了……这时可以转回去使用别的解析器。</p>
+<ul>
+<li><code>commit : a -&gt; Parser a</code></li>
+</ul>
+<p>作为返回的完结值？</p>
+<ul>
+<li><code>loop : state -&gt; (state -&gt; Parser (Step state a)) -&gt; Parser a</code></li>
+</ul>
+<p>循环，有点复杂。</p>
+<p>例子：有类型：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-elm" data-lang="elm"><span style="color:#72ab00;">type </span><span style="color:#c23f31;">Content
+    </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">Text String
+    </span><span style="color:#72ab00;">| </span><span style="color:#b3933a;">Tag String
+    </span><span style="color:#72ab00;">| </span><span style="color:#b3933a;">Link String String
+</span></code></pre>
+<p>手上有几个解析器，分别是 <code>tagParser</code>、<code>textParser</code> 和 <code>linkParser</code>。要将一组数据解析为 <code>List Content</code>。</p>
+<p><code>loop</code>的两个参数，<code>state</code>是<code>当前状态</code>，<code>state -&gt; Parser (Step state a)</code> 相当于向下一个状态转移的函数。<code>Step</code>的定义为：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-elm" data-lang="elm"><span style="color:#72ab00;">type </span><span style="color:#c23f31;">Step</span><span style="color:#1f1f1f;"> state a
+  </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">Loop</span><span style="color:#1f1f1f;"> state
+  </span><span style="color:#72ab00;">| </span><span style="color:#b3933a;">Done</span><span style="color:#1f1f1f;"> a
+</span></code></pre>
+<p>它表示了下一步将采取的行动（是继续循环还是结束循环）。如果循环则将新的<code>state</code>赋予循环，如果结束循环则返回 <code>a</code>。</p>
+<p>在只解析一次的情况下，能写出：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-elm" data-lang="elm"><span style="color:#c23f31;">oneParser </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">Parser Content
+</span><span style="color:#c23f31;">oneParser </span><span style="color:#72ab00;">=
+</span><span style="color:#1f1f1f;">  oneOf </span><span style="color:#b39f04;">[</span><span style="color:#1f1f1f;"> linkParser</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> tagParser</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> textParser</span><span style="color:#b39f04;">]
+</span></code></pre>
+<p>在我们的循环中则是使用解析器，如果还没结束则再次解析。仿写文档中的例子：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-elm" data-lang="elm"><span style="color:#c23f31;">contentHelp </span><span style="color:#72ab00;">: </span><span style="color:#668f14;">List Content </span><span style="color:#72ab00;">-&gt; </span><span style="color:#668f14;">Parser</span><span style="color:#1f1f1f;"> (</span><span style="color:#668f14;">Step</span><span style="color:#1f1f1f;"> (</span><span style="color:#668f14;">List Content</span><span style="color:#1f1f1f;">) (</span><span style="color:#668f14;">List Content</span><span style="color:#1f1f1f;">))
+</span><span style="color:#c23f31;">contentHelp </span><span style="color:#1f1f1f;">cmds </span><span style="color:#72ab00;">=
+    let
+        </span><span style="color:#1f1f1f;">nextParser </span><span style="color:#72ab00;">: </span><span style="color:#b3933a;">Parser Content </span><span style="color:#72ab00;">-&gt; </span><span style="color:#b3933a;">Parser </span><span style="color:#72ab00;">(</span><span style="color:#b3933a;">Step </span><span style="color:#72ab00;">(</span><span style="color:#b3933a;">List Content</span><span style="color:#72ab00;">) (</span><span style="color:#b3933a;">List Content</span><span style="color:#72ab00;">))
+</span><span style="color:#1f1f1f;">        nextParser parser </span><span style="color:#72ab00;">=
+</span><span style="color:#1f1f1f;">            succeed </span><span style="color:#72ab00;">(\</span><span style="color:#1f1f1f;">next </span><span style="color:#72ab00;">-&gt; </span><span style="color:#b3933a;">Parser</span><span style="color:#72ab00;">.</span><span style="color:#b3933a;">Loop </span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">next </span><span style="color:#72ab00;">::</span><span style="color:#1f1f1f;"> cmds</span><span style="color:#72ab00;">))
+                |=</span><span style="color:#1f1f1f;"> parser
+
+        loopList </span><span style="color:#72ab00;">: </span><span style="color:#b3933a;">List </span><span style="color:#72ab00;">(</span><span style="color:#b3933a;">Parser </span><span style="color:#72ab00;">(</span><span style="color:#b3933a;">Step </span><span style="color:#72ab00;">(</span><span style="color:#b3933a;">List Content</span><span style="color:#72ab00;">) (</span><span style="color:#b3933a;">List Content</span><span style="color:#72ab00;">)))
+</span><span style="color:#1f1f1f;">        loopList </span><span style="color:#72ab00;">=
+            </span><span style="color:#b3933a;">List</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">map nextParser </span><span style="color:#b39f04;">[</span><span style="color:#1f1f1f;"> linkParser</span><span style="color:#b39f04;">, </span><span style="color:#b3933a;">Parser</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">backtrackable tagParser</span><span style="color:#b39f04;">,</span><span style="color:#1f1f1f;"> textParser </span><span style="color:#b39f04;">]
+    </span><span style="color:#72ab00;">in
+    </span><span style="color:#1f1f1f;">oneOf </span><span style="color:#72ab00;">&lt;|
+        </span><span style="color:#b3933a;">List</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">append loopList
+            </span><span style="color:#b39f04;">[</span><span style="color:#1f1f1f;"> succeed </span><span style="color:#b3933a;">() </span><span style="color:#72ab00;">|&gt; </span><span style="color:#b3933a;">Parser</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">map </span><span style="color:#72ab00;">(\</span><span style="color:#1f1f1f;">_ </span><span style="color:#72ab00;">-&gt; </span><span style="color:#b3933a;">Parser</span><span style="color:#72ab00;">.</span><span style="color:#b3933a;">Done </span><span style="color:#72ab00;">(</span><span style="color:#b3933a;">List</span><span style="color:#72ab00;">.</span><span style="color:#1f1f1f;">reverse cmds</span><span style="color:#72ab00;">)) </span><span style="color:#b39f04;">]
+</span></code></pre>
+<ol>
+<li>将所有解析器转换为<code>Parser (Step (List Content) (List Content))</code>类型，即如果执行了就添加结果到<code>cmds</code> 并进行下一个循环。</li>
+<li>最后在解析器列表中添加一个用于结束的 <code>Parser</code>，参数是循环的结果（倒序的<code>cmds</code>，因为上文中使用<code>::</code>将每次解析的结果添加到了列表最前面）。</li>
+<li>总体的<code>Parser</code>就是在这些分支中选一。</li>
+</ol>
 
         </article>
         <div class="divider"></div>
@@ -388,7 +454,7 @@
                 2019-2021
               
             </p>
-            <p>Powerd by
+            <p>Powered by
               <a href="https://www.getzola.org/">Zola</a>
               | Theme
               <a href="">Cafe</a>

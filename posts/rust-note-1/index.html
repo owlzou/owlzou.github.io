@@ -228,6 +228,8 @@
 <tr><td>数组</td><td>[&lt;类型&gt;;&lt;个数&gt;]</td><td>可以使用 [&lt;值&gt;;&lt;个数&gt;] 来初始化数组</td></tr>
 </tbody></table>
 <p>关于字符串：通常创建的硬编码字符串属于<code>&amp;str</code>，而创建可变字符串需要使用<code>String</code>。</p>
+<p><code>String</code>是以字节向量 (<code>Vec&lt;u8&gt;</code>)的方法存储的，始终是有效的 UTF-8 序列，分配在堆上，长度可变且不以 null 结尾。<code>str</code>是始终指向有效的 UTF-8 序列的片段(<code>&amp;[u8]</code>)。</p>
+<p>特殊字符使用<code>\</code>转义，需要<code>\</code>时则使用<code>\\</code>。</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-rust" data-lang="rust"><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> a </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;string&quot;</span><span style="color:#1f1f1f;">;
 </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> b </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;string&quot;</span><span style="color:#1f1f1f;">);
@@ -409,6 +411,7 @@
     <ul>
 <li>主要是<a href="https://doc.rust-lang.org/book/title-page.html">《The Book》</a>的读书笔记。</li>
 <li><a href="https://github.com/rust-lang/rustlings">Rustlings</a> 的做题感想</li>
+<li><a href="https://doc.rust-lang.org/rust-by-example/std/str.html">Strings - Rust By Example</a></li>
 <li>封面图片：<span>Photo by <a href="https://unsplash.com/@picoftasty?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Mae Mu</a> on <a href="https://unsplash.com/s/photos/crab?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span></li>
 </ul>
 
@@ -435,7 +438,7 @@
                 2019-2021
               
             </p>
-            <p>Powerd by
+            <p>Powered by
               <a href="https://www.getzola.org/">Zola</a>
               | Theme
               <a href="">Cafe</a>

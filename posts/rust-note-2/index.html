@@ -154,7 +154,7 @@
             <i data-feather="clock"></i>
             <div class="post-date">2020-10-03
                 
-                    | Last Update：2021-01-26
+                    | Last Updated：2021-04-01
                 
             </div>
             
@@ -360,10 +360,11 @@
 <p>虽然使用 <code>?</code> 返回的应该是同一种错误。但可以让类型定义<code>Trait</code> <code>std::convert::From&lt;&gt;</code>来自动转换。</p>
 <h2 id="die-dai-qi">迭代器</h2>
 <p>迭代器(Iterator)。可实现对序列化对象的遍历。<a href="https://doc.rust-lang.org/std/iter/trait.Iterator.html">详细可用方法</a></p>
-<p>所有<code>Iterator</code>均实现一个<code>next</code>方法以索引到下一个对象（<code>Some</code>或者<code>None</code>)。</p>
-<p>迭代器的消耗：可以理解为迭代器内部维护着目前的迭代情况。</p>
+<p>所有<code>Iterator</code>均实现一个<code>next</code>方法以索引到下一个对象（<code>Some</code>或者<code>None</code>）。</p>
+<p>迭代器的消耗：可以理解为迭代器内部维护着目前的迭代情况。需要注意的是，迭代器如果不消耗，设定的方法也不会运行。</p>
 <ul>
 <li><code>collect</code>将迭代器转换回集合。有时需要注明类型，例 <code>a.iter().collect::&lt;String&gt;()</code>。</li>
+<li><code>last</code> 运行（消耗）迭代器，返回最后一个元素。</li>
 </ul>
 <div class="reference">
     <div class="reference-title"><i data-feather="book-open"></i>参考资料</div>
@@ -396,7 +397,7 @@
                 2019-2021
               
             </p>
-            <p>Powerd by
+            <p>Powered by
               <a href="https://www.getzola.org/">Zola</a>
               | Theme
               <a href="">Cafe</a>
