@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    
+      <meta charset="UTF-8"/>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="icon" type="image/x-icon"/>
+      <title>
+        
+    PowerShell 备忘 | Catalyst
+
+      </title>
+    
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;custom.css" rel="stylesheet"/>
+
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="fab">
+  <i data-feather="chevron-up"></i>
+</div>
+
+    
+      <div class="grass"></div>
+    
+    <div class="wrapper">
+      <div
+        class="container">
+        <!-- sidebar -->
+        
+          <div class="sidebar">
+            <div class="title"><a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a></div>
+            <div class="divider"></div>
+            <nav>
+              <div class="moblie-header">
+                <div class="moblie-title">Catalyst</div>
+              </div>
+              <ul>
+                
+                  <li>
+                    <a href="&#x2F;">首页</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;archives">归档</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;projects">项目</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;about">关于</a>
+                  </li>
+                
+              </ul>
+              <div class="side-buttons">
+                
+                  
+                    
+                      <a class="side-button" href="&#x2F;search">
+                        <i data-feather="search"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;tags">
+                        <i data-feather="tag"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;categories">
+                        <i data-feather="feather"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="https:&#x2F;&#x2F;github.com&#x2F;owlzou" target="_blank">
+                        <i data-feather="github"></i>
+                      </a>
+                    
+                  
+                
+              </div>
+            </nav>
+            <div class="toc-wrapper">
+              
+    <ul class="toc">
+    
+        <li >
+            <a id="to-bian-ma" href="https://owlzou.github.io/posts/powershell/#bian-ma">编码</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-bian-liang-xiang-guan" href="https://owlzou.github.io/posts/powershell/#bian-liang-xiang-guan">变量相关</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-shu-ru-shu-chu" href="https://owlzou.github.io/posts/powershell/#shu-ru-shu-chu">输入输出</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-nei-rong-chu-li" href="https://owlzou.github.io/posts/powershell/#nei-rong-chu-li">内容处理</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-xi-tong-cao-zuo" href="https://owlzou.github.io/posts/powershell/#xi-tong-cao-zuo">系统操作</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-yu-fa" href="https://owlzou.github.io/posts/powershell/#yu-fa">语法</a>
+            
+        </li>
+    
+</ul>
+
+            </div>
+            
+              <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"></path>
+              </svg>
+            
+          </div>
+        
+        <!-- main -->
+        <div class="main">
+          <div class="moblie-header" id="moblie-header">
+            <div class="moblie-title">Catalyst</div>
+            <button class="burger">
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+          <!-- content -->
+          
+    <div class="blog">
+        <h1 class="post-title">
+            PowerShell 备忘</h1>
+        <div class="post-info">
+            <i data-feather="clock"></i>
+            <div class="post-date">2021-05-27
+                
+            </div>
+            
+                
+                    
+                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;jiao-ben&#x2F;">脚本</a>
+                
+            
+            
+        </div>
+        
+            <div class="post-cover"><img class="lazyload" data-src=".&#x2F;mel-3IA4-tUDyKI-unsplash.webp"/>
+            </div>
+        
+        <article class="post-type">
+            <p>PowerShell 该用还是得用啊。</p>
+<span id="continue-reading"></span><h2 id="bian-ma">编码</h2>
+<p>如果输出中文乱码，注意脚本文件是否是<strong>带 BOM 的 UTF-8</strong>（……）</p>
+<h2 id="bian-liang-xiang-guan">变量相关</h2>
+<p>定义变量：<code>$&lt;变量名&gt;=&lt;值&gt;</code>。</p>
+<p>连接字符串：使用<code>+</code>号。</p>
+<p>字符串中转义双引号：</p>
+<ul>
+<li>在单引号引住的字符串中，内中变量不代换，字符不转义，如果打单引号则重复一次单引号。</li>
+<li>在双引号引住的字符串中，如果打双引号则重复一次双引号。</li>
+</ul>
+<h2 id="shu-ru-shu-chu">输入输出</h2>
+<p>获取程序输出，例，程序名为 <code>app</code>:</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ps1" data-lang="ps1"><span style="color:#7f8989;"># 输出将输入到管道后。
+</span><span style="color:#1f1f1f;">app </span><span style="color:#72ab00;">| &lt;</span><span style="color:#1f1f1f;">下一个命令</span><span style="color:#72ab00;">&gt;
+
+</span><span style="color:#7f8989;"># 内容将输出到文件
+</span><span style="color:#1f1f1f;">app </span><span style="color:#72ab00;">&gt;</span><span style="color:#1f1f1f;"> file.txt
+
+</span><span style="color:#7f8989;"># 内容将输出到变量
+</span><span style="color:#5597d6;">$output</span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">app
+
+</span><span style="color:#7f8989;"># 放弃命令的输出
+</span><span style="color:#1f1f1f;">app </span><span style="color:#72ab00;">| </span><span style="color:#b39f04;">Out-Null
+</span></code></pre><h2 id="nei-rong-chu-li">内容处理</h2>
+<p>正则：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ps1" data-lang="ps1"><span style="color:#5597d6;">$line</span><span style="color:#72ab00;">=</span><span style="color:#d07711;">&quot;abcd.msi3421&quot;
+</span><span style="color:#5597d6;">$reg</span><span style="color:#72ab00;">=</span><span style="color:#d07711;">&quot;\S+\.msi&quot;
+</span><span style="color:#72ab00;">if</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">$line </span><span style="color:#72ab00;">-match </span><span style="color:#5597d6;">$reg</span><span style="color:#1f1f1f;">){
+	</span><span style="color:#a2a001;">$Matches</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">] </span><span style="color:#7f8989;">#abcd.msi
+</span><span style="color:#1f1f1f;">}
+</span></code></pre>
+<p>替换</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ps1" data-lang="ps1"><span style="color:#5597d6;">$line</span><span style="color:#72ab00;">=</span><span style="color:#d07711;">&quot;abcd.msi3421&quot;
+</span><span style="color:#7f8989;"># 注意中间的逗号
+</span><span style="color:#5597d6;">$line </span><span style="color:#72ab00;">-replace </span><span style="color:#d07711;">&quot;\d+&quot;</span><span style="color:#72ab00;">,</span><span style="color:#d07711;">&quot;替换后的内容&quot; </span><span style="color:#7f8989;">#abcd.msi替换后的内容
+</span></code></pre><h2 id="xi-tong-cao-zuo">系统操作</h2>
+<p>操作文件</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ps1" data-lang="ps1"><span style="color:#7f8989;"># 创建文件 file.toml | New-Item 可以简写成 ni
+</span><span style="color:#b39f04;">New-Item</span><span style="color:#1f1f1f;"> file.toml
+
+</span><span style="color:#7f8989;"># 创建文件夹 file.toml
+</span><span style="color:#b39f04;">New-Item</span><span style="color:#1f1f1f;"> file.toml </span><span style="color:#72ab00;">-</span><span style="color:#1f1f1f;">Type directory
+
+</span><span style="color:#7f8989;"># 删除文件 | Remove-Item 可以简写成 rm
+</span><span style="color:#b39f04;">Remove-Item</span><span style="color:#1f1f1f;"> file.toml
+
+</span><span style="color:#7f8989;"># 写入文件 $content 是写入的内容
+</span><span style="color:#5597d6;">$content </span><span style="color:#72ab00;">| </span><span style="color:#b39f04;">Out-File </span><span style="color:#72ab00;">-</span><span style="color:#1f1f1f;">FilePath </span><span style="color:#72ab00;">&lt;</span><span style="color:#1f1f1f;">路径</span><span style="color:#72ab00;">&gt; -</span><span style="color:#1f1f1f;">Encoding utf8
+
+</span><span style="color:#7f8989;"># 读取文件，不加 Out-String 获取的是 object，加了获得字符串
+</span><span style="color:#b39f04;">Get-Content </span><span style="color:#5597d6;">$path </span><span style="color:#72ab00;">| </span><span style="color:#b39f04;">Out-String
+</span></code></pre><h2 id="yu-fa">语法</h2>
+<p>函数:</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ps1" data-lang="ps1"><span style="color:#7f8989;"># 定义
+</span><span style="color:#668f14;">function </span><span style="color:#c23f31;">My-Func</span><span style="color:#1f1f1f;">{
+    </span><span style="color:#72ab00;">&lt;</span><span style="color:#1f1f1f;">内容</span><span style="color:#72ab00;">&gt;
+</span><span style="color:#1f1f1f;">}
+
+</span><span style="color:#7f8989;"># 使用
+</span><span style="color:#1f1f1f;">My</span><span style="color:#72ab00;">-</span><span style="color:#1f1f1f;">Func
+
+</span><span style="color:#7f8989;"># 带参数
+</span><span style="color:#668f14;">function </span><span style="color:#c23f31;">My-FuncB</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">$arg</span><span style="color:#1f1f1f;">){
+    </span><span style="color:#72ab00;">&lt;</span><span style="color:#1f1f1f;">内容</span><span style="color:#72ab00;">&gt;
+</span><span style="color:#1f1f1f;">}
+
+</span><span style="color:#7f8989;"># 使用
+</span><span style="color:#1f1f1f;">My</span><span style="color:#72ab00;">-</span><span style="color:#1f1f1f;">FuncB arg
+</span></code></pre><div class="reference">
+    <div class="reference-title"><i data-feather="book-open"></i>参考资料</div>
+    <ul>
+<li>封面图片：Photo by <a href="https://unsplash.com/@melindapack?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Mel</a> on <a href="https://unsplash.com/s/photos/shell?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></li>
+</ul>
+
+</div>
+
+        </article>
+        <div class="divider"></div>
+        
+            
+                <div id="comment">
+                    <div class="comment-placeholder">
+                        <i data-feather="loader"></i>Loading……</div>
+                    <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
+                </div>
+            
+        
+    </div>
+
+          <div class="footer">
+            <p>
+              
+                &copy;
+                <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+                2019-2021
+              
+            </p>
+            <p>Powered by
+              <a href="https://www.getzola.org/">Zola</a>
+              | Theme
+              <a href="">Cafe</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+      <script onload="icon_loaded()" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+  </body>
+</html>
