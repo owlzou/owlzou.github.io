@@ -71,27 +71,25 @@ if (document.querySelector(".toc") != null) {
           window.pageYOffset >= toc[keys[i]] &&
           window.pageYOffset < toc[keys[i + 1]]
         ) {
-          console.log(keys[i], keys[i + 1]);
-          console.log(window.pageYOffset, toc[keys[i]], toc[keys[i + 1]]);
           return keys[i];
         }
       }
     }
   }
 
-  document.querySelectorAll("h2,h3").forEach((ele) => {
-    toc[`to-${ele.id}`] = getOffset(ele);
-  });
+  function update_offset() {
+    document.querySelectorAll("h2,h3").forEach((ele) => {
+      toc[`to-${ele.id}`] = getOffset(ele);
+    });
+  }
 
-  console.log(toc);
-
+  update_offset();
   keys = Object.keys(toc);
   keys.sort((a, b) => toc[a] - toc[b]);
 
   if (keys.length > 0) {
     window.addEventListener("scroll", function () {
       let id = getCurId(keys);
-      console.log("高亮", id);
       keys.forEach((ele) =>
         document.getElementById(ele).classList.remove("active")
       );

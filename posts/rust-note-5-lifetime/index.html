@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    
+      <meta charset="UTF-8"/>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="icon" type="image/x-icon"/>
+      <title>
+        
+    Rust 笔记（五）借用与生命周期 | Catalyst
+
+      </title>
+    
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;custom.css" rel="stylesheet"/>
+
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="fab">
+  <i data-feather="chevron-up"></i>
+</div>
+
+    
+      <div class="grass"></div>
+    
+    <div class="wrapper">
+      <div
+        class="container">
+        <!-- sidebar -->
+        
+          <div class="sidebar">
+            <div class="title"><a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a></div>
+            <div class="divider"></div>
+            <nav>
+              <div class="moblie-header">
+                <div class="moblie-title">Catalyst</div>
+              </div>
+              <ul>
+                
+                  <li>
+                    <a href="&#x2F;">首页</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;archives">归档</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;projects">项目</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;about">关于</a>
+                  </li>
+                
+              </ul>
+              <div class="side-buttons">
+                
+                  
+                    
+                      <a class="side-button" href="&#x2F;search">
+                        <i data-feather="search"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;tags">
+                        <i data-feather="tag"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;categories">
+                        <i data-feather="feather"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="https:&#x2F;&#x2F;github.com&#x2F;owlzou" target="_blank">
+                        <i data-feather="github"></i>
+                      </a>
+                    
+                  
+                
+              </div>
+            </nav>
+            <div class="toc-wrapper">
+              
+    <ul class="toc">
+    
+        <li >
+            <a id="to-jie-yong" href="https://owlzou.github.io/posts/rust-note-5-lifetime/#jie-yong">借用</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-sheng-ming-zhou-qi" href="https://owlzou.github.io/posts/rust-note-5-lifetime/#sheng-ming-zhou-qi">生命周期</a>
+            
+                <ul>
+                    
+                        <li >
+                            <a id="to-sheng-ming-zhou-qi-sheng-ming" href="https://owlzou.github.io/posts/rust-note-5-lifetime/#sheng-ming-zhou-qi-sheng-ming">生命周期声明</a>
+                        </li>
+                    
+                </ul>
+            
+        </li>
+    
+</ul>
+
+            </div>
+            
+              <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"></path>
+              </svg>
+            
+          </div>
+        
+        <!-- main -->
+        <div class="main">
+          <div class="moblie-header" id="moblie-header">
+            <div class="moblie-title">Catalyst</div>
+            <button class="burger">
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+          <!-- content -->
+          
+    <div class="blog">
+        <h1 class="post-title">
+            Rust 笔记（五）借用与生命周期</h1>
+        <div class="post-info">
+            <i data-feather="clock"></i>
+            <div class="post-date">2021-04-09</div>
+            
+            
+                <i data-feather="edit"></i> 
+                <div class="post-date">2021-06-21</div>
+            
+           
+            
+                
+                    
+                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;yu-yan-ji-chu&#x2F;">语言基础</a>
+                
+            
+            
+                <i data-feather="tag"></i>
+                
+                    
+                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;rust&#x2F;">Rust</a>
+                
+            
+        </div>
+        
+        <article class="post-type">
+            <p>感觉过段时间再看就不一样了，经常更新预定。</p>
+<span id="continue-reading"></span><h2 id="jie-yong">借用</h2>
+<p>借用，理解为变量的所有权的转移，与之对应的还有消耗（consume）。</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> a </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;测试&quot;</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">to_string</span><span style="color:#1f1f1f;">();
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> b </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> a;
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;b=</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, b);
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;a=</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, a);
+}
+</span></code></pre>
+<p>由于<code>a</code>的变量所有权发生转移，所以最后的打印语句无法执行。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">error[E0382]: borrow of moved value: `a`
+ --&gt; lifetime.rs:5:22
+  |
+2 |     let a = &quot;测试&quot;.to_string();
+  |         - move occurs because `a` has type `String`, which does not implement the `Copy` trait
+3 |     let b = a;
+  |             - value moved here
+4 |     println!(&quot;b={}&quot;, b);
+5 |     println!(&quot;a={}&quot;, a);
+  |                      ^ value borrowed here after move
+</span></code></pre>
+<p>如果使用引用则没有问题：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> a </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;测试&quot;</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">to_string</span><span style="color:#1f1f1f;">();
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> b </span><span style="color:#72ab00;">= &amp;</span><span style="color:#1f1f1f;">a;
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;b=</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, b);
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;a=</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, a);
+}
+</span><span style="color:#7f8989;">/*
+b=测试
+a=测试
+*/
+</span></code></pre>
+<p>同时只能持有<strong>多个不变引用</strong>或一个<strong>可变引用</strong>。</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#7f8989;">//这样不行
+</span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
+    </span><span style="color:#668f14;">let mut</span><span style="color:#1f1f1f;"> a </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;测试&quot;</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">to_string</span><span style="color:#1f1f1f;">();
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> b </span><span style="color:#72ab00;">= &amp;</span><span style="color:#1f1f1f;">a;
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> c </span><span style="color:#72ab00;">= &amp;</span><span style="color:#1f1f1f;">a;
+
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> d </span><span style="color:#72ab00;">= &amp;</span><span style="color:#668f14;">mut</span><span style="color:#1f1f1f;"> a;
+    d.</span><span style="color:#b39f04;">push_str</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;_D&quot;</span><span style="color:#1f1f1f;">);
+
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;b=</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">, c=</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, b, c);
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;d=</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, d);
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;a=</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, a);
+}
+</span></code></pre><pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#7f8989;">//这样可以
+</span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
+    </span><span style="color:#668f14;">let mut</span><span style="color:#1f1f1f;"> a </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;测试&quot;</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">to_string</span><span style="color:#1f1f1f;">();
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> b </span><span style="color:#72ab00;">= &amp;</span><span style="color:#1f1f1f;">a;
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> c </span><span style="color:#72ab00;">= &amp;</span><span style="color:#1f1f1f;">a;
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;b=</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">, c=</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, b, c);
+
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> d </span><span style="color:#72ab00;">= &amp;</span><span style="color:#668f14;">mut</span><span style="color:#1f1f1f;"> a;
+    d.</span><span style="color:#b39f04;">push_str</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;_D&quot;</span><span style="color:#1f1f1f;">);
+
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;d=</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, d);
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;a=</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, a);
+}
+</span><span style="color:#7f8989;">/*
+b=测试, c=测试
+d=测试_D
+a=测试_D
+*/
+</span></code></pre><pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#7f8989;">//这样也可以
+</span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
+    </span><span style="color:#668f14;">let mut</span><span style="color:#1f1f1f;"> a </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;测试&quot;</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">to_string</span><span style="color:#1f1f1f;">();
+
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> d </span><span style="color:#72ab00;">= &amp;</span><span style="color:#668f14;">mut</span><span style="color:#1f1f1f;"> a;
+    d.</span><span style="color:#b39f04;">push_str</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;_D&quot;</span><span style="color:#1f1f1f;">);
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;d=</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, d);
+
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> b </span><span style="color:#72ab00;">= &amp;</span><span style="color:#1f1f1f;">a;
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> c </span><span style="color:#72ab00;">= &amp;</span><span style="color:#1f1f1f;">a;
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;b=</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">, c=</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, b, c);
+
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;a=</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, a);
+}
+</span><span style="color:#7f8989;">/*
+d=测试_D
+b=测试_D, c=测试_D
+a=测试_D
+*/
+</span></code></pre>
+<p>另：用被大括号括住的块结算生命周期。</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#7f8989;">//这样不行
+</span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> a;
+    {
+        </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> b </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;B&quot;</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">to_string</span><span style="color:#1f1f1f;">();
+        a </span><span style="color:#72ab00;">= &amp;</span><span style="color:#1f1f1f;">b;
+    }
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;a=</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, a);
+}
+</span></code></pre>
+<p>括号完毕后 b 的生命周期视为结束，被释放。a 的借用找不到原变量，失效。</p>
+<h2 id="sheng-ming-zhou-qi">生命周期</h2>
+<p>生命周期用于保证不空引用/借用。</p>
+<p>生命周期声明不影响实际的生命周期，只是描述了不同参数间的生命周期关系。</p>
+<h3 id="sheng-ming-zhou-qi-sheng-ming">生命周期声明</h3>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#668f14;">fn </span><span style="color:#c23f31;">func</span><span style="color:#1f1f1f;">&lt;</span><span style="color:#668f14;">&#39;a</span><span style="color:#1f1f1f;">&gt;(</span><span style="color:#5597d6;">a</span><span style="color:#1f1f1f;">:</span><span style="color:#72ab00;">&amp;</span><span style="color:#668f14;">&#39;a i32</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">b</span><span style="color:#1f1f1f;">:</span><span style="color:#72ab00;">&amp;</span><span style="color:#1f1f1f;">`a </span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">){
+  </span><span style="color:#7f8989;">//&lt;略&gt;
+</span><span style="color:#1f1f1f;">}
+</span></code></pre>
+<p>这样的声明说明 a 和 b 的生命周期都是<code>'a</code>，<code>'a</code>在这里没有实际意义，仅表示一个提示编译器的签名，提示有相同签名的变量有相同的生命周期。</p>
+<p>特殊的声明是<code>'static</code>，表示一直存在，所有的<code>str</code>常量类型都有静态生命周期。</p>
+<div class="reference">
+    <div class="reference-title"><i data-feather="book-open"></i>参考资料</div>
+    <ul>
+<li><a href="https://doc.rust-lang.org/book/ch04-02-references-and-borrowing.html#references-and-borrowing">references-and-borrowing</a></li>
+<li><a href="https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html">lifetime-syntax</a></li>
+</ul>
+
+</div>
+
+        </article>
+        <div class="divider"></div>
+        
+            
+                <div id="comment">
+                    <div class="comment-placeholder">
+                        <i data-feather="loader"></i>Loading……</div>
+                    <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
+                </div>
+            
+        
+    </div>
+
+          <div class="footer">
+            <p>
+              
+                &copy;
+                <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+                2019-2021
+              
+            </p>
+            <p>Powered by
+              <a href="https://www.getzola.org/">Zola</a>
+              | Theme
+              <a href="">Cafe</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+      <script onload="icon_loaded()" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+  </body>
+</html>

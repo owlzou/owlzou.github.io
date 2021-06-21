@@ -29,6 +29,9 @@
         <loc>https://owlzou.github.io/categories/xue-xi/</loc>
     </url>
     <url>
+        <loc>https://owlzou.github.io/categories/yu-yan-ji-chu/</loc>
+    </url>
+    <url>
         <loc>https://owlzou.github.io/posts/</loc>
     </url>
     <url>
@@ -138,6 +141,10 @@
     <url>
         <loc>https://owlzou.github.io/posts/rust-note-4-box/</loc>
         <lastmod>2020-10-09T14:25:47+08:00</lastmod>
+    </url>
+    <url>
+        <loc>https://owlzou.github.io/posts/rust-note-5-lifetime/</loc>
+        <lastmod>2021-06-21</lastmod>
     </url>
     <url>
         <loc>https://owlzou.github.io/posts/vue3/</loc>
