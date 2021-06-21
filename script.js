@@ -46,8 +46,7 @@ document.querySelector(".fab").addEventListener("click", () => {
   document.querySelector(".fab").blur();
 });
 
-// TOC
-
+// TOC 抬头图片固定高度好计算高度
 if (document.querySelector(".toc") != null) {
   var toc = {};
   //const title_height = 35;
@@ -72,6 +71,8 @@ if (document.querySelector(".toc") != null) {
           window.pageYOffset >= toc[keys[i]] &&
           window.pageYOffset < toc[keys[i + 1]]
         ) {
+          console.log(keys[i], keys[i + 1]);
+          console.log(window.pageYOffset, toc[keys[i]], toc[keys[i + 1]]);
           return keys[i];
         }
       }
@@ -82,11 +83,15 @@ if (document.querySelector(".toc") != null) {
     toc[`to-${ele.id}`] = getOffset(ele);
   });
 
+  console.log(toc);
+
   keys = Object.keys(toc);
+  keys.sort((a, b) => toc[a] - toc[b]);
 
   if (keys.length > 0) {
     window.addEventListener("scroll", function () {
       let id = getCurId(keys);
+      console.log("高亮", id);
       keys.forEach((ele) =>
         document.getElementById(ele).classList.remove("active")
       );
@@ -99,7 +104,6 @@ if (document.querySelector(".toc") != null) {
 
 //feather Icon loaded
 function icon_loaded() {
-  
   // Copy Code
   document.querySelectorAll(".post-type pre").forEach((ele) => {
     //wrap
