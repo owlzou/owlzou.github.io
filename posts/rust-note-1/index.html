@@ -109,6 +109,10 @@
                             <a id="to-shu-zu" href="https://owlzou.github.io/posts/rust-note-1/#shu-zu">数组</a>
                         </li>
                     
+                        <li >
+                            <a id="to-ji-chu-lei-xing-zhuan-huan" href="https://owlzou.github.io/posts/rust-note-1/#ji-chu-lei-xing-zhuan-huan">基础类型转换</a>
+                        </li>
+                    
                 </ul>
             
         </li>
@@ -152,17 +156,12 @@
         </li>
     
         <li >
-            <a id="to-fen-ge" href="https://owlzou.github.io/posts/rust-note-1/#fen-ge">分割</a>
+            <a id="to-qie-pian" href="https://owlzou.github.io/posts/rust-note-1/#qie-pian">切片</a>
             
         </li>
     
         <li >
             <a id="to-jie-gou-ti" href="https://owlzou.github.io/posts/rust-note-1/#jie-gou-ti">结构体</a>
-            
-        </li>
-    
-        <li >
-            <a id="to-qie-pian" href="https://owlzou.github.io/posts/rust-note-1/#qie-pian">切片</a>
             
         </li>
     
@@ -196,6 +195,9 @@
             <i data-feather="clock"></i>
             <div class="post-date">2020-09-25</div>
             
+            
+                <i data-feather="edit"></i> 
+                <div class="post-date">2021-06-24</div>
             
            
             
@@ -262,7 +264,7 @@
     </span><span style="color:#7f8989;">//first value:12 12
 </span><span style="color:#1f1f1f;">}
 </span></code></pre><h3 id="shu-zu">数组</h3>
-<p>Rust 中的数组是定长的。建立数组可以用通常的方括号法：</p>
+<p>Rust 中的数组是定长的，不定长的使用<a href="/posts/rust-note-2/#xiang-liang-vectors">向量</a>。建立数组可以用通常的方括号法：</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-rust" data-lang="rust"><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> arr: [</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">; </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">] </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">];
 </span></code></pre>
@@ -282,6 +284,30 @@
    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> arr: [</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">; </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">] </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">];
    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> first </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> arr[</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">];
 }
+</span></code></pre><h3 id="ji-chu-lei-xing-zhuan-huan">基础类型转换</h3>
+<p>数字类型：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> a:</span><span style="color:#668f14;">f32 </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">1.2345</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> b:</span><span style="color:#668f14;">i32  </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> a </span><span style="color:#72ab00;">as </span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">// b = 1
+//如果想要其他的转换方式：
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> b2: </span><span style="color:#668f14;">i32 </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> a.</span><span style="color:#b39f04;">ceil</span><span style="color:#1f1f1f;">() </span><span style="color:#72ab00;">as </span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">//b2 = 2
+</span></code></pre><table><thead><tr><th>方法</th><th>作用</th><th>输入 1.45</th><th>输入 -1.45</th></tr></thead><tbody>
+<tr><td>round</td><td>四舍五入</td><td>1</td><td>-1</td></tr>
+<tr><td>trunc</td><td>返回数字的整数部分</td><td>1</td><td>-1</td></tr>
+<tr><td>ceil</td><td>返回大于自身的最小整数</td><td>2</td><td>-1</td></tr>
+<tr><td>floor</td><td>返回小于自身的最大整数</td><td>1</td><td>-2</td></tr>
+</tbody></table>
+<p>数字与字符串互转：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> a: </span><span style="color:#668f14;">f32 </span><span style="color:#72ab00;">= -</span><span style="color:#b3933a;">1.45</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> s: </span><span style="color:#a2a001;">String </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> a.</span><span style="color:#b39f04;">to_string</span><span style="color:#1f1f1f;">();
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> a2: </span><span style="color:#668f14;">f32 </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> s.parse::&lt;</span><span style="color:#668f14;">f32</span><span style="color:#1f1f1f;">&gt;().</span><span style="color:#b39f04;">unwrap</span><span style="color:#1f1f1f;">();
+</span></code></pre>
+<p><code>String</code>与<code>&amp;str</code>互转：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> s1: </span><span style="color:#72ab00;">&amp;</span><span style="color:#668f14;">str </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;str&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> s2: </span><span style="color:#a2a001;">String </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> s1.</span><span style="color:#b39f04;">to_string</span><span style="color:#1f1f1f;">();
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> s3: </span><span style="color:#72ab00;">&amp;</span><span style="color:#668f14;">str </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> s2.</span><span style="color:#b39f04;">as_str</span><span style="color:#1f1f1f;">();
 </span></code></pre><h2 id="ji-chu-yu-fa">基础语法</h2>
 <h3 id="bian-liang-he-chang-liang">变量和常量</h3>
 <p>变量使用 <code>let</code> 定义。默认不可变，如果需要可变则加上<code>mut</code>标志。
@@ -343,19 +369,25 @@
     </span><span style="color:#1f1f1f;">}
 
 }
-</span></code></pre><h2 id="fen-ge">分割</h2>
+</span></code></pre><h2 id="qie-pian">切片</h2>
 <p>数组和字符串的分割都是其一部分的引用，示例如下：</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-rust" data-lang="rust"><span style="color:#7f8989;">//数组
 </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> a </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">5</span><span style="color:#1f1f1f;">];
 </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> slice </span><span style="color:#72ab00;">= &amp;</span><span style="color:#1f1f1f;">a[</span><span style="color:#b3933a;">1</span><span style="color:#72ab00;">..</span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">]; </span><span style="color:#7f8989;">//[2, 3, 4]
-
-//字符串
-</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> s </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;hello&quot;</span><span style="color:#1f1f1f;">);
-</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> he </span><span style="color:#72ab00;">= &amp;</span><span style="color:#1f1f1f;">s[</span><span style="color:#b3933a;">0</span><span style="color:#72ab00;">..</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">];
 </span></code></pre>
 <p>切片的数字是从 <code>开始</code> 到 <code>结束+1</code> 。如果是从第一个索引开始，0 可以省略(<code>[..2]</code>)。</p>
-<h2 id="jie-gou-ti">结构体</h2>
+<p>字符串<a href="https://doc.rust-lang.org/book/ch04-03-slices.html">切片</a>：对于字符串位置的引用（所以没有对应的所有权概念）</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#668f14;">let str </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Hello&quot;</span><span style="color:#1f1f1f;">);
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> he </span><span style="color:#72ab00;">= &amp;</span><span style="color:#668f14;">str</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">0</span><span style="color:#72ab00;">..</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">];
+</span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,he);</span><span style="color:#7f8989;">//He
+//or
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> he </span><span style="color:#72ab00;">= &amp;</span><span style="color:#668f14;">str</span><span style="color:#1f1f1f;">[</span><span style="color:#72ab00;">..</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">]; </span><span style="color:#7f8989;">//开始为0可以忽略
+</span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,he);</span><span style="color:#7f8989;">//He
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> lo </span><span style="color:#72ab00;">= &amp;</span><span style="color:#668f14;">str</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">3</span><span style="color:#72ab00;">..</span><span style="color:#1f1f1f;">]; </span><span style="color:#7f8989;">//结尾为最后也可以忽略
+</span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,lo);</span><span style="color:#7f8989;">//lo
+</span></code></pre><h2 id="jie-gou-ti">结构体</h2>
 <pre style="background-color:#f5f5f5;">
 <code class="language-rust" data-lang="rust"><span style="color:#668f14;">struct </span><span style="color:#c23f31;">Person</span><span style="color:#1f1f1f;">{
     </span><span style="color:#5597d6;">name</span><span style="color:#1f1f1f;">:String,
@@ -402,18 +434,7 @@
 }
 </span></code></pre>
 <p><code>impl</code>代表 implementations ， 用于定义类型的实现。</p>
-<h2 id="qie-pian">切片</h2>
-<p>字符串<a href="https://doc.rust-lang.org/book/ch04-03-slices.html">切片</a>：对于字符串位置的引用（所以没有对应的所有权概念）</p>
-<pre style="background-color:#f5f5f5;">
-<code class="language-rust" data-lang="rust"><span style="color:#668f14;">let str </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Hello&quot;</span><span style="color:#1f1f1f;">);
-</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> he </span><span style="color:#72ab00;">= &amp;</span><span style="color:#668f14;">str</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">0</span><span style="color:#72ab00;">..</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">];
-</span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,he);</span><span style="color:#7f8989;">//He
-//or
-</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> he </span><span style="color:#72ab00;">= &amp;</span><span style="color:#668f14;">str</span><span style="color:#1f1f1f;">[</span><span style="color:#72ab00;">..</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">]; </span><span style="color:#7f8989;">//开始为0可以屏蔽
-</span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,he);</span><span style="color:#7f8989;">//He
-</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> lo </span><span style="color:#72ab00;">= &amp;</span><span style="color:#668f14;">str</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">3</span><span style="color:#72ab00;">..</span><span style="color:#1f1f1f;">]; </span><span style="color:#7f8989;">//结尾为最后也可以屏蔽
-</span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,lo);</span><span style="color:#7f8989;">//lo
-</span></code></pre><div class="reference">
+<div class="reference">
     <div class="reference-title"><i data-feather="book-open"></i>参考资料</div>
     <ul>
 <li>主要是<a href="https://doc.rust-lang.org/book/title-page.html">《The Book》</a>的读书笔记。</li>

@@ -4,12 +4,16 @@
 var is_menu_open = false;
 var top_fixed = false;
 
-//Simple lazy load
+/* -------------------------------------------------------------------------- */
+/*                              Simple lazy load                              */
+/* -------------------------------------------------------------------------- */
 document.querySelectorAll(".lazyload").forEach((img) => {
   img.src = img.attributes["data-src"].value;
 });
 
-//Menu
+/* -------------------------------------------------------------------------- */
+/*                                    Menu                                    */
+/* -------------------------------------------------------------------------- */
 const $moblie_header = document.querySelector("#moblie-header");
 document.querySelector(".burger").addEventListener("click", () => {
   if (is_menu_open) {
@@ -36,7 +40,9 @@ window.addEventListener("scroll", function () {
   }
 });
 
-//Scroll To Top
+/* -------------------------------------------------------------------------- */
+/*                                Scroll To Top                               */
+/* -------------------------------------------------------------------------- */
 document.querySelector(".fab").addEventListener("click", () => {
   window.scrollTo({
     left: 0,
@@ -46,7 +52,9 @@ document.querySelector(".fab").addEventListener("click", () => {
   document.querySelector(".fab").blur();
 });
 
-// TOC 抬头图片固定高度好计算高度
+/* -------------------------------------------------------------------------- */
+/*                        TOC 抬头图片固定高度好计算高度                      */
+/* -------------------------------------------------------------------------- */
 if (document.querySelector(".toc") != null) {
   var toc = {};
   //const title_height = 35;
@@ -82,7 +90,7 @@ if (document.querySelector(".toc") != null) {
       toc[`to-${ele.id}`] = getOffset(ele);
     });
   }
-
+  /* ----------------------------------- 开始 ----------------------------------- */
   update_offset();
   keys = Object.keys(toc);
   keys.sort((a, b) => toc[a] - toc[b]);
@@ -94,13 +102,18 @@ if (document.querySelector(".toc") != null) {
         document.getElementById(ele).classList.remove("active")
       );
       document.getElementById(id).classList.add("active");
+      if (document.querySelector("summary")) {
+        update_offset();
+      }
     });
   } else {
     document.querySelector(".toc").remove();
   }
 }
 
-//feather Icon loaded
+/* -------------------------------------------------------------------------- */
+/*                             feather Icon loaded                            */
+/* -------------------------------------------------------------------------- */
 function icon_loaded() {
   // Copy Code
   document.querySelectorAll(".post-type pre").forEach((ele) => {

@@ -128,11 +128,11 @@
     </url>
     <url>
         <loc>https://owlzou.github.io/posts/rust-note-1/</loc>
-        <lastmod>2020-09-25T17:36:45Z</lastmod>
+        <lastmod>2021-06-24</lastmod>
     </url>
     <url>
         <loc>https://owlzou.github.io/posts/rust-note-2/</loc>
-        <lastmod>2021-04-01</lastmod>
+        <lastmod>2021-06-24</lastmod>
     </url>
     <url>
         <loc>https://owlzou.github.io/posts/rust-note-3-module-and-test/</loc>
@@ -145,6 +145,10 @@
     <url>
         <loc>https://owlzou.github.io/posts/rust-note-5-lifetime/</loc>
         <lastmod>2021-06-21</lastmod>
+    </url>
+    <url>
+        <loc>https://owlzou.github.io/posts/rust-note-6-generics-and-trait/</loc>
+        <lastmod>2021-06-24</lastmod>
     </url>
     <url>
         <loc>https://owlzou.github.io/posts/vue3/</loc>
