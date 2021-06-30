@@ -104,6 +104,22 @@
         <li >
             <a id="to-chang-yong-fang-fa" href="https://owlzou.github.io/posts/bitwise/#chang-yong-fang-fa">常用方法</a>
             
+                <ul>
+                    
+                        <li >
+                            <a id="to-bao-liu-te-ding-wei-zhi-de-shu-zi" href="https://owlzou.github.io/posts/bitwise/#bao-liu-te-ding-wei-zhi-de-shu-zi">保留特定位置的数字：</a>
+                        </li>
+                    
+                        <li >
+                            <a id="to-2-de-n-ci-mi" href="https://owlzou.github.io/posts/bitwise/#2-de-n-ci-mi">2 的 n 次幂</a>
+                        </li>
+                    
+                        <li >
+                            <a id="to-ji-he-de-suo-you-zi-ji" href="https://owlzou.github.io/posts/bitwise/#ji-he-de-suo-you-zi-ji">集合的所有子集</a>
+                        </li>
+                    
+                </ul>
+            
         </li>
     
 </ul>
@@ -162,21 +178,15 @@
 <p>补码是常用的表示负数的方法，数字上来讲是模减去绝对值。</p>
 <p>正数的补码=原码，负数的补码=绝对值取反后加 1。</p>
 <h2 id="chang-yong-fang-fa">常用方法</h2>
-<ol>
-<li>保留特定位置的数字：</li>
-</ol>
+<h3 id="bao-liu-te-ding-wei-zhi-de-shu-zi">保留特定位置的数字：</h3>
 <pre style="background-color:#f5f5f5;">
 <code><span style="color:#1f1f1f;">a &amp; 0xf
 </span></code></pre>
 <p><code>0x</code>是十六进制数的开头， <code>0xf</code> 表示十六进制数字 <code>f</code>（15），二进制的 <code>1111</code>。 <code>a &amp; 0xf</code> 则是只保留 <code>a</code>的后四位。</p>
-<ol start="2">
-<li>2 的 n 次幂</li>
-</ol>
+<h3 id="2-de-n-ci-mi">2 的 n 次幂</h3>
 <p>2 的 n 次幂在二进制下，为<code>100..00</code>模式。例： <code>2=10</code>, <code>4=100</code>, <code>8=1000</code>……</p>
 <p>而其补码（取反加一）则刚好只有最高位相同。例： <code>-2=11111110</code> 和 <code>2=10</code> 。</p>
-<ol start="3">
-<li>集合的所有子集</li>
-</ol>
+<h3 id="ji-he-de-suo-you-zi-ji">集合的所有子集</h3>
 <p>如果利用二进制来表达集合，（1表示有，0表示没有），求子集:</p>
 <pre style="background-color:#f5f5f5;">
 <code><span style="color:#1f1f1f;">for(let j=k; j=(j-1)&amp;k; j!=k)
