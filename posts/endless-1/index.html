@@ -223,23 +223,23 @@
 <li>
 <p>在共用工程下，建立<code>AssemblyInfo.fs</code>（或者在别的文件里），注册资源：</p>
 <pre style="background-color:#f5f5f5;">
-<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">namespace Endless
+<code class="language-fs" data-lang="fs"><span style="color:#72ab00;">namespace </span><span style="color:#c23f31;">Endless
 
-</span><span style="color:#1f1f1f;">open Xamarin.Forms
+</span><span style="color:#72ab00;">open </span><span style="color:#c23f31;">Xamarin.Forms
 
-</span><span style="color:#1f1f1f;">[&lt;assembly:ExportFont(&quot;MaterialIcons-Regular.ttf&quot;, Alias = &quot;MaterialIcons&quot;)&gt;]
-</span><span style="color:#1f1f1f;">do ()
+</span><span style="color:#b39f04;">[&lt;assembly</span><span style="color:#72ab00;">:</span><span style="color:#b39f04;">ExportFont</span><span style="color:#72ab00;">(</span><span style="color:#d07711;">&quot;MaterialIcons-Regular.ttf&quot;</span><span style="color:#72ab00;">,</span><span style="color:#b39f04;"> Alias </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;MaterialIcons&quot;</span><span style="color:#72ab00;">)</span><span style="color:#b39f04;">&gt;]
+</span><span style="color:#72ab00;">do </span><span style="color:#b3933a;">()
 </span></code></pre></li>
 <li>
 <p>引用字体的时候直接写。例：从字体图标中找到“笔”并将其作为图片。<code>Glyph</code>是图标的 unicode 码。</p>
 <pre style="background-color:#f5f5f5;">
-<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">let penImg = Image.ImageFont(FontImageSource(Glyph=&quot;\ue254&quot;,FontFamily=&quot;MaterialIcons&quot;))
+<code class="language-fs" data-lang="fs"><span style="color:#72ab00;">let </span><span style="color:#5597d6;">penImg </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> Image.ImageFont</span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">FontImageSource</span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">Glyph</span><span style="color:#72ab00;">=</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">\ue254</span><span style="color:#d07711;">&quot;</span><span style="color:#72ab00;">,</span><span style="color:#1f1f1f;">FontFamily</span><span style="color:#72ab00;">=</span><span style="color:#d07711;">&quot;MaterialIcons&quot;</span><span style="color:#72ab00;">))
 </span></code></pre>
 <p>然后</p>
 <pre style="background-color:#f5f5f5;">
-<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">View.TabbedPage(children=[
-</span><span style="color:#1f1f1f;">        View.ContentPage(icon =penImg, title=&quot;笔记&quot;)
-</span><span style="color:#1f1f1f;">        View.ContentPage(icon=archiveImg, title=&quot;归档&quot;)])
+<code class="language-fs" data-lang="fs"><span style="color:#1f1f1f;">View.TabbedPage</span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">children</span><span style="color:#72ab00;">=[
+</span><span style="color:#1f1f1f;">        View.ContentPage</span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">icon </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">penImg</span><span style="color:#72ab00;">,</span><span style="color:#1f1f1f;"> title</span><span style="color:#72ab00;">=</span><span style="color:#d07711;">&quot;笔记&quot;</span><span style="color:#72ab00;">)
+</span><span style="color:#1f1f1f;">        View.ContentPage</span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">icon</span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">archiveImg</span><span style="color:#72ab00;">,</span><span style="color:#1f1f1f;"> title</span><span style="color:#72ab00;">=</span><span style="color:#d07711;">&quot;归档&quot;</span><span style="color:#72ab00;">)])
 </span></code></pre></li>
 </ol>
 <h3 id="biao-ti-lan">标题栏</h3>
@@ -256,20 +256,20 @@
 </ul>
 <p>例：</p>
 <pre style="background-color:#f5f5f5;">
-<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">  let writePage = View.NavigationPage
-            (icon = penImg, title = &quot;笔记&quot;,
-             toolbarItems=[View.ToolbarItem(icon=saveImg)],  //saveImg也是一个图片
-             pages = &lt;略&gt;)
+<code class="language-fs" data-lang="fs"><span style="color:#1f1f1f;">  </span><span style="color:#72ab00;">let </span><span style="color:#5597d6;">writePage </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> View.NavigationPage
+            </span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">icon </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> penImg</span><span style="color:#72ab00;">,</span><span style="color:#1f1f1f;"> title </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;笔记&quot;</span><span style="color:#72ab00;">,
+</span><span style="color:#1f1f1f;">             toolbarItems</span><span style="color:#72ab00;">=[</span><span style="color:#1f1f1f;">View.ToolbarItem</span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">icon</span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;">saveImg</span><span style="color:#72ab00;">)],  </span><span style="color:#7f8989;">//saveImg也是一个图片
+</span><span style="color:#1f1f1f;">             pages </span><span style="color:#72ab00;">= &lt;</span><span style="color:#1f1f1f;">略</span><span style="color:#72ab00;">&gt;)
 
-  let archivePage = &lt;略&gt;
+  let </span><span style="color:#5597d6;">archivePage </span><span style="color:#72ab00;">= &lt;</span><span style="color:#1f1f1f;">略</span><span style="color:#72ab00;">&gt;
 </span></code></pre>
 <p>而原<code>TabbedPage</code>变成：</p>
 <pre style="background-color:#f5f5f5;">
-<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">View.TabbedPage(children = [ writePage; archivePage ])
+<code class="language-fs" data-lang="fs"><span style="color:#1f1f1f;">View.TabbedPage</span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">children </span><span style="color:#72ab00;">= [</span><span style="color:#1f1f1f;"> writePage</span><span style="color:#72ab00;">;</span><span style="color:#1f1f1f;"> archivePage </span><span style="color:#72ab00;">])
 </span></code></pre><h3 id="shu-ru-kuang">输入框</h3>
 <p>自动改变大小</p>
 <pre style="background-color:#f5f5f5;">
-<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">View.Editor(placeholder = &quot;等待输入&quot;, autoSize = EditorAutoSizeOption.TextChanges)
+<code class="language-fs" data-lang="fs"><span style="color:#1f1f1f;">View.Editor</span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">placeholder </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;等待输入&quot;</span><span style="color:#72ab00;">,</span><span style="color:#1f1f1f;"> autoSize </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> EditorAutoSizeOption.TextChanges</span><span style="color:#72ab00;">)
 </span></code></pre><h3 id="gui-dang-ye-mian">归档页面</h3>
 <p>卡片布局，没什么特别要写的。实现主要是<code>FlexLayout</code> + <code>StackLayout</code>和一个<code>Frame</code>.</p>
 <p><code>Frame</code>不设置边框属性的话不显示阴影，有点奇怪。</p>
@@ -284,52 +284,52 @@
 <li><a href="https://fsprojects.github.io/Fabulous/Fabulous.XamarinForms/views-gestures.html">手势参考</a></li>
 </ul>
 <pre style="background-color:#f5f5f5;">
-<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">//在卡片里设置点击反应
-gestureRecognizers = ([ View.TapGestureRecognizer(command = (fun () -&gt; dispatch (Open entry.Id))) ]),
-...
+<code class="language-fs" data-lang="fs"><span style="color:#7f8989;">//在卡片里设置点击反应
+</span><span style="color:#1f1f1f;">gestureRecognizers </span><span style="color:#72ab00;">= ([</span><span style="color:#1f1f1f;"> View.TapGestureRecognizer</span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">command </span><span style="color:#72ab00;">= (fun () -&gt;</span><span style="color:#1f1f1f;"> dispatch </span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">Open entry.Id</span><span style="color:#72ab00;">))) ]),
+..</span><span style="color:#1f1f1f;">.
 
-//update
-| Open id -&gt; let e=(search id model.Data) in {model with  NowWrite= e.Content; NowId = e.Id},Cmd.none
+</span><span style="color:#7f8989;">//update
+</span><span style="color:#72ab00;">|</span><span style="color:#1f1f1f;"> Open id </span><span style="color:#72ab00;">-&gt; let </span><span style="color:#5597d6;">e</span><span style="color:#72ab00;">=(</span><span style="color:#1f1f1f;">search id model.Data</span><span style="color:#72ab00;">) in {</span><span style="color:#1f1f1f;">model </span><span style="color:#72ab00;">with</span><span style="color:#1f1f1f;">  NowWrite</span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> e.Content</span><span style="color:#72ab00;">;</span><span style="color:#1f1f1f;"> NowId </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> e.Id</span><span style="color:#72ab00;">},</span><span style="color:#1f1f1f;">Cmd.none
 </span></code></pre><h3 id="2-shi-yong-dai-ma-qie-huan-tab">2. 使用代码切换 Tab</h3>
 <p>上文中“点击卡片返回输入界面”的实现。观察发现<code>TabbedPage</code>有属性<code>currentPage</code>可以<code>get,set</code>。所以尝试通过改变<code>currentPage</code>来改变当前页面的值。</p>
 <p>引用<code>TabbedPage</code>使用了<a href="https://fsprojects.github.io/Fabulous/Fabulous.XamarinForms/views-animations.html#viewrefs">ViewRef</a>。<code>ViewRef</code>是弱引用，初始为空，<em>在<code>view</code>函数被调用并显示后才填充值</em>，所以将对<code>ViewRef</code>的处理放到了<code>update</code>函数中。</p>
 <pre style="background-color:#f5f5f5;">
-<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">//声明
-let tabRef = ViewRef&lt;TabbedPage&gt;()
+<code class="language-fs" data-lang="fs"><span style="color:#7f8989;">//声明
+</span><span style="color:#72ab00;">let </span><span style="color:#5597d6;">tabRef </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> ViewRef</span><span style="color:#72ab00;">&lt;</span><span style="color:#1f1f1f;">TabbedPage</span><span style="color:#72ab00;">&gt;</span><span style="color:#b3933a;">()
 
-...
+</span><span style="color:#72ab00;">..</span><span style="color:#1f1f1f;">.
 
-//设置
-View.TabbedPage
-        (ref = tabRef, children = [ writePage; archivePage ])
+</span><span style="color:#7f8989;">//设置
+</span><span style="color:#1f1f1f;">View.TabbedPage
+        </span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">ref </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> tabRef</span><span style="color:#72ab00;">,</span><span style="color:#1f1f1f;"> children </span><span style="color:#72ab00;">= [</span><span style="color:#1f1f1f;"> writePage</span><span style="color:#72ab00;">;</span><span style="color:#1f1f1f;"> archivePage </span><span style="color:#72ab00;">])
 </span></code></pre>
 <p>修改上文点击反应，发送切换页面的消息。</p>
 <pre style="background-color:#f5f5f5;">
-<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">gestureRecognizers =
-    ([ View.TapGestureRecognizer
-        (command =
+<code class="language-fs" data-lang="fs"><span style="color:#1f1f1f;">gestureRecognizers </span><span style="color:#72ab00;">=
+    ([</span><span style="color:#1f1f1f;"> View.TapGestureRecognizer
+        </span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">command </span><span style="color:#72ab00;">=
             (fun () -&gt;
-                dispatch (Open entry.Id)
-                dispatch (Switch 0))) ])
+</span><span style="color:#1f1f1f;">                dispatch </span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">Open entry.Id</span><span style="color:#72ab00;">)
+</span><span style="color:#1f1f1f;">                dispatch </span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">Switch </span><span style="color:#b3933a;">0</span><span style="color:#72ab00;">))) ])
 
 </span></code></pre>
 <p>update 中处理页面切换。</p>
 <pre style="background-color:#f5f5f5;">
-<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">    let update (msg: Msg) (model: Model) =
-        match msg with
-        | Switch index -&gt;
-            match tabRef.TryValue with
-            | None -&gt; ()
-            | Some page -&gt; page.CurrentPage &lt;- page.GetPageByIndex(index)
-            model, Cmd.none
-        |  &lt;略&gt;
+<code class="language-fs" data-lang="fs"><span style="color:#1f1f1f;">    </span><span style="color:#72ab00;">let </span><span style="color:#5597d6;">update </span><span style="color:#72ab00;">(</span><span style="color:#5597d6;">msg</span><span style="color:#72ab00;">: </span><span style="color:#c23f31;">Msg</span><span style="color:#72ab00;">) (</span><span style="color:#5597d6;">model</span><span style="color:#72ab00;">: </span><span style="color:#c23f31;">Model</span><span style="color:#72ab00;">) =
+        match</span><span style="color:#1f1f1f;"> msg </span><span style="color:#72ab00;">with
+        |</span><span style="color:#1f1f1f;"> Switch index </span><span style="color:#72ab00;">-&gt;
+            match</span><span style="color:#1f1f1f;"> tabRef.TryValue </span><span style="color:#72ab00;">with
+            |</span><span style="color:#1f1f1f;"> None </span><span style="color:#72ab00;">-&gt; </span><span style="color:#b3933a;">()
+            </span><span style="color:#72ab00;">|</span><span style="color:#1f1f1f;"> Some page </span><span style="color:#72ab00;">-&gt;</span><span style="color:#1f1f1f;"> page.CurrentPage </span><span style="color:#72ab00;">&lt;-</span><span style="color:#1f1f1f;"> page.GetPageByIndex</span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">index</span><span style="color:#72ab00;">)
+</span><span style="color:#1f1f1f;">            model</span><span style="color:#72ab00;">,</span><span style="color:#1f1f1f;"> Cmd.none
+        </span><span style="color:#72ab00;">|  &lt;</span><span style="color:#1f1f1f;">略</span><span style="color:#72ab00;">&gt;
 </span></code></pre><h3 id="3-ti-qu-shu-ru-de-biao-ti">3. 提取输入的标题</h3>
 <p>设计：输入笔记的第一行如果是<code># 标题</code>，那么将第一行设置为标题。 //非常简陋</p>
 <pre style="background-color:#f5f5f5;">
-<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">let cardParser (str:string) =
-    let res = Regex(&quot;#(.*)&quot;).Match(str)
-    if res.Success then (res.Value.[1..].Trim(), str.[res.Length..].Trim())
-    else (&quot;&quot;,str)
+<code class="language-fs" data-lang="fs"><span style="color:#72ab00;">let </span><span style="color:#5597d6;">cardParser </span><span style="color:#72ab00;">(</span><span style="color:#5597d6;">str</span><span style="color:#72ab00;">:</span><span style="color:#c23f31;">string</span><span style="color:#72ab00;">) =
+    let </span><span style="color:#5597d6;">res </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> Regex</span><span style="color:#72ab00;">(</span><span style="color:#d07711;">&quot;#(.*)&quot;</span><span style="color:#72ab00;">)</span><span style="color:#1f1f1f;">.Match</span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">str</span><span style="color:#72ab00;">)
+    if</span><span style="color:#1f1f1f;"> res.Success </span><span style="color:#72ab00;">then (</span><span style="color:#1f1f1f;">res.Value.</span><span style="color:#72ab00;">[</span><span style="color:#b3933a;">1.</span><span style="color:#1f1f1f;">.</span><span style="color:#72ab00;">]</span><span style="color:#1f1f1f;">.Trim</span><span style="color:#72ab00;">(),</span><span style="color:#1f1f1f;"> str.</span><span style="color:#72ab00;">[</span><span style="color:#1f1f1f;">res.Length</span><span style="color:#72ab00;">..]</span><span style="color:#1f1f1f;">.Trim</span><span style="color:#72ab00;">())
+    else (</span><span style="color:#d07711;">&quot;&quot;</span><span style="color:#72ab00;">,</span><span style="color:#1f1f1f;">str</span><span style="color:#72ab00;">)
 </span></code></pre><h3 id="4-dan-chuang">4. 弹窗</h3>
 <p>弹窗：<a href="https://fsprojects.github.io/Fabulous/Fabulous.XamarinForms/views-popups.html">Pop-ups</a></p>
 <p>根据文档里的说法，</p>
@@ -339,18 +339,18 @@ View.TabbedPage
 </blockquote>
 <p>所以,点击删除时 <del>（其实在原型图里忘画了）</del></p>
 <pre style="background-color:#f5f5f5;">
-<code class="language-fsharp" data-lang="fsharp"><span style="color:#1f1f1f;">| DeleteAlert id -&gt;
-            let alertResult =
+<code class="language-fs" data-lang="fs"><span style="color:#72ab00;">|</span><span style="color:#1f1f1f;"> DeleteAlert id </span><span style="color:#72ab00;">-&gt;
+            let </span><span style="color:#5597d6;">alertResult </span><span style="color:#72ab00;">=
                 async {
-                    let! alert =
-                        Application.Current.MainPage.DisplayAlert(&quot;警告&quot;, &quot;删除这条信息？&quot;, &quot;是&quot;, &quot;否&quot;)
-                        |&gt; Async.AwaitTask
+                    let! </span><span style="color:#5597d6;">alert </span><span style="color:#72ab00;">=
+</span><span style="color:#1f1f1f;">                        Application.Current.MainPage.DisplayAlert</span><span style="color:#72ab00;">(</span><span style="color:#d07711;">&quot;警告&quot;</span><span style="color:#72ab00;">, </span><span style="color:#d07711;">&quot;删除这条信息？&quot;</span><span style="color:#72ab00;">, </span><span style="color:#d07711;">&quot;是&quot;</span><span style="color:#72ab00;">, </span><span style="color:#d07711;">&quot;否&quot;</span><span style="color:#72ab00;">)
+                        |&gt;</span><span style="color:#1f1f1f;"> Async.AwaitTask
 
-                    return Delete (alert,id)
+                    </span><span style="color:#72ab00;">return</span><span style="color:#1f1f1f;"> Delete </span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">alert</span><span style="color:#72ab00;">,</span><span style="color:#1f1f1f;">id</span><span style="color:#72ab00;">)
                 }
 
-            model, Cmd.ofAsyncMsg alertResult
-| Delete (alert,id) -&gt; &lt;后续处理&gt;
+</span><span style="color:#1f1f1f;">            model</span><span style="color:#72ab00;">,</span><span style="color:#1f1f1f;"> Cmd.ofAsyncMsg alertResult
+</span><span style="color:#72ab00;">|</span><span style="color:#1f1f1f;"> Delete </span><span style="color:#72ab00;">(</span><span style="color:#1f1f1f;">alert</span><span style="color:#72ab00;">,</span><span style="color:#1f1f1f;">id</span><span style="color:#72ab00;">) -&gt; &lt;</span><span style="color:#1f1f1f;">后续处理</span><span style="color:#72ab00;">&gt;
 </span></code></pre>
         </article>
         <div class="divider"></div>

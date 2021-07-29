@@ -187,12 +187,21 @@
 <p>2 的 n 次幂在二进制下，为<code>100..00</code>模式。例： <code>2=10</code>, <code>4=100</code>, <code>8=1000</code>……</p>
 <p>而其补码（取反加一）则刚好只有最高位相同。例： <code>-2=11111110</code> 和 <code>2=10</code> 。</p>
 <h3 id="ji-he-de-suo-you-zi-ji">集合的所有子集</h3>
-<p>如果利用二进制来表达集合，（1表示有，0表示没有），求子集:</p>
+<p>如果利用二进制来表达集合，（1 表示有，0 表示没有），求子集:</p>
 <pre style="background-color:#f5f5f5;">
 <code><span style="color:#1f1f1f;">for(let j=k; j=(j-1)&amp;k; j!=k)
 </span></code></pre>
 <p>其中<code>j</code>是假设的子集（每次循环出一个），<code>k</code>是集合的二进制表示。</p>
 <p><a href="https://blog.csdn.net/Mtrix/article/details/61200302">参考资料：利用位运算枚举所有子集</a></p>
+<p>###　二叉树相关</p>
+<table><thead><tr><th>节点</th><th>标号</th><th>位计算</th></tr></thead><tbody>
+<tr><td>节点</td><td>i</td><td>i</td></tr>
+<tr><td>左孩子节点</td><td>2*i</td><td>i&lt;&lt;1</td></tr>
+<tr><td>右孩子节点</td><td>2*i+1</td><td>i&lt;&lt;1 + 1</td></tr>
+<tr><td>父节点</td><td>i/2</td><td>i&gt;&gt;1</td></tr>
+</tbody></table>
+<p>设节点标号为<code>i</code>，则其左孩子节点为<code>2*i</code>，右孩子节点为<code>2*i+1</code>，父节点为<code>i/2</code>（floor）。</p>
+<p>第n行最左边是<code>2^n</code>，右边是<code>2^(n+1)-1</code>。（从第0行开始）</p>
 
         </article>
         <div class="divider"></div>
