@@ -374,7 +374,10 @@
 <li><code>collect</code>将迭代器转换回集合。有时需要注明类型，例 <code>a.iter().collect::&lt;String&gt;()</code>。</li>
 <li><code>last</code> 运行（消耗）迭代器，返回最后一个元素。</li>
 </ul>
-<div class="reference">
+<p>按字符迭代字符串:</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> chars: </span><span style="color:#a2a001;">Vec</span><span style="color:#1f1f1f;">&lt;</span><span style="color:#668f14;">char</span><span style="color:#1f1f1f;">&gt; </span><span style="color:#72ab00;">= </span><span style="color:#668f14;">str</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">chars</span><span style="color:#1f1f1f;">().</span><span style="color:#b39f04;">collect</span><span style="color:#1f1f1f;">();
+</span></code></pre><div class="reference">
     <div class="reference-title"><i data-feather="book-open"></i>参考资料</div>
     <ul>
 <li>主要是<a href="https://doc.rust-lang.org/book/title-page.html">《The Book》</a>的读书笔记。</li>
