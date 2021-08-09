@@ -222,6 +222,17 @@
 
 </span><span style="color:#7f8989;"># 读取文件，不加 Out-String 获取的是 object，加了获得字符串
 </span><span style="color:#b39f04;">Get-Content </span><span style="color:#5597d6;">$path </span><span style="color:#72ab00;">| </span><span style="color:#b39f04;">Out-String
+</span></code></pre>
+<p>按文件名搜索文件：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ps1" data-lang="ps1"><span style="color:#7f8989;"># 简单用法 
+</span><span style="color:#b39f04;">Get-ChildItem </span><span style="color:#1f1f1f;">[[</span><span style="color:#72ab00;">-</span><span style="color:#668f14;">Path</span><span style="color:#1f1f1f;">] </span><span style="color:#72ab00;">&lt;</span><span style="color:#668f14;">string</span><span style="color:#1f1f1f;">[]</span><span style="color:#72ab00;">&gt;</span><span style="color:#1f1f1f;">] [[</span><span style="color:#72ab00;">-</span><span style="color:#668f14;">Filter</span><span style="color:#1f1f1f;">] </span><span style="color:#72ab00;">&lt;</span><span style="color:#668f14;">string</span><span style="color:#72ab00;">&gt;</span><span style="color:#1f1f1f;">] [</span><span style="color:#72ab00;">-</span><span style="color:#668f14;">Include </span><span style="color:#72ab00;">&lt;</span><span style="color:#668f14;">string</span><span style="color:#1f1f1f;">[]</span><span style="color:#72ab00;">&gt;</span><span style="color:#1f1f1f;">] [</span><span style="color:#72ab00;">-</span><span style="color:#668f14;">Exclude </span><span style="color:#72ab00;">&lt;</span><span style="color:#668f14;">string</span><span style="color:#1f1f1f;">[]</span><span style="color:#72ab00;">&gt;</span><span style="color:#1f1f1f;">] [</span><span style="color:#72ab00;">-</span><span style="color:#668f14;">Recurse</span><span style="color:#1f1f1f;">] 
+</span></code></pre>
+<p>例，搜索所有文件夹下文件名带<code>~</code>的文件：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ps1" data-lang="ps1"><span style="color:#b39f04;">Get-ChildItem </span><span style="color:#72ab00;">-</span><span style="color:#1f1f1f;">Path .</span><span style="color:#72ab00;">/ -</span><span style="color:#1f1f1f;">Filter </span><span style="color:#d07711;">&quot;*~&quot;
+</span><span style="color:#7f8989;"># 用管道删除查询出来的文件
+</span><span style="color:#b39f04;">Get-ChildItem </span><span style="color:#72ab00;">-</span><span style="color:#1f1f1f;">Path .</span><span style="color:#72ab00;">/ -</span><span style="color:#1f1f1f;">Filter </span><span style="color:#d07711;">&quot;*~&quot; </span><span style="color:#72ab00;">|</span><span style="color:#1f1f1f;"> Select </span><span style="color:#72ab00;">-</span><span style="color:#1f1f1f;">exp Name </span><span style="color:#72ab00;">|</span><span style="color:#1f1f1f;"> rm
 </span></code></pre><h2 id="yu-fa">语法</h2>
 <p>函数:</p>
 <pre style="background-color:#f5f5f5;">
