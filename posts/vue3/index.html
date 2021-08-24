@@ -297,7 +297,9 @@
 };
 
 </span><span style="color:#5597d6;">Vue</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">createApp</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">App</span><span style="color:#1f1f1f;">).</span><span style="color:#c23f31;">mount</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;#app&quot;</span><span style="color:#1f1f1f;">);
-</span></code></pre><h2 id="fan-hui-xuan-ran-han-shu">返回渲染函数</h2>
+</span></code></pre>
+<p>使用<code>watch</code>时发现要求第一个参数要是对象。如果想要监听props的话，则传入一个返回prop值的函数（<code>()=&gt;props.value</code>）。</p>
+<h2 id="fan-hui-xuan-ran-han-shu">返回渲染函数</h2>
 <p>模板不要，完全 fp 化（）</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-js" data-lang="js"><span style="color:#5597d6;">app</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">component</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;MyMessage2&quot;</span><span style="color:#1f1f1f;">, {

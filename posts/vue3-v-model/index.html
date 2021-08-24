@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    
+      <meta charset="UTF-8"/>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="icon" type="image/x-icon"/>
+      <title>
+        
+    Vue3 的 v-model 和绑定 | Catalyst
+
+      </title>
+    
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;custom.css" rel="stylesheet"/>
+
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="fab">
+  <i data-feather="chevron-up"></i>
+</div>
+
+    
+      <div class="grass"></div>
+    
+    <div class="wrapper">
+      <div
+        class="container">
+        <!-- sidebar -->
+        
+          <div class="sidebar">
+            <div class="title"><a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a></div>
+            <div class="divider"></div>
+            <nav>
+              <div class="moblie-header">
+                <div class="moblie-title">Catalyst</div>
+              </div>
+              <ul>
+                
+                  <li>
+                    <a href="&#x2F;">首页</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;archives">归档</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;projects">项目</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;about">关于</a>
+                  </li>
+                
+              </ul>
+              <div class="side-buttons">
+                
+                  
+                    
+                      <a class="side-button" href="&#x2F;search">
+                        <i data-feather="search"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;tags">
+                        <i data-feather="tag"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;categories">
+                        <i data-feather="feather"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="https:&#x2F;&#x2F;github.com&#x2F;owlzou" target="_blank">
+                        <i data-feather="github"></i>
+                      </a>
+                    
+                  
+                
+              </div>
+            </nav>
+            <div class="toc-wrapper">
+              
+    <ul class="toc">
+    
+        <li >
+            <a id="to-vue3-v-model-de-bian-hua" href="https://owlzou.github.io/posts/vue3-v-model/#vue3-v-model-de-bian-hua">Vue3 v-model 的变化</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-bang-ding-zu-jian" href="https://owlzou.github.io/posts/vue3-v-model/#bang-ding-zu-jian">绑定组件</a>
+            
+        </li>
+    
+</ul>
+
+            </div>
+            
+              <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"></path>
+              </svg>
+            
+          </div>
+        
+        <!-- main -->
+        <div class="main">
+          <div class="moblie-header" id="moblie-header">
+            <div class="moblie-title">Catalyst</div>
+            <button class="burger">
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+          <!-- content -->
+          
+    <div class="blog">
+        <h1 class="post-title">
+            Vue3 的 v-model 和绑定</h1>
+        <div class="post-info">
+            <i data-feather="clock"></i>
+            <div class="post-date">2021-08-16</div>
+            
+            
+           
+            
+                
+                    
+                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;webqian-duan&#x2F;">Web前端</a>
+                
+                    
+                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;vue&#x2F;">vue</a>
+                
+            
+            
+        </div>
+        
+        <article class="post-type">
+            <p>最近在试图绑定一套自己的组建库，在实现<code>input</code>上出了点问题，查了一下实现似乎和以前不一样了。</p>
+<span id="continue-reading"></span><h2 id="vue3-v-model-de-bian-hua">Vue3 v-model 的变化</h2>
+<p>根据<a href="https://v3.cn.vuejs.org/guide/migration/v-model.html">官方文档</a>的说法：</p>
+<ul>
+<li><strong>非兼容</strong>：用于自定义组件时，<code>v-model</code> prop 和事件默认名称已更改：
+<ul>
+<li>prop：<code>value</code> -&gt; <code>modelValue</code>；</li>
+<li>event：<code>input</code> -&gt; <code>update:modelValue</code>；</li>
+</ul>
+</li>
+<li><strong>非兼容</strong>：<code>v-bind</code> 的 <code>.sync</code> 修饰符和组件的 <code>model</code> 选项已移除，可用 <code>v-model</code> 作为代替；</li>
+<li><strong>新增</strong>：现在可以在同一个组件上使用多个 <code>v-model</code> 进行双向绑定；</li>
+<li><strong>新增</strong>：现在可以自定义 <code>v-model</code> 修饰符。</li>
+</ul>
+<p><code>v-model</code>实际上是一个语法糖，在<code>vue3</code>中：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-vue" data-lang="vue"><span style="color:#1f1f1f;">&lt;ChildComponent v-model=&quot;pageTitle&quot; /&gt;
+&lt;!-- 其实是 --&gt;
+&lt;ChildComponent
+  :modelValue=&quot;pageTitle&quot;
+  @update:modelValue=&quot;pageTitle = $event&quot;
+/&gt;
+</span></code></pre>
+<p>现在我们可以在<code>v-model</code>上添加参数来改变作响应的变量名。比如说</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-vue" data-lang="vue"><span style="color:#1f1f1f;">&lt;ChildComponent v-model:title=&quot;pageTitle&quot; /&gt;
+&lt;!-- 将内部绑定的变量名指向title --&gt;
+&lt;ChildComponent
+  :title=&quot;pageTitle&quot;
+  @update:title=&quot;pageTitle = $event&quot;
+/&gt;
+</span></code></pre>
+<p>这样也可以在同一个组件上使用多个<code>v-model</code>。</p>
+<h2 id="bang-ding-zu-jian">绑定组件</h2>
+<p>回到开头，那么如何给input组件绑定呢？继续<a href="https://v3.cn.vuejs.org/guide/component-basics.html#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%8A%E4%BD%BF%E7%94%A8-v-model">抄答案</a>：</p>
+<p>这个组件内的 <code>&lt;input&gt;</code> 必须：</p>
+<ul>
+<li>将其 <code>value</code> attribute 绑定到一个名叫 <code>modelValue</code> 的 prop 上</li>
+<li>在其 <code>input</code> 事件被触发时，将新的值通过自定义的 <code>update:modelValue</code> 事件抛出</li>
+</ul>
+<pre style="background-color:#f5f5f5;">
+<code class="language-vue" data-lang="vue"><span style="color:#1f1f1f;">app.component(&#39;custom-input&#39;, {
+  props: [&#39;modelValue&#39;],
+  emits: [&#39;update:modelValue&#39;],
+  template: `
+    &lt;input
+      :value=&quot;modelValue&quot;
+      @input=&quot;$emit(&#39;update:modelValue&#39;, $event.target.value)&quot;
+    &gt;
+  `
+})
+</span></code></pre>
+<p>一个完整的测试：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">const </span><span style="color:#5597d6;">App </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#c23f31;">setup</span><span style="color:#1f1f1f;">() {
+    </span><span style="color:#668f14;">const </span><span style="color:#5597d6;">customValue </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">Vue</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">ref</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;&quot;</span><span style="color:#1f1f1f;">);    
+    </span><span style="color:#72ab00;">return </span><span style="color:#1f1f1f;">{ </span><span style="color:#5597d6;">customValue </span><span style="color:#1f1f1f;">};
+  }
+};
+
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">app </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">Vue</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">createApp</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">App</span><span style="color:#1f1f1f;">);
+
+</span><span style="color:#5597d6;">app</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">component</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;CustomInput&quot;</span><span style="color:#1f1f1f;">, {
+  props: [</span><span style="color:#d07711;">&quot;modelValue&quot;</span><span style="color:#1f1f1f;">],
+  emits: [</span><span style="color:#d07711;">&quot;update:modelValue&quot;</span><span style="color:#1f1f1f;">],
+  template: </span><span style="color:#d07711;">`
+    &lt;input
+      :value=&quot;modelValue&quot;
+      @input=&quot;$emit(&#39;update:modelValue&#39;, $event.target.value)&quot;
+    &gt;
+  `
+</span><span style="color:#1f1f1f;">});
+</span><span style="color:#5597d6;">app</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">mount</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;#app&quot;</span><span style="color:#1f1f1f;">);
+</span></code></pre>
+<blockquote>
+<p>To be continued</p>
+</blockquote>
+
+        </article>
+        <div class="divider"></div>
+        
+            
+                <div id="comment">
+                    <div class="comment-placeholder">
+                        <i data-feather="loader"></i>Loading……</div>
+                    <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
+                </div>
+            
+        
+    </div>
+
+          <div class="footer">
+            <p>
+              
+                &copy;
+                <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+                2019-2021
+              
+            </p>
+            <p>Powered by
+              <a href="https://www.getzola.org/">Zola</a>
+              | Theme
+              <a href="">Cafe</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+      <script onload="icon_loaded()" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+  </body>
+</html>
