@@ -61,12 +61,6 @@
                 
                   
                     
-                      <a class="side-button" href="&#x2F;search">
-                        <i data-feather="search"></i>
-                      </a>
-                    
-                  
-                    
                       <a class="side-button" href="&#x2F;tags">
                         <i data-feather="tag"></i>
                       </a>
@@ -153,6 +147,9 @@
             <div class="post-date">2021-03-10</div>
             
             
+                <i data-feather="edit"></i> 
+                <div class="post-date">2021-09-14</div>
+            
            
             
                 
@@ -224,6 +221,22 @@ Deno.stdout
 <p>例：导入<code>dayjs</code></p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-typescript" data-lang="typescript"><span style="color:#72ab00;">import </span><span style="color:#5597d6;">dayjs </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;https://cdn.skypack.dev/dayjs?dts&quot;</span><span style="color:#1f1f1f;">;
+</span></code></pre>
+<p>对于上述网站不支持的包，则尝试<a href="https://deno.land/std@0.106.0/node#commonjs-modules-loading">使用Deno转换</a>。</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-typescript" data-lang="typescript"><span style="color:#72ab00;">import </span><span style="color:#1f1f1f;">{ </span><span style="color:#5597d6;">createRequire </span><span style="color:#1f1f1f;">} </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;https://deno.land/std@0.106.0/node/module.ts&quot;</span><span style="color:#1f1f1f;">;
+
+</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">require </span><span style="color:#72ab00;">= </span><span style="color:#c23f31;">createRequire</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">import</span><span style="color:#1f1f1f;">.</span><span style="color:#a2a001;">meta</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">url</span><span style="color:#1f1f1f;">);
+</span><span style="color:#7f8989;">// Loads native module polyfill.
+</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">path </span><span style="color:#72ab00;">= </span><span style="color:#b39f04;">require</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;path&quot;</span><span style="color:#1f1f1f;">);
+</span><span style="color:#7f8989;">// Loads extensionless module.
+</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">cjsModule </span><span style="color:#72ab00;">= </span><span style="color:#b39f04;">require</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;./my_mod&quot;</span><span style="color:#1f1f1f;">);
+</span><span style="color:#7f8989;">// Visits node_modules.
+</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">leftPad </span><span style="color:#72ab00;">= </span><span style="color:#b39f04;">require</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;left-pad&quot;</span><span style="color:#1f1f1f;">);
+</span></code></pre>
+<p>为了 VSCode 的提示功能，可以提前缓存写在文件里的导入：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">deno cache &lt;file&gt;
 </span></code></pre><h2 id="yun-xing">运行</h2>
 <p>设编写的脚本是<code>index.ts</code>。</p>
 <pre style="background-color:#f5f5f5;">
