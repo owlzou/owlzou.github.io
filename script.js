@@ -126,6 +126,7 @@ function icon_loaded() {
     let $btn = document.createElement("button");
     $btn.classList.add("copy");
     $btn.innerHTML = `<i data-feather="copy">copy</i>`;
+    $btn.title = "Copy"
     $btn.onclick = () => {
       const $textarea = document.createElement("textarea");
       $textarea.style = "position:fixed;left:-1000px";
@@ -134,7 +135,12 @@ function icon_loaded() {
       //$textarea.setAttribute("value", ele.innerText);
       $textarea.innerHTML = ele.innerText;
       $textarea.select();
-      document.execCommand("Copy");
+      let res = document.execCommand("Copy");
+      if(res){
+        $btn.innerHTML = `<i data-feather="check">copy complete</i>`
+        $btn.title = "Copy complete";
+        feather.replace();
+      }
     };
     ele.parentNode.insertBefore($btn, ele);
   });

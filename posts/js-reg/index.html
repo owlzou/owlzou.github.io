@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    
+      <meta charset="UTF-8"/>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="icon" type="image/x-icon"/>
+      <title>
+        
+    JS 笔记：正则表达式相关 | Catalyst
+
+      </title>
+    
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;custom.css" rel="stylesheet"/>
+
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="fab">
+  <i data-feather="chevron-up"></i>
+</div>
+
+    
+      <div class="grass"></div>
+    
+    <div class="wrapper">
+      <div
+        class="container">
+        <!-- sidebar -->
+        
+          <div class="sidebar">
+            <div class="title"><a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a></div>
+            <div class="divider"></div>
+            <nav>
+              <div class="moblie-header">
+                <div class="moblie-title">Catalyst</div>
+              </div>
+              <ul>
+                
+                  <li>
+                    <a href="&#x2F;">首页</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;archives">归档</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;projects">项目</a>
+                  </li>
+                
+                  <li>
+                    <a href="&#x2F;about">关于</a>
+                  </li>
+                
+              </ul>
+              <div class="side-buttons">
+                
+                  
+                    
+                      <a class="side-button" href="&#x2F;tags">
+                        <i data-feather="tag"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="&#x2F;categories">
+                        <i data-feather="feather"></i>
+                      </a>
+                    
+                  
+                    
+                      <a class="side-button" href="https:&#x2F;&#x2F;github.com&#x2F;owlzou" target="_blank">
+                        <i data-feather="github"></i>
+                      </a>
+                    
+                  
+                
+              </div>
+            </nav>
+            <div class="toc-wrapper">
+              
+    <ul class="toc">
+    
+        <li >
+            <a id="to-string" href="https://owlzou.github.io/posts/js-reg/#string">String</a>
+            
+                <ul>
+                    
+                        <li >
+                            <a id="to-search" href="https://owlzou.github.io/posts/js-reg/#search">Search</a>
+                        </li>
+                    
+                        <li >
+                            <a id="to-match" href="https://owlzou.github.io/posts/js-reg/#match">Match</a>
+                        </li>
+                    
+                        <li >
+                            <a id="to-replace" href="https://owlzou.github.io/posts/js-reg/#replace">Replace</a>
+                        </li>
+                    
+                </ul>
+            
+        </li>
+    
+        <li >
+            <a id="to-regexp" href="https://owlzou.github.io/posts/js-reg/#regexp">RegExp</a>
+            
+                <ul>
+                    
+                        <li >
+                            <a id="to-exec" href="https://owlzou.github.io/posts/js-reg/#exec">Exec</a>
+                        </li>
+                    
+                </ul>
+            
+        </li>
+    
+</ul>
+
+            </div>
+            
+              <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"></path>
+              </svg>
+            
+          </div>
+        
+        <!-- main -->
+        <div class="main">
+          <div class="moblie-header" id="moblie-header">
+            <div class="moblie-title">Catalyst</div>
+            <button class="burger">
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+          <!-- content -->
+          
+    <div class="blog">
+        <h1 class="post-title">
+            JS 笔记：正则表达式相关</h1>
+        <div class="post-info">
+            <i data-feather="clock"></i>
+            <div class="post-date">2021-10-10</div>
+            
+            
+           
+            
+            
+                <i data-feather="tag"></i>
+                
+                    
+                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;javascript&#x2F;">JavaScript</a>
+                
+            
+        </div>
+        
+        <article class="post-type">
+            <p>正则非常常用，不过 search/match/reg.exec 连着来就有点忘记谁是谁了（尤其是加上 group 的匹配替换）</p>
+<span id="continue-reading"></span><h2 id="string">String</h2>
+<h3 id="search">Search</h3>
+<p>返回子串起始位置，未找到则返回<code>-1</code></p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">let </span><span style="color:#5597d6;">reg </span><span style="color:#72ab00;">= </span><span style="color:#c49a39;">/cola/</span><span style="color:#72ab00;">g</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">str </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;Drink cola&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">n </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">str</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">search</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">reg</span><span style="color:#1f1f1f;">);
+</span></code></pre>
+<p>输出 <code>6</code></p>
+<h3 id="match">Match</h3>
+<p>检索指定的值。</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">let </span><span style="color:#5597d6;">reg </span><span style="color:#72ab00;">= </span><span style="color:#c49a39;">/c</span><span style="color:#aeb52b;">\S</span><span style="color:#72ab00;">+</span><span style="color:#c49a39;">a/</span><span style="color:#72ab00;">g</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">str </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;Drink cola&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">n </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">str</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">match</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">reg</span><span style="color:#1f1f1f;">);
+</span></code></pre>
+<p>输出:<code>[&quot;cola&quot;]</code></p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">let </span><span style="color:#5597d6;">reg </span><span style="color:#72ab00;">= </span><span style="color:#c49a39;">/c</span><span style="color:#aeb52b;">\S</span><span style="color:#72ab00;">+</span><span style="color:#c49a39;">a/</span><span style="color:#72ab00;">g</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">str </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;Drink cola and cola&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">n </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">str</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">match</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">reg</span><span style="color:#1f1f1f;">);
+</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">n</span><span style="color:#1f1f1f;">);
+</span></code></pre>
+<p>输出 <code>[&quot;cola&quot;, &quot;cola&quot;]</code></p>
+<h3 id="replace">Replace</h3>
+<p>replace 默认只替换第一个匹配，如果使用带全局的正则则全匹配：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">let </span><span style="color:#5597d6;">reg </span><span style="color:#72ab00;">= </span><span style="color:#c49a39;">/c</span><span style="color:#aeb52b;">\S</span><span style="color:#72ab00;">+</span><span style="color:#c49a39;">a/</span><span style="color:#72ab00;">g</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">//带全局符号
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">str </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;Drink cola and cola&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">n </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">str</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">replace</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">reg</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;pepsi&quot;</span><span style="color:#1f1f1f;">);
+</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">n</span><span style="color:#1f1f1f;">);
+</span></code></pre>
+<p>输出 <code>Drink pepsi and pepsi</code>，两个都被替换了。</p>
+<p>另有<code>replaceAll</code>默认全匹配，如果使用不带全局的正则则会报错。</p>
+<p>子句匹配：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">let </span><span style="color:#5597d6;">reg </span><span style="color:#72ab00;">= </span><span style="color:#c49a39;">/c(</span><span style="color:#aeb52b;">\S</span><span style="color:#72ab00;">+</span><span style="color:#c49a39;">)a/</span><span style="color:#72ab00;">g</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">str </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;Drink cola and cola&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">n </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">str</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">replaceAll</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">reg</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;【$1】&quot;</span><span style="color:#1f1f1f;">);
+</span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">n</span><span style="color:#1f1f1f;">);
+</span></code></pre>
+<p>输出 <code>Drink 【ol】 and 【ol】</code></p>
+<h2 id="regexp">RegExp</h2>
+<p>RegExp 对象</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">var </span><span style="color:#5597d6;">pattern </span><span style="color:#72ab00;">= </span><span style="color:#c49a39;">/cola/</span><span style="color:#72ab00;">i</span><span style="color:#1f1f1f;">;
+</span></code></pre><h3 id="exec">Exec</h3>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">let </span><span style="color:#5597d6;">reg </span><span style="color:#72ab00;">= </span><span style="color:#c49a39;">/cola/</span><span style="color:#72ab00;">g</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">str </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;Drink cola&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">n </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">reg</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">exec</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">str</span><span style="color:#1f1f1f;">);
+</span></code></pre>
+<p>输出 <code>[&quot;cola&quot;]</code></p>
+<p>命名子串:</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">let </span><span style="color:#5597d6;">reg </span><span style="color:#72ab00;">= </span><span style="color:#c49a39;">/(?&lt;</span><span style="color:#acb3c2;">year</span><span style="color:#c49a39;">&gt;</span><span style="color:#aeb52b;">\d</span><span style="color:#72ab00;">{4}</span><span style="color:#c49a39;">)-(?&lt;</span><span style="color:#acb3c2;">month</span><span style="color:#c49a39;">&gt;</span><span style="color:#aeb52b;">\d</span><span style="color:#72ab00;">{2}</span><span style="color:#c49a39;">)/</span><span style="color:#72ab00;">g</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">str </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;2021-07&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">var </span><span style="color:#5597d6;">n </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">reg</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">exec</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">str</span><span style="color:#1f1f1f;">);
+</span></code></pre>
+<p>打印<code>n</code>为：<code>[&quot;2021-07&quot;, &quot;2021&quot;, &quot;07&quot;]</code></p>
+<p>n 的 object 为:</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">Array(3) [ &quot;2021-07&quot;, &quot;2021&quot;, &quot;07&quot; ]​
+  0: &quot;2021-07&quot;​
+  1: &quot;2021&quot;​
+  2: &quot;07&quot;​
+  groups: Object { year: &quot;2021&quot;, month: &quot;07&quot; }​
+  index: 0​
+  input: &quot;2021-07&quot;​
+  length: 3​
+&lt;prototype&gt;: Array []
+</span></code></pre>
+<p>常见使用场景：循环匹配提取。</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">const </span><span style="color:#5597d6;">str </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;1.apple   2.banana    3.orange&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">reg </span><span style="color:#72ab00;">= </span><span style="color:#c49a39;">/(?&lt;</span><span style="color:#acb3c2;">number</span><span style="color:#c49a39;">&gt;</span><span style="color:#aeb52b;">\d</span><span style="color:#c49a39;">)</span><span style="color:#108f3d;">\.</span><span style="color:#c49a39;">(?&lt;</span><span style="color:#acb3c2;">text</span><span style="color:#c49a39;">&gt;</span><span style="color:#aeb52b;">\S</span><span style="color:#72ab00;">+</span><span style="color:#c49a39;">)/</span><span style="color:#72ab00;">g</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">// 像这样在while里使用的话，不要掉了全局标志！（否则无限循环
+</span><span style="color:#72ab00;">while </span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">m </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">reg</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">exec</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">str</span><span style="color:#1f1f1f;">))) {
+  </span><span style="color:#a2a001;">console</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">log</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">m</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">groups</span><span style="color:#1f1f1f;">.</span><span style="color:#a2a001;">text</span><span style="color:#1f1f1f;">);
+}
+</span></code></pre>
+        </article>
+        <div class="divider"></div>
+        
+            
+                <div id="comment">
+                    <div class="comment-placeholder">
+                        <i data-feather="loader"></i>Loading……</div>
+                    <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
+                </div>
+            
+        
+    </div>
+
+          <div class="footer">
+            <p>
+              
+                &copy;
+                <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+                2019-2021
+              
+            </p>
+            <p>Powered by
+              <a href="https://www.getzola.org/">Zola</a>
+              | Theme
+              <a href="">Cafe</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+      <script onload="icon_loaded()" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    
+  </body>
+</html>
