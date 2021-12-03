@@ -1,129 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet" />
+    <link
+      href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico"
+      rel="shortcut icon"
+      type="image/x-icon"
+    />
+    <link
+      href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico"
+      rel="icon"
+      type="image/x-icon"
+    />
+    <!-- 放 SEO 的-->
     
-    
-      <meta charset="UTF-8"/>
-      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
-      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="icon" type="image/x-icon"/>
-      <title>
-        
-    React 备忘 | Catalyst
-
-      </title>
-    
+     
     <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;custom.css" rel="stylesheet"/>
 
+    <title>
+    React 备忘 | Catalyst
+</title>
   </head>
   <body>
     <div class="background"></div>
     <div class="fab">
   <i data-feather="chevron-up"></i>
 </div>
-
-    
-      <div class="grass"></div>
+ 
+    <div class="grass"></div>
     
     <div class="wrapper">
-      <div
-        class="container">
-        <!-- sidebar -->
+      <div class="container">
+        <!-- navigation -->
+        <!-- 顶端导航 -->
+<div class="top-nav">
+  <div class="title">
+    
+    <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+  </div>
+  <nav class="navs">
+    <ul>
+      
+      <ol>
         
-          <div class="sidebar">
-            <div class="title"><a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a></div>
-            <div class="divider"></div>
-            <nav>
-              <div class="moblie-header">
-                <div class="moblie-title">Catalyst</div>
-              </div>
-              <ul>
-                
-                  <li>
-                    <a href="&#x2F;">首页</a>
-                  </li>
-                
-                  <li>
-                    <a href="&#x2F;archives">归档</a>
-                  </li>
-                
-                  <li>
-                    <a href="&#x2F;projects">项目</a>
-                  </li>
-                
-                  <li>
-                    <a href="&#x2F;about">关于</a>
-                  </li>
-                
-              </ul>
-              <div class="side-buttons">
-                
-                  
-                    
-                      <a class="side-button" href="&#x2F;tags">
-                        <i data-feather="tag"></i>
-                      </a>
-                    
-                  
-                    
-                      <a class="side-button" href="&#x2F;categories">
-                        <i data-feather="feather"></i>
-                      </a>
-                    
-                  
-                    
-                      <a class="side-button" href="https:&#x2F;&#x2F;github.com&#x2F;owlzou" target="_blank">
-                        <i data-feather="github"></i>
-                      </a>
-                    
-                  
-                
-              </div>
-            </nav>
-            <div class="toc-wrapper">
-              
-    <ul class="toc">
-    
-        <li >
-            <a id="to-hooks" href="https://owlzou.github.io/posts/react/#hooks">Hooks</a>
-            
-                <ul>
-                    
-                        <li >
-                            <a id="to-usestate" href="https://owlzou.github.io/posts/react/#usestate">useState</a>
-                        </li>
-                    
-                        <li >
-                            <a id="to-useeffect" href="https://owlzou.github.io/posts/react/#useeffect">useEffect</a>
-                        </li>
-                    
-                        <li >
-                            <a id="to-usecallback" href="https://owlzou.github.io/posts/react/#usecallback">useCallback</a>
-                        </li>
-                    
-                </ul>
-            
-        </li>
-    
-        <li >
-            <a id="to-zu-jian-chuan-zhi" href="https://owlzou.github.io/posts/react/#zu-jian-chuan-zhi">组件传值</a>
-            
-        </li>
-    
-</ul>
+        <a class="side-button" href="&#x2F;posts" title="博文">
+          <i data-feather="feather"></i>
+          <span class="tip">博文</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;archives" title="归档">
+          <i data-feather="archive"></i>
+          <span class="tip">归档</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;projects" title="项目">
+          <i data-feather="star"></i>
+          <span class="tip">项目</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;taxonomies" title="分类">
+          <i data-feather="tag"></i>
+          <span class="tip">分类</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;about" title="关于">
+          <i data-feather="alert-circle"></i>
+          <span class="tip">关于</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a
+          class="side-button"
+          href="https:&#x2F;&#x2F;github.com&#x2F;owlzou"
+          target="_blank"
+          title="Github"
+        >
+          <i data-feather="github"></i>
+           <span class="tip">Github</span>
+        </a>
+        
+      </ol>
+      
+    </ul>
+  </nav>
+</div>
 
-            </div>
-            
-              <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
-                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
-                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
-                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"></path>
-              </svg>
-            
-          </div>
-        
         <!-- main -->
         <div class="main">
           <div class="moblie-header" id="moblie-header">
@@ -135,29 +117,27 @@
           <!-- content -->
           
     <div class="blog">
+        <!-- 文章封面 -->
+                
         <h1 class="post-title">
             React 备忘</h1>
-        <div class="post-info">
-            <i data-feather="clock"></i>
-            <div class="post-date">2021-05-06</div>
-            
-            
-           
+        <!-- 文章信息 -->
+        <div class="post-info">           
+            <div class="post-date"> <i data-feather="clock"></i>2021-05-06</div>            
+                       
             
                 
                     
                     <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;webqian-duan&#x2F;">Web前端</a>
                 
             
-            
-                <i data-feather="tag"></i>
+                           
                 
                     
                     <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;javascript&#x2F;">JavaScript</a>
                 
             
-        </div>
-        
+        </div>       
         <article class="post-type">
             <p>后悔上次用的时候没写笔记……忘光了。现在用到啥再记啥吧。</p>
 <span id="continue-reading"></span><h2 id="hooks">Hooks</h2>
@@ -177,12 +157,12 @@
 <p>返回一个缓存的 callback，依赖的变量不变则不变。</p>
 <h2 id="zu-jian-chuan-zhi">组件传值</h2>
 <pre style="background-color:#f5f5f5;">
-<code class="language-jsx" data-lang="jsx"><span style="color:#1f1f1f;">// 使用时
-&lt;Compent &lt;属性&gt;=&lt;值&gt; /&gt;
+<code class="language-js" data-lang="js"><span style="color:#7f8989;">// 使用时
+</span><span style="color:#72ab00;">&lt;</span><span style="color:#5597d6;">Compent </span><span style="color:#72ab00;">&lt;</span><span style="color:#5597d6;">属性</span><span style="color:#72ab00;">&gt;=</span><span style="color:#1f1f1f;">&lt;</span><span style="color:#c23f31;">值</span><span style="color:#1f1f1f;">&gt; </span><span style="color:#72ab00;">/&gt;
 
-// 定义时
-const Compent = (props)=&gt;{
-  return(&lt;div&gt;{props.&lt;属性&gt;}&lt;/div&gt;)
+</span><span style="color:#7f8989;">// 定义时
+</span><span style="color:#668f14;">const </span><span style="color:#c23f31;">Compent </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">props</span><span style="color:#1f1f1f;">)</span><span style="color:#668f14;">=&gt;</span><span style="color:#1f1f1f;">{
+  </span><span style="color:#72ab00;">return</span><span style="color:#1f1f1f;">(&lt;</span><span style="color:#c23f31;">div</span><span style="color:#1f1f1f;">&gt;{props.&lt;属性&gt;}</span><span style="color:#72ab00;">&lt;/</span><span style="color:#5597d6;">div</span><span style="color:#72ab00;">&gt;</span><span style="color:#1f1f1f;">)
 }
 </span></code></pre>
 <p>子组件给父组件传值：将改变值内容的函数传给子组件，类<code>slot</code>用法：</p>
@@ -206,26 +186,81 @@ const Compent = (props)=&gt;{
         
     </div>
 
-          <div class="footer">
-            <p>
-              
-                &copy;
-                <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
-                2019-2021
-              
-            </p>
-            <p>Powered by
-              <a href="https://www.getzola.org/">Zola</a>
-              | Theme
-              <a href="">Cafe</a>
-            </p>
-          </div>
+        </div>
+        <!--footer-->
+        <div class="footer">
+          <!--   -->
+          <p>
+             &copy;
+            <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+            2019-2021 
+          </p>
+          <p>
+            Powered by
+            <a href="https://www.getzola.org/">Zola</a>
+            | Theme
+            <a href="https://github.com/owlzou/zola-theme-cafe">Cafe</a>
+          </p>
+        </div>
+
+        <!-- 左侧的猫 -->
+        <div class="cat">
+          <svg
+            class="bigcat"
+            viewbox="0 0 92.685 127.487"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"
+            ></path>
+          </svg>
+          <!-- 对话气泡 -->
+          <div class="bubble">
+<ul class="toc">
+    
+        <li >
+            <a id="to-hooks" href="https://owlzou.github.io/posts/react/#hooks">Hooks</a>
+            
+                <ul>
+                    
+                        <li >
+                            <a id="to-usestate" href="https://owlzou.github.io/posts/react/#usestate">useState</a>
+                            
+                        </li>
+                    
+                        <li >
+                            <a id="to-useeffect" href="https://owlzou.github.io/posts/react/#useeffect">useEffect</a>
+                            
+                        </li>
+                    
+                        <li >
+                            <a id="to-usecallback" href="https://owlzou.github.io/posts/react/#usecallback">useCallback</a>
+                            
+                        </li>
+                    
+                </ul>
+            
+        </li>
+    
+        <li >
+            <a id="to-zu-jian-chuan-zhi" href="https://owlzou.github.io/posts/react/#zu-jian-chuan-zhi">组件传值</a>
+            
+        </li>
+    
+</ul>
+</div>
         </div>
       </div>
     </div>
     
-      <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
-      <script onload="icon_loaded()" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+    <script
+      onload="icon_loaded()"
+      src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"
+    ></script>
     
   </body>
 </html>

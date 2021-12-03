@@ -9,6 +9,9 @@ var top_fixed = false;
 /* -------------------------------------------------------------------------- */
 document.querySelectorAll(".lazyload").forEach((img) => {
   img.src = img.attributes["data-src"].value;
+  img.onload = () => {
+    img.className = ""; 
+  };
 });
 
 /* -------------------------------------------------------------------------- */
@@ -17,11 +20,11 @@ document.querySelectorAll(".lazyload").forEach((img) => {
 const $moblie_header = document.querySelector("#moblie-header");
 document.querySelector(".burger").addEventListener("click", () => {
   if (is_menu_open) {
-    document.querySelector(".sidebar").classList.remove("active");
+    document.querySelector(".top-nav").classList.remove("active");
     document.querySelector(".burger").innerHTML = `<i data-feather="menu"></i>`;
     $moblie_header.classList.remove("no-shadow");
   } else {
-    document.querySelector(".sidebar").classList.add("active");
+    document.querySelector(".top-nav").classList.add("active");
     document.querySelector(".burger").innerHTML = `<i data-feather="x"></i>`;
     $moblie_header.classList.add("no-shadow");
   }
@@ -86,21 +89,22 @@ if (document.querySelector(".toc") != null) {
   }
 
   function update_offset() {
-    document.querySelectorAll("h2,h3").forEach((ele) => {
-      toc[`to-${ele.id}`] = getOffset(ele);
+    document.querySelectorAll("h1,h2,h3").forEach((ele) => {
+      if (ele.id.length > 0) {
+        toc[`to-${ele.id}`] = getOffset(ele);
+      }
     });
   }
   /* ----------------------------------- 开始 ----------------------------------- */
   update_offset();
   keys = Object.keys(toc);
   keys.sort((a, b) => toc[a] - toc[b]);
-
   if (keys.length > 0) {
     window.addEventListener("scroll", function () {
       let id = getCurId(keys);
-      keys.forEach((ele) =>
-        document.getElementById(ele).classList.remove("active")
-      );
+      keys.forEach((ele) => {
+        document.getElementById(ele).classList.remove("active");
+      });
       document.getElementById(id).classList.add("active");
       if (document.querySelector("summary")) {
         update_offset();
@@ -126,7 +130,7 @@ function icon_loaded() {
     let $btn = document.createElement("button");
     $btn.classList.add("copy");
     $btn.innerHTML = `<i data-feather="copy">copy</i>`;
-    $btn.title = "Copy"
+    $btn.title = "Copy";
     $btn.onclick = () => {
       const $textarea = document.createElement("textarea");
       $textarea.style = "position:fixed;left:-1000px";
@@ -136,8 +140,8 @@ function icon_loaded() {
       $textarea.innerHTML = ele.innerText;
       $textarea.select();
       let res = document.execCommand("Copy");
-      if(res){
-        $btn.innerHTML = `<i data-feather="check">copy complete</i>`
+      if (res) {
+        $btn.innerHTML = `<i data-feather="check">copy complete</i>`;
         $btn.title = "Copy complete";
         feather.replace();
       }

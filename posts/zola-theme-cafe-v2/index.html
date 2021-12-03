@@ -20,7 +20,7 @@
     <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;custom.css" rel="stylesheet"/>
 
     <title>
-    CSS：盒模型 | Catalyst
+    将主题 Cafe 升级到了 v2 ☕ | Catalyst
 </title>
   </head>
   <body>
@@ -118,72 +118,102 @@
           
     <div class="blog">
         <!-- 文章封面 -->
+        
+            <div class="post-cover-inside"><img class="lazyload" data-src="a5gG5N6Rd3.png"/> </div>       
                 
         <h1 class="post-title">
-            CSS：盒模型</h1>
+            将主题 Cafe 升级到了 v2 ☕</h1>
         <!-- 文章信息 -->
         <div class="post-info">           
-            <div class="post-date"> <i data-feather="clock"></i>2020-05-13</div>            
+            <div class="post-date"> <i data-feather="clock"></i>2021-11-21</div>            
                        
             
                 
                     
-                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;webqian-duan&#x2F;">Web前端</a>
+                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;ri-zhi&#x2F;">日志</a>
                 
             
-                           
-                
-                    
-                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;css&#x2F;">CSS</a>
-                
             
         </div>       
         <article class="post-type">
-            <p><code>盒模型</code>(Box Model)是 CSS 布局的一种模式。</p>
-<span id="continue-reading"></span><h2 id="jian-jie">简介</h2>
-<p>一个盒模型元素从内到外分为：</p>
-<ul>
-<li>Content 内容</li>
-<li>Padding 内边距</li>
-<li>Border 边框</li>
-<li>Margin 外边框</li>
-</ul>
-<p>指定盒模型：</p>
+            <p>今年年初写的这个的主题<code>Cafe</code>（<a href="http://127.0.0.1:1111/posts/zola-theme-cafe/">写了个新主题 Cafe☕</a>），现在改造了下成了 v2 版本 😆。</p>
+<span id="continue-reading"></span><h2 id="zhu-yao-de-gai-dong">主要的改动</h2>
+<ol>
+<li>
+<p>版式由左右变成了上下</p>
+<p>虽然喜欢将导航放在左边，但正文不放中间总觉得脖子是歪的（？），所以把导航放回了上面。</p>
+</li>
+<li>
+<p>将 TOC 放在了猫的对话气泡里</p>
+<p>这其实是一开始就想做的事情……不然在左下角放猫做什么呢。</p>
+</li>
+<li>
+<p>新增了页面将目录和标签放在了一起</p>
+</li>
+<li>
+<p>新的主页</p>
+<p>之前是用了些 Tick 做成和 Hexo 差不多的“主页就是博客第一页”，现在是单独的主页。</p>
+<p>添加了头图和网站图标支持。</p>
+</li>
+</ol>
+<h2 id="geng-duo-de-duan-dai-ma">更多的短代码</h2>
+<p>新增了两个短代码：</p>
+<ol>
+<li>
+<p>模仿文档里常有的 Tips 块。</p>
+<p><del>用不用得上存疑。</del></p>
+</li>
+</ol>
+<div class="tips tips-info">
+    
+        <i data-feather="info"></i>
+    
+    <div>信息说明块</div>
+</div>
+<div class="tips tips-warning">
+    
+        <i data-feather="alert-triangle"></i>
+    
+    <div>警告块</div>
+</div>
 <pre style="background-color:#f5f5f5;">
-<code class="language-css" data-lang="css"><span style="color:#cda869;">box-sizing</span><span style="color:#1f1f1f;">: </span><span style="color:#cda869;">content-box </span><span style="color:#1f1f1f;">//宽度和高度应用到content
-</span><span style="color:#cda869;">box-sizing</span><span style="color:#1f1f1f;">: </span><span style="color:#cda869;">border-box   </span><span style="color:#1f1f1f;">//IE型，宽度和高度应用到Border为止
-</span></code></pre><h2 id="yuan-su-ju-zhong">元素居中</h2>
-<h3 id="shui-ping-ju-zhong">水平居中</h3>
-<ul>
-<li>文字：设置 <code>text-align:center</code>。</li>
-<li>块级元素：设置 <code>margin:0 auto</code>，必须自身有宽度。</li>
-</ul>
-<h3 id="chui-zhi-ju-zhong">垂直居中</h3>
-<ul>
-<li>单行文字：设置 <code>line-height:&lt;父高度&gt;</code>。</li>
-<li>块级元素：<code>position:relative;top:25%;</code>，必须自身有高度。</li>
-<li>块级元素： <code>position:relative; top:50%; left:50%; transform: translate(-50%,-50%);</code>，自身可不设高度。</li>
-</ul>
-<h3 id="qi-ta">其他</h3>
-<ul>
-<li>设置父元素为<code>display:flex;align-items: center;justify-content: center;</code>。<code>align-items</code>管上下，<code>justify-content</code>管左右。</li>
-<li>设置父元素为<code>grid</code>，同上。</li>
-</ul>
-<h2 id="shu-xing-xuan-ze-qi-de-pi-pei">属性选择器的匹配</h2>
-<pre style="background-color:#f5f5f5;">
-<code class="language-css" data-lang="css"><span style="color:#1f1f1f;">[</span><span style="color:#7f902a;">class</span><span style="color:#72ab00;">^=</span><span style="color:#d07711;">&quot;parent&quot;</span><span style="color:#1f1f1f;">]
-//选择以parent开头的类
+<code><span style="color:#1f1f1f;">{% tips(type=&quot;info&quot;) %}
+信息说明块
+{% end %}
 
-[</span><span style="color:#7f902a;">attribute</span><span style="color:#72ab00;">^=</span><span style="color:#d07711;">&quot;value&quot;</span><span style="color:#1f1f1f;">]
-//选属性值以value开头的元素
-
-[</span><span style="color:#7f902a;">attribute</span><span style="color:#72ab00;">=</span><span style="color:#d07711;">value</span><span style="color:#1f1f1f;">]
-//选择属性值=value的元素
-
-[</span><span style="color:#7f902a;">attribute</span><span style="color:#72ab00;">~=</span><span style="color:#d07711;">value</span><span style="color:#1f1f1f;">]
-//选择属性值包含value的元素
+{% tips(type=&quot;warning&quot;) %}
+警告块
+{% end %}
 </span></code></pre>
-<p>参考：<a href="https://www.w3school.com.cn/cssref/css_selectors.asp">CSS 选择器</a></p>
+<ol start="2">
+<li>
+<p>带文字说明的图像块。</p>
+<p>括在<code>&lt;figure&gt;</code>标签内。</p>
+</li>
+</ol>
+<figure>
+  <img src="a5gG5N6Rd3.png" width="auto"/>
+  
+    <figcaption>就像这样可以写图片标题</figcaption>
+  
+</figure>
+<figure>
+  <img src="a5gG5N6Rd3.png" width="120"/>
+  
+    <figcaption>还可以定义宽度</figcaption>
+  
+</figure>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">{{img(src=&quot;pxWeZ2xFFa.png&quot;,caption=&quot;就像这样可以写图片标题&quot;)}}
+
+{{img(src=&quot;pxWeZ2xFFa.png&quot;,caption=&quot;还可以定义宽度&quot;,width=&quot;120&quot;)}}
+</span></code></pre><h2 id="yi-liu-wen-ti">遗留问题</h2>
+<ul>
+<li><input disabled="" type="checkbox"/>
+搜索</li>
+<li><input disabled="" type="checkbox"/>
+SEO、meta标签相关</li>
+</ul>
 
         </article>
         <div class="divider"></div>
@@ -234,36 +264,17 @@
 <ul class="toc">
     
         <li >
-            <a id="to-jian-jie" href="https://owlzou.github.io/posts/css-box/#jian-jie">简介</a>
+            <a id="to-zhu-yao-de-gai-dong" href="https://owlzou.github.io/posts/zola-theme-cafe-v2/#zhu-yao-de-gai-dong">主要的改动</a>
             
         </li>
     
         <li >
-            <a id="to-yuan-su-ju-zhong" href="https://owlzou.github.io/posts/css-box/#yuan-su-ju-zhong">元素居中</a>
-            
-                <ul>
-                    
-                        <li >
-                            <a id="to-shui-ping-ju-zhong" href="https://owlzou.github.io/posts/css-box/#shui-ping-ju-zhong">水平居中</a>
-                            
-                        </li>
-                    
-                        <li >
-                            <a id="to-chui-zhi-ju-zhong" href="https://owlzou.github.io/posts/css-box/#chui-zhi-ju-zhong">垂直居中</a>
-                            
-                        </li>
-                    
-                        <li >
-                            <a id="to-qi-ta" href="https://owlzou.github.io/posts/css-box/#qi-ta">其他</a>
-                            
-                        </li>
-                    
-                </ul>
+            <a id="to-geng-duo-de-duan-dai-ma" href="https://owlzou.github.io/posts/zola-theme-cafe-v2/#geng-duo-de-duan-dai-ma">更多的短代码</a>
             
         </li>
     
         <li >
-            <a id="to-shu-xing-xuan-ze-qi-de-pi-pei" href="https://owlzou.github.io/posts/css-box/#shu-xing-xuan-ze-qi-de-pi-pei">属性选择器的匹配</a>
+            <a id="to-yi-liu-wen-ti" href="https://owlzou.github.io/posts/zola-theme-cafe-v2/#yi-liu-wen-ti">遗留问题</a>
             
         </li>
     

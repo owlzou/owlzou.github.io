@@ -1,142 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet" />
+    <link
+      href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico"
+      rel="shortcut icon"
+      type="image/x-icon"
+    />
+    <link
+      href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico"
+      rel="icon"
+      type="image/x-icon"
+    />
+    <!-- 放 SEO 的-->
     
-    
-      <meta charset="UTF-8"/>
-      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
-      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="icon" type="image/x-icon"/>
-      <title>
-        
-    前端安全（XSS &amp; CSRF） | Catalyst
-
-      </title>
-    
+     
     <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;custom.css" rel="stylesheet"/>
 
+    <title>
+    前端安全（XSS &amp; CSRF） | Catalyst
+</title>
   </head>
   <body>
     <div class="background"></div>
     <div class="fab">
   <i data-feather="chevron-up"></i>
 </div>
-
-    
-      <div class="grass"></div>
+ 
+    <div class="grass"></div>
     
     <div class="wrapper">
-      <div
-        class="container">
-        <!-- sidebar -->
+      <div class="container">
+        <!-- navigation -->
+        <!-- 顶端导航 -->
+<div class="top-nav">
+  <div class="title">
+    
+    <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+  </div>
+  <nav class="navs">
+    <ul>
+      
+      <ol>
         
-          <div class="sidebar">
-            <div class="title"><a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a></div>
-            <div class="divider"></div>
-            <nav>
-              <div class="moblie-header">
-                <div class="moblie-title">Catalyst</div>
-              </div>
-              <ul>
-                
-                  <li>
-                    <a href="&#x2F;">首页</a>
-                  </li>
-                
-                  <li>
-                    <a href="&#x2F;archives">归档</a>
-                  </li>
-                
-                  <li>
-                    <a href="&#x2F;projects">项目</a>
-                  </li>
-                
-                  <li>
-                    <a href="&#x2F;about">关于</a>
-                  </li>
-                
-              </ul>
-              <div class="side-buttons">
-                
-                  
-                    
-                      <a class="side-button" href="&#x2F;tags">
-                        <i data-feather="tag"></i>
-                      </a>
-                    
-                  
-                    
-                      <a class="side-button" href="&#x2F;categories">
-                        <i data-feather="feather"></i>
-                      </a>
-                    
-                  
-                    
-                      <a class="side-button" href="https:&#x2F;&#x2F;github.com&#x2F;owlzou" target="_blank">
-                        <i data-feather="github"></i>
-                      </a>
-                    
-                  
-                
-              </div>
-            </nav>
-            <div class="toc-wrapper">
-              
-    <ul class="toc">
-    
-        <li >
-            <a id="to-xss-gong-ji" href="https://owlzou.github.io/posts/fe-security/#xss-gong-ji">XSS 攻击</a>
-            
-                <ul>
-                    
-                        <li >
-                            <a id="to-ding-yi" href="https://owlzou.github.io/posts/fe-security/#ding-yi">定义</a>
-                        </li>
-                    
-                        <li >
-                            <a id="to-fang-yu" href="https://owlzou.github.io/posts/fe-security/#fang-yu">防御</a>
-                        </li>
-                    
-                </ul>
-            
-        </li>
-    
-        <li >
-            <a id="to-csrf-gong-ji" href="https://owlzou.github.io/posts/fe-security/#csrf-gong-ji">CSRF 攻击</a>
-            
-                <ul>
-                    
-                        <li >
-                            <a id="to-ding-yi-1" href="https://owlzou.github.io/posts/fe-security/#ding-yi-1">定义</a>
-                        </li>
-                    
-                        <li >
-                            <a id="to-fang-yu-1" href="https://owlzou.github.io/posts/fe-security/#fang-yu-1">防御</a>
-                        </li>
-                    
-                </ul>
-            
-        </li>
-    
-        <li >
-            <a id="to-kuo-zhan-tong-yuan-ce-lue" href="https://owlzou.github.io/posts/fe-security/#kuo-zhan-tong-yuan-ce-lue">扩展：同源策略</a>
-            
-        </li>
-    
-</ul>
+        <a class="side-button" href="&#x2F;posts" title="博文">
+          <i data-feather="feather"></i>
+          <span class="tip">博文</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;archives" title="归档">
+          <i data-feather="archive"></i>
+          <span class="tip">归档</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;projects" title="项目">
+          <i data-feather="star"></i>
+          <span class="tip">项目</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;taxonomies" title="分类">
+          <i data-feather="tag"></i>
+          <span class="tip">分类</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;about" title="关于">
+          <i data-feather="alert-circle"></i>
+          <span class="tip">关于</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a
+          class="side-button"
+          href="https:&#x2F;&#x2F;github.com&#x2F;owlzou"
+          target="_blank"
+          title="Github"
+        >
+          <i data-feather="github"></i>
+           <span class="tip">Github</span>
+        </a>
+        
+      </ol>
+      
+    </ul>
+  </nav>
+</div>
 
-            </div>
-            
-              <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
-                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
-                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
-                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"></path>
-              </svg>
-            
-          </div>
-        
         <!-- main -->
         <div class="main">
           <div class="moblie-header" id="moblie-header">
@@ -148,17 +117,16 @@
           <!-- content -->
           
     <div class="blog">
+        <!-- 文章封面 -->
+                
         <h1 class="post-title">
             前端安全（XSS &amp; CSRF）</h1>
-        <div class="post-info">
-            <i data-feather="clock"></i>
-            <div class="post-date">2020-04-29</div>
-            
-            
-                <i data-feather="edit"></i> 
-                <div class="post-date">2021-08-24</div>
-            
-           
+        <!-- 文章信息 -->
+        <div class="post-info">           
+            <div class="post-date"> <i data-feather="clock"></i>2020-04-29</div>            
+                            
+                <div class="post-date"><i data-feather="edit"></i> 2021-08-24</div>
+                       
             
                 
                     
@@ -166,8 +134,7 @@
                 
             
             
-        </div>
-        
+        </div>       
         <article class="post-type">
             <p>随便了。</p>
 <span id="continue-reading"></span><h2 id="xss-gong-ji">XSS 攻击</h2>
@@ -181,7 +148,7 @@
 <p>HTTP 响应头中的 <code>X-XSS-Protection</code>属性(<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/X-XSS-Protection">MDN</a>，<strong>非规范</strong>)。当检测到 XSS 攻击时，浏览器停止加载页面。</p>
 <p>语法：</p>
 <pre style="background-color:#f5f5f5;">
-<code class="language-http" data-lang="http"><span style="color:#1f1f1f;">X-XSS-Protection: 0 //禁止xss过滤
+<code><span style="color:#1f1f1f;">X-XSS-Protection: 0 //禁止xss过滤
 X-XSS-Protection: 1  //开启（默认）
 X-XSS-Protection: 1; mode=block //检测到攻击，阻止加载
 </span></code></pre>
@@ -191,7 +158,7 @@ X-XSS-Protection: 1; mode=block //检测到攻击，阻止加载
 <p>HTTP 响应头中的 <code>Content-Security-Policy</code>属性（<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Security-Policy">MDN</a>）。控制页面能加载哪些资源。</p>
 <p>语法：</p>
 <pre style="background-color:#f5f5f5;">
-<code class="language-http" data-lang="http"><span style="color:#1f1f1f;">//在 http header 上使用
+<code><span style="color:#1f1f1f;">//在 http header 上使用
 Content-Security-Policy: &lt;策略&gt;; &lt;策略&gt;
 
 //在 html 上使用
@@ -200,7 +167,7 @@ Content-Security-Policy: &lt;策略&gt;; &lt;策略&gt;
 <p>举例：</p>
 <p>所有资源均来自当前域名并使用 https 加载</p>
 <pre style="background-color:#f5f5f5;">
-<code class="language-http" data-lang="http"><span style="color:#1f1f1f;">Content-Security-Policy: default-src https:
+<code><span style="color:#1f1f1f;">Content-Security-Policy: default-src https:
 </span></code></pre>
 <p>如果 <code>script-src</code> 设置了<code>unsafe-inline</code>，则可以执行页面内的内联代码。</p>
 <p>扩展阅读：<a href="http://www.ruanyifeng.com/blog/2016/09/csp.html">Content Security Policy 入门教程</a></p>
@@ -209,7 +176,7 @@ Content-Security-Policy: &lt;策略&gt;; &lt;策略&gt;
 </ul>
 <p>此响应头提示客户端一定要遵循文件标识的 MIME 类型，禁用了客户端的 MIME 嗅探行为。</p>
 <pre style="background-color:#f5f5f5;">
-<code class="language-http" data-lang="http"><span style="color:#1f1f1f;">X-Content-Type-Options: nosniff
+<code><span style="color:#1f1f1f;">X-Content-Type-Options: nosniff
 </span></code></pre>
 <ul>
 <li>对用户输入进行转义。</li>
@@ -308,26 +275,95 @@ Content-Security-Policy: &lt;策略&gt;; &lt;策略&gt;
         
     </div>
 
-          <div class="footer">
-            <p>
-              
-                &copy;
-                <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
-                2019-2021
-              
-            </p>
-            <p>Powered by
-              <a href="https://www.getzola.org/">Zola</a>
-              | Theme
-              <a href="">Cafe</a>
-            </p>
-          </div>
+        </div>
+        <!--footer-->
+        <div class="footer">
+          <!--   -->
+          <p>
+             &copy;
+            <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+            2019-2021 
+          </p>
+          <p>
+            Powered by
+            <a href="https://www.getzola.org/">Zola</a>
+            | Theme
+            <a href="https://github.com/owlzou/zola-theme-cafe">Cafe</a>
+          </p>
+        </div>
+
+        <!-- 左侧的猫 -->
+        <div class="cat">
+          <svg
+            class="bigcat"
+            viewbox="0 0 92.685 127.487"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"
+            ></path>
+          </svg>
+          <!-- 对话气泡 -->
+          <div class="bubble">
+<ul class="toc">
+    
+        <li >
+            <a id="to-xss-gong-ji" href="https://owlzou.github.io/posts/fe-security/#xss-gong-ji">XSS 攻击</a>
+            
+                <ul>
+                    
+                        <li >
+                            <a id="to-ding-yi" href="https://owlzou.github.io/posts/fe-security/#ding-yi">定义</a>
+                            
+                        </li>
+                    
+                        <li >
+                            <a id="to-fang-yu" href="https://owlzou.github.io/posts/fe-security/#fang-yu">防御</a>
+                            
+                        </li>
+                    
+                </ul>
+            
+        </li>
+    
+        <li >
+            <a id="to-csrf-gong-ji" href="https://owlzou.github.io/posts/fe-security/#csrf-gong-ji">CSRF 攻击</a>
+            
+                <ul>
+                    
+                        <li >
+                            <a id="to-ding-yi-1" href="https://owlzou.github.io/posts/fe-security/#ding-yi-1">定义</a>
+                            
+                        </li>
+                    
+                        <li >
+                            <a id="to-fang-yu-1" href="https://owlzou.github.io/posts/fe-security/#fang-yu-1">防御</a>
+                            
+                        </li>
+                    
+                </ul>
+            
+        </li>
+    
+        <li >
+            <a id="to-kuo-zhan-tong-yuan-ce-lue" href="https://owlzou.github.io/posts/fe-security/#kuo-zhan-tong-yuan-ce-lue">扩展：同源策略</a>
+            
+        </li>
+    
+</ul>
+</div>
         </div>
       </div>
     </div>
     
-      <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
-      <script onload="icon_loaded()" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+    <script
+      onload="icon_loaded()"
+      src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"
+    ></script>
     
   </body>
 </html>

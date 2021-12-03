@@ -1,136 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet" />
+    <link
+      href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico"
+      rel="shortcut icon"
+      type="image/x-icon"
+    />
+    <link
+      href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico"
+      rel="icon"
+      type="image/x-icon"
+    />
+    <!-- 放 SEO 的-->
     
-    
-      <meta charset="UTF-8"/>
-      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet"/>
-      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-      <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico" rel="icon" type="image/x-icon"/>
-      <title>
-        
-    Rust 笔记（二）其它类型 | Catalyst
-
-      </title>
-    
+     
     <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;custom.css" rel="stylesheet"/>
 
+    <title>
+    Rust 笔记（二）其它类型 | Catalyst
+</title>
   </head>
   <body>
     <div class="background"></div>
     <div class="fab">
   <i data-feather="chevron-up"></i>
 </div>
-
-    
-      <div class="grass"></div>
+ 
+    <div class="grass"></div>
     
     <div class="wrapper">
-      <div
-        class="container">
-        <!-- sidebar -->
+      <div class="container">
+        <!-- navigation -->
+        <!-- 顶端导航 -->
+<div class="top-nav">
+  <div class="title">
+    
+    <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+  </div>
+  <nav class="navs">
+    <ul>
+      
+      <ol>
         
-          <div class="sidebar">
-            <div class="title"><a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a></div>
-            <div class="divider"></div>
-            <nav>
-              <div class="moblie-header">
-                <div class="moblie-title">Catalyst</div>
-              </div>
-              <ul>
-                
-                  <li>
-                    <a href="&#x2F;">首页</a>
-                  </li>
-                
-                  <li>
-                    <a href="&#x2F;archives">归档</a>
-                  </li>
-                
-                  <li>
-                    <a href="&#x2F;projects">项目</a>
-                  </li>
-                
-                  <li>
-                    <a href="&#x2F;about">关于</a>
-                  </li>
-                
-              </ul>
-              <div class="side-buttons">
-                
-                  
-                    
-                      <a class="side-button" href="&#x2F;tags">
-                        <i data-feather="tag"></i>
-                      </a>
-                    
-                  
-                    
-                      <a class="side-button" href="&#x2F;categories">
-                        <i data-feather="feather"></i>
-                      </a>
-                    
-                  
-                    
-                      <a class="side-button" href="https:&#x2F;&#x2F;github.com&#x2F;owlzou" target="_blank">
-                        <i data-feather="github"></i>
-                      </a>
-                    
-                  
-                
-              </div>
-            </nav>
-            <div class="toc-wrapper">
-              
-    <ul class="toc">
-    
-        <li >
-            <a id="to-pi-pei-he-mei-ju" href="https://owlzou.github.io/posts/rust-note-2/#pi-pei-he-mei-ju">匹配和枚举</a>
-            
-                <ul>
-                    
-                        <li >
-                            <a id="to-if-let-he-while-let" href="https://owlzou.github.io/posts/rust-note-2/#if-let-he-while-let">if let 和 while let</a>
-                        </li>
-                    
-                </ul>
-            
-        </li>
-    
-        <li >
-            <a id="to-xiang-liang-vectors" href="https://owlzou.github.io/posts/rust-note-2/#xiang-liang-vectors">向量 | Vectors</a>
-            
-        </li>
-    
-        <li >
-            <a id="to-ha-xi-biao-hashmap" href="https://owlzou.github.io/posts/rust-note-2/#ha-xi-biao-hashmap">哈希表 | HashMap</a>
-            
-        </li>
-    
-        <li >
-            <a id="to-cuo-wu-chu-li" href="https://owlzou.github.io/posts/rust-note-2/#cuo-wu-chu-li">错误处理</a>
-            
-        </li>
-    
-        <li >
-            <a id="to-die-dai-qi-iterator" href="https://owlzou.github.io/posts/rust-note-2/#die-dai-qi-iterator">迭代器 | Iterator</a>
-            
-        </li>
-    
-</ul>
+        <a class="side-button" href="&#x2F;posts" title="博文">
+          <i data-feather="feather"></i>
+          <span class="tip">博文</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;archives" title="归档">
+          <i data-feather="archive"></i>
+          <span class="tip">归档</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;projects" title="项目">
+          <i data-feather="star"></i>
+          <span class="tip">项目</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;taxonomies" title="分类">
+          <i data-feather="tag"></i>
+          <span class="tip">分类</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;about" title="关于">
+          <i data-feather="alert-circle"></i>
+          <span class="tip">关于</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a
+          class="side-button"
+          href="https:&#x2F;&#x2F;github.com&#x2F;owlzou"
+          target="_blank"
+          title="Github"
+        >
+          <i data-feather="github"></i>
+           <span class="tip">Github</span>
+        </a>
+        
+      </ol>
+      
+    </ul>
+  </nav>
+</div>
 
-            </div>
-            
-              <svg class="bigcat" viewbox="0 0 92.685 127.487" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
-                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
-                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
-                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"></path>
-              </svg>
-            
-          </div>
-        
         <!-- main -->
         <div class="main">
           <div class="moblie-header" id="moblie-header">
@@ -142,35 +117,31 @@
           <!-- content -->
           
     <div class="blog">
+        <!-- 文章封面 -->
+        
+            <div class="post-cover-inside"><img class="lazyload" data-src="pexels-rompalli-harish-2235924.webp"/> </div>       
+                
         <h1 class="post-title">
             Rust 笔记（二）其它类型</h1>
-        <div class="post-info">
-            <i data-feather="clock"></i>
-            <div class="post-date">2020-10-03</div>
-            
-            
-                <i data-feather="edit"></i> 
-                <div class="post-date">2021-06-24</div>
-            
-           
+        <!-- 文章信息 -->
+        <div class="post-info">           
+            <div class="post-date"> <i data-feather="clock"></i>2020-10-03</div>            
+                            
+                <div class="post-date"><i data-feather="edit"></i> 2021-06-24</div>
+                       
             
                 
                     
                     <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;yu-yan-ji-chu&#x2F;">语言基础</a>
                 
             
-            
-                <i data-feather="tag"></i>
+                           
                 
                     
                     <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;rust&#x2F;">Rust</a>
                 
             
-        </div>
-        
-            <div class="post-cover"><img class="lazyload" data-src="pexels-rompalli-harish-2235924.webp"/>
-            </div>
-        
+        </div>       
         <article class="post-type">
             <p>匹配、向量组、哈希表和错误处理。</p>
 <p>先过一遍基础，之后写东西遇到问题再单拎出来写整合博文……这么想的。</p>
@@ -394,26 +365,86 @@
         
     </div>
 
-          <div class="footer">
-            <p>
-              
-                &copy;
-                <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
-                2019-2021
-              
-            </p>
-            <p>Powered by
-              <a href="https://www.getzola.org/">Zola</a>
-              | Theme
-              <a href="">Cafe</a>
-            </p>
-          </div>
+        </div>
+        <!--footer-->
+        <div class="footer">
+          <!--   -->
+          <p>
+             &copy;
+            <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+            2019-2021 
+          </p>
+          <p>
+            Powered by
+            <a href="https://www.getzola.org/">Zola</a>
+            | Theme
+            <a href="https://github.com/owlzou/zola-theme-cafe">Cafe</a>
+          </p>
+        </div>
+
+        <!-- 左侧的猫 -->
+        <div class="cat">
+          <svg
+            class="bigcat"
+            viewbox="0 0 92.685 127.487"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"
+            ></path>
+          </svg>
+          <!-- 对话气泡 -->
+          <div class="bubble">
+<ul class="toc">
+    
+        <li >
+            <a id="to-pi-pei-he-mei-ju" href="https://owlzou.github.io/posts/rust-note-2/#pi-pei-he-mei-ju">匹配和枚举</a>
+            
+                <ul>
+                    
+                        <li >
+                            <a id="to-if-let-he-while-let" href="https://owlzou.github.io/posts/rust-note-2/#if-let-he-while-let">if let 和 while let</a>
+                            
+                        </li>
+                    
+                </ul>
+            
+        </li>
+    
+        <li >
+            <a id="to-xiang-liang-vectors" href="https://owlzou.github.io/posts/rust-note-2/#xiang-liang-vectors">向量 | Vectors</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-ha-xi-biao-hashmap" href="https://owlzou.github.io/posts/rust-note-2/#ha-xi-biao-hashmap">哈希表 | HashMap</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-cuo-wu-chu-li" href="https://owlzou.github.io/posts/rust-note-2/#cuo-wu-chu-li">错误处理</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-die-dai-qi-iterator" href="https://owlzou.github.io/posts/rust-note-2/#die-dai-qi-iterator">迭代器 | Iterator</a>
+            
+        </li>
+    
+</ul>
+</div>
         </div>
       </div>
     </div>
     
-      <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
-      <script onload="icon_loaded()" src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+    <script
+      onload="icon_loaded()"
+      src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"
+    ></script>
     
   </body>
 </html>
