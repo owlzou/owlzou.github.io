@@ -38,6 +38,8 @@
 <div class="top-nav">
   <div class="title">
     
+      <img src="&#x2F;c_icon.png" class="website-icon"/>
+    
     <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
   </div>
   <nav class="navs">
@@ -127,7 +129,7 @@
         <div class="post-info">           
             <div class="post-date"> <i data-feather="clock"></i>2020-10-03</div>            
                             
-                <div class="post-date"><i data-feather="edit"></i> 2021-06-24</div>
+                <div class="post-date"><i data-feather="edit"></i> 2021-12-18</div>
                        
             
                 
@@ -236,6 +238,36 @@
         </span><span style="color:#72ab00;">*</span><span style="color:#1f1f1f;">i </span><span style="color:#72ab00;">+=</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">//更改可变引用所引用的值，使用解除引用符号（*）
         </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, i);
     }
+</span></code></pre><h3 id="fu-zhi">复制</h3>
+<p>由于Rust默认不可变，所以如下的代码片段编译不会通过：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">(){
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> v </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">vec!</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">];
+    v[</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">] </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">;
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{:?}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,v)
+}
+</span></code></pre>
+<p>考虑使用<code>to_vec</code>复制内容：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> v </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">vec!</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">];
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> v2 </span><span style="color:#72ab00;">= &amp;</span><span style="color:#668f14;">mut</span><span style="color:#1f1f1f;"> v.</span><span style="color:#b39f04;">to_vec</span><span style="color:#1f1f1f;">();
+    v2[</span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">] </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">;
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{:?}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, v);
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{:?}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, v2);
+}
+</span></code></pre>
+<p>编译通过，运行结果：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">[1, 2, 3]
+[3, 2, 3]
+</span></code></pre>
+<p><a href="https://doc.rust-lang.org/std/primitive.slice.html#method.to_vec"><code>to_vec</code> 的定义</a>：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#668f14;">pub fn </span><span style="color:#c23f31;">to_vec</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">&amp;</span><span style="color:#5597d6;">self</span><span style="color:#1f1f1f;">) -&gt; </span><span style="color:#a2a001;">Vec</span><span style="color:#1f1f1f;">&lt;T, Global&gt; </span><span style="color:#72ab00;">where
+</span><span style="color:#1f1f1f;">    T: Clone, 
+
+Copies self into a new Vec.
 </span></code></pre><h2 id="ha-xi-biao-hashmap">哈希表 | HashMap</h2>
 <pre style="background-color:#f5f5f5;">
 <code class="language-rust" data-lang="rust"><span style="color:#7f8989;">//哈希表
@@ -416,6 +448,15 @@
     
         <li >
             <a id="to-xiang-liang-vectors" href="https://owlzou.github.io/posts/rust-note-2/#xiang-liang-vectors">向量 | Vectors</a>
+            
+                <ul>
+                    
+                        <li >
+                            <a id="to-fu-zhi" href="https://owlzou.github.io/posts/rust-note-2/#fu-zhi">复制</a>
+                            
+                        </li>
+                    
+                </ul>
             
         </li>
     
