@@ -20,7 +20,7 @@
     <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;custom.css" rel="stylesheet"/>
 
     <title>
-    将主题 Cafe 升级到了 v2 ☕ | Catalyst
+    搜索 | Catalyst
 </title>
   </head>
   <body>
@@ -127,116 +127,17 @@
           </div>
           <!-- content -->
           
-    <div class="blog">
-        <!-- 文章封面 -->
-        
-            <div class="post-cover-inside"><img class="lazyload" data-src="a5gG5N6Rd3.png"/> </div>       
-                
-        <h1 class="post-title">
-            将主题 Cafe 升级到了 v2 ☕</h1>
-        <!-- 文章信息 -->
-        <div class="post-info">           
-            <div class="post-date"> <i data-feather="clock"></i>2021-11-21</div>            
-                       
-            
-                
-                    
-                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;ri-zhi&#x2F;">日志</a>
-                
-            
-            
-        </div>       
-        <article class="post-type">
-            <p>今年年初写的这个的主题<code>Cafe</code>（<a href="http://127.0.0.1:1111/posts/zola-theme-cafe/">写了个新主题 Cafe☕</a>），现在改造了下成了 v2 版本 😆。</p>
-<span id="continue-reading"></span><h2 id="zhu-yao-de-gai-dong">主要的改动</h2>
-<ol>
-<li>
-<p>版式由左右变成了上下</p>
-<p>虽然喜欢将导航放在左边，但正文不放中间总觉得脖子是歪的（？），所以把导航放回了上面。</p>
-</li>
-<li>
-<p>将 TOC 放在了猫的对话气泡里</p>
-<p>这其实是一开始就想做的事情……不然在左下角放猫做什么呢。</p>
-</li>
-<li>
-<p>新增了页面将目录和标签放在了一起</p>
-</li>
-<li>
-<p>新的主页</p>
-<p>之前是用了些 Tick 做成和 Hexo 差不多的“主页就是博客第一页”，现在是单独的主页。</p>
-<p>添加了头图和网站图标支持。</p>
-</li>
-</ol>
-<h2 id="geng-duo-de-duan-dai-ma">更多的短代码</h2>
-<p>新增了两个短代码：</p>
-<ol>
-<li>
-<p>模仿文档里常有的 Tips 块。</p>
-<p><del>用不用得上存疑。</del></p>
-</li>
-</ol>
-<div class="tips tips-info">
-    
-        <i data-feather="info"></i>
-    
-    <div>信息说明块</div>
-</div>
-<div class="tips tips-warning">
-    
-        <i data-feather="alert-triangle"></i>
-    
-    <div>警告块</div>
-</div>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">{% tips(type=&quot;info&quot;) %}
-信息说明块
-{% end %}
-
-{% tips(type=&quot;warning&quot;) %}
-警告块
-{% end %}
-</span></code></pre>
-<ol start="2">
-<li>
-<p>带文字说明的图像块。</p>
-<p>括在<code>&lt;figure&gt;</code>标签内。</p>
-</li>
-</ol>
-<figure>
-  <img src="a5gG5N6Rd3.png" width="auto"/>
-  
-    <figcaption>就像这样可以写图片标题</figcaption>
-  
-</figure>
-<figure>
-  <img src="a5gG5N6Rd3.png" width="120"/>
-  
-    <figcaption>还可以定义宽度</figcaption>
-  
-</figure>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">{{img(src=&quot;pxWeZ2xFFa.png&quot;,caption=&quot;就像这样可以写图片标题&quot;)}}
-
-{{img(src=&quot;pxWeZ2xFFa.png&quot;,caption=&quot;还可以定义宽度&quot;,width=&quot;120&quot;)}}
-</span></code></pre><h2 id="yi-liu-wen-ti">遗留问题</h2>
-<ul>
-<li><input disabled="" type="checkbox"/>
-搜索</li>
-<li><input disabled="" type="checkbox"/>
-SEO、meta标签相关</li>
-</ul>
-
-        </article>
-        <div class="divider"></div>
-        
-            
-                <div id="comment">
-                    <div class="comment-placeholder">
-                        <i data-feather="loader"></i>Loading……</div>
-                    <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
-                </div>
-            
-        
+    <h2 class="post-title">
+        搜索
+    </h2>
+    <div class="search">
+        <div class="search-bar">
+            <input id="search" type="text"/>
+            <i data-feather="search"></i>
+        </div>
+        <div class="search-results">
+            <div class="search-results__items"></div>
+        </div>
     </div>
 
         </div>
@@ -271,29 +172,14 @@ SEO、meta标签相关</li>
             ></path>
           </svg>
           <!-- 对话气泡 -->
-          <div class="bubble">
-<ul class="toc">
-    
-        <li >
-            <a id="to-zhu-yao-de-gai-dong" href="https://owlzou.github.io/posts/zola-theme-cafe-v2/#zhu-yao-de-gai-dong">主要的改动</a>
-            
-        </li>
-    
-        <li >
-            <a id="to-geng-duo-de-duan-dai-ma" href="https://owlzou.github.io/posts/zola-theme-cafe-v2/#geng-duo-de-duan-dai-ma">更多的短代码</a>
-            
-        </li>
-    
-        <li >
-            <a id="to-yi-liu-wen-ti" href="https://owlzou.github.io/posts/zola-theme-cafe-v2/#yi-liu-wen-ti">遗留问题</a>
-            
-        </li>
-    
-</ul>
-</div>
+          <div class="bubble"></div>
         </div>
       </div>
     </div>
+    
+    <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;elasticlunr.min.js"></script>
+    <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;search_index.en.js"></script>
+    <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;search.js"></script>
     
     <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
     <script
@@ -301,5 +187,6 @@ SEO、meta标签相关</li>
       src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"
     ></script>
     
+
   </body>
 </html>
