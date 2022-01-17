@@ -176,69 +176,6 @@
 {% endblock %}
 </span></code></pre>
 <p>完成，收工。</p>
-<h2 id="hexo-zhuan-zola">Hexo 转 Zola</h2>
-<p>小的 js 脚本用来转换 front matter。没有处理文章中的图片，因为本来用的不多就手动处理了。</p>
-<p>Hexo 的附件文件夹是和文章同级的，但 Zola 这里是文章和图片在一个文件夹里。</p>
-<p>使用的依赖：</p>
-<pre style="background-color:#f5f5f5;">
-<code class="language-json" data-lang="json"><span style="color:#1f1f1f;">{
-  </span><span style="color:#d07711;">&quot;dependencies&quot;</span><span style="color:#1f1f1f;">: {
-    </span><span style="color:#d07711;">&quot;@iarna/toml&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;^2.2.5&quot;</span><span style="color:#1f1f1f;">,
-    </span><span style="color:#d07711;">&quot;yaml&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;^1.10.0&quot;
-  </span><span style="color:#1f1f1f;">}
-}
-</span></code></pre><details class="fold">
-    <summary>点击查看完整代码</summary>
-    <div><pre style="background-color:#f5f5f5;">
-<code class="language-js" data-lang="js"><span style="color:#668f14;">const </span><span style="color:#5597d6;">YAML </span><span style="color:#72ab00;">= </span><span style="color:#b39f04;">require</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;yaml&quot;</span><span style="color:#1f1f1f;">);
-</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">TOML </span><span style="color:#72ab00;">= </span><span style="color:#b39f04;">require</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;@iarna/toml&quot;</span><span style="color:#1f1f1f;">);
-</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">fs </span><span style="color:#72ab00;">= </span><span style="color:#b39f04;">require</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;fs&quot;</span><span style="color:#1f1f1f;">);
-</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">path </span><span style="color:#72ab00;">= </span><span style="color:#b39f04;">require</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;path&quot;</span><span style="color:#1f1f1f;">);
-
-</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">posts_path </span><span style="color:#72ab00;">= </span><span style="color:#7f8989;">//输入路径
-</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">output_path </span><span style="color:#72ab00;">= </span><span style="color:#7f8989;">//输出路径
-
-</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">taxonomies </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Set</span><span style="color:#1f1f1f;">([</span><span style="color:#d07711;">&quot;tags&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;category&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;categories&quot;</span><span style="color:#1f1f1f;">]);
-</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">original </span><span style="color:#72ab00;">= new </span><span style="color:#c23f31;">Set</span><span style="color:#1f1f1f;">([</span><span style="color:#d07711;">&quot;title&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;description&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;date&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;updated&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;draft&quot;</span><span style="color:#1f1f1f;">]);
-
-</span><span style="color:#c23f31;">travel</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">posts_path</span><span style="color:#1f1f1f;">);
-
-</span><span style="color:#668f14;">function </span><span style="color:#c23f31;">travel</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">fp</span><span style="color:#1f1f1f;">) {
-  </span><span style="color:#5597d6;">fs</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">readdirSync</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">fp</span><span style="color:#1f1f1f;">).</span><span style="color:#b39f04;">forEach</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">file</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
-    </span><span style="color:#c23f31;">readFiles</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">fp</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">file</span><span style="color:#1f1f1f;">);
-  });
-}
-
-</span><span style="color:#668f14;">function </span><span style="color:#c23f31;">readFiles</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">fpath</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">fname</span><span style="color:#1f1f1f;">) {
-  </span><span style="color:#668f14;">let </span><span style="color:#5597d6;">fn </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">path</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">resolve</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">fpath</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">fname</span><span style="color:#1f1f1f;">);
-  </span><span style="color:#72ab00;">if </span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">fs</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">statSync</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">fn</span><span style="color:#1f1f1f;">).</span><span style="color:#c23f31;">isFile</span><span style="color:#1f1f1f;">() </span><span style="color:#72ab00;">&amp;&amp; </span><span style="color:#5597d6;">path</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">extname</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">fn</span><span style="color:#1f1f1f;">) </span><span style="color:#72ab00;">== </span><span style="color:#d07711;">&quot;.md&quot;</span><span style="color:#1f1f1f;">) {
-    </span><span style="color:#668f14;">let </span><span style="color:#5597d6;">data </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">fs</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">readFileSync</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">fn</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;utf8&quot;</span><span style="color:#1f1f1f;">).</span><span style="color:#b39f04;">toString</span><span style="color:#1f1f1f;">().</span><span style="color:#b39f04;">split</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;---&quot;</span><span style="color:#1f1f1f;">);
-    </span><span style="color:#668f14;">let </span><span style="color:#5597d6;">frontMatter </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">];
-    </span><span style="color:#668f14;">let </span><span style="color:#5597d6;">yaml </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">YAML</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">parse</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">frontMatter</span><span style="color:#1f1f1f;">);
-    </span><span style="color:#a2a001;">Object</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">keys</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">yaml</span><span style="color:#1f1f1f;">).</span><span style="color:#b39f04;">forEach</span><span style="color:#1f1f1f;">((</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#1f1f1f;">{
-      </span><span style="color:#72ab00;">if </span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">original</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">has</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">)) {
-      } </span><span style="color:#72ab00;">else if </span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">taxonomies</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">has</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">)) {
-        </span><span style="color:#5597d6;">yaml</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">taxonomies </span><span style="color:#72ab00;">|| </span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">yaml</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">taxonomies </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">{});
-        </span><span style="color:#5597d6;">yaml</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">taxonomies</span><span style="color:#1f1f1f;">[</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">] </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">yaml</span><span style="color:#1f1f1f;">[</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">];
-        </span><span style="color:#72ab00;">delete </span><span style="color:#5597d6;">yaml</span><span style="color:#1f1f1f;">[</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">];
-      } </span><span style="color:#72ab00;">else </span><span style="color:#1f1f1f;">{
-        </span><span style="color:#5597d6;">yaml</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">extra </span><span style="color:#72ab00;">|| </span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">yaml</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">extra </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">{});
-        </span><span style="color:#5597d6;">yaml</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">extra</span><span style="color:#1f1f1f;">[</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">] </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">yaml</span><span style="color:#1f1f1f;">[</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">];
-        </span><span style="color:#72ab00;">delete </span><span style="color:#5597d6;">yaml</span><span style="color:#1f1f1f;">[</span><span style="color:#5597d6;">e</span><span style="color:#1f1f1f;">];
-      }
-    });
-    </span><span style="color:#668f14;">let </span><span style="color:#5597d6;">toml </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">TOML</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">stringify</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">yaml</span><span style="color:#1f1f1f;">);
-    </span><span style="color:#5597d6;">toml </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">toml
-      </span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">replace</span><span style="color:#1f1f1f;">(</span><span style="color:#c49a39;">/(date</span><span style="color:#72ab00;">|</span><span style="color:#c49a39;">updated) = &quot;(</span><span style="color:#aeb52b;">\S</span><span style="color:#72ab00;">*</span><span style="color:#c49a39;">) </span><span style="color:#72ab00;">+</span><span style="color:#c49a39;">(</span><span style="color:#aeb52b;">\S</span><span style="color:#72ab00;">*</span><span style="color:#c49a39;">)&quot;/</span><span style="color:#72ab00;">g</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;$1 = $2T$3Z&quot;</span><span style="color:#1f1f1f;">)
-      .</span><span style="color:#b39f04;">replace</span><span style="color:#1f1f1f;">(</span><span style="color:#c49a39;">/(date</span><span style="color:#72ab00;">|</span><span style="color:#c49a39;">updated) = &quot;(</span><span style="color:#aeb52b;">.</span><span style="color:#72ab00;">+</span><span style="color:#c49a39;">)&quot;/</span><span style="color:#72ab00;">g</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;$1 = $2&quot;</span><span style="color:#1f1f1f;">);
-    </span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">] </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">`+++</span><span style="color:#aeb52b;">\n</span><span style="color:#d07711;">${</span><span style="color:#acb3c2;">toml</span><span style="color:#d07711;">}+++`</span><span style="color:#1f1f1f;">;
-    </span><span style="color:#5597d6;">file </span><span style="color:#72ab00;">= </span><span style="color:#5597d6;">data</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">join</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;&quot;</span><span style="color:#1f1f1f;">).</span><span style="color:#b39f04;">replace</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;&lt;!--more--&gt;&quot;</span><span style="color:#1f1f1f;">,</span><span style="color:#d07711;">&quot;&lt;!-- more --&gt;&quot;</span><span style="color:#1f1f1f;">);
-    </span><span style="color:#5597d6;">fs</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">writeFileSync</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">path</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">resolve</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">output_path</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">fname</span><span style="color:#1f1f1f;">), </span><span style="color:#5597d6;">file</span><span style="color:#1f1f1f;">);
-  }
-}
-
-</span></code></div>
-</details></pre>
 <h2 id="shortcodes">Shortcodes</h2>
 <h3 id="zhe-die">折叠</h3>
 <p>上面的代码折叠是一个<code>Shortcode</code>（虽然没做什么特殊处理……）</p>
@@ -313,11 +250,6 @@
     
         <li >
             <a id="to-zi-ti-zi-ji-hua" href="https://owlzou.github.io/posts/zola-theme-cafe/#zi-ti-zi-ji-hua">字体子集化</a>
-            
-        </li>
-    
-        <li >
-            <a id="to-hexo-zhuan-zola" href="https://owlzou.github.io/posts/zola-theme-cafe/#hexo-zhuan-zola">Hexo 转 Zola</a>
             
         </li>
     

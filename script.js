@@ -10,7 +10,7 @@ var top_fixed = false;
 document.querySelectorAll(".lazyload").forEach((img) => {
   img.src = img.attributes["data-src"].value;
   img.onload = () => {
-    img.className = ""; 
+    img.className = "";
   };
 });
 
@@ -96,6 +96,7 @@ if (document.querySelector(".toc") != null) {
     });
   }
   /* ----------------------------------- 开始 ----------------------------------- */
+  window.onload = update_offset();
   update_offset();
   keys = Object.keys(toc);
   keys.sort((a, b) => toc[a] - toc[b]);
