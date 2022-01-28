@@ -137,6 +137,8 @@
         <!-- 文章信息 -->
         <div class="post-info">           
             <div class="post-date"> <i data-feather="clock"></i>2021-05-27</div>            
+                            
+                <div class="post-date"><i data-feather="edit"></i> 2022-01-27</div>
                        
             
                 
@@ -172,7 +174,9 @@
 
 </span><span style="color:#7f8989;"># 放弃命令的输出
 </span><span style="color:#1f1f1f;">app </span><span style="color:#72ab00;">| </span><span style="color:#b39f04;">Out-Null
-</span></code></pre><h2 id="nei-rong-chu-li">内容处理</h2>
+</span></code></pre>
+<p>命令行参数输入：存在<code>$Args</code>数组中，例：<code>$Args[0]</code></p>
+<h2 id="nei-rong-chu-li">内容处理</h2>
 <p>正则：</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-ps1" data-lang="ps1"><span style="color:#5597d6;">$line</span><span style="color:#72ab00;">=</span><span style="color:#d07711;">&quot;abcd.msi3421&quot;
@@ -225,6 +229,21 @@
 </span><span style="color:#1f1f1f;">		ffmpeg </span><span style="color:#72ab00;">-</span><span style="color:#1f1f1f;">i </span><span style="color:#a2a001;">$_</span><span style="color:#5597d6;">.name $nf
 	</span><span style="color:#1f1f1f;">}
 }
+</span></code></pre>
+<p>返回获取的第1个结果</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ps1" data-lang="ps1"><span style="color:#b39f04;">Get-ChildItem </span><span style="color:#72ab00;">-</span><span style="color:#1f1f1f;">Path </span><span style="color:#5597d6;">$path </span><span style="color:#72ab00;">-</span><span style="color:#1f1f1f;">Filter </span><span style="color:#72ab00;">*</span><span style="color:#1f1f1f;">.exe </span><span style="color:#72ab00;">-</span><span style="color:#1f1f1f;">Name </span><span style="color:#72ab00;">| </span><span style="color:#b39f04;">Select-Object </span><span style="color:#72ab00;">-</span><span style="color:#1f1f1f;">First </span><span style="color:#b3933a;">1
+</span></code></pre>
+<p>测试路径</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ps1" data-lang="ps1"><span style="color:#7f8989;"># 路径是否存在
+</span><span style="color:#72ab00;">if </span><span style="color:#1f1f1f;">(</span><span style="color:#b39f04;">Test-Path </span><span style="color:#72ab00;">-</span><span style="color:#1f1f1f;">Path (</span><span style="color:#d07711;">&quot;./resources&quot;</span><span style="color:#1f1f1f;">)){}
+
+</span><span style="color:#7f8989;"># 路径是文件夹
+</span><span style="color:#72ab00;">if</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">$_ </span><span style="color:#72ab00;">-is </span><span style="color:#1f1f1f;">[</span><span style="color:#668f14;">System.IO.DirectoryInfo</span><span style="color:#1f1f1f;">]){}
+
+</span><span style="color:#7f8989;"># 路径是文件
+</span><span style="color:#72ab00;">if</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">$_ </span><span style="color:#72ab00;">-is </span><span style="color:#1f1f1f;">[</span><span style="color:#668f14;">System.IO.FileInfo</span><span style="color:#1f1f1f;">]){}
 </span></code></pre>
 <p>参考链接：<a href="https://docs.microsoft.com/en-us/dotnet/api/system.io.fileinfo?view=net-5.0">FileInfo Class</a></p>
 <h2 id="yu-fa">语法</h2>
