@@ -137,6 +137,8 @@
         <!-- 文章信息 -->
         <div class="post-info">           
             <div class="post-date"> <i data-feather="clock"></i>2020-10-05</div>            
+                            
+                <div class="post-date"><i data-feather="edit"></i> 2022-02-27</div>
                        
             
                 
@@ -160,7 +162,7 @@
 <code class="language-rust" data-lang="rust"><span style="color:#1f1f1f;">cargo new </span><span style="color:#72ab00;">&lt;</span><span style="color:#1f1f1f;">工程名</span><span style="color:#72ab00;">&gt;
 </span><span style="color:#1f1f1f;">cargo new </span><span style="color:#72ab00;">--</span><span style="color:#1f1f1f;">lib </span><span style="color:#72ab00;">&lt;</span><span style="color:#1f1f1f;">库名</span><span style="color:#72ab00;">&gt;
 </span></code></pre>
-<p>工程中的 <code>main.rs</code> 和 <code>lib.rs</code> 是所有相关文件的根文件。</p>
+<p>工程中的 <code>main.rs</code> 或 <code>lib.rs</code> 是所有相关文件的根文件。</p>
 <p>利用 <code>mod</code> 定义模块，在模块之中还能再定义模块。</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-rust" data-lang="rust"><span style="color:#668f14;">mod </span><span style="color:#c23f31;">my_module</span><span style="color:#1f1f1f;">{
@@ -170,7 +172,7 @@
 }
 </span></code></pre>
 <p>在模块中使用 <code>pub</code> 关键字标明公共方法。结构体和结构体内的字段， <code>pub</code> 是分开的。</p>
-<p>主文件以外的文件本身不需要重复定义。如果有文件<code>am.rs</code>，如果再在<code>am.rs</code>里定义<code>mod am {fn add}</code>，那么需要<code>am::am::add</code>才能拿到函数。 </p>
+<p>主文件以外的文件本身不需要重复定义。如果有文件<code>am.rs</code>，再在<code>am.rs</code>里定义<code>mod am {fn add}</code>，那么需要<code>am::am::add</code>才能拿到函数。</p>
 <h3 id="lu-jing">路径</h3>
 <ul>
 <li>调用路径：使用 <code>::</code>分割。</li>
@@ -181,43 +183,79 @@
 <li>利用花括号调用同级： <code>use std::{cmp::Ordering, io};</code></li>
 <li>利用 <code>*</code> 导入所有 <code>use std::*;</code></li>
 </ul>
-<h3 id="chai-fen">拆分</h3>
-<p>在不同的文件写同一个模块的内容：在声明模块后使用 <code>;</code> ，说明加载其他同名文件夹中的内容。</p>
-<p>例,文件路径</p>
+<h3 id="sheng-ming">声明</h3>
+<p>在 <code>main.rs</code> 里声明模块才能把文件都连接起来，例：</p>
 <pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">│  calculate.rs
-│  lib.rs
-│  main.rs
-│
-└─calculate
-        add.rs
+<code><span style="color:#1f1f1f;">src/
+├── calculate.rs
+└── main.rs
 </span></code></pre><pre style="background-color:#f5f5f5;">
-<code class="language-rust" data-lang="rust"><span style="color:#7f8989;">//src\calculate\add.rs
+<code class="language-rs" data-lang="rs"><span style="color:#7f8989;">//calculate.rs
 </span><span style="color:#668f14;">pub fn </span><span style="color:#c23f31;">add</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">a</span><span style="color:#1f1f1f;">: </span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">b</span><span style="color:#1f1f1f;">: </span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">) -&gt; </span><span style="color:#668f14;">i32 </span><span style="color:#1f1f1f;">{
     a </span><span style="color:#72ab00;">+</span><span style="color:#1f1f1f;"> b
 }
 </span></code></pre><pre style="background-color:#f5f5f5;">
-<code class="language-rust" data-lang="rust"><span style="color:#7f8989;">//src\calculate.rs
-</span><span style="color:#668f14;">pub mod </span><span style="color:#c23f31;">add</span><span style="color:#1f1f1f;">;
-</span></code></pre><pre style="background-color:#f5f5f5;">
-<code class="language-rust" data-lang="rust"><span style="color:#7f8989;">//src\lib.rs
-</span><span style="color:#668f14;">pub mod </span><span style="color:#c23f31;">calculate</span><span style="color:#1f1f1f;">;
-
-</span><span style="color:#668f14;">pub fn </span><span style="color:#c23f31;">call_add</span><span style="color:#1f1f1f;">()-&gt;</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">{
-    calculate::add::add(</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">)
-}
-</span></code></pre><pre style="background-color:#f5f5f5;">
-<code class="language-rust" data-lang="rust"><span style="color:#7f8989;">//src\main.rs
-</span><span style="color:#72ab00;">use </span><span style="color:#1f1f1f;">modul::calculate;
+<code class="language-rs" data-lang="rs"><span style="color:#7f8989;">// main.rs
+</span><span style="color:#668f14;">mod </span><span style="color:#c23f31;">calculate</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">// 声明模块
 
 </span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
-    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,calculate::add::add(</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">));
-    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,modul::call_add());
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, calculate::add(</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">));
+}
+</span></code></pre><h3 id="chai-fen">拆分</h3>
+<p>在不同的文件写同一个模块的内容，例：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">src/
+├── calculate/
+│   └── multiply.rs
+├── calculate.rs
+├── divided.rs
+├── minus.rs
+└── main.rs
+</span></code></pre><pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#7f8989;">//src\calculate\multiply.rs
+</span><span style="color:#668f14;">pub fn </span><span style="color:#c23f31;">multiply</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">a</span><span style="color:#1f1f1f;">: </span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">b</span><span style="color:#1f1f1f;">: </span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">) -&gt; </span><span style="color:#668f14;">i32 </span><span style="color:#1f1f1f;">{
+    a </span><span style="color:#72ab00;">*</span><span style="color:#1f1f1f;"> b
 }
 </span></code></pre><pre style="background-color:#f5f5f5;">
-<code class="language-toml" data-lang="toml"><span style="background-color:#562d56bf;color:#f8f8f8;">//Cargo.toml</span><span style="color:#1f1f1f;">
-...
-[</span><span style="color:#6486ab;">lib</span><span style="color:#1f1f1f;">]
+<code class="language-rust" data-lang="rust"><span style="color:#7f8989;">// src/calculate.rs
+</span><span style="color:#668f14;">pub mod </span><span style="color:#c23f31;">multiply</span><span style="color:#1f1f1f;">;
+</span><span style="color:#7f8989;">// pub mod divided; 不能同级作子级
+// to create the module `divided`, create file &quot;src\calculate\divided.rs&quot; or &quot;src\calculate\divided\mod.rs&quot;
+
+</span><span style="color:#668f14;">pub fn </span><span style="color:#c23f31;">add</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">a</span><span style="color:#1f1f1f;">: </span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">b</span><span style="color:#1f1f1f;">: </span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">) -&gt; </span><span style="color:#668f14;">i32 </span><span style="color:#1f1f1f;">{
+    a </span><span style="color:#72ab00;">+</span><span style="color:#1f1f1f;"> b
+}
+</span></code></pre><pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#7f8989;">// src/divided.rs
+</span><span style="color:#668f14;">pub fn </span><span style="color:#c23f31;">divided</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">a</span><span style="color:#1f1f1f;">: </span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">b</span><span style="color:#1f1f1f;">: </span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">) -&gt; </span><span style="color:#668f14;">i32 </span><span style="color:#1f1f1f;">{
+    a </span><span style="color:#72ab00;">/</span><span style="color:#1f1f1f;"> b
+}
+</span></code></pre><pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#7f8989;">//src/minus.rs
+</span><span style="color:#668f14;">pub mod </span><span style="color:#c23f31;">calculate</span><span style="color:#1f1f1f;">{
+        </span><span style="color:#668f14;">pub fn </span><span style="color:#c23f31;">minus</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">a</span><span style="color:#1f1f1f;">: </span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">b</span><span style="color:#1f1f1f;">: </span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">) -&gt; </span><span style="color:#668f14;">i32 </span><span style="color:#1f1f1f;">{
+        a </span><span style="color:#72ab00;">-</span><span style="color:#1f1f1f;"> b
+    }
+}
+</span></code></pre><pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#668f14;">mod </span><span style="color:#c23f31;">calculate</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">// 声明模块
+</span><span style="color:#668f14;">mod </span><span style="color:#c23f31;">minus</span><span style="color:#1f1f1f;">;
+
+</span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, calculate::add(</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">));
+
+    </span><span style="color:#7f8989;">// println!(&quot;{}&quot;, calculate::minus(1, 2));
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, minus::calculate::minus(</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">)); </span><span style="color:#7f8989;">// 无法跨文件共用 mod 括号
+
+    // println!(&quot;{}&quot;, calculate::multiply(1, 2));
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, calculate::multiply::multiply(</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">));
+
+    </span><span style="color:#7f8989;">// println!(&quot;{}&quot;, calculate::multiply::divide::divide(1, 2));
+</span><span style="color:#1f1f1f;">}
+</span></code></pre><pre style="background-color:#f5f5f5;">
+<code class="language-toml" data-lang="toml"><span style="color:#7f8989;"># Cargo.toml
+
+</span><span style="color:#1f1f1f;">[</span><span style="color:#6486ab;">lib</span><span style="color:#1f1f1f;">]
 </span><span style="color:#7f902a;">name </span><span style="color:#1f1f1f;">= </span><span style="color:#d07711;">&quot;modul&quot;
 </span><span style="color:#7f902a;">path </span><span style="color:#1f1f1f;">= </span><span style="color:#d07711;">&quot;src/lib.rs&quot;
 
@@ -265,7 +303,10 @@ mod tests {
 <p>对于应该 <code>panic</code> 的函数在 <code>#[test]</code> 下使用 <code>#[should_panic]</code>。</p>
 <p>使用 <code>#[ignore]</code> 忽略此测试函数。</p>
 <h3 id="kong-zhi">控制</h3>
-<p><code>cargo test</code> 的参数有作用于 <code>cargo test</code> 本身的，也有作用于生成的测试文件的。如果想要传给生成的测试文件参数，将参数放在分隔符 <code>--</code> 后： <code>cargo test &lt;参数&gt; -- &lt;生成二进制文件的参数&gt;</code> 。</p>
+<p><code>cargo test</code> 的参数有作用于 <code>cargo test</code> 本身的，也有作用于生成的测试文件的。如果想要传给生成的测试文件参数，将参数放在分隔符 <code>--</code> 后：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">`cargo test &lt;参数&gt; -- &lt;生成二进制文件的参数&gt;`
+</span></code></pre>
 <p>例： <code>cargo test -- --test-threads=1</code> 。</p>
 <table><thead><tr><th>作用于 cargo test 的参数</th><th>含义</th></tr></thead><tbody>
 <tr><td><code>&lt;测试名字&gt;</code></td><td>只运行函数名中包含此名字的测试函数/模块</td></tr>
@@ -345,6 +386,11 @@ mod tests {
                     
                         <li >
                             <a id="to-lu-jing" href="https://owlzou.github.io/posts/rust-note-3-module-and-test/#lu-jing">路径</a>
+                            
+                        </li>
+                    
+                        <li >
+                            <a id="to-sheng-ming" href="https://owlzou.github.io/posts/rust-note-3-module-and-test/#sheng-ming">声明</a>
                             
                         </li>
                     
