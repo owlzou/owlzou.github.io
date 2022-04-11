@@ -155,7 +155,7 @@
 <p>在平面上贴纹理。</p>
 <h2 id="1-du-qu-wen-li">1. 读取纹理</h2>
 <blockquote>
-<p>参考资料：MDN 的<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL">加载纹理</a></p>
+<p>参考资料：MDN 的 <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/WebGL_API/Tutorial/Using_textures_in_WebGL">加载纹理</a></p>
 </blockquote>
 <p>因为只画一次，所以绘图函数写在了加载图像的回调后，保证设置完后再绘制纹理。</p>
 <pre style="background-color:#f5f5f5;">
@@ -176,10 +176,10 @@
       </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">TEXTURE_MIN_FILTER</span><span style="color:#1f1f1f;">,
       </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">LINEAR_MIPMAP_NEAREST
     </span><span style="color:#1f1f1f;">);
-    </span><span style="color:#7f8989;">//生成mipmap
+    </span><span style="color:#7f8989;">//生成 mipmap
     </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">generateMipmap</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">TEXTURE_2D</span><span style="color:#1f1f1f;">);
     </span><span style="color:#7f8989;">//绑定纹理
-    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">activeTexture</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">TEXTURE0</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//TEXTURE0默认激活，注释掉也行
+    </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">activeTexture</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">TEXTURE0</span><span style="color:#1f1f1f;">); </span><span style="color:#7f8989;">//TEXTURE0 默认激活，注释掉也行
     //传入纹理数据到着色器
     </span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">uniform1i</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">gl</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">getUniformLocation</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">shaderProgram</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;uSampler&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#b3933a;">0</span><span style="color:#1f1f1f;">);
     </span><span style="color:#7f8989;">//绘制
@@ -209,7 +209,7 @@ void main(){
       gl_FragColor = texture2D(uSampler,vTexCoord);
   }
 `</span><span style="color:#1f1f1f;">;
-</span></code></pre><h2 id="3-wen-li-ying-she">3.纹理映射</h2>
+</span></code></pre><h2 id="3-wen-li-ying-she">3. 纹理映射</h2>
 <p>指定图形上显示的纹理的坐标，按照点的顺序来。</p>
 <blockquote>
 <p>2020.09.13：这里正方形的点只写<code>x</code>和<code>y</code>是因为上面的着色器里已经把<code>z</code>设定了。半年过去自己都忘记了 😅。</p>
@@ -303,7 +303,7 @@ void main(){
         </li>
     
         <li >
-            <a id="to-3-wen-li-ying-she" href="https://owlzou.github.io/posts/webgl-note-3/#3-wen-li-ying-she">3.纹理映射</a>
+            <a id="to-3-wen-li-ying-she" href="https://owlzou.github.io/posts/webgl-note-3/#3-wen-li-ying-she">3. 纹理映射</a>
             
         </li>
     

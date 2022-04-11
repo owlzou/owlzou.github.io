@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet" />
+    <link
+      href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico"
+      rel="shortcut icon"
+      type="image/x-icon"
+    />
+    <link
+      href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico"
+      rel="icon"
+      type="image/x-icon"
+    />
+    <!-- 放 SEO 的-->
+    
+     
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;custom.css" rel="stylesheet"/>
+
+    <title>
+    Vue3 组件库组织学习 | Catalyst
+</title>
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="fab">
+  <i data-feather="chevron-up"></i>
+</div>
+ 
+    <div class="grass"></div>
+    
+    <div class="wrapper">
+      <div class="container">
+        <!-- navigation -->
+        <!-- 顶端导航 -->
+<div class="top-nav">
+  <div class="title">
+    
+      <img src="&#x2F;c_icon.png" class="website-icon"/>
+    
+    <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+  </div>
+  <nav class="navs">
+    <ul>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;search" title="搜索">
+          <i data-feather="search"></i>
+          <span class="tip">搜索</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;posts" title="博文">
+          <i data-feather="feather"></i>
+          <span class="tip">博文</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;archives" title="归档">
+          <i data-feather="archive"></i>
+          <span class="tip">归档</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;projects" title="项目">
+          <i data-feather="star"></i>
+          <span class="tip">项目</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;taxonomies" title="分类">
+          <i data-feather="tag"></i>
+          <span class="tip">分类</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;about" title="关于">
+          <i data-feather="alert-circle"></i>
+          <span class="tip">关于</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a
+          class="side-button"
+          href="https:&#x2F;&#x2F;github.com&#x2F;owlzou"
+          target="_blank"
+          title="Github"
+        >
+          <i data-feather="github"></i>
+           <span class="tip">Github</span>
+        </a>
+        
+      </ol>
+      
+    </ul>
+  </nav>
+</div>
+
+        <!-- main -->
+        <div class="main">
+          <div class="moblie-header" id="moblie-header">
+            <div class="moblie-title">Catalyst</div>
+            <button class="burger">
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+          <!-- content -->
+          
+    <div class="blog">
+        <!-- 文章封面 -->
+                
+        <h1 class="post-title">
+            Vue3 组件库组织学习</h1>
+        <!-- 文章信息 -->
+        <div class="post-info">           
+            <div class="post-date"> <i data-feather="clock"></i>2021-03-05</div>            
+                       
+            
+                
+                    
+                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;webqian-duan&#x2F;">Web前端</a>
+                
+            
+                           
+                
+                    
+                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;vue&#x2F;">vue</a>
+                
+                    
+                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;javascript&#x2F;">JavaScript</a>
+                
+            
+        </div>       
+        <article class="post-type">
+            <p>出于学习的目的探究一下 Vue3 组件库的编写，刚好整个新 web app 用得上。</p>
+<p>写组件本身问题不大，难受的是写文档（）目前主要探索一下文件组织。</p>
+<h2 id="jian-li-xiang-mu">建立项目</h2>
+<p>使用 <code>vue3 + vite + typescript</code></p>
+<p>新建项目</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">npm init vite-app round-ui
+</span></code></pre><h2 id="wen-jian-zu-zhi">文件组织</h2>
+<p>参考一下一些大组件库的组织方法：</p>
+<ul>
+<li><a href="https://github.com/vueComponent/ant-design-vue">Ant Design Vue</a></li>
+<li><a href="https://github.com/arco-design/arco-design-vue/">arco design vue</a></li>
+<li><a href="https://github.com/element-plus/element-plus">Element Plus</a></li>
+<li><a href="https://github.com/youzan/vant">Vant</a></li>
+</ul>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">.
+├── docs
+└── packages/
+    ├── 其他
+    └── components/
+        └── button/
+            ├── __test__/ # 测试文件
+            │   └── index.test.ts
+            ├── __demo__/ # 或者别的，用于 readme 和展示的文件
+            │   └── demo.md
+            ├── index.vue
+            └── Readme.md  # 文档，里面或引用 `./__demo__` 文件夹里的内容
+</span></code></pre>
+<p>文档组织方法：</p>
+<ul>
+<li>放在各自组件文件夹里最后一起 <code>import</code></li>
+<li>全部放在外面 <code>doc</code> 文件夹里</li>
+<li>或者上面两种一起使用……</li>
+</ul>
+<h2 id="ce-shi">测试</h2>
+<ul>
+<li><a href="https://github.com/vuejs/vue-jest">vue-jest</a></li>
+<li><a href="https://test-utils.vuejs.org/guide/">vue-test-utils</a></li>
+</ul>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">yarn add -D jest ts-jest typescript @types/jest @types/jest @vue/vue3-jest @vue/test-utils@next @babel/preset-env @testing-library/jest-dom
+</span></code></pre>
+<p><code>@testing-library/jest-dom</code> 用来添加一些方便 DOM 测试的函数。</p>
+<p>测试设置初始化</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">yarn ts-jest config:init
+</span></code></pre>
+<p>修改生成的 <code>jest.config.js</code> ：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#7f8989;">/** </span><span style="color:#668f14;">@type </span><span style="color:#c23f31;">{import(&#39;ts-jest/dist/types&#39;).InitialOptionsTsJest} </span><span style="color:#7f8989;">*/
+</span><span style="color:#a2a001;">module</span><span style="color:#1f1f1f;">.</span><span style="color:#a2a001;">exports </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">{
+  preset: </span><span style="color:#d07711;">&quot;ts-jest&quot;</span><span style="color:#1f1f1f;">,
+  testEnvironment: </span><span style="color:#d07711;">&quot;node&quot;</span><span style="color:#1f1f1f;">,
+  transform: {
+    </span><span style="color:#d07711;">&quot;^.+</span><span style="color:#aeb52b;">\\</span><span style="color:#d07711;">.js$&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;babel-jest&quot;</span><span style="color:#1f1f1f;">,
+    </span><span style="color:#d07711;">&quot;^.+</span><span style="color:#aeb52b;">\\</span><span style="color:#d07711;">.vue$&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;@vue/vue3-jest&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#7f8989;">// Update to match your installed version
+  </span><span style="color:#1f1f1f;">},
+};
+</span></code></pre>
+<p>修改 <code>tsconfig.json</code>:</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-json" data-lang="json"><span style="color:#1f1f1f;">{
+  </span><span style="color:#d07711;">&quot;compilerOptions&quot;</span><span style="color:#1f1f1f;">: {
+    </span><span style="color:#d07711;">&quot;esModuleInterop&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#b3933a;">true
+  </span><span style="color:#1f1f1f;">}
+}
+</span></code></pre>
+<p>在编写的测试文件顶部加入环境设置：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#7f8989;">/**
+ * @jest-environment jsdom
+ */
+</span></code></pre><h2 id="wen-dang">文档</h2>
+<ul>
+<li>storybook，但目前 storybook 对 Vue(+ts) 的支持还不够完美。</li>
+</ul>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">cd round-ui
+npx sb init
+</span></code></pre>
+<ul>
+<li><a href="https://vitepress.vuejs.org/">vite-press</a></li>
+</ul>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">yarn add --dev vitepress
+</span></code></pre>
+<ul>
+<li><a href="https://vue-styleguidist.github.io/Examples.html#basic">vue-styleguidist</a> 从 Vue 组件&amp;注释中生成文档，也能利用 <a href="https://vue-styleguidist.github.io/docs/docgen-cli.html">vue-docgen-cli</a> 抽取的数据用在其他文档生成器中（比如 vuepress）。</li>
+</ul>
+<p><code>vue-docgen-cli</code> + <code>vitepress</code> 示例：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;"># 新建 docs 文件夹，在文件夹里
+yarn add -D vue-docgen-cli vitepress
+</span></code></pre>
+<p><code>docs</code>里新建 <code>docgen.config.js</code>, 按 <a href="https://vue-styleguidist.github.io/docs/docgen-cli.html#config">设置</a> 填写。</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">const </span><span style="color:#5597d6;">path </span><span style="color:#72ab00;">= </span><span style="color:#b39f04;">require</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;path&quot;</span><span style="color:#1f1f1f;">);
+
+</span><span style="color:#a2a001;">module</span><span style="color:#1f1f1f;">.</span><span style="color:#a2a001;">exports </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">{
+  componentsRoot: </span><span style="color:#d07711;">&quot;../packages/components&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#7f8989;">// the folder where CLI will start searching for components.
+  </span><span style="color:#1f1f1f;">components: </span><span style="color:#d07711;">&quot;**/[A-z]*.vue&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#7f8989;">// the glob to define what files should be documented as components (relative to componentRoot)
+  </span><span style="color:#1f1f1f;">outDir: </span><span style="color:#d07711;">&quot;docs&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#7f8989;">// folder to save components docs in (relative to the current working directry)
+  </span><span style="color:#c23f31;">getDestFile</span><span style="color:#1f1f1f;">: (</span><span style="color:#5597d6;">file</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">config</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt;
+    </span><span style="color:#5597d6;">path</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">join</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">config</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">outDir</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">file</span><span style="color:#1f1f1f;">).</span><span style="color:#b39f04;">replace</span><span style="color:#1f1f1f;">(</span><span style="color:#c49a39;">/</span><span style="color:#108f3d;">\.</span><span style="color:#c49a39;">vue</span><span style="color:#72ab00;">$</span><span style="color:#c49a39;">/</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;.md&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#7f8989;">// specify the name of the output md file
+</span><span style="color:#1f1f1f;">};
+</span></code></pre>
+<p>运行抽取：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">yarn vue-docgen
+</span></code></pre>
+<p>生成的 <code>md</code> 文档就会放到 <code>docs/docs</code> 下了。</p>
+<h3 id="zu-jian-wen-dang">组件文档</h3>
+<ul>
+<li>按 <a href="https://vue-styleguidist.github.io/docs/Documenting.html#code-comments">Vue Styleguidist</a> 的方式写规范的注释</li>
+<li>在组件文件夹下的 <code>Readme.md</code> （或者<code>getDocFileName</code>里规定的名字）</li>
+</ul>
+<h3 id="dao-ru-zu-jian">导入组件</h3>
+<p>内部 Demo</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-md" data-lang="md"><span style="color:#b82812;"># </span><span style="color:#c23f31;">Docs
+
+</span><span style="color:#1f1f1f;">This is a .md using a custom component
+
+</span><span style="color:#6486ab;">&lt;CustomComponent /&gt;
+
+</span><span style="color:#1f1f1f;">## More docs
+
+...
+
+</span><span style="color:#6486ab;">&lt;script setup&gt;
+</span><span style="background-color:#b0b3ba14;color:#72ab00;">import </span><span style="background-color:#b0b3ba14;color:#5597d6;">CustomComponent </span><span style="background-color:#b0b3ba14;color:#72ab00;">from </span><span style="background-color:#b0b3ba14;color:#d07711;">&#39;../components/CustomComponent.vue&#39;
+</span><span style="color:#6486ab;">&lt;/script&gt;
+
+</span></code></pre>
+<p>导入外部 Demo</p>
+<p>写在组件下的<code>readme.md</code>或自定义名字文档中）:</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">\```[import](./myExample.vue)
+Text typed here will be entirely ignored. You can use it to describe the example imported for maintenance purposes
+\```
+</span></code></pre>
+<p>导入 css 到 vitepress 方法：</p>
+<p>创建主题：新建文件 <code>./vitepress/theme/index.js</code></p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#72ab00;">import </span><span style="color:#5597d6;">Theme </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;vitepress/theme&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#72ab00;">import </span><span style="color:#d07711;">&quot;../../../../packages/color.css&quot;</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">// &lt;- 要导入的 css
+
+</span><span style="color:#72ab00;">export default </span><span style="color:#1f1f1f;">{</span><span style="color:#72ab00;">...</span><span style="color:#5597d6;">Theme</span><span style="color:#1f1f1f;">};
+</span></code></pre><h2 id="da-bao">打包</h2>
+<blockquote>
+<p>待续</p>
+</blockquote>
+<h2 id="can-kao-yong-wang-zhi">参考用网址</h2>
+<ul>
+<li><a href="https://vitejs.dev/">vite</a></li>
+</ul>
+
+        </article>
+        <div class="divider"></div>
+        
+            
+                <div id="comment">
+                    <div class="comment-placeholder">
+                        <i data-feather="loader"></i>Loading……</div>
+                    <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
+                </div>
+            
+        
+    </div>
+
+        </div>
+        <!--footer-->
+        <div class="footer">
+          <!--   -->
+          <p>
+             &copy;
+            <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+            2019-2022 
+          </p>
+          <p>
+            Powered by
+            <a href="https://www.getzola.org/">Zola</a>
+            | Theme
+            <a href="https://github.com/owlzou/zola-theme-cafe">Cafe</a>
+          </p>
+        </div>
+
+        <!-- 左侧的猫 -->
+        <div class="cat">
+          <svg
+            class="bigcat"
+            viewbox="0 0 92.685 127.487"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"
+            ></path>
+          </svg>
+          <!-- 对话气泡 -->
+          <div class="bubble">
+<ul class="toc">
+    
+        <li >
+            <a id="to-jian-li-xiang-mu" href="https://owlzou.github.io/posts/vue3-components-library/#jian-li-xiang-mu">建立项目</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-wen-jian-zu-zhi" href="https://owlzou.github.io/posts/vue3-components-library/#wen-jian-zu-zhi">文件组织</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-ce-shi" href="https://owlzou.github.io/posts/vue3-components-library/#ce-shi">测试</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-wen-dang" href="https://owlzou.github.io/posts/vue3-components-library/#wen-dang">文档</a>
+            
+                <ul>
+                    
+                        <li >
+                            <a id="to-zu-jian-wen-dang" href="https://owlzou.github.io/posts/vue3-components-library/#zu-jian-wen-dang">组件文档</a>
+                            
+                        </li>
+                    
+                        <li >
+                            <a id="to-dao-ru-zu-jian" href="https://owlzou.github.io/posts/vue3-components-library/#dao-ru-zu-jian">导入组件</a>
+                            
+                        </li>
+                    
+                </ul>
+            
+        </li>
+    
+        <li >
+            <a id="to-da-bao" href="https://owlzou.github.io/posts/vue3-components-library/#da-bao">打包</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-can-kao-yong-wang-zhi" href="https://owlzou.github.io/posts/vue3-components-library/#can-kao-yong-wang-zhi">参考用网址</a>
+            
+        </li>
+    
+</ul>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+    <script
+      onload="icon_loaded()"
+      src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"
+    ></script>
+    
+  </body>
+</html>

@@ -153,9 +153,9 @@
             
         </div>       
         <article class="post-type">
-            <p>最近在试图绑定一套自己的组建库，在实现<code>input</code>上出了点问题，查了一下实现似乎和以前不一样了。</p>
+            <p>最近在试图绑定一套自己的组件库，在实现<code>input</code>上出了点问题，查了一下实现似乎和以前不一样了。</p>
 <span id="continue-reading"></span><h2 id="vue3-v-model-de-bian-hua">Vue3 v-model 的变化</h2>
-<p>根据<a href="https://v3.cn.vuejs.org/guide/migration/v-model.html">官方文档</a>的说法：</p>
+<p>根据 <a href="https://v3.cn.vuejs.org/guide/migration/v-model.html">官方文档</a> 的说法：</p>
 <ul>
 <li><strong>非兼容</strong>：用于自定义组件时，<code>v-model</code> prop 和事件默认名称已更改：
 <ul>
@@ -179,7 +179,7 @@
 <p>现在我们可以在<code>v-model</code>上添加参数来改变作响应的变量名。比如说</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-js" data-lang="js"><span style="color:#72ab00;">&lt;</span><span style="color:#5597d6;">ChildComponent v</span><span style="color:#72ab00;">-</span><span style="color:#c23f31;">model</span><span style="color:#1f1f1f;">:</span><span style="color:#5597d6;">title</span><span style="color:#72ab00;">=</span><span style="color:#d07711;">&quot;pageTitle&quot; </span><span style="color:#c49a39;">/&gt;
-&lt;!-- 将内部绑定的变量名指向title --&gt;
+&lt;!-- 将内部绑定的变量名指向 title --&gt;
 &lt;ChildComponent
   :title=&quot;pageTitle&quot;
   @update:title=&quot;pageTitle = </span><span style="color:#72ab00;">$</span><span style="color:#c49a39;">event&quot;
@@ -187,7 +187,7 @@
 </span></code></pre>
 <p>这样也可以在同一个组件上使用多个<code>v-model</code>。</p>
 <h2 id="bang-ding-zu-jian">绑定组件</h2>
-<p>回到开头，那么如何给input组件绑定呢？继续<a href="https://v3.cn.vuejs.org/guide/component-basics.html#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%8A%E4%BD%BF%E7%94%A8-v-model">抄答案</a>：</p>
+<p>回到开头，那么如何给 input 组件绑定呢？继续 <a href="https://v3.cn.vuejs.org/guide/component-basics.html#%E5%9C%A8%E7%BB%84%E4%BB%B6%E4%B8%8A%E4%BD%BF%E7%94%A8-v-model">抄答案</a>：</p>
 <p>这个组件内的 <code>&lt;input&gt;</code> 必须：</p>
 <ul>
 <li>将其 <code>value</code> attribute 绑定到一个名叫 <code>modelValue</code> 的 prop 上</li>

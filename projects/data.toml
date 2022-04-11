@@ -22,3 +22,9 @@ title = "🗨️ Bubble Note"
 link = "https://github.com/owlzou/BubbleNote"
 cover = ""
 description = "笔记软件，HTML套壳测试。"
+
+[[projects]]
+title="🌕 Start Page"
+link="https://owlzou.github.io/start-page/"
+cover=""
+description="一个浏览器主页？"
