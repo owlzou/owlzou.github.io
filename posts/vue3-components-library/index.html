@@ -135,11 +135,13 @@
         <!-- 文章信息 -->
         <div class="post-info">           
             <div class="post-date"> <i data-feather="clock"></i>2022-03-05</div>            
+                            
+                <div class="post-date"><i data-feather="edit"></i> 2022-04-17</div>
                        
             
                 
                     
-                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;webqian-duan&#x2F;">Web前端</a>
+                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;qian-duan&#x2F;">前端</a>
                 
             
                            
@@ -188,6 +190,7 @@
 <li>全部放在外面 <code>doc</code> 文件夹里</li>
 <li>或者上面两种一起使用……</li>
 </ul>
+<p>其实单独列名字，然后用<code>index.ts</code>整合比用<code>index.vue</code>的更多，不过为了后面生成文档方便就偷懒了 OTZ。</p>
 <h2 id="ce-shi">测试</h2>
 <ul>
 <li><a href="https://github.com/vuejs/vue-jest">vue-jest</a></li>
@@ -286,14 +289,10 @@ yarn add -D vue-docgen-cli vitepress
 </span><span style="color:#6486ab;">&lt;script setup&gt;
 </span><span style="background-color:#b0b3ba14;color:#72ab00;">import </span><span style="background-color:#b0b3ba14;color:#5597d6;">CustomComponent </span><span style="background-color:#b0b3ba14;color:#72ab00;">from </span><span style="background-color:#b0b3ba14;color:#d07711;">&#39;../components/CustomComponent.vue&#39;
 </span><span style="color:#6486ab;">&lt;/script&gt;
-
 </span></code></pre>
-<p>导入外部 Demo</p>
-<p>写在组件下的<code>readme.md</code>或自定义名字文档中）:</p>
+<p>将文件作为代码块渲染，<code>@</code>默认指根路径：</p>
 <pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">\```[import](./myExample.vue)
-Text typed here will be entirely ignored. You can use it to describe the example imported for maintenance purposes
-\```
+<code class="language-md" data-lang="md"><span style="color:#1f1f1f;">&lt;&lt;&lt; @/filepath
 </span></code></pre>
 <p>导入 css 到 vitepress 方法：</p>
 <p>创建主题：新建文件 <code>./vitepress/theme/index.js</code></p>
@@ -301,7 +300,7 @@ Text typed here will be entirely ignored. You can use it to describe the example
 <code class="language-js" data-lang="js"><span style="color:#72ab00;">import </span><span style="color:#5597d6;">Theme </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;vitepress/theme&quot;</span><span style="color:#1f1f1f;">;
 </span><span style="color:#72ab00;">import </span><span style="color:#d07711;">&quot;../../../../packages/color.css&quot;</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">// &lt;- 要导入的 css
 
-</span><span style="color:#72ab00;">export default </span><span style="color:#1f1f1f;">{</span><span style="color:#72ab00;">...</span><span style="color:#5597d6;">Theme</span><span style="color:#1f1f1f;">};
+</span><span style="color:#72ab00;">export default </span><span style="color:#1f1f1f;">{ </span><span style="color:#72ab00;">...</span><span style="color:#5597d6;">Theme </span><span style="color:#1f1f1f;">};
 </span></code></pre><h2 id="da-bao">打包</h2>
 <blockquote>
 <p>待续</p>
