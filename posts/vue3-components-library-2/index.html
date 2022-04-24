@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet" />
+    <link
+      href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico"
+      rel="shortcut icon"
+      type="image/x-icon"
+    />
+    <link
+      href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico"
+      rel="icon"
+      type="image/x-icon"
+    />
+    <!-- 放 SEO 的-->
+    
+     
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;custom.css" rel="stylesheet"/>
+
+    <title>
+    Vue3 组件库组织学习（二） | Catalyst
+</title>
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="fab">
+  <i data-feather="chevron-up"></i>
+</div>
+ 
+    <div class="grass"></div>
+    
+    <div class="wrapper">
+      <div class="container">
+        <!-- navigation -->
+        <!-- 顶端导航 -->
+<div class="top-nav">
+  <div class="title">
+    
+      <img src="&#x2F;c_icon.png" class="website-icon"/>
+    
+    <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+  </div>
+  <nav class="navs">
+    <ul>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;search" title="搜索">
+          <i data-feather="search"></i>
+          <span class="tip">搜索</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;posts" title="博文">
+          <i data-feather="feather"></i>
+          <span class="tip">博文</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;archives" title="归档">
+          <i data-feather="archive"></i>
+          <span class="tip">归档</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;projects" title="项目">
+          <i data-feather="star"></i>
+          <span class="tip">项目</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;taxonomies" title="分类">
+          <i data-feather="tag"></i>
+          <span class="tip">分类</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;about" title="关于">
+          <i data-feather="alert-circle"></i>
+          <span class="tip">关于</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a
+          class="side-button"
+          href="https:&#x2F;&#x2F;github.com&#x2F;owlzou"
+          target="_blank"
+          title="Github"
+        >
+          <i data-feather="github"></i>
+           <span class="tip">Github</span>
+        </a>
+        
+      </ol>
+      
+    </ul>
+  </nav>
+</div>
+
+        <!-- main -->
+        <div class="main">
+          <div class="moblie-header" id="moblie-header">
+            <div class="moblie-title">Catalyst</div>
+            <button class="burger">
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+          <!-- content -->
+          
+    <div class="blog">
+        <!-- 文章封面 -->
+        
+            <div class="post-cover-inside"><img class="lazyload" data-src="marita-kavelashvili-ugnrXk1129g-unsplash.jpg"/> </div>       
+                
+        <h1 class="post-title">
+            Vue3 组件库组织学习（二）</h1>
+        <!-- 文章信息 -->
+        <div class="post-info">           
+            <div class="post-date"> <i data-feather="clock"></i>2022-04-24</div>            
+                       
+            
+                
+                    
+                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;qian-duan&#x2F;">前端</a>
+                
+            
+                           
+                
+                    
+                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;vue&#x2F;">vue</a>
+                
+                    
+                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;javascript&#x2F;">JavaScript</a>
+                
+            
+        </div>       
+        <article class="post-type">
+            <p>下篇是添加类型定义和打包。</p>
+<span id="continue-reading"></span><h2 id="lei-xing-ding-yi">类型定义</h2>
+<p>如果只是想让 ts 不报错的话，写个粗略的定义就可以了。</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ts" data-lang="ts"><span style="color:#7f8989;">// packages/components/index.d.ts
+
+</span><span style="color:#72ab00;">import </span><span style="color:#1f1f1f;">{</span><span style="color:#5597d6;">Component</span><span style="color:#1f1f1f;">} </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;vue&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">declare module </span><span style="color:#d07711;">&quot;rect-ui&quot;</span><span style="color:#1f1f1f;">;
+
+</span><span style="color:#668f14;">export </span><span style="color:#c23f31;">RButton</span><span style="color:#1f1f1f;">:</span><span style="color:#5597d6;">Component</span><span style="color:#1f1f1f;">;
+</span><span style="color:#72ab00;">export </span><span style="color:#668f14;">function </span><span style="color:#c23f31;">install</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">...</span><span style="color:#5597d6;">args</span><span style="color:#72ab00;">: </span><span style="color:#a2a001;">any</span><span style="color:#1f1f1f;">[])</span><span style="color:#72ab00;">: </span><span style="color:#a2a001;">void</span><span style="color:#1f1f1f;">;
+</span></code></pre>
+<p>详细的定义：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ts" data-lang="ts"><span style="color:#668f14;">declare module </span><span style="color:#d07711;">&quot;rect-ui&quot; </span><span style="color:#1f1f1f;">{
+  </span><span style="color:#72ab00;">import </span><span style="color:#1f1f1f;">{ </span><span style="color:#5597d6;">DefineComponent </span><span style="color:#1f1f1f;">} </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;vue&quot;</span><span style="color:#1f1f1f;">;
+  </span><span style="color:#72ab00;">export </span><span style="color:#668f14;">const </span><span style="color:#5597d6;">RButton</span><span style="color:#72ab00;">: </span><span style="color:#c23f31;">DefineComponent</span><span style="color:#1f1f1f;">&lt;
+    {
+      </span><span style="color:#5597d6;">flat</span><span style="color:#72ab00;">: </span><span style="color:#1f1f1f;">{ </span><span style="color:#5597d6;">type</span><span style="color:#72ab00;">: </span><span style="color:#c23f31;">Boolean</span><span style="color:#1f1f1f;">; </span><span style="color:#5597d6;">default</span><span style="color:#72ab00;">: </span><span style="color:#a2a001;">false </span><span style="color:#1f1f1f;">};
+      </span><span style="color:#5597d6;">color</span><span style="color:#72ab00;">: </span><span style="color:#1f1f1f;">{ </span><span style="color:#5597d6;">type</span><span style="color:#72ab00;">: </span><span style="color:#c23f31;">String</span><span style="color:#1f1f1f;">; </span><span style="color:#5597d6;">default</span><span style="color:#72ab00;">: </span><span style="color:#a2a001;">string </span><span style="color:#1f1f1f;">};
+      </span><span style="color:#5597d6;">ghost</span><span style="color:#72ab00;">: </span><span style="color:#1f1f1f;">{ </span><span style="color:#5597d6;">type</span><span style="color:#72ab00;">: </span><span style="color:#c23f31;">Boolean</span><span style="color:#1f1f1f;">; </span><span style="color:#5597d6;">default</span><span style="color:#72ab00;">: </span><span style="color:#a2a001;">false </span><span style="color:#1f1f1f;">};
+      </span><span style="color:#5597d6;">disabled</span><span style="color:#72ab00;">: </span><span style="color:#1f1f1f;">{ </span><span style="color:#5597d6;">type</span><span style="color:#72ab00;">: </span><span style="color:#c23f31;">Boolean</span><span style="color:#1f1f1f;">; </span><span style="color:#5597d6;">default</span><span style="color:#72ab00;">: </span><span style="color:#a2a001;">false </span><span style="color:#1f1f1f;">};
+    },
+    {} </span><span style="color:#7f8989;">// 后面还有很多，不写了，大概是这样……
+  </span><span style="color:#1f1f1f;">&gt;;
+}
+</span></code></pre>
+<p>既然都用 TS 了，我们可以利用现代化的工具 → <a href="https://github.com/qmhc/vite-plugin-dts">vite-plugin-dts</a></p>
+<p>安装：<code>yarn add -D vite-plugin-dts</code></p>
+<p>设置 <code>vite.config.ts</code>：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ts" data-lang="ts"><span style="color:#7f8989;">// vite.config.ts
+</span><span style="color:#72ab00;">import </span><span style="color:#1f1f1f;">{ </span><span style="color:#5597d6;">defineConfig </span><span style="color:#1f1f1f;">} </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;vite&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#72ab00;">import </span><span style="color:#5597d6;">vue </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;@vitejs/plugin-vue&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#72ab00;">import </span><span style="color:#5597d6;">dts </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;vite-plugin-dts&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#72ab00;">import </span><span style="color:#1f1f1f;">{ </span><span style="color:#5597d6;">resolve </span><span style="color:#1f1f1f;">} </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;path&quot;</span><span style="color:#1f1f1f;">;
+
+</span><span style="color:#72ab00;">export default </span><span style="color:#c23f31;">defineConfig</span><span style="color:#1f1f1f;">({
+  plugins: [</span><span style="color:#c23f31;">dts</span><span style="color:#1f1f1f;">(), </span><span style="color:#c23f31;">vue</span><span style="color:#1f1f1f;">()],
+  build: {
+    lib: {
+      entry: </span><span style="color:#c23f31;">resolve</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">__dirname</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;packages/index.ts&quot;</span><span style="color:#1f1f1f;">),
+      name: </span><span style="color:#d07711;">&quot;rect-ui&quot;</span><span style="color:#1f1f1f;">,
+      </span><span style="color:#c23f31;">fileName</span><span style="color:#1f1f1f;">: (</span><span style="color:#5597d6;">format</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt; </span><span style="color:#d07711;">`rect-ui.${</span><span style="color:#acb3c2;">format</span><span style="color:#d07711;">}.js`</span><span style="color:#1f1f1f;">,
+    },
+    rollupOptions: {
+      </span><span style="color:#7f8989;">// make sure to externalize deps that shouldn&#39;t be bundled
+      // into your library
+      </span><span style="color:#1f1f1f;">external: [</span><span style="color:#d07711;">&quot;vue&quot;</span><span style="color:#1f1f1f;">],
+      output: {
+        </span><span style="color:#7f8989;">// Provide global variables to use in the UMD build
+        // for externalized deps
+        </span><span style="color:#1f1f1f;">globals: {
+          vue: </span><span style="color:#d07711;">&quot;Vue&quot;</span><span style="color:#1f1f1f;">,
+        },
+      },
+    },
+  },
+});
+</span></code></pre>
+<p>按照我们目前的目录结构，设置一下<code>tsconfig.json</code>以免检查到<code>demo</code>和<code>tests</code>文件：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-json" data-lang="json"><span style="color:#7f8989;">// tsconfig.json
+
+</span><span style="color:#1f1f1f;">{
+  </span><span style="color:#d07711;">&quot;compilerOptions&quot;</span><span style="color:#1f1f1f;">: {
+    </span><span style="color:#d07711;">&quot;esModuleInterop&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#b3933a;">true</span><span style="color:#1f1f1f;">,
+    </span><span style="color:#d07711;">&quot;target&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;ES2015&quot;</span><span style="color:#1f1f1f;">,
+    </span><span style="color:#d07711;">&quot;moduleResolution&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;node&quot;
+  </span><span style="color:#1f1f1f;">},
+  </span><span style="color:#d07711;">&quot;include&quot;</span><span style="color:#1f1f1f;">: [</span><span style="color:#d07711;">&quot;packages/**/**/*&quot;</span><span style="color:#1f1f1f;">],
+  </span><span style="color:#d07711;">&quot;exclude&quot;</span><span style="color:#1f1f1f;">: [</span><span style="color:#d07711;">&quot;packages/components/**/demo&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;packages/components/**/tests&quot;</span><span style="color:#1f1f1f;">]
+}
+</span></code></pre>
+<p>在 <code>build</code> 之后目标文件夹就会生成 <code>.d.ts</code>文件了。</p>
+<p>由于插件自带的打包没给路径设置，单独使用 <a href="https://api-extractor.com/pages/configs/api-extractor_json/#mainentrypointfilepath">API Extractor</a> 把分散的<code>.d.ts</code>打包成一个。因为不用它生成文档，所以关闭了相关功能。</p>
+<details class="fold">
+    <summary>api-extractor.json</summary>
+    <div><pre style="background-color:#f5f5f5;">
+<code class="language-json" data-lang="json"><span style="color:#1f1f1f;">{
+  </span><span style="color:#d07711;">&quot;$schema&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json&quot;</span><span style="color:#1f1f1f;">,
+  </span><span style="color:#d07711;">&quot;mainEntryPointFilePath&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;dist/index.d.ts&quot;</span><span style="color:#1f1f1f;">,
+  </span><span style="color:#d07711;">&quot;bundledPackages&quot;</span><span style="color:#1f1f1f;">: [],
+  </span><span style="color:#d07711;">&quot;compiler&quot;</span><span style="color:#1f1f1f;">: { </span><span style="color:#d07711;">&quot;skipLibCheck&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#b3933a;">false </span><span style="color:#1f1f1f;">},
+  </span><span style="color:#d07711;">&quot;apiReport&quot;</span><span style="color:#1f1f1f;">: {
+    </span><span style="color:#d07711;">&quot;enabled&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#b3933a;">false
+  </span><span style="color:#1f1f1f;">},
+  </span><span style="color:#d07711;">&quot;docModel&quot;</span><span style="color:#1f1f1f;">: {
+    </span><span style="color:#d07711;">&quot;enabled&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#b3933a;">false
+  </span><span style="color:#1f1f1f;">},
+  </span><span style="color:#d07711;">&quot;dtsRollup&quot;</span><span style="color:#1f1f1f;">: {
+    </span><span style="color:#d07711;">&quot;enabled&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#b3933a;">true</span><span style="color:#1f1f1f;">,
+    </span><span style="color:#d07711;">&quot;omitTrimmingComments&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#b3933a;">true</span><span style="color:#1f1f1f;">,
+    </span><span style="color:#d07711;">&quot;untrimmedFilePath&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;./index.d.ts&quot;
+  </span><span style="color:#1f1f1f;">},
+  </span><span style="color:#d07711;">&quot;tsdocMetadata&quot;</span><span style="color:#1f1f1f;">: {
+    </span><span style="color:#d07711;">&quot;enabled&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#b3933a;">false
+  </span><span style="color:#1f1f1f;">},
+  </span><span style="color:#d07711;">&quot;messages&quot;</span><span style="color:#1f1f1f;">: {
+    </span><span style="color:#d07711;">&quot;compilerMessageReporting&quot;</span><span style="color:#1f1f1f;">: {
+      </span><span style="color:#d07711;">&quot;default&quot;</span><span style="color:#1f1f1f;">: {
+        </span><span style="color:#d07711;">&quot;logLevel&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;error&quot;
+      </span><span style="color:#1f1f1f;">}
+    },
+    </span><span style="color:#d07711;">&quot;extractorMessageReporting&quot;</span><span style="color:#1f1f1f;">: {
+      </span><span style="color:#d07711;">&quot;default&quot;</span><span style="color:#1f1f1f;">: {
+        </span><span style="color:#d07711;">&quot;logLevel&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;none&quot;
+      </span><span style="color:#1f1f1f;">}
+    },
+    </span><span style="color:#d07711;">&quot;tsdocMessageReporting&quot;</span><span style="color:#1f1f1f;">: {
+      </span><span style="color:#d07711;">&quot;default&quot;</span><span style="color:#1f1f1f;">: {
+        </span><span style="color:#d07711;">&quot;logLevel&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;none&quot;
+      </span><span style="color:#1f1f1f;">}
+    }
+  }
+}
+</span></code></div>
+</details></pre>
+<div class="post-bubble">
+    <div class="post-bubble__content">说起来那些大组件库的发布版都是一个一个的小包，每个文件夹里都有自己的 js、css、dts，可能是为了兼容旧版本的“按需引用”吧。</div>
+    
+      <img src="&#x2F;c_icon.png" class="post-bubble__icon"/>
+    
+</div>
+<h2 id="bian-yi-da-bao">编译打包</h2>
+<p><a href="https://vitejs.dev/guide/build.html?msclkid=b935a37ac2c711ec97871f2524c765fb#library-mode">vite 的文档 - Library Mode</a></p>
+<p>然后运行<code>vite build</code>打包，不设置<code>outDir</code>的话默认在 <code>dist</code> 文件夹里。</p>
+<p>给编译好的包准备 <code>package.json</code>（<a href="https://nodejs.dev/learn/the-package-json-guide">其它内容</a> 自己填），和原来的 <code>package.json</code> 合并。</p>
+<div class="tips tips-info">
+    
+        <i data-feather="info"></i>
+    
+    <div>如果想让按需引用起效，设置 <code>sideEffects</code>。</div>
+</div>
+<pre style="background-color:#f5f5f5;">
+<code class="language-json" data-lang="json"><span style="color:#1f1f1f;">{
+  </span><span style="color:#d07711;">&quot;name&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;rect-ui&quot;</span><span style="color:#1f1f1f;">,
+  </span><span style="color:#d07711;">&quot;version&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;0.0.1&quot;</span><span style="color:#1f1f1f;">,
+  </span><span style="color:#d07711;">&quot;peerDependencies&quot;</span><span style="color:#1f1f1f;">: {
+    </span><span style="color:#d07711;">&quot;vue&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;^3.0.4&quot;
+  </span><span style="color:#1f1f1f;">},
+  </span><span style="color:#7f8989;">/* 中略 */
+  </span><span style="color:#d07711;">&quot;files&quot;</span><span style="color:#1f1f1f;">: [</span><span style="color:#d07711;">&quot;dist/&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;index.d.ts&quot;</span><span style="color:#1f1f1f;">],
+  </span><span style="color:#d07711;">&quot;main&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;./dist/rect-ui.umd.js&quot;</span><span style="color:#1f1f1f;">,
+  </span><span style="color:#d07711;">&quot;module&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;./dist/rect-ui.es.js&quot;</span><span style="color:#1f1f1f;">,
+  </span><span style="color:#d07711;">&quot;exports&quot;</span><span style="color:#1f1f1f;">: {
+    </span><span style="color:#d07711;">&quot;.&quot;</span><span style="color:#1f1f1f;">: {
+      </span><span style="color:#d07711;">&quot;import&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;./dist/rect-ui.es.js&quot;</span><span style="color:#1f1f1f;">,
+      </span><span style="color:#d07711;">&quot;require&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;./dist/rect-ui.umd.js&quot;
+    </span><span style="color:#1f1f1f;">},
+    </span><span style="color:#d07711;">&quot;./dist/style.css&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;./dist/style.css&quot;
+  </span><span style="color:#1f1f1f;">},
+  </span><span style="color:#d07711;">&quot;sideEffects&quot;</span><span style="color:#1f1f1f;">: [</span><span style="color:#d07711;">&quot;*.css&quot;</span><span style="color:#1f1f1f;">]
+}
+</span></code></pre>
+<p>用 <code>npm pack</code> 打包后的文件仅会留下 <code>file</code> 里的文件（还有 <code>readme.md</code>等一定会留下的文件）。</p>
+<h2 id="shi-yong">使用</h2>
+<p>新建一个 <code>vite</code> 项目，本地安装编译出来的包。</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">npm init vite-app lib-test -- --template vue-ts
+cd lib-test
+yarn add &lt;npm pack 打出的包&gt;
+</span></code></pre><h3 id="ji-chu-ce-shi">基础测试</h3>
+<p>修改 <code>main.ts</code> 引入自己的库和 css。</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ts" data-lang="ts"><span style="color:#7f8989;">// main.ts
+</span><span style="color:#72ab00;">import </span><span style="color:#1f1f1f;">{ </span><span style="color:#5597d6;">createApp </span><span style="color:#1f1f1f;">} </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;vue&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#72ab00;">import </span><span style="color:#5597d6;">App </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;./App.vue&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#72ab00;">import </span><span style="color:#5597d6;">RectUI </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;rect-ui&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#72ab00;">import </span><span style="color:#d07711;">&quot;rect-ui/dist/style.css&quot;</span><span style="color:#1f1f1f;">;
+
+</span><span style="color:#c23f31;">createApp</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">App</span><span style="color:#1f1f1f;">).</span><span style="color:#c23f31;">use</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">RectUI</span><span style="color:#1f1f1f;">).</span><span style="color:#c23f31;">mount</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;#app&quot;</span><span style="color:#1f1f1f;">);
+</span></code></pre>
+<p>修改 <code>App.vue</code></p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-vue" data-lang="vue"><span style="color:#1f1f1f;">&lt;template&gt;
+  &lt;r-button&gt;显示按钮！&lt;/r-button&gt;
+&lt;/template&gt;
+
+&lt;script lang=&quot;ts&quot;&gt;
+import { defineComponent } from &quot;vue&quot;;
+
+export default defineComponent({
+  name: &quot;App&quot;,
+});
+&lt;/script&gt;
+</span></code></pre>
+<p>查看能否被正确渲染。</p>
+<h3 id="an-xu-yin-yong-ce-shi">按需引用测试</h3>
+<p>将代码引用改按需安装：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ts" data-lang="ts"><span style="color:#72ab00;">import </span><span style="color:#1f1f1f;">{ </span><span style="color:#5597d6;">createApp </span><span style="color:#1f1f1f;">} </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;vue&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#72ab00;">import </span><span style="color:#5597d6;">App </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;./App.vue&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#72ab00;">import </span><span style="color:#d07711;">&quot;rect-ui/dist/style.css&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#72ab00;">import </span><span style="color:#1f1f1f;">{ </span><span style="color:#5597d6;">Button </span><span style="color:#1f1f1f;">} </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;rect-ui&quot;</span><span style="color:#1f1f1f;">;
+
+</span><span style="color:#c23f31;">createApp</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">App</span><span style="color:#1f1f1f;">).</span><span style="color:#c23f31;">use</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">Button</span><span style="color:#1f1f1f;">).</span><span style="color:#c23f31;">mount</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;#app&quot;</span><span style="color:#1f1f1f;">);
+</span></code></pre>
+<p>全部引入打包：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">vite v2.9.5 building for production...
+✓ 12 modules transformed.
+dist/index.html                  0.39 KiB
+dist/assets/index.76546b54.css   15.17 KiB / gzip: 3.05 KiB
+dist/assets/index.4c0e342d.js    60.03 KiB / gzip: 23.34 KiB
+</span></code></pre>
+<p>部分引入打包：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">vite v2.9.5 building for production...
+✓ 12 modules transformed.
+dist/index.html                  0.39 KiB
+dist/assets/index.76546b54.css   15.17 KiB / gzip: 3.05 KiB
+dist/assets/index.1e459a5a.js    52.18 KiB / gzip: 21.04 KiB
+</span></code></pre>
+<p>在生成的 js 文件里没有搜索到其他组件的信息。</p>
+<div class="reference">
+    <div class="reference-title"><i data-feather="book-open"></i>参考资料</div>
+    <ul>
+<li>封面图片：Photo by <a href="https://unsplash.com/@maritafox?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Marita Kavelashvili</a> on <a href="https://unsplash.com/s/photos/tree?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></li>
+</ul>
+
+</div>
+
+        </article>
+        <div class="divider"></div>
+        
+            
+                <div id="comment">
+                    <div class="comment-placeholder">
+                        <i data-feather="loader"></i>Loading……</div>
+                    <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
+                </div>
+            
+        
+    </div>
+
+        </div>
+        <!--footer-->
+        <div class="footer">
+          <!--   -->
+          <p>
+             &copy;
+            <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+            2019-2022 
+          </p>
+          <p>
+            Powered by
+            <a href="https://www.getzola.org/">Zola</a>
+            | Theme
+            <a href="https://github.com/owlzou/zola-theme-cafe">Cafe</a>
+          </p>
+        </div>
+
+        <!-- 左侧的猫 -->
+        <div class="cat">
+          <svg
+            class="bigcat"
+            viewbox="0 0 92.685 127.487"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"
+            ></path>
+          </svg>
+          <!-- 对话气泡 -->
+          <div class="toc-bubble">
+<ul class="toc">
+    
+        <li >
+            <a id="to-lei-xing-ding-yi" href="https://owlzou.github.io/posts/vue3-components-library-2/#lei-xing-ding-yi">类型定义</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-bian-yi-da-bao" href="https://owlzou.github.io/posts/vue3-components-library-2/#bian-yi-da-bao">编译打包</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-shi-yong" href="https://owlzou.github.io/posts/vue3-components-library-2/#shi-yong">使用</a>
+            
+                <ul>
+                    
+                        <li >
+                            <a id="to-ji-chu-ce-shi" href="https://owlzou.github.io/posts/vue3-components-library-2/#ji-chu-ce-shi">基础测试</a>
+                            
+                        </li>
+                    
+                        <li >
+                            <a id="to-an-xu-yin-yong-ce-shi" href="https://owlzou.github.io/posts/vue3-components-library-2/#an-xu-yin-yong-ce-shi">按需引用测试</a>
+                            
+                        </li>
+                    
+                </ul>
+            
+        </li>
+    
+</ul>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+    <script
+      onload="icon_loaded()"
+      src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"
+    ></script>
+    
+  </body>
+</html>
