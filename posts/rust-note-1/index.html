@@ -172,7 +172,7 @@
 <tr><td>数组</td><td>[&lt;类型&gt;;&lt;个数&gt;]</td><td>可以使用 [&lt;值&gt;;&lt;个数&gt;] 来初始化数组</td></tr>
 </tbody></table>
 <p>关于字符串：通常创建的硬编码字符串属于<code>&amp;str</code>，而创建可变字符串需要使用<code>String</code>。</p>
-<p><code>String</code>是以字节向量 (<code>Vec&lt;u8&gt;</code>)的方法存储的，始终是有效的 UTF-8 序列，分配在堆上，长度可变且不以 null 结尾。<code>str</code>是始终指向有效的 UTF-8 序列的片段(<code>&amp;[u8]</code>)。</p>
+<p><code>String</code>是以字节向量 (<code>Vec&lt;u8&gt;</code>) 的方法存储的，始终是有效的 UTF-8 序列，分配在堆上，长度可变且不以 null 结尾。<code>str</code>是始终指向有效的 UTF-8 序列的片段 (<code>&amp;[u8]</code>)。</p>
 <p>特殊字符使用<code>\</code>转义，需要<code>\</code>时则使用<code>\\</code>。</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-rust" data-lang="rust"><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> a </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;string&quot;</span><span style="color:#1f1f1f;">;
@@ -203,7 +203,7 @@
 <pre style="background-color:#f5f5f5;">
 <code class="language-rust" data-lang="rust"><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> arr: [</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">; </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">] </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">,</span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">];
 </span></code></pre>
-<p>或者用同一值初始化:</p>
+<p>或者用同一值初始化：</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-rust" data-lang="rust"><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> arr </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">;</span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">]; </span><span style="color:#7f8989;">//[1, 1, 1]
 </span></code></pre>
@@ -251,7 +251,7 @@
 <code class="language-rust" data-lang="rust"><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> x </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">;
 </span><span style="color:#668f14;">let mut</span><span style="color:#1f1f1f;"> y </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">;
 
-</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> x </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">//x最终等于3,let不能丢
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> x </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">//x 最终等于 3,let 不能丢
 </span><span style="color:#1f1f1f;">y </span><span style="color:#72ab00;">= </span><span style="color:#b3933a;">5</span><span style="color:#1f1f1f;">;
 </span></code></pre>
 <p>常量使用<code>const</code>定义，并<strong>必须声明类型</strong>。常量一定是不可变的，所以不用<code>mut</code>。</p>
@@ -283,7 +283,7 @@
 <code class="language-rust" data-lang="rust"><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">(){
     </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> lo </span><span style="color:#72ab00;">= loop </span><span style="color:#1f1f1f;">{
       </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;loop!&quot;</span><span style="color:#1f1f1f;">);
-      </span><span style="color:#72ab00;">break </span><span style="color:#d07711;">&quot;loop&quot;</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">//通过break终止循环并返回 &quot;loop&quot;
+      </span><span style="color:#72ab00;">break </span><span style="color:#d07711;">&quot;loop&quot;</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">//通过 break 终止循环并返回 &quot;loop&quot;
     </span><span style="color:#1f1f1f;">};
     </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;loop:</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,lo);
 
@@ -300,7 +300,7 @@
     }
 
     </span><span style="color:#72ab00;">for</span><span style="color:#1f1f1f;"> i </span><span style="color:#72ab00;">in </span><span style="color:#b3933a;">1</span><span style="color:#72ab00;">..</span><span style="color:#b3933a;">6 </span><span style="color:#1f1f1f;">{
-        </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;for:</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,i); </span><span style="color:#7f8989;">//打印出的是1-5
+        </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;for:</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,i); </span><span style="color:#7f8989;">//打印出的是 1-5
     </span><span style="color:#1f1f1f;">}
 
 }
@@ -311,14 +311,14 @@
 </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> a </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">5</span><span style="color:#1f1f1f;">];
 </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> slice </span><span style="color:#72ab00;">= &amp;</span><span style="color:#1f1f1f;">a[</span><span style="color:#b3933a;">1</span><span style="color:#72ab00;">..</span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">]; </span><span style="color:#7f8989;">//[2, 3, 4]
 </span></code></pre>
-<p>切片的数字是从 <code>开始</code> 到 <code>结束+1</code> 。如果是从第一个索引开始，0 可以省略(<code>[..2]</code>)。</p>
+<p>切片的数字是从 <code>开始</code> 到 <code>结束 +1</code> 。如果是从第一个索引开始，0 可以省略 (<code>[..2]</code>)。</p>
 <p>字符串<a href="https://doc.rust-lang.org/book/ch04-03-slices.html">切片</a>：对于字符串位置的引用（所以没有对应的所有权概念）</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-rust" data-lang="rust"><span style="color:#668f14;">let str </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Hello&quot;</span><span style="color:#1f1f1f;">);
 </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> he </span><span style="color:#72ab00;">= &amp;</span><span style="color:#668f14;">str</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">0</span><span style="color:#72ab00;">..</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">];
 </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,he);</span><span style="color:#7f8989;">//He
 //or
-</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> he </span><span style="color:#72ab00;">= &amp;</span><span style="color:#668f14;">str</span><span style="color:#1f1f1f;">[</span><span style="color:#72ab00;">..</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">]; </span><span style="color:#7f8989;">//开始为0可以忽略
+</span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> he </span><span style="color:#72ab00;">= &amp;</span><span style="color:#668f14;">str</span><span style="color:#1f1f1f;">[</span><span style="color:#72ab00;">..</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">]; </span><span style="color:#7f8989;">//开始为 0 可以忽略
 </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,he);</span><span style="color:#7f8989;">//He
 </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> lo </span><span style="color:#72ab00;">= &amp;</span><span style="color:#668f14;">str</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">3</span><span style="color:#72ab00;">..</span><span style="color:#1f1f1f;">]; </span><span style="color:#7f8989;">//结尾为最后也可以忽略
 </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">,lo);</span><span style="color:#7f8989;">//lo
@@ -331,7 +331,7 @@
 
 </span><span style="color:#668f14;">struct </span><span style="color:#c23f31;">Member</span><span style="color:#1f1f1f;">{
     </span><span style="color:#5597d6;">id</span><span style="color:#1f1f1f;">: </span><span style="color:#668f14;">u64</span><span style="color:#1f1f1f;">,
-    ..Person </span><span style="color:#7f8989;">//使用person内的定义
+    ..Person </span><span style="color:#7f8989;">//使用 person 内的定义
 </span><span style="color:#1f1f1f;">}
 
 </span><span style="color:#668f14;">struct </span><span style="color:#c23f31;">Point</span><span style="color:#1f1f1f;">(</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">,</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">) </span><span style="color:#7f8989;">//元组结构
@@ -372,7 +372,7 @@
 <div class="reference">
     <div class="reference-title"><i data-feather="book-open"></i>参考资料</div>
     <ul>
-<li>主要是<a href="https://doc.rust-lang.org/book/title-page.html">《The Book》</a>的读书笔记。</li>
+<li>主要是 <a href="https://doc.rust-lang.org/book/title-page.html">《The Book》</a> 的读书笔记。</li>
 <li><a href="https://github.com/rust-lang/rustlings">Rustlings</a> 的做题感想</li>
 <li><a href="https://doc.rust-lang.org/rust-by-example/std/str.html">Strings - Rust By Example</a></li>
 <li>封面图片：<span>Photo by <a href="https://unsplash.com/@picoftasty?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Mae Mu</a> on <a href="https://unsplash.com/s/photos/crab?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span></li>

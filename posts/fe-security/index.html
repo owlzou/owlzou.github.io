@@ -156,7 +156,7 @@
 <ul>
 <li>X-XSS-Protection</li>
 </ul>
-<p>HTTP 响应头中的 <code>X-XSS-Protection</code>属性(<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/X-XSS-Protection">MDN</a>，<strong>非规范</strong>)。当检测到 XSS 攻击时，浏览器停止加载页面。</p>
+<p>HTTP 响应头中的 <code>X-XSS-Protection</code>属性 (<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/X-XSS-Protection">MDN</a>，<strong>非规范</strong>)。当检测到 XSS 攻击时，浏览器停止加载页面。</p>
 <p>语法：</p>
 <pre style="background-color:#f5f5f5;">
 <code><span style="color:#1f1f1f;">X-XSS-Protection: 0 //禁止xss过滤
@@ -253,7 +253,7 @@ Content-Security-Policy: &lt;策略&gt;; &lt;策略&gt;
 <li><code>Access-Control-Allow-Methods</code>: 用于预检请求的响应，其指明了实际请求所允许使用的 HTTP 方法。</li>
 <li><code>Access-Control-Allow-Headers</code>: 用于预检请求的响应，其指明了实际请求中允许携带的首部字段。</li>
 </ul>
-<p>通常，简单操作（<code>GET</code>,<code>POST</code>,<code>HEAD</code>及常见的<code>content-type</code>）直接向服务器发送请求，其他复杂操作则浏览器会先向服务器发送请求（预请求 preflight,方法为<code>OPTIONS</code>）询问服务器对 CORS 的支持，返回的<code>Access-Control-Allow-Headers</code>中允许该方法时再发送真正的请求。所以，服务器也要相应的做对<code>OPTIONS</code>方法的处理。</p>
+<p>通常，简单操作（<code>GET</code>,<code>POST</code>,<code>HEAD</code>及常见的<code>content-type</code>）直接向服务器发送请求，其他复杂操作则浏览器会先向服务器发送请求（预请求 preflight，方法为<code>OPTIONS</code>）询问服务器对 CORS 的支持，返回的<code>Access-Control-Allow-Headers</code>中允许该方法时再发送真正的请求。所以，服务器也要相应的做对<code>OPTIONS</code>方法的处理。</p>
 <ol start="2">
 <li>
 <p>可以使用<code>&lt;script&gt;</code>脚本 src 不检测跨源的特性绕过同源策略。 = jsonp，将数据填入回调函数。（只适用<code>GET</code>请求）。

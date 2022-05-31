@@ -20,7 +20,7 @@
     <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;custom.css" rel="stylesheet"/>
 
     <title>
-    Endless开发笔记（2）：使用LiteDB | Catalyst
+    Endless 开发笔记（2）：使用 LiteDB | Catalyst
 </title>
   </head>
   <body>
@@ -131,7 +131,7 @@
         <!-- 文章封面 -->
                 
         <h1 class="post-title">
-            Endless开发笔记（2）：使用LiteDB</h1>
+            Endless 开发笔记（2）：使用 LiteDB</h1>
         <!-- 文章信息 -->
         <div class="post-info">           
             <div class="post-date"> <i data-feather="clock"></i>2020-07-13</div>            
@@ -157,7 +157,7 @@
 <p>这篇主要是数据保存，使用<a href="https://github.com/mbdavid/LiteDB">LiteDB</a>。</p>
 <span id="continue-reading"></span><h2 id="an-zhuang">安装</h2>
 <ol>
-<li>在工程命令行下：<code>Install-Package LiteDB</code>（没成功）或<code>dotnet add &lt;项目名称&gt; package LiteDB --version 4.1.4</code>（目前<code>LiteDB.fs</code>不支持 5.0+的<code>LiteDB</code>）或者下载复制 <code>dll</code>文件。</li>
+<li>在工程命令行下：<code>Install-Package LiteDB</code>（没成功）或<code>dotnet add &lt;项目名称&gt; package LiteDB --version 4.1.4</code>（目前<code>LiteDB.fs</code>不支持 5.0+ 的<code>LiteDB</code>）或者下载复制 <code>dll</code>文件。</li>
 <li>安装<a href="https://github.com/Zaid-Ajaj/LiteDB.fs">LiteDB.fs</a>:<code>dotnet add &lt;项目名称&gt; package LiteDB.fs --version 2.15.1</code>。</li>
 </ol>
 <p>注：</p>
@@ -166,7 +166,7 @@
 <p>错误 XA2002: 无法解析引用: <code>LiteDB</code>，引用者为 <code>Endless</code>。请为 <code>LiteDB</code> 添加 NuGet 包或程序集引用，或删除对 <code>Endless</code> 的引用。</p>
 </blockquote>
 <p>可能是因为我用官方给的安装方法失败了，所以包没装完全。</p>
-<p>解决方法：打开<code>Nuget包管理器</code>给 Android 包重装一遍库。</p>
+<p>解决方法：打开<code>Nuget 包管理器</code>给 Android 包重装一遍库。</p>
 <h2 id="bao-cun-lu-jing">保存路径</h2>
 <p>新建一个文件来写数据库相关。</p>
 <p>文件保存在 android 的<a href="https://developer.android.google.cn/training/data-storage/app-specific">应用专属文件目录</a>中。利用<a href="https://docs.microsoft.com/zh-cn/xamarin/xamarin-forms/app-fundamentals/dependency-service/">dependency-service</a>可以先定义一个接口然后分平台实现。(参照了这个实现吐司的方法：<a href="https://stackoverflow.com/questions/35279403/toast-equivalent-for-xamarin-forms">Toast equivalent for Xamarin Forms</a>)</p>
@@ -204,7 +204,7 @@
 </span><span style="color:#1f1f1f;">    Date</span><span style="color:#72ab00;">:</span><span style="color:#c23f31;">string
 </span><span style="color:#72ab00;">}
 </span></code></pre>
-<p>之后添加的条目,需要自增的 id 填 0。</p>
+<p>之后添加的条目，需要自增的 id 填 0。</p>
 <h3 id="shu-ju-jie-gou">数据结构</h3>
 <pre style="background-color:#f5f5f5;">
 <code class="language-fs" data-lang="fs"><span style="color:#72ab00;">type </span><span style="color:#c23f31;">ELEntry</span><span style="color:#72ab00;">= {

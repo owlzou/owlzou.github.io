@@ -159,7 +159,7 @@
 <p>定义一个接受泛型参数的函数：</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-rust" data-lang="rust"><span style="color:#7f8989;">// 使用到的泛型要在前面用&lt;&gt;提出。
-// T按常理推断为泛型，即使在之前被定义为结构体。
+// T 按常理推断为泛型，即使在之前被定义为结构体。
 </span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">function</span><span style="color:#1f1f1f;">&lt;T&gt;(</span><span style="color:#5597d6;">a</span><span style="color:#1f1f1f;">:T){
     </span><span style="color:#7f8989;">//...
 </span><span style="color:#1f1f1f;">}
@@ -210,10 +210,10 @@
 //只定义实现特性，不定义内容
 </span><span style="color:#668f14;">impl </span><span style="color:#1f1f1f;">Identification </span><span style="color:#72ab00;">for </span><span style="color:#c23f31;">User </span><span style="color:#1f1f1f;">{}
 
-</span><span style="color:#7f8989;">//再运行，则输出为:
+</span><span style="color:#7f8989;">//再运行，则输出为：
 //默认代码……
 </span></code></pre><h3 id="can-shu-yue-shu">参数约束</h3>
-<p>特性更多是一种约束，约定操作对象需要实现的方法。在函数的参数中使用特性约束:</p>
+<p>特性更多是一种约束，约定操作对象需要实现的方法。在函数的参数中使用特性约束：</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-rust" data-lang="rust"><span style="color:#668f14;">pub fn </span><span style="color:#c23f31;">show_identity</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">user</span><span style="color:#1f1f1f;">: </span><span style="color:#72ab00;">&amp;</span><span style="color:#1f1f1f;">impl Identification) {
     </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;识别码：</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, user.</span><span style="color:#b39f04;">get_code</span><span style="color:#1f1f1f;">());
@@ -272,13 +272,13 @@
 37 |     show_identity(&amp;mem);
    |                   ^^^^ the trait `Identification` is not implemented for `Member`
 </span></code></pre>
-<p>🍭 还有语法糖简写版，当多个参数需要符合同一特性时,将其定义为泛型：</p>
+<p>🍭 还有语法糖简写版，当多个参数需要符合同一特性时，将其定义为泛型：</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-rust" data-lang="rust"><span style="color:#668f14;">pub fn </span><span style="color:#c23f31;">show_identity</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">user</span><span style="color:#1f1f1f;">: </span><span style="color:#72ab00;">&amp;</span><span style="color:#1f1f1f;">impl Identification, </span><span style="color:#5597d6;">user2</span><span style="color:#1f1f1f;">:</span><span style="color:#72ab00;">&amp;</span><span style="color:#1f1f1f;">impl Identification)
 </span><span style="color:#7f8989;">//可以写成
 </span><span style="color:#668f14;">pub fn </span><span style="color:#c23f31;">show_identity</span><span style="color:#1f1f1f;">&lt;T:Identification&gt;(</span><span style="color:#5597d6;">user</span><span style="color:#1f1f1f;">: </span><span style="color:#72ab00;">&amp;</span><span style="color:#1f1f1f;">T, </span><span style="color:#5597d6;">user2</span><span style="color:#1f1f1f;">:</span><span style="color:#72ab00;">&amp;</span><span style="color:#1f1f1f;">T)
 </span></code></pre>
-<p>要求多个特性的情况:</p>
+<p>要求多个特性的情况：</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-rust" data-lang="rust"><span style="color:#668f14;">pub fn </span><span style="color:#c23f31;">show_identity</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">user</span><span style="color:#1f1f1f;">:</span><span style="color:#72ab00;">&amp;</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">impl Identification</span><span style="color:#1f1f1f;"> + </span><span style="color:#5597d6;">std</span><span style="color:#1f1f1f;">::</span><span style="color:#5597d6;">fmt</span><span style="color:#1f1f1f;">::</span><span style="color:#5597d6;">Display</span><span style="color:#1f1f1f;">))
 </span><span style="color:#7f8989;">//可以写成

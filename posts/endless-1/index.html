@@ -20,7 +20,7 @@
     <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;custom.css" rel="stylesheet"/>
 
     <title>
-    Endless开发笔记（1）：基础布局 | Catalyst
+    Endless 开发笔记（1）：基础布局 | Catalyst
 </title>
   </head>
   <body>
@@ -131,7 +131,7 @@
         <!-- 文章封面 -->
                 
         <h1 class="post-title">
-            Endless开发笔记（1）：基础布局</h1>
+            Endless 开发笔记（1）：基础布局</h1>
         <!-- 文章信息 -->
         <div class="post-info">           
             <div class="post-date"> <i data-feather="clock"></i>2020-06-20</div>            
@@ -161,10 +161,10 @@
 <h2 id="an-zhuang">安装</h2>
 <ol>
 <li>装 vs</li>
-<li>按照<a href="https://fsprojects.github.io/Fabulous/Fabulous.XamarinForms/">官网的方法</a>，打开 vs 命令行,输入 <code>dotnet new -i Fabulous.XamarinForms.Templates</code></li>
+<li>按照<a href="https://fsprojects.github.io/Fabulous/Fabulous.XamarinForms/">官网的方法</a>，打开 vs 命令行，输入 <code>dotnet new -i Fabulous.XamarinForms.Templates</code></li>
 <li>cd 进想要创建工程的文件夹，输入 <code>dotnet new fabulous-xf-app -n &lt;工程名字&gt;</code> 。默认创建 android 和 ios 程序，不想要/添加新的需要加参数。例：创建 wpf 程序<code>dotnet new fabulous-xf-app -n &lt;工程名字&gt; --iOS=false --Android=false --WPF</code></li>
 </ol>
-<p>这次软件名设为 Endless,有 Android 端。则初始化命令为<code>dotnet new fabulous-xf-app -n Endless --iOS=false</code></p>
+<p>这次软件名设为 Endless，有 Android 端。则初始化命令为<code>dotnet new fabulous-xf-app -n Endless --iOS=false</code></p>
 <h2 id="bu-ju">布局</h2>
 <h3 id="shi-yong-zi-ti-tu-biao">使用字体图标</h3>
 <ol>
@@ -196,7 +196,7 @@
 <h3 id="biao-ti-lan">标题栏</h3>
 <p>为了显示标题栏，给每个页面套了个<code>NavigationPage</code>。</p>
 <p>标题栏上的每个物件属于<code>ToolbarItem</code>，可以附着在<code>Page</code>型的<code>toolbaritems</code>下。</p>
-<p><code>ToolbarItem</code>可定义的有:</p>
+<p><code>ToolbarItem</code>可定义的有：</p>
 <ul>
 <li><code>Command</code> 绑定用户动作</li>
 <li><code>CommandParameter</code> 传送给控件的变量</li>
@@ -283,12 +283,12 @@
     else (</span><span style="color:#d07711;">&quot;&quot;</span><span style="color:#72ab00;">,</span><span style="color:#1f1f1f;">str</span><span style="color:#72ab00;">)
 </span></code></pre><h3 id="4-dan-chuang">4. 弹窗</h3>
 <p>弹窗：<a href="https://fsprojects.github.io/Fabulous/Fabulous.XamarinForms/views-popups.html">Pop-ups</a></p>
-<p>根据文档里的说法，</p>
+<p>根据文档里的说法：</p>
 <blockquote>
 <p><code>Pop-ups</code>是<code>Fabulous for Xamarin.Forms</code>中的一种特殊情况：他们是视图的一部分，但是不和 UI 的其他部分共享生命周期。在<code>Xamarin.Forms</code>中，<code>Pop-ups</code>用当前页面的两种方法暴露：<code>DisplayAlert</code> 和 <code>DisplayActionSheet</code>。
 在<code>Fabulous for Xamarin.Forms</code>中我们仅描述页面该是什么样，并不访问 UI 控件本身，所以没有直接的方法使用这两个函数。不过我们可以使用<code>Xamarin.Forms</code>暴露的静态属性 <code>Application.Current.MainPage</code> 。</p>
 </blockquote>
-<p>所以,点击删除时 <del>（其实在原型图里忘画了）</del></p>
+<p>所以，点击删除时 <del>（其实在原型图里忘画了）</del></p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-fs" data-lang="fs"><span style="color:#72ab00;">|</span><span style="color:#1f1f1f;"> DeleteAlert id </span><span style="color:#72ab00;">-&gt;
             let </span><span style="color:#5597d6;">alertResult </span><span style="color:#72ab00;">=

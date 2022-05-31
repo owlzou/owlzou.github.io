@@ -138,7 +138,7 @@
         <div class="post-info">           
             <div class="post-date"> <i data-feather="clock"></i>2022-03-05</div>            
                             
-                <div class="post-date"><i data-feather="edit"></i> 2022-04-26</div>
+                <div class="post-date"><i data-feather="edit"></i> 2022-05-31</div>
                        
             
                 
@@ -201,6 +201,15 @@
 <h2 id="an-xu-an-zhuang">按需安装</h2>
 <p>在使用别的 UI 库的时候经常见到<code>按需安装</code>的条目，可以只安装需要的组件。</p>
 <p>需要给每个可以自主安装的组件一个<code>install</code>函数用来调用。</p>
+<div class="post-bubble">
+  <div class="post-bubble__content">
+    写完后思考了一下，现在的 tree-shaking 这么先进，还有写这种按需安装方法的必要吗？</p>
+<p>就当研究一下组件库都有的东西是什么样的好了 😂，<strong>下次不写了</strong><del>（还有下次吗）</del>。
+  </div>
+  
+  <img src="&#x2F;c_icon.png" class="post-bubble__icon" />
+  
+</div>
 <pre style="background-color:#f5f5f5;">
 <code class="language-ts" data-lang="ts"><span style="color:#7f8989;">// packages/components/button/index.ts
 
@@ -247,148 +256,102 @@
 </span></code></pre>
 <p>测试按需安装成功，但 tree shaking 一直下不来，最后搜索到了 <a href="https://github.com/vuejs/core/issues/2860">这里</a>，原来在 TS 里要自己加 <code>/*#__PURE__*/</code>…… 😢</p>
 <p>修改组件定义为 <code>export default /*#__PURE__*/ defineComponent</code>，打包后用 <a href="https://github.com/Rich-Harris/agadoo">agadoo</a> 检查，通过了。</p>
-<p>不过这样打断后用<code>vue-docgen-cl</code>生成文档就无法识别自定义名字了，所以后来就先打包，再批量改。</p>
+<p>不过这样打断后用<code>vue-docgen-cli</code>生成文档就无法识别自定义名字了，所以后来就先打包，再批量改。</p>
 <h2 id="ce-shi">测试</h2>
 <ul>
-<li><a href="https://github.com/vuejs/vue-jest">vue-jest</a></li>
 <li><a href="https://test-utils.vuejs.org/guide/">vue-test-utils</a></li>
 </ul>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">yarn add -D jest ts-jest typescript @types/jest @types/jest @vue/vue3-jest @vue/test-utils@next @babel/preset-env @testing-library/jest-dom
-</span></code></pre>
-<p><code>@testing-library/jest-dom</code> 用来添加一些方便 DOM 测试的函数。</p>
+<h3 id="jest">Jest</h3>
+<ul>
+<li><a href="https://github.com/vuejs/vue-jest">vue-jest</a></li>
+<li><a href="https://jestjs.io/docs/getting-started#using-typescript">Using TypeScript - Jest</a></li>
+</ul>
 <ol>
-<li>测试设置初始化：</li>
+<li>安装依赖</li>
 </ol>
 <pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">yarn ts-jest config:init
-</span></code></pre>
+<code><span style="color:#1f1f1f;">yarn add -D @babel/preset-env @babel/preset-typescript @testing-library/jest-dom @types/jest @vue/babel-plugin-jsx @vue/test-utils@next @vue/vue3-jest ts-jest jest-environment-jsdom jest
+</span></code></pre><table><thead><tr><th>包名</th><th>说明</th></tr></thead><tbody>
+<tr><td><code>@babel/preset-env</code></td><td>智能设定，使用最新的 JavaScript。</td></tr>
+<tr><td><code>@babel/preset-typescript</code></td><td>babel 的 typescript 支持</td></tr>
+<tr><td><code>@testing-library/jest-dom</code></td><td>用来添加一些方便 DOM 测试的函数。</td></tr>
+<tr><td><code>@types/jest</code></td><td>给 <code>jest</code> 提供类型定义。</td></tr>
+<tr><td><code>@vue/babel-plugin-jsx</code></td><td>添加 Vue JSX 转译支持。</td></tr>
+<tr><td><code>@vue/test-utils@next</code></td><td>vue3 的测试套组。</td></tr>
+<tr><td><code>@vue/vue3-jest</code></td><td>用于 Vue 单文件组件 (SFC) 的 Jest transformer。</td></tr>
+<tr><td><code>ts-jest</code></td><td>提供 ts 测试支持</td></tr>
+<tr><td><code>jest-environment-jsdom</code></td><td>提供 jsdom 测试环境。</td></tr>
+<tr><td><code>jest</code></td><td>测试工具。</td></tr>
+</tbody></table>
 <ol start="2">
-<li>修改生成的 <code>jest.config.js</code> ：</li>
+<li>新建 <code>jest.config.js</code> 并设置</li>
 </ol>
 <pre style="background-color:#f5f5f5;">
 <code class="language-js" data-lang="js"><span style="color:#7f8989;">/** </span><span style="color:#668f14;">@type </span><span style="color:#c23f31;">{import(&#39;ts-jest/dist/types&#39;).InitialOptionsTsJest} </span><span style="color:#7f8989;">*/
 </span><span style="color:#a2a001;">module</span><span style="color:#1f1f1f;">.</span><span style="color:#a2a001;">exports </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">{
   preset: </span><span style="color:#d07711;">&quot;ts-jest&quot;</span><span style="color:#1f1f1f;">,
-  testEnvironment: </span><span style="color:#d07711;">&quot;node&quot;</span><span style="color:#1f1f1f;">,
+  testEnvironment: </span><span style="color:#d07711;">&quot;jsdom&quot;</span><span style="color:#1f1f1f;">,
   transform: {
-    </span><span style="color:#d07711;">&quot;^.+</span><span style="color:#aeb52b;">\\</span><span style="color:#d07711;">.js$&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;babel-jest&quot;</span><span style="color:#1f1f1f;">,
     </span><span style="color:#d07711;">&quot;^.+</span><span style="color:#aeb52b;">\\</span><span style="color:#d07711;">.vue$&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;@vue/vue3-jest&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#7f8989;">// Update to match your installed version
-  </span><span style="color:#1f1f1f;">},
+    </span><span style="color:#d07711;">&quot;^.+</span><span style="color:#aeb52b;">\\</span><span style="color:#d07711;">js$&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#d07711;">&quot;babel-jest&quot;</span><span style="color:#1f1f1f;">,
+  },
+  testMatch: [</span><span style="color:#d07711;">&quot;**/tests/*.test.[jt]s?(x)&quot;</span><span style="color:#1f1f1f;">],
+  moduleFileExtensions: [</span><span style="color:#d07711;">&quot;js&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;jsx&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;ts&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;tsx&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;vue&quot;</span><span style="color:#1f1f1f;">],
+  testEnvironmentOptions: {
+    customExportConditions: [</span><span style="color:#d07711;">&quot;node&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;node-addons&quot;</span><span style="color:#1f1f1f;">],
+  },
+  globals: {
+    </span><span style="color:#d07711;">&quot;ts-jest&quot;</span><span style="color:#1f1f1f;">: { babelConfig: </span><span style="color:#b3933a;">true </span><span style="color:#1f1f1f;">},
+  },
 };
 </span></code></pre>
 <ol start="3">
-<li>修改 <code>tsconfig.json</code>:</li>
+<li>新建 <code>babel.config.js</code> 并设置：</li>
 </ol>
 <pre style="background-color:#f5f5f5;">
-<code class="language-json" data-lang="json"><span style="color:#1f1f1f;">{
-  </span><span style="color:#d07711;">&quot;compilerOptions&quot;</span><span style="color:#1f1f1f;">: {
-    </span><span style="color:#d07711;">&quot;esModuleInterop&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#b3933a;">true
-  </span><span style="color:#1f1f1f;">}
-}
+<code class="language-js" data-lang="js"><span style="color:#a2a001;">module</span><span style="color:#1f1f1f;">.</span><span style="color:#a2a001;">exports </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">{
+  presets: [
+    [</span><span style="color:#d07711;">&quot;@babel/preset-env&quot;</span><span style="color:#1f1f1f;">, { targets: { node: </span><span style="color:#d07711;">&quot;current&quot; </span><span style="color:#1f1f1f;">} }],
+    </span><span style="color:#d07711;">&quot;@babel/preset-typescript&quot;</span><span style="color:#1f1f1f;">,
+  ],
+  plugins: [</span><span style="color:#d07711;">&quot;@vue/babel-plugin-jsx&quot;</span><span style="color:#1f1f1f;">],
+};
 </span></code></pre>
 <ol start="4">
-<li>在编写的测试文件顶部加入环境设置：</li>
+<li>运行测试</li>
 </ol>
 <pre style="background-color:#f5f5f5;">
-<code class="language-js" data-lang="js"><span style="color:#7f8989;">/**
+<code><span style="color:#1f1f1f;">npx jest
+</span></code></pre><!--
+4. 在编写的测试文件顶部加入环境设置：
+
+```js
+/**
  * @jest-environment jsdom
  */
-</span></code></pre><h2 id="wen-dang">文档</h2>
-<ul>
-<li>storybook，但目前 storybook 对 Vue(+ts) 的支持还不够完美。</li>
-</ul>
+```
+-->
+<h3 id="vitest">Vitest</h3>
+<p>整理完了 Jest 后一搜发现了新的（两眼一黑）。但 Jest 怎么说也是起了个新环境，需要共用设置时能 vite 一把梭还是很好的。<a href="https://cn.vitest.dev/guide/why.html">vitest 官网</a>，测试用例 API 和 Jest 兼容。</p>
+<ol>
+<li>安装依赖</li>
+</ol>
 <pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">cd rect-ui
-npx sb init
+<code><span style="color:#1f1f1f;">yarn add -D vitest jsdom
 </span></code></pre>
-<ul>
-<li><a href="https://vitepress.vuejs.org/">vite-press</a></li>
-</ul>
+<p>套件没有内置模拟环境，需要自选 <code>jsdom</code> 或者 <code>happy-dom</code> 安装。</p>
+<ol start="2">
+<li>和 vite 共用配置，可以直接将配置写在 <code>vite.confing.js</code>里，其余情况参见 <a href="https://cn.vitest.dev/config/">配置</a>。</li>
+</ol>
 <pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">yarn add --dev vitepress
-</span></code></pre>
-<ul>
-<li><a href="https://vue-styleguidist.github.io/Examples.html#basic">vue-styleguidist</a> 从 Vue 组件&amp;注释中生成文档，也能利用 <a href="https://vue-styleguidist.github.io/docs/docgen-cli.html">vue-docgen-cli</a> 抽取的数据用在其他文档生成器中（比如 vuepress）。</li>
-</ul>
-<h3 id="xin-jian-xiang-mu">新建项目</h3>
-<p><code>vue-docgen-cli</code> + <code>vitepress</code> 示例：</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;"># 新建 docs 文件夹，在文件夹里
-yarn add -D vue-docgen-cli vitepress
-</span></code></pre>
-<p><code>docs</code>里新建 <code>docgen.config.js</code>, 按 <a href="https://vue-styleguidist.github.io/docs/docgen-cli.html#config">设置</a> 填写。</p>
-<pre style="background-color:#f5f5f5;">
-<code class="language-js" data-lang="js"><span style="color:#668f14;">const </span><span style="color:#5597d6;">path </span><span style="color:#72ab00;">= </span><span style="color:#b39f04;">require</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;path&quot;</span><span style="color:#1f1f1f;">);
-
-</span><span style="color:#a2a001;">module</span><span style="color:#1f1f1f;">.</span><span style="color:#a2a001;">exports </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">{
-  componentsRoot: </span><span style="color:#d07711;">&quot;../packages/components&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#7f8989;">// 开始搜寻组件的文件夹
-  </span><span style="color:#1f1f1f;">components: </span><span style="color:#d07711;">&quot;**/index.vue&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#7f8989;">// 需要生成文档的文件的glob
-  </span><span style="color:#1f1f1f;">outDir: </span><span style="color:#d07711;">&quot;docs/components&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#7f8989;">// 存放生成的文档的地方
-  </span><span style="color:#c23f31;">getDestFile</span><span style="color:#1f1f1f;">: (</span><span style="color:#5597d6;">file</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">config</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt;
-    </span><span style="color:#5597d6;">path</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">join</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">config</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">outDir</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">file</span><span style="color:#1f1f1f;">).</span><span style="color:#b39f04;">replace</span><span style="color:#1f1f1f;">(</span><span style="color:#c49a39;">/</span><span style="color:#108f3d;">\.</span><span style="color:#c49a39;">vue</span><span style="color:#72ab00;">$</span><span style="color:#c49a39;">/</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;.md&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#7f8989;">// 确认生成的文档的名字
-</span><span style="color:#1f1f1f;">};
-</span></code></pre>
-<p>运行抽取：</p>
-<pre style="background-color:#f5f5f5;">
-<code><span style="color:#1f1f1f;">yarn vue-docgen
-</span></code></pre>
-<p>生成的 <code>md</code> 文档就会放到 <code>docs/docs/components</code> 下了。</p>
-<h3 id="bian-xie-wen-dang">编写文档</h3>
-<ul>
-<li>按 <a href="https://vue-styleguidist.github.io/docs/Documenting.html#code-comments">Vue Styleguidist</a> 的方式写注释</li>
-<li>在组件文件夹下的 <code>Readme.md</code> （或者<code>getDocFileName</code>里规定的名字）</li>
-</ul>
-<p>导入组件示例：</p>
-<pre style="background-color:#f5f5f5;">
-<code class="language-md" data-lang="md"><span style="color:#b82812;"># </span><span style="color:#c23f31;">Docs
-
-</span><span style="color:#1f1f1f;">This is a .md using a custom component
-
-</span><span style="color:#6486ab;">&lt;CustomComponent /&gt;
-
-</span><span style="color:#1f1f1f;">## More docs
-
-...
-
-</span><span style="color:#6486ab;">&lt;script setup&gt;
-</span><span style="background-color:#b0b3ba14;color:#72ab00;">import </span><span style="background-color:#b0b3ba14;color:#5597d6;">CustomComponent </span><span style="background-color:#b0b3ba14;color:#72ab00;">from </span><span style="background-color:#b0b3ba14;color:#d07711;">&#39;../components/CustomComponent.vue&#39;
-</span><span style="color:#6486ab;">&lt;/script&gt;
-</span></code></pre>
-<p>将文件作为代码块渲染：</p>
-<pre style="background-color:#f5f5f5;">
-<code class="language-md" data-lang="md"><span style="color:#1f1f1f;">&lt;&lt;&lt; ../filepath
-</span></code></pre><h4 id="bie-ming">别名</h4>
-<p>由于使用 <code>vite</code> 在 <code>docs</code> 文件夹下（<code>.vitepress</code> 同级）放<code>vite.config.js</code>即可套用设定，如设置别名：</p>
-<pre style="background-color:#f5f5f5;">
-<code class="language-js" data-lang="js"><span style="color:#72ab00;">import </span><span style="color:#1f1f1f;">{ </span><span style="color:#5597d6;">defineConfig </span><span style="color:#1f1f1f;">} </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;vite&quot;</span><span style="color:#1f1f1f;">;
-</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">path </span><span style="color:#72ab00;">= </span><span style="color:#b39f04;">require</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;path&quot;</span><span style="color:#1f1f1f;">);
+<code class="language-js" data-lang="js"><span style="color:#72ab00;">import </span><span style="color:#1f1f1f;">{ </span><span style="color:#5597d6;">defineConfig </span><span style="color:#1f1f1f;">} </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;vitest/config&quot;</span><span style="color:#1f1f1f;">;
 
 </span><span style="color:#72ab00;">export default </span><span style="color:#c23f31;">defineConfig</span><span style="color:#1f1f1f;">({
-  resolve: {
-    alias: {
-      </span><span style="color:#d07711;">&quot;@&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#5597d6;">path</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">resolve</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">__dirname</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;../../packages/components&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#7f8989;">// &lt;script&gt; 中用
-    </span><span style="color:#1f1f1f;">},
+  test: {
+    include: [</span><span style="color:#d07711;">&quot;**/tests/*.test.[jt]s?(x)&quot;</span><span style="color:#1f1f1f;">],
+    environment: </span><span style="color:#d07711;">&quot;jsdom&quot;</span><span style="color:#1f1f1f;">,
   },
 });
-</span></code></pre>
-<p>然后在文档中就可以：</p>
-<pre style="background-color:#f5f5f5;">
-<code class="language-js" data-lang="js"><span style="color:#72ab00;">import </span><span style="color:#5597d6;">Basic </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;@/button/demo/basic.vue&quot;</span><span style="color:#1f1f1f;">;
-</span></code></pre><div class="tips tips-info">
-    
-        <i data-feather="info"></i>
-    
-    <div>这里和 <code>&lt;&lt;&lt;</code> 方法导入的别名不通用，在<code>&lt;&lt;&lt;</code>方法中，<code>@</code> 指根文件夹（<code>.vitepress</code>放置的文件夹，这里是<code>docs/docs</code>)。修改方法是修改 <code>srcDir</code>，但目前无法设置在根目录外的文件夹。</div>
-</div>
-<h3 id="zhu-ti">主题</h3>
-<p>导入 css 到 vitepress 方法：</p>
-<p>创建主题：新建文件 <code>./vitepress/theme/index.js</code></p>
-<pre style="background-color:#f5f5f5;">
-<code class="language-js" data-lang="js"><span style="color:#72ab00;">import </span><span style="color:#5597d6;">Theme </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;vitepress/theme&quot;</span><span style="color:#1f1f1f;">;
-</span><span style="color:#72ab00;">import </span><span style="color:#d07711;">&quot;../../../../packages/color.css&quot;</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">// ← 要导入的 css
-
-</span><span style="color:#72ab00;">export default </span><span style="color:#1f1f1f;">{ </span><span style="color:#72ab00;">...</span><span style="color:#5597d6;">Theme </span><span style="color:#1f1f1f;">};
 </span></code></pre><div class="reference">
     <div class="reference-title"><i data-feather="book-open"></i>参考资料</div>
     <ul>
@@ -463,25 +426,15 @@ yarn add -D vue-docgen-cli vitepress
         <li >
             <a id="to-ce-shi" href="https://owlzou.github.io/posts/vue3-components-library-1/#ce-shi">测试</a>
             
-        </li>
-    
-        <li >
-            <a id="to-wen-dang" href="https://owlzou.github.io/posts/vue3-components-library-1/#wen-dang">文档</a>
-            
                 <ul>
                     
                         <li >
-                            <a id="to-xin-jian-xiang-mu" href="https://owlzou.github.io/posts/vue3-components-library-1/#xin-jian-xiang-mu">新建项目</a>
+                            <a id="to-jest" href="https://owlzou.github.io/posts/vue3-components-library-1/#jest">Jest</a>
                             
                         </li>
                     
                         <li >
-                            <a id="to-bian-xie-wen-dang" href="https://owlzou.github.io/posts/vue3-components-library-1/#bian-xie-wen-dang">编写文档</a>
-                            
-                        </li>
-                    
-                        <li >
-                            <a id="to-zhu-ti" href="https://owlzou.github.io/posts/vue3-components-library-1/#zhu-ti">主题</a>
+                            <a id="to-vitest" href="https://owlzou.github.io/posts/vue3-components-library-1/#vitest">Vitest</a>
                             
                         </li>
                     

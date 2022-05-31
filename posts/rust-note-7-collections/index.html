@@ -174,7 +174,7 @@
 <code class="language-rust" data-lang="rust"><span style="color:#1f1f1f;">    </span><span style="color:#7f8989;">//读取数据
     </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> _fav_color </span><span style="color:#72ab00;">=</span><span style="color:#1f1f1f;"> map.</span><span style="color:#b39f04;">get</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">&amp;</span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Blue&quot;</span><span style="color:#1f1f1f;">));
 
-    </span><span style="color:#7f8989;">//打印哈希表结构，如果在结构体中打开这种格式化需要打开debug（#[derive(Debug)]）
+    </span><span style="color:#7f8989;">//打印哈希表结构，如果在结构体中打开这种格式化需要打开 debug（#[derive(Debug)]）
     </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{:?}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, map);
     </span><span style="color:#7f8989;">//{&quot;Blue&quot;: &quot;蓝色&quot;}
 </span></code></pre>
@@ -182,7 +182,7 @@
 <li>更新数据</li>
 </ul>
 <pre style="background-color:#f5f5f5;">
-<code class="language-rust" data-lang="rust"><span style="color:#1f1f1f;">    </span><span style="color:#7f8989;">//更新数据,覆盖
+<code class="language-rust" data-lang="rust"><span style="color:#1f1f1f;">    </span><span style="color:#7f8989;">//更新数据，覆盖
 </span><span style="color:#1f1f1f;">    map.</span><span style="color:#b39f04;">insert</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Blue&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;总之是蓝色&quot;</span><span style="color:#1f1f1f;">));
 
     </span><span style="color:#7f8989;">//更新数据（如果没有和该键相关联的值）
@@ -191,7 +191,7 @@
     map.</span><span style="color:#b39f04;">entry</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Blue&quot;</span><span style="color:#1f1f1f;">))
         .</span><span style="color:#b39f04;">or_insert</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;不会被覆盖&quot;</span><span style="color:#1f1f1f;">));
 
-    map.</span><span style="color:#b39f04;">entry</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Yellow&quot;</span><span style="color:#1f1f1f;">)).</span><span style="color:#b39f04;">or_default</span><span style="color:#1f1f1f;">(); </span><span style="color:#7f8989;">//插入default
+    map.</span><span style="color:#b39f04;">entry</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">String</span><span style="color:#1f1f1f;">::from(</span><span style="color:#d07711;">&quot;Yellow&quot;</span><span style="color:#1f1f1f;">)).</span><span style="color:#b39f04;">or_default</span><span style="color:#1f1f1f;">(); </span><span style="color:#7f8989;">//插入 default
 
     </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{:?}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, map);
     </span><span style="color:#7f8989;">//{&quot;Blue&quot;: &quot;总之是蓝色&quot;, &quot;Red&quot;: &quot;红色&quot;, &quot;Yellow&quot;: &quot;&quot;}
@@ -322,7 +322,7 @@
     nums.</span><span style="color:#b39f04;">insert</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">);
     nums.</span><span style="color:#b39f04;">insert</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">);
 
-    </span><span style="color:#7f8989;">// 如果数据存在返回 false,否则 true
+    </span><span style="color:#7f8989;">// 如果数据存在返回 false，否则 true
     </span><span style="color:#a2a001;">assert_eq!</span><span style="color:#1f1f1f;">(nums.</span><span style="color:#b39f04;">insert</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">), </span><span style="color:#b3933a;">false</span><span style="color:#1f1f1f;">);
 
     </span><span style="color:#7f8989;">// 取出并删除数据（如果数据存在）
@@ -334,7 +334,7 @@
         </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">, i);
     }
 
-    </span><span style="color:#7f8989;">// set被消耗变空
+    </span><span style="color:#7f8989;">// set 被消耗变空
     </span><span style="color:#a2a001;">assert_eq!</span><span style="color:#1f1f1f;">(nums.</span><span style="color:#b39f04;">is_empty</span><span style="color:#1f1f1f;">(), </span><span style="color:#b3933a;">true</span><span style="color:#1f1f1f;">);
 }
 </span></code></pre><h2 id="vecdeque">VecDeque</h2>
@@ -343,7 +343,7 @@
 <code class="language-rust" data-lang="rust"><span style="color:#72ab00;">use </span><span style="color:#1f1f1f;">std::collections::VecDeque;
 
 </span><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
-    </span><span style="color:#7f8989;">// 可从vec初始化
+    </span><span style="color:#7f8989;">// 可从 vec 初始化
     </span><span style="color:#668f14;">let mut</span><span style="color:#1f1f1f;"> deq: VecDeque&lt;</span><span style="color:#668f14;">i32</span><span style="color:#1f1f1f;">&gt; </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">VecDeque::from(</span><span style="color:#a2a001;">vec!</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">]);
 
     </span><span style="color:#7f8989;">// 通常的加入新项目：push_back
@@ -365,7 +365,7 @@
 </span><span style="color:#1f1f1f;">    deq.</span><span style="color:#b39f04;">insert</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">100</span><span style="color:#1f1f1f;">);
     </span><span style="color:#a2a001;">assert_eq!</span><span style="color:#1f1f1f;">(deq, [</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">100</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">]);
 
-    </span><span style="color:#7f8989;">// 按顺序遍历一遍并选择保留的元素(保留原顺序)
+    </span><span style="color:#7f8989;">// 按顺序遍历一遍并选择保留的元素 (保留原顺序)
 </span><span style="color:#1f1f1f;">    deq.</span><span style="color:#b39f04;">retain</span><span style="color:#1f1f1f;">(|</span><span style="color:#72ab00;">&amp;</span><span style="color:#5597d6;">x</span><span style="color:#1f1f1f;">| x </span><span style="color:#72ab00;">&lt; </span><span style="color:#b3933a;">5</span><span style="color:#1f1f1f;">);
     </span><span style="color:#a2a001;">assert_eq!</span><span style="color:#1f1f1f;">(deq, [</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">4</span><span style="color:#1f1f1f;">]);
 }
@@ -385,13 +385,13 @@
     </span><span style="color:#a2a001;">assert_eq!</span><span style="color:#1f1f1f;">(treemap[</span><span style="color:#72ab00;">&amp;</span><span style="color:#b3933a;">222</span><span style="color:#1f1f1f;">], </span><span style="color:#d07711;">&quot;A&quot;</span><span style="color:#1f1f1f;">);
     </span><span style="color:#a2a001;">assert_eq!</span><span style="color:#1f1f1f;">(treemap.</span><span style="color:#b39f04;">get</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">&amp;</span><span style="color:#b3933a;">222</span><span style="color:#1f1f1f;">), </span><span style="color:#a2a001;">Some</span><span style="color:#1f1f1f;">(</span><span style="color:#72ab00;">&amp;</span><span style="color:#d07711;">&quot;A&quot;</span><span style="color:#1f1f1f;">));
 
-    </span><span style="color:#7f8989;">// entry用法和hashmap差不多
+    </span><span style="color:#7f8989;">// entry 用法和 hashmap 差不多
 </span><span style="color:#1f1f1f;">    treemap.</span><span style="color:#b39f04;">entry</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">20</span><span style="color:#1f1f1f;">).</span><span style="color:#b39f04;">or_insert</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;C&quot;</span><span style="color:#1f1f1f;">);
 
     </span><span style="color:#7f8989;">// 获取元素数量
     </span><span style="color:#a2a001;">assert_eq!</span><span style="color:#1f1f1f;">(treemap.</span><span style="color:#b39f04;">len</span><span style="color:#1f1f1f;">(), </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">);
 
-    </span><span style="color:#7f8989;">// 按key顺序迭代
+    </span><span style="color:#7f8989;">// 按 key 顺序迭代
     </span><span style="color:#72ab00;">for </span><span style="color:#1f1f1f;">(key, value) </span><span style="color:#72ab00;">in</span><span style="color:#1f1f1f;"> treemap.</span><span style="color:#b39f04;">iter</span><span style="color:#1f1f1f;">() {
         </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;(</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">,</span><span style="color:#aeb52b;">{}</span><span style="color:#d07711;">)&quot;</span><span style="color:#1f1f1f;">, key, value);
     }

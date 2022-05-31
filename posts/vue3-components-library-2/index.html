@@ -137,6 +137,8 @@
         <!-- 文章信息 -->
         <div class="post-info">           
             <div class="post-date"> <i data-feather="clock"></i>2022-04-24</div>            
+                            
+                <div class="post-date"><i data-feather="edit"></i> 2022-05-31</div>
                        
             
                 
@@ -155,8 +157,103 @@
             
         </div>       
         <article class="post-type">
-            <p>下篇是添加类型定义和打包。</p>
-<span id="continue-reading"></span><h2 id="lei-xing-ding-yi">类型定义</h2>
+            <p>下篇是：文档、添加类型定义和打包。</p>
+<span id="continue-reading"></span><h2 id="wen-dang">文档</h2>
+<ul>
+<li>storybook，但目前 storybook 对 Vue(+ts) 的支持还不够完美。</li>
+</ul>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">cd rect-ui
+npx sb init
+</span></code></pre>
+<ul>
+<li><a href="https://vitepress.vuejs.org/">vite-press</a></li>
+</ul>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">yarn add --dev vitepress
+</span></code></pre>
+<ul>
+<li><a href="https://vue-styleguidist.github.io/Examples.html#basic">vue-styleguidist</a> 从 Vue 组件&amp;注释中生成文档，也能利用 <a href="https://vue-styleguidist.github.io/docs/docgen-cli.html">vue-docgen-cli</a> 抽取的数据用在其他文档生成器中（比如 vuepress）。</li>
+</ul>
+<h3 id="xin-jian-xiang-mu">新建项目</h3>
+<p><code>vue-docgen-cli</code> + <code>vitepress</code> 示例：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;"># 新建 docs 文件夹，在文件夹里
+yarn add -D vue-docgen-cli vitepress
+</span></code></pre>
+<p><code>docs</code>里新建 <code>docgen.config.js</code>, 按 <a href="https://vue-styleguidist.github.io/docs/docgen-cli.html#config">设置</a> 填写。</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#668f14;">const </span><span style="color:#5597d6;">path </span><span style="color:#72ab00;">= </span><span style="color:#b39f04;">require</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;path&quot;</span><span style="color:#1f1f1f;">);
+
+</span><span style="color:#a2a001;">module</span><span style="color:#1f1f1f;">.</span><span style="color:#a2a001;">exports </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">{
+  componentsRoot: </span><span style="color:#d07711;">&quot;../packages/components&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#7f8989;">// 开始搜寻组件的文件夹
+  </span><span style="color:#1f1f1f;">components: </span><span style="color:#d07711;">&quot;**/index.vue&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#7f8989;">// 需要生成文档的文件的 glob
+  </span><span style="color:#1f1f1f;">outDir: </span><span style="color:#d07711;">&quot;docs/components&quot;</span><span style="color:#1f1f1f;">, </span><span style="color:#7f8989;">// 存放生成的文档的地方
+  </span><span style="color:#c23f31;">getDestFile</span><span style="color:#1f1f1f;">: (</span><span style="color:#5597d6;">file</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">config</span><span style="color:#1f1f1f;">) </span><span style="color:#668f14;">=&gt;
+    </span><span style="color:#5597d6;">path</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">join</span><span style="color:#1f1f1f;">(</span><span style="color:#5597d6;">config</span><span style="color:#1f1f1f;">.</span><span style="color:#5597d6;">outDir</span><span style="color:#1f1f1f;">, </span><span style="color:#5597d6;">file</span><span style="color:#1f1f1f;">).</span><span style="color:#b39f04;">replace</span><span style="color:#1f1f1f;">(</span><span style="color:#c49a39;">/</span><span style="color:#108f3d;">\.</span><span style="color:#c49a39;">vue</span><span style="color:#72ab00;">$</span><span style="color:#c49a39;">/</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;.md&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#7f8989;">// 确认生成的文档的名字
+</span><span style="color:#1f1f1f;">};
+</span></code></pre>
+<p>运行抽取：</p>
+<pre style="background-color:#f5f5f5;">
+<code><span style="color:#1f1f1f;">yarn vue-docgen
+</span></code></pre>
+<p>生成的 <code>md</code> 文档就会放到 <code>docs/docs/components</code> 下了。</p>
+<h3 id="bian-xie-wen-dang">编写文档</h3>
+<ul>
+<li>按 <a href="https://vue-styleguidist.github.io/docs/Documenting.html#code-comments">Vue Styleguidist</a> 的方式写注释</li>
+<li>在组件文件夹下的 <code>Readme.md</code>（或者<code>getDocFileName</code>里规定的名字）</li>
+</ul>
+<p>导入组件示例：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-md" data-lang="md"><span style="color:#b82812;"># </span><span style="color:#c23f31;">Docs
+
+</span><span style="color:#1f1f1f;">This is a .md using a custom component
+
+</span><span style="color:#6486ab;">&lt;CustomComponent /&gt;
+
+</span><span style="color:#1f1f1f;">## More docs
+
+...
+
+</span><span style="color:#6486ab;">&lt;script setup&gt;
+</span><span style="background-color:#b0b3ba14;color:#72ab00;">import </span><span style="background-color:#b0b3ba14;color:#5597d6;">CustomComponent </span><span style="background-color:#b0b3ba14;color:#72ab00;">from </span><span style="background-color:#b0b3ba14;color:#d07711;">&#39;../components/CustomComponent.vue&#39;
+</span><span style="color:#6486ab;">&lt;/script&gt;
+</span></code></pre>
+<p>将文件作为代码块渲染：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-md" data-lang="md"><span style="color:#1f1f1f;">&lt;&lt;&lt; ../filepath
+</span></code></pre><h4 id="bie-ming">别名</h4>
+<p>由于使用 <code>vite</code> 在 <code>docs</code> 文件夹下（<code>.vitepress</code> 同级）放<code>vite.config.js</code>即可套用设定，如设置别名：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#72ab00;">import </span><span style="color:#1f1f1f;">{ </span><span style="color:#5597d6;">defineConfig </span><span style="color:#1f1f1f;">} </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;vite&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#668f14;">const </span><span style="color:#5597d6;">path </span><span style="color:#72ab00;">= </span><span style="color:#b39f04;">require</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;path&quot;</span><span style="color:#1f1f1f;">);
+
+</span><span style="color:#72ab00;">export default </span><span style="color:#c23f31;">defineConfig</span><span style="color:#1f1f1f;">({
+  resolve: {
+    alias: {
+      </span><span style="color:#d07711;">&quot;@&quot;</span><span style="color:#1f1f1f;">: </span><span style="color:#5597d6;">path</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">resolve</span><span style="color:#1f1f1f;">(</span><span style="color:#a2a001;">__dirname</span><span style="color:#1f1f1f;">, </span><span style="color:#d07711;">&quot;../../packages/components&quot;</span><span style="color:#1f1f1f;">), </span><span style="color:#7f8989;">// &lt;script&gt; 中用
+    </span><span style="color:#1f1f1f;">},
+  },
+});
+</span></code></pre>
+<p>然后在文档中就可以：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#72ab00;">import </span><span style="color:#5597d6;">Basic </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;@/button/demo/basic.vue&quot;</span><span style="color:#1f1f1f;">;
+</span></code></pre><div class="tips tips-info">
+    
+        <i data-feather="info"></i>
+    
+    <div>这里和 <code>&lt;&lt;&lt;</code> 方法导入的别名不通用，在<code>&lt;&lt;&lt;</code>方法中，<code>@</code> 指根文件夹（<code>.vitepress</code>放置的文件夹，这里是<code>docs/docs</code>)。修改方法是修改 <code>srcDir</code>，但目前无法设置在根目录外的文件夹。</div>
+</div>
+<h3 id="zhu-ti">主题</h3>
+<p>导入 css 到 vitepress 方法：</p>
+<p>创建主题：新建文件 <code>./vitepress/theme/index.js</code></p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-js" data-lang="js"><span style="color:#72ab00;">import </span><span style="color:#5597d6;">Theme </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;vitepress/theme&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#72ab00;">import </span><span style="color:#d07711;">&quot;../../../../packages/color.css&quot;</span><span style="color:#1f1f1f;">; </span><span style="color:#7f8989;">// ← 要导入的 css
+
+</span><span style="color:#72ab00;">export default </span><span style="color:#1f1f1f;">{ </span><span style="color:#72ab00;">...</span><span style="color:#5597d6;">Theme </span><span style="color:#1f1f1f;">};
+</span></code></pre><h2 id="lei-xing-ding-yi">类型定义</h2>
 <p>如果只是想让 ts 不报错的话，写个粗略的定义就可以了。</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-ts" data-lang="ts"><span style="color:#7f8989;">// packages/components/index.d.ts
@@ -427,6 +524,30 @@ dist/assets/index.1e459a5a.js    52.18 KiB / gzip: 21.04 KiB
           <!-- 对话气泡 -->
           <div class="toc-bubble">
 <ul class="toc">
+    
+        <li >
+            <a id="to-wen-dang" href="https://owlzou.github.io/posts/vue3-components-library-2/#wen-dang">文档</a>
+            
+                <ul>
+                    
+                        <li >
+                            <a id="to-xin-jian-xiang-mu" href="https://owlzou.github.io/posts/vue3-components-library-2/#xin-jian-xiang-mu">新建项目</a>
+                            
+                        </li>
+                    
+                        <li >
+                            <a id="to-bian-xie-wen-dang" href="https://owlzou.github.io/posts/vue3-components-library-2/#bian-xie-wen-dang">编写文档</a>
+                            
+                        </li>
+                    
+                        <li >
+                            <a id="to-zhu-ti" href="https://owlzou.github.io/posts/vue3-components-library-2/#zhu-ti">主题</a>
+                            
+                        </li>
+                    
+                </ul>
+            
+        </li>
     
         <li >
             <a id="to-lei-xing-ding-yi" href="https://owlzou.github.io/posts/vue3-components-library-2/#lei-xing-ding-yi">类型定义</a>
