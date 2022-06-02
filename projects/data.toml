@@ -1,6 +1,18 @@
 # Projects
 [[projects]]
-title = "✅ Watermark+1"
+title="✅ VTodo"
+link="https://owlzou.github.io/vtodo/"
+cover=""
+description="基于 todo.txt 语法的 Web 任务管理 App。"
+
+[[projects]]
+title="🏗️ rect-ui"
+link="https://github.com/owlzou/rect-ui"
+cover=""
+description="Vue3 的 UI 库"
+
+[[projects]]
+title = "🖌️ Watermark+1"
 link = "https://owlzou.github.io/watermark1"
 cover = ""
 description="在线给图片添加水印。"
@@ -28,3 +40,5 @@ title="🌕 Start Page"
 link="https://owlzou.github.io/start-page/"
 cover=""
 description="一个浏览器主页？"
+
+

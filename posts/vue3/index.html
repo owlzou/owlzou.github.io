@@ -136,7 +136,7 @@
         <div class="post-info">           
             <div class="post-date"> <i data-feather="clock"></i>2021-01-15</div>            
                             
-                <div class="post-date"><i data-feather="edit"></i> 2021-12-03</div>
+                <div class="post-date"><i data-feather="edit"></i> 2022-06-01</div>
                        
             
                 
@@ -158,7 +158,7 @@
             <p>笔记，免得每次都去翻文档</p>
 <p>vue3 的组合式 API(Composition API) 表示 vue 也开始 fp 了，好（鼓掌 👏）。</p>
 <span id="continue-reading"></span><h2 id="ji-chu-yong-fa">基础用法</h2>
-<p>写在<code>setup</code> 中 ：</p>
+<p>写在<code>setup</code> 中：</p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-js" data-lang="js"><span style="color:#668f14;">const </span><span style="color:#5597d6;">App </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">{
   </span><span style="color:#c23f31;">data</span><span style="color:#1f1f1f;">() {
@@ -313,12 +313,15 @@
     </span><span style="color:#72ab00;">return </span><span style="color:#1f1f1f;">() </span><span style="color:#668f14;">=&gt; </span><span style="color:#5597d6;">Vue</span><span style="color:#1f1f1f;">.</span><span style="color:#c23f31;">h</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;h1&quot;</span><span style="color:#1f1f1f;">, [</span><span style="color:#5597d6;">msg</span><span style="color:#1f1f1f;">]);
   },
 });
-</span></code></pre><div class="reference">
+</span></code></pre>
+<p>同理也能返回 <code>jsx</code>，但对于仅返回渲染用内容官方推荐使用<code>render()</code>函数返回。</p>
+<div class="reference">
     <div class="reference-title"><i data-feather="book-open"></i>参考资料</div>
     <ul>
 <li><a href="https://v3.cn.vuejs.org/guide/composition-api-introduction.html">官网文档：什么是组合式 API？</a></li>
 <li><a href="https://v3.cn.vuejs.org/guide/composition-api-setup.html">官网文档：Setup</a></li>
 <li><a href="https://v3.cn.vuejs.org/guide/render-function.html#dom-%E6%A0%91">官网文档：渲染函数</a></li>
+<li><a href="https://staging-cn.vuejs.org/guide/extras/render-function.html#render-functions-jsx">官方文档：渲染函数 &amp; JSX </a></li>
 </ul>
 
 </div>
