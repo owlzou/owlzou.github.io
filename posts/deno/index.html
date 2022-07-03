@@ -136,7 +136,7 @@
         <div class="post-info">           
             <div class="post-date"> <i data-feather="clock"></i>2021-03-10</div>            
                             
-                <div class="post-date"><i data-feather="edit"></i> 2021-11-02</div>
+                <div class="post-date"><i data-feather="edit"></i> 2022-07-03</div>
                        
             
                 
@@ -202,10 +202,12 @@ Deno.stdout
 </span></code></pre>
 <p><a href="https://deno.land/manual@v1.8.0/examples/read_write_files">示例</a></p>
 <h3 id="shi-yong-npm-xi-bao">使用 NPM 系包</h3>
-<p><code>Deno</code>仅支持<code>esm</code>。可以借用类似 <a href="https://jspm.org/">JSPM</a> 或者 <a href="https://www.pika.dev/">Pika</a> 的服务导入兼容包。</p>
+<p><code>Deno</code>仅支持<code>esm</code>。可以借用类似 <a href="https://esm.sh/">esm.sh</a>（会给脚本做 polyfill）或者 <a href="https://www.pika.dev/">Pika</a> 的服务导入兼容包。</p>
 <p>例：导入<code>dayjs</code></p>
 <pre style="background-color:#f5f5f5;">
 <code class="language-typescript" data-lang="typescript"><span style="color:#72ab00;">import </span><span style="color:#5597d6;">dayjs </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;https://cdn.skypack.dev/dayjs?dts&quot;</span><span style="color:#1f1f1f;">;
+</span><span style="color:#7f8989;">// 或者
+</span><span style="color:#72ab00;">import </span><span style="color:#5597d6;">dayjs </span><span style="color:#72ab00;">from </span><span style="color:#d07711;">&quot;https://esm.sh/dayjs&quot;</span><span style="color:#1f1f1f;">;
 </span></code></pre>
 <p>对于上述网站不支持的包，则尝试 <a href="https://deno.land/std@0.106.0/node#commonjs-modules-loading">使用 Deno 转换</a>。</p>
 <pre style="background-color:#f5f5f5;">
