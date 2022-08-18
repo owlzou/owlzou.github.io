@@ -138,7 +138,7 @@
         <div class="post-info">           
             <div class="post-date"> <i data-feather="clock"></i>2021-05-27</div>            
                             
-                <div class="post-date"><i data-feather="edit"></i> 2022-01-27</div>
+                <div class="post-date"><i data-feather="edit"></i> 2022-08-17</div>
                        
             
                 
@@ -247,7 +247,7 @@
 </span></code></pre>
 <p>参考链接：<a href="https://docs.microsoft.com/en-us/dotnet/api/system.io.fileinfo?view=net-5.0">FileInfo Class</a></p>
 <h2 id="yu-fa">语法</h2>
-<p>函数：</p>
+<h3 id="han-shu">函数</h3>
 <pre style="background-color:#f5f5f5;">
 <code class="language-ps1" data-lang="ps1"><span style="color:#7f8989;"># 定义
 </span><span style="color:#668f14;">function </span><span style="color:#c23f31;">My-Func</span><span style="color:#1f1f1f;">{
@@ -264,14 +264,56 @@
 
 </span><span style="color:#7f8989;"># 使用
 </span><span style="color:#1f1f1f;">My</span><span style="color:#72ab00;">-</span><span style="color:#1f1f1f;">FuncB arg
-</span></code></pre><div class="reference">
+</span></code></pre><h3 id="jiao-ben-can-shu">脚本参数</h3>
+<p>给自己写的 <code>ps1</code> 文件设置参数</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ps1" data-lang="ps1"><span style="color:#72ab00;">Param</span><span style="color:#1f1f1f;">(
+	[</span><span style="color:#b39f04;">Parameter</span><span style="color:#1f1f1f;">()]
+	</span><span style="color:#5597d6;">$ParameterName
+</span><span style="color:#1f1f1f;">)
+</span></code></pre>
+<p>例，在脚本开头指定：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ps1" data-lang="ps1"><span style="color:#7f8989;"># test.ps1
+# [int] 可以不要
+</span><span style="color:#72ab00;">Param</span><span style="color:#1f1f1f;">([</span><span style="color:#668f14;">int</span><span style="color:#1f1f1f;">]</span><span style="color:#5597d6;">$a</span><span style="color:#72ab00;">,</span><span style="color:#1f1f1f;">[</span><span style="color:#668f14;">int</span><span style="color:#1f1f1f;">]</span><span style="color:#5597d6;">$b</span><span style="color:#1f1f1f;">)
+</span><span style="color:#b39f04;">Write-Host </span><span style="color:#d07711;">&quot;</span><span style="color:#acb3c2;">$a</span><span style="color:#d07711;">,</span><span style="color:#acb3c2;">$b</span><span style="color:#d07711;">&quot;
+</span></code></pre>
+<p>运行 <code>./test -a 1 -b 2</code> 输出 <code>1,2</code></p>
+<p>参数的详细设定如：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ps1" data-lang="ps1"><span style="color:#72ab00;">Param</span><span style="color:#1f1f1f;">([</span><span style="color:#668f14;">int</span><span style="color:#1f1f1f;">(Mandatory</span><span style="color:#72ab00;">=</span><span style="color:#b3933a;">$true</span><span style="color:#1f1f1f;">)]</span><span style="color:#5597d6;">$a</span><span style="color:#72ab00;">,</span><span style="color:#1f1f1f;">[</span><span style="color:#668f14;">int</span><span style="color:#1f1f1f;">]</span><span style="color:#5597d6;">$b</span><span style="color:#1f1f1f;">) </span><span style="color:#7f8989;"># Mandatory 表示 a 为必须有的参数
+</span><span style="color:#b39f04;">Write-Host </span><span style="color:#d07711;">&quot;</span><span style="color:#acb3c2;">$a</span><span style="color:#d07711;">,</span><span style="color:#acb3c2;">$b</span><span style="color:#d07711;">&quot;
+</span></code></pre>
+<p>或者</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ps1" data-lang="ps1"><span style="color:#72ab00;">Param</span><span style="color:#1f1f1f;">([</span><span style="color:#668f14;">switch</span><span style="color:#1f1f1f;">]</span><span style="color:#5597d6;">$option</span><span style="color:#1f1f1f;">) </span><span style="color:#7f8989;">#switch表示参数不需要设值（靠出现与否设定布尔值）
+</span></code></pre>
+<p><a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters?view=powershell-7.2">更多见此</a></p>
+<p>指定帮助内容：<a href="https://docs.microsoft.com/en-us/powershell/scripting/developer/help/examples-of-comment-based-help?view=powershell-7.2">文档</a></p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-ps1" data-lang="ps1"><span style="color:#7f8989;"># test.ps1
+</span><span style="color:#72ab00;">Param</span><span style="color:#1f1f1f;">([</span><span style="color:#668f14;">int</span><span style="color:#1f1f1f;">]</span><span style="color:#5597d6;">$a</span><span style="color:#72ab00;">,</span><span style="color:#1f1f1f;">[</span><span style="color:#668f14;">int</span><span style="color:#1f1f1f;">]</span><span style="color:#5597d6;">$b</span><span style="color:#1f1f1f;">)
+</span><span style="color:#b39f04;">Write-Host </span><span style="color:#d07711;">&quot;</span><span style="color:#acb3c2;">$a</span><span style="color:#d07711;">,</span><span style="color:#acb3c2;">$b</span><span style="color:#d07711;">&quot;
+
+</span><span style="color:#7f8989;">&lt;#
+</span><span style="color:#b3933a;">.</span><span style="color:#72ab00;">SYNOPSIS
+</span><span style="color:#7f8989;">	描述：测试用脚本
+.PARAMETER &lt;a&gt;
+	a 的数值
+.PARAMETER &lt;b&gt;
+	b 的数值
+#&gt;
+</span></code></pre>
+<p>输入 <code>Get-Help ./test</code> 时就会出现完整的帮助界面。（中文乱码请确定文件编码是否为<strong>UTF8-BOM</strong>）</p>
+<div class="reference">
     <div class="reference-title"><i data-feather="book-open"></i>参考资料</div>
     <ul>
 <li>封面图片：Photo by <a href="https://unsplash.com/@melindapack?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Mel</a> on <a href="https://unsplash.com/s/photos/shell?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></li>
+<li><a href="https://docs.microsoft.com/en-us/powershell/scripting/overview?view=powershell-7.2">PowerShell Scripting</a></li>
 </ul>
 
 </div>
-
         </article>
         <div class="divider"></div>
         
@@ -347,6 +389,20 @@
     
         <li >
             <a id="to-yu-fa" href="https://owlzou.github.io/posts/powershell/#yu-fa">语法</a>
+            
+                <ul>
+                    
+                        <li >
+                            <a id="to-han-shu" href="https://owlzou.github.io/posts/powershell/#han-shu">函数</a>
+                            
+                        </li>
+                    
+                        <li >
+                            <a id="to-jiao-ben-can-shu" href="https://owlzou.github.io/posts/powershell/#jiao-ben-can-shu">脚本参数</a>
+                            
+                        </li>
+                    
+                </ul>
             
         </li>
     
