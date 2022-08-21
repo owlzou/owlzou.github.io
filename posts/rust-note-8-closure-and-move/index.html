@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;style.css" rel="stylesheet" />
+    <link
+      href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico"
+      rel="shortcut icon"
+      type="image/x-icon"
+    />
+    <link
+      href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;favicon.ico"
+      rel="icon"
+      type="image/x-icon"
+    />
+    <!-- 放 SEO 的-->
+    
+     
+    <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;custom.css" rel="stylesheet"/>
+
+    <title>
+    Rust 笔记（八）闭包和 move | Catalyst
+</title>
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="fab">
+  <i data-feather="chevron-up"></i>
+</div>
+ 
+    <div class="grass"></div>
+    
+    <div class="wrapper">
+      <div class="container">
+        <!-- navigation -->
+        <!-- 顶端导航 -->
+<div class="top-nav">
+  <div class="title">
+    
+      <img src="&#x2F;c_icon.png" class="website-icon"/>
+    
+    <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+  </div>
+  <nav class="navs">
+    <ul>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;search" title="搜索">
+          <i data-feather="search"></i>
+          <span class="tip">搜索</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;posts" title="博文">
+          <i data-feather="feather"></i>
+          <span class="tip">博文</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;archives" title="归档">
+          <i data-feather="archive"></i>
+          <span class="tip">归档</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;projects" title="项目">
+          <i data-feather="star"></i>
+          <span class="tip">项目</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;taxonomies" title="分类">
+          <i data-feather="tag"></i>
+          <span class="tip">分类</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a class="side-button" href="&#x2F;about" title="关于">
+          <i data-feather="alert-circle"></i>
+          <span class="tip">关于</span>
+        </a>
+        
+      </ol>
+      
+      <ol>
+        
+        <a
+          class="side-button"
+          href="https:&#x2F;&#x2F;github.com&#x2F;owlzou"
+          target="_blank"
+          title="Github"
+        >
+          <i data-feather="github"></i>
+           <span class="tip">Github</span>
+        </a>
+        
+      </ol>
+      
+    </ul>
+  </nav>
+</div>
+
+        <!-- main -->
+        <div class="main">
+          <div class="moblie-header" id="moblie-header">
+            <div class="moblie-title">Catalyst</div>
+            <button class="burger">
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+          <!-- content -->
+          
+    <div class="blog">
+        <!-- 文章封面 -->
+                
+        <h1 class="post-title">
+            Rust 笔记（八）闭包和 move</h1>
+        <!-- 文章信息 -->
+        <div class="post-info">           
+            <div class="post-date"> <i data-feather="clock"></i>2022-08-21</div>            
+                       
+            
+                
+                    
+                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;yu-yan-ji-chu&#x2F;">语言基础</a>
+                
+            
+                           
+                
+                    
+                    <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;rust&#x2F;">Rust</a>
+                
+            
+        </div>       
+        <article class="post-type">
+            <h2 id="bi-bao">闭包</h2>
+<p>Rust 的闭包 (closure) 是匿名函数，可以将其保存在变量中或作为参数传递给其他函数。</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
+    </span><span style="color:#668f14;">let </span><span style="color:#c23f31;">closure </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">|</span><span style="color:#5597d6;">x</span><span style="color:#1f1f1f;">| x</span><span style="color:#72ab00;">*</span><span style="color:#1f1f1f;">x;
+    </span><span style="color:#a2a001;">assert_eq!</span><span style="color:#1f1f1f;">(</span><span style="color:#b39f04;">closure</span><span style="color:#1f1f1f;">(</span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">),</span><span style="color:#b3933a;">9</span><span style="color:#1f1f1f;">);
+}
+</span></code></pre>
+<p>虽然闭包没有标注变量类型，编译器会根据使用的类型推断，使用不同的类型不会编译通过。</p>
+<p>闭包可以通过三种方式获取环境中的值：</p>
+<ol>
+<li>不可变借用</li>
+<li>可变借用</li>
+<li>获取所有权</li>
+</ol>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
+    </span><span style="color:#7f8989;">// 1. 不可变借用
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> data </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;不变数据&quot;</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">to_string</span><span style="color:#1f1f1f;">();
+
+    </span><span style="color:#668f14;">let </span><span style="color:#c23f31;">immutably_borrow </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">|| </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;data: </span><span style="color:#aeb52b;">{data}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">);
+
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;不可变借用：&quot;</span><span style="color:#1f1f1f;">);
+    </span><span style="color:#b39f04;">immutably_borrow</span><span style="color:#1f1f1f;">();
+
+    </span><span style="color:#7f8989;">// 2. 可变借用
+    </span><span style="color:#668f14;">let mut</span><span style="color:#1f1f1f;"> mut_data </span><span style="color:#72ab00;">= </span><span style="color:#d07711;">&quot;可变数据&quot;</span><span style="color:#1f1f1f;">.</span><span style="color:#b39f04;">to_string</span><span style="color:#1f1f1f;">();
+
+    </span><span style="color:#668f14;">let mut </span><span style="color:#c23f31;">mut_borrow </span><span style="color:#72ab00;">= </span><span style="color:#1f1f1f;">|| {mut_data.</span><span style="color:#b39f04;">push</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&#39;+&#39;</span><span style="color:#1f1f1f;">);</span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;data: </span><span style="color:#aeb52b;">{mut_data}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">);};
+
+    </span><span style="color:#7f8989;">// 在使用可变借用前，不能再使用不变借用，取消下一行注释会报错：cannot borrow `mut_data` as immutable because it is also borrowed as mutable
+    // println!(&quot;data: {mut_data}&quot;);
+
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;可变借用：&quot;</span><span style="color:#1f1f1f;">);
+    </span><span style="color:#b39f04;">mut_borrow</span><span style="color:#1f1f1f;">();
+}
+</span></code></pre><h2 id="move">Move</h2>
+<p>资源同时只能有一个所有者，资源的所有权转移后，前所有者将不能再被使用，防止出现悬空指针（Dangling Pointer）。</p>
+<p><code>move</code>的作用是按值捕获闭包的环境，<code>move</code>将通过引用或可变引用捕获的任何变量转换为按值捕获的变量。</p>
+<p>例子：</p>
+<pre style="background-color:#f5f5f5;">
+<code class="language-rust" data-lang="rust"><span style="color:#668f14;">fn </span><span style="color:#c23f31;">main</span><span style="color:#1f1f1f;">() {
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> data </span><span style="color:#72ab00;">= </span><span style="color:#a2a001;">vec!</span><span style="color:#1f1f1f;">[</span><span style="color:#b3933a;">1</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">2</span><span style="color:#1f1f1f;">, </span><span style="color:#b3933a;">3</span><span style="color:#1f1f1f;">];
+
+    </span><span style="color:#7f8989;">// 不会打印
+    </span><span style="color:#668f14;">let</span><span style="color:#1f1f1f;"> closure </span><span style="color:#72ab00;">= </span><span style="color:#668f14;">move </span><span style="color:#72ab00;">|| </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;捕获 </span><span style="color:#aeb52b;">{data:?}</span><span style="color:#d07711;">&quot;</span><span style="color:#1f1f1f;">);
+
+    </span><span style="color:#7f8989;">// data 将不可用，不注释下行会出现编译错误:value borrowed here after move
+    // println!(&quot;print {data:?}&quot;);
+
+    // 在这里打印
+    </span><span style="color:#a2a001;">println!</span><span style="color:#1f1f1f;">(</span><span style="color:#d07711;">&quot;指示位置用 ↓&quot;</span><span style="color:#1f1f1f;">);
+    </span><span style="color:#b39f04;">closure</span><span style="color:#1f1f1f;">();
+}
+</span></code></pre>
+<p>注意：<code>move</code> 闭包仍然可以实现 <code>Fn</code> 或 <code>FnMut</code>，即使它们通过 <code>move</code> 捕获变量。这是因为闭包类型实现的特征取决于闭包对捕获值的作用，而不是它如何捕获它们：</p>
+<h2 id="fn-te-xing">Fn 特性</h2>
+<blockquote>
+<p>待续</p>
+</blockquote>
+<div class="reference">
+    <div class="reference-title"><i data-feather="book-open"></i>参考资料</div>
+    <ul>
+<li><a href="https://doc.rust-lang.org/book/ch13-01-closures.html">Closures - The Rust Programming Language</a></li>
+<li><a href="https://doc.rust-lang.org/rust-by-example/scope/move.html">Oweership and moves - Rust By Example</a></li>
+<li><a href="https://doc.rust-lang.org/std/keyword.move.html">move - Rust</a></li>
+</ul>
+
+</div>
+
+        </article>
+        <div class="divider"></div>
+        
+            
+                <div id="comment">
+                    <div class="comment-placeholder">
+                        <i data-feather="loader"></i>Loading……</div>
+                    <script async crossorigin="anonymous" issue-term="pathname" repo="owlzou&#x2F;owlzou.github.io" src="https://utteranc.es/client.js" theme="github-light"></script>
+                </div>
+            
+        
+    </div>
+
+        </div>
+        <!--footer-->
+        <div class="footer">
+          <!--   -->
+          <p>
+             &copy;
+            <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;">Catalyst</a>
+            2019-2022 
+          </p>
+          <p>
+            Powered by
+            <a href="https://www.getzola.org/">Zola</a>
+            | Theme
+            <a href="https://github.com/owlzou/zola-theme-cafe">Cafe</a>
+          </p>
+        </div>
+
+        <!-- 左侧的猫 -->
+        <div class="cat">
+          <svg
+            class="bigcat"
+            viewbox="0 0 92.685 127.487"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M50.87 0l6.682 15.234-2.405 1.87c-12.421-3.946-11.914-4.366-17.373-6.413 3.134 22.379 7.721 39.56 17.908 40.892-4.452 9.927-9.597 25.157-12.4 38.035a128.59 128.59 0
+                  00-2.016-5.921c-3.92-10.581-10.056-20.87-22.207-26.16a11.983 11.983 0 00-5.147-1.005c-5.124.144-9.936 3.547-12.203 8.532-3.023 6.645-2.272 15.953 4.162 25.388 3.005 4.407 9.615-.1
+                  6.61-4.507-5.239-7.682-5.133-13.955-3.489-17.569 1.644-3.614 6.484-4.988 9.279-3.77 9.64 4.197 11.906 10.583 15.493 20.266 2.827 7.631 4.722 17.886 7.65 26.067.967 9.304 5.264
+                  15.882 15.069 16.548H74.39c29.742-7.229 15.084-36.557 6.682-78.31C113.317 24.689 61.539 4.242 50.87 0z"
+            ></path>
+          </svg>
+          <!-- 对话气泡 -->
+          <div class="toc-bubble">
+<ul class="toc">
+    
+        <li >
+            <a id="to-bi-bao" href="https://owlzou.github.io/posts/rust-note-8-closure-and-move/#bi-bao">闭包</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-move" href="https://owlzou.github.io/posts/rust-note-8-closure-and-move/#move">Move</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-fn-te-xing" href="https://owlzou.github.io/posts/rust-note-8-closure-and-move/#fn-te-xing">Fn 特性</a>
+            
+        </li>
+    
+</ul>
+</div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;script.js"></script>
+    <script
+      onload="icon_loaded()"
+      src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"
+    ></script>
+    
+  </body>
+</html>
