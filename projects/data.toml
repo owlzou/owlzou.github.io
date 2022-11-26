@@ -1,5 +1,11 @@
 # Projects
 [[projects]]
+title="🖋️ 小狼毫主题编辑器"
+link="https://owlzou.github.io/weasel-theme-editor/"
+cover=""
+description="Rime小狼毫的主题编辑器。"
+
+[[projects]]
 title="✅ VTodo"
 link="https://owlzou.github.io/vtodo/"
 cover=""

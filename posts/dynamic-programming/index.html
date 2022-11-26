@@ -20,7 +20,7 @@
     <link href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;custom.css" rel="stylesheet"/>
 
     <title>
-    categories | Catalyst
+    动态规划 | Catalyst
 </title>
   </head>
   <body>
@@ -128,42 +128,69 @@
           </div>
           <!-- content -->
           
-    <h2 class="post-title">
+    <div class="blog">
+        <!-- 文章封面 -->
+                
+        <h1 class="post-title">
+            动态规划</h1>
+        <!-- 文章信息 -->
+        <div class="post-info">           
+            <div class="post-date"> <i data-feather="clock"></i>2022-11-12</div>            
+                       
+            
+                
+                    
+                    <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;xue-xi&#x2F;">学习</a>
+                
+            
+            
+        </div>       
+        <article class="post-type">
+            <h2 id="dong-tai-gui-hua">动态规划</h2>
+<p>动态规划（Dynamic programming）将问题分拆成一个个子问题，通过解决子问题来推原问题的解。</p>
+<p>重要的是推出状态转移方程，例 $f(n) = f(n-1) + f(n-2)$</p>
+<p>这里明显 $f(n)$ 用到了不止一次，所以要记录下每次 $f(n)$ 和 $f(n-1)$ 的结果。</p>
+<p>动态规划从子问题开始，所以直接从 $f(1)$ 开始算起并记录。</p>
+<h2 id="bei-bao-wen-ti">背包问题</h2>
+<p>背包问题(Knapsack problem)是一种组合优化的NP完全问题。问题可以描述为：给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高。</p>
+<p>上BGM：</p>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1897927518&auto=1&height=66"></iframe>
+<h3 id="0-1-bei-bao-wen-ti">0−1 背包问题</h3>
+<p>每件物品只能用一次。</p>
+<p>思路：利用 $f(x,y)$ 表示选择前 $x$ 个物品，装到容量为 $y$ 的背包中的物品的价值的最大值。</p>
+<ul>
+<li>如果第 $x$ 个物品的重量 $w_x$ 大于背包的容量 $y$，则 $x$ 不能被放入背包中，$f(x,y) = f(x-1,y)$</li>
+<li>如果背包足够大，能放下第 $x$ 个物品，则 $f(x,y) = f(x-1,y) + x$ </li>
+<li>如果背包要放入 $x$ 需要取出之前的物品，则需要考虑置换之后价值有无增加：比较 $f(x-1,y)$ 与 $f(x-1,y-w_x) + x$ ，取较大值。</li>
+</ul>
+<p>思路二：循环时从大到小</p>
+<blockquote>
+<p>待续……</p>
+</blockquote>
+
+        </article>
+        <div class="divider"></div>
         
-            CATEGORIES : 学习
+            
+
+             
+                <script src="https://giscus.app/client.js"
+                    data-repo="owlzou&#x2F;owlzou.github.io"
+                    data-repo-id="MDEwOlJlcG9zaXRvcnkyOTg0OTI3MjU="
+                    data-category="Announcements"
+                    data-category-id="DIC_kwDOEcqjNc4CSw-S"
+                    data-mapping="pathname"
+                    data-strict="0"
+                    data-reactions-enabled="1"
+                    data-emit-metadata="0"
+                    data-input-position="bottom"
+                    data-theme="preferred_color_scheme"
+                    data-lang="zh-CN"
+                    crossorigin="anonymous"
+                    async>
+                </script>
+            
         
-    </h2>
-     <div class="archives">
-        <ul>
-            
-                
-    <li class="line card">
-        <span class="title">
-            <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;posts&#x2F;dynamic-programming&#x2F;">动态规划</a>
-        </span>
-        <div class="post-date">2022-11-12</div>
-    </li>
-
-            
-                
-    <li class="line card">
-        <span class="title">
-            <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;posts&#x2F;bitewise&#x2F;">位运算笔记</a>
-        </span>
-        <div class="post-date">2020-11-09</div>
-    </li>
-
-            
-                
-    <li class="line card">
-        <span class="title">
-            <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;posts&#x2F;fe-security&#x2F;">前端安全（XSS &amp; CSRF）</a>
-        </span>
-        <div class="post-date">2020-04-29</div>
-    </li>
-
-            
-        </ul>
     </div>
 
         </div>
@@ -198,7 +225,30 @@
             ></path>
           </svg>
           <!-- 对话气泡 -->
-          <div class="toc-bubble"></div>
+          <div class="toc-bubble">
+<ul class="toc">
+    
+        <li >
+            <a id="to-dong-tai-gui-hua" href="https://owlzou.github.io/posts/dynamic-programming/#dong-tai-gui-hua">动态规划</a>
+            
+        </li>
+    
+        <li >
+            <a id="to-bei-bao-wen-ti" href="https://owlzou.github.io/posts/dynamic-programming/#bei-bao-wen-ti">背包问题</a>
+            
+                <ul>
+                    
+                        <li >
+                            <a id="to-0-1-bei-bao-wen-ti" href="https://owlzou.github.io/posts/dynamic-programming/#0-1-bei-bao-wen-ti">0−1 背包问题</a>
+                            
+                        </li>
+                    
+                </ul>
+            
+        </li>
+    
+</ul>
+</div>
         </div>
       </div>
     </div>

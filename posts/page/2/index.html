@@ -29,8 +29,9 @@
   <i data-feather="chevron-up"></i>
 </div>
  
-    <div class="grass"></div>
-    
+      
+        <div class="grass"></div>
+      
     <div class="wrapper">
       <div class="container">
         <!-- navigation -->
@@ -93,7 +94,7 @@
       <ol>
         
         <a class="side-button" href="&#x2F;about" title="关于">
-          <i data-feather="alert-circle"></i>
+          <i data-feather="alert_circle"></i>
           <span class="tip">关于</span>
         </a>
         
@@ -128,6 +129,40 @@
           <!-- content -->
           
     <!-- 博文列表 -->
+    
+       
+    <div class="post">
+      <h3 class="post-title">
+        <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;posts&#x2F;powershell&#x2F;">PowerShell 备忘</a>
+      </h3>
+
+      <div class="post-info">        
+        <div class="post-date"><i data-feather="clock"></i>2021-05-27</div>
+        
+          
+            
+            <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;jiao-ben&#x2F;">脚本</a>
+          
+        
+        
+      </div>
+     
+      <div class="post-content">
+        
+          
+            <div class="post-cover"><img class="lazyload" data-src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;posts&#x2F;powershell&#x2F;.&#x2F;mel-3IA4-tUDyKI-unsplash.webp"/>
+            </div>
+          
+        
+        <div class="post-type">
+          
+            <p>PowerShell 该用还是得用啊。</p>
+
+          
+        </div>
+      </div>
+    </div>
+
     
        
     <div class="post">
@@ -406,45 +441,6 @@
     </div>
 
     
-       
-    <div class="post">
-      <h3 class="post-title">
-        <a href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;posts&#x2F;rust-note-3-module-and-test&#x2F;">Rust 笔记（三）模块和测试</a>
-      </h3>
-
-      <div class="post-info">        
-        <div class="post-date"><i data-feather="clock"></i>2020-10-05</div>
-        
-          
-            
-            <a class="post-category" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;categories&#x2F;yu-yan-ji-chu&#x2F;">语言基础</a>
-          
-        
-        
-          
-            
-            <a class="post-tag" href="https:&#x2F;&#x2F;owlzou.github.io&#x2F;tags&#x2F;rust&#x2F;">Rust</a>
-          
-        
-      </div>
-     
-      <div class="post-content">
-        
-          
-            <div class="post-cover"><img class="lazyload" data-src="https:&#x2F;&#x2F;owlzou.github.io&#x2F;posts&#x2F;rust-note-3-module-and-test&#x2F;undraw_online_test_gba7.png"/>
-            </div>
-          
-        
-        <div class="post-type">
-          
-            <p>🧪 把测试写在标准里的还是第一次见（可能是我见识太少了）</p>
-
-          
-        </div>
-      </div>
-    </div>
-
-    
 
     <!-- 翻页 -->
     <ul class="pagination">
@@ -523,6 +519,23 @@
       onload="icon_loaded()"
       src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"
     ></script>
+    <!-- KATEX -->
+       
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.css" integrity="sha384-Juol1FqnotbkyZUT5Z7gUPjQ9gzlwCENvUZTpQBAPxtusdwFLRy382PSDx5UUJ4/" crossorigin="anonymous">
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/katex.min.js" integrity="sha384-97gW6UIJxnlKemYavrqDHSX3SiygeOwIZhwyOKRfSaf0JWKRVj9hLASHgFTzT+0O" crossorigin="anonymous"></script>
+      <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.3/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+      <script>
+          document.addEventListener("DOMContentLoaded", function() {
+              renderMathInElement(document.body, {
+                delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false},
+                ],
+                throwOnError : false
+              });
+          });
+      </script>
+    
     
   </body>
 </html>
